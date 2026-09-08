@@ -373,13 +373,23 @@ a { color: var(--accSoft); text-decoration: none; border-bottom: 1px solid curre
 a:hover { color: var(--ink); }
 input, button, select { font: inherit; }
 @keyframes dc-cheer {
-  0%   { transform: translateX(-14px) rotate(-6deg); opacity: 0; }
-  35%  { transform: translateX(4px) rotate(3deg); opacity: 1; }
-  60%  { transform: translateX(-2px) rotate(-2deg); }
-  100% { transform: translateX(0) rotate(0deg); opacity: 1; }
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  15%  { opacity: 1; }
+  25%  { transform: translateY(-18px) scale(1.06, 0.94); }
+  40%  { transform: translateY(0) scale(0.96, 1.04); }
+  55%  { transform: translateY(-11px) scale(1.04, 0.96); }
+  70%  { transform: translateY(0) scale(0.98, 1.02); }
+  85%  { transform: translateY(-4px); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
 }
-.dc-cheer { animation: dc-cheer 620ms cubic-bezier(.2,.9,.25,1) both; width: 86px; flex: none; }
-@media (prefers-reduced-motion: reduce) { .dc-cheer { animation: none; } }
+@keyframes dc-sag {
+  0%   { transform: translateY(-6px) rotate(0deg); opacity: 0; }
+  40%  { opacity: 1; }
+  100% { transform: translateY(3px) rotate(-7deg); opacity: 1; }
+}
+.dc-cheer { animation: dc-cheer 1100ms cubic-bezier(.28,.84,.42,1) both; width: 86px; flex: none; transform-origin: 50% 100%; }
+.dc-sad   { animation: dc-sag 620ms ease-out both; width: 86px; flex: none; transform-origin: 50% 100%; opacity: 0.85; }
+@media (prefers-reduced-motion: reduce) { .dc-cheer, .dc-sad { animation: none; opacity: 1; } }
 ::selection { background: var(--line); }
 :focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
 </style>
@@ -745,6 +755,9 @@ input, button, select { font: inherit; }
               <div style="display:flex; align-items:center; gap:14px">
                 <sc-if value="{{ wasRight }}" hint-placeholder-val="{{ false }}">
                   <div class="dc-cheer" aria-hidden="true">{{ cheerMascot }}</div>
+                </sc-if>
+                <sc-if value="{{ wasWrong }}" hint-placeholder-val="{{ false }}">
+                  <div class="dc-sad" aria-hidden="true">{{ sadMascot }}</div>
                 </sc-if>
                 <div style="font-family:var(--font-h); font-size:16px; font-weight:700; color:{{ verdictColor }}; letter-spacing:0.02em; text-transform:uppercase">{{ verdictLabel }}</div>
               </div>
@@ -1633,8 +1646,16 @@ class Component extends DCLogic {
     return 'display:block; width:100%; text-align:left; padding:11px 20px; font-size:14px; font-weight:' + (active ? '700' : '500') + '; border:none; border-bottom:1px solid var(--line); cursor:pointer; background:' + (active ? 'var(--panel)' : 'transparent') + '; color:' + (active ? 'var(--accSoft)' : 'var(--soft)') + ';';
   }
 
-  mascot(which) {
+  mascot(which, mood) {
     const E = React.createElement;
+    // Every animal is drawn in the same 172x120 box and gets a mouth that knows
+    // whether you were right. The salamander already had one, so the fish and
+    // the giraffe get the same treatment rather than a different idea.
+    const glad = mood !== 'sad';
+    const mouth = (d_up, d_down, stroke, w) => E('path', {
+      d: glad ? d_up : d_down, stroke: stroke, 'stroke-width': w || 3,
+      fill: 'none', 'stroke-linecap': 'round'
+    });
     if (which === 'da') {
       return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%', 'aria-label': 'A blue fish' },
         E('path', { d: 'M18 60 C40 26 96 22 124 46 C138 58 138 62 124 74 C96 98 40 94 18 60 Z', fill: '#3a72c9' }),
@@ -1642,7 +1663,8 @@ class Component extends DCLogic {
         E('circle', { cx: 46, cy: 54, r: 7, fill: '#e9eff9' }),
         E('circle', { cx: 44, cy: 54, r: 3.2, fill: '#0b1729' }),
         E('circle', { cx: 78, cy: 52, r: 5, fill: '#a7ccff' }),
-        E('circle', { cx: 98, cy: 60, r: 4.2, fill: '#a7ccff' }));
+        E('circle', { cx: 98, cy: 60, r: 4.2, fill: '#a7ccff' }),
+        mouth('M28 66 C36 74 48 76 56 72', 'M28 76 C36 68 48 66 56 70', '#0b1729', 3.2));
     }
     if (which === 'mkt') {
       return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%', 'aria-label': 'A purple giraffe' },
@@ -1658,12 +1680,14 @@ class Component extends DCLogic {
         E('circle', { cx: 118, cy: 5, r: 4, fill: '#cbb0ff' }),
         E('path', { d: 'M104 24 C96 20 92 24 92 30 C98 32 102 30 106 28 Z', fill: '#8a5fd8' }),
         E('circle', { cx: 122, cy: 26, r: 3, fill: '#160e26' }),
+        mouth('M128 33 C133 37 139 36 143 32', 'M128 36 C133 32 139 31 143 35', '#160e26', 2.6),
         E('circle', { cx: 62, cy: 70, r: 6, fill: '#cbb0ff' }),
         E('circle', { cx: 82, cy: 78, r: 5.5, fill: '#cbb0ff' }),
         E('circle', { cx: 100, cy: 70, r: 5, fill: '#cbb0ff' }),
         E('circle', { cx: 72, cy: 88, r: 4, fill: '#cbb0ff' }));
     }
-    return E('svg', { viewBox: '0 0 190 145', width: '100%', height: '100%', 'aria-label': 'A smiling salamander' },
+    return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%', 'aria-label': 'A salamander' },
+      E('g', { transform: 'translate(7.4 0) scale(0.828)' },
       E('path', { d: 'M132 74 C154 66 168 76 176 62 C170 84 152 90 132 84 Z', fill: '#0d3a22' }),
       E('path', { d: 'M60 78 L52 104 L40 108', stroke: '#0a2c1a', 'stroke-width': 7, fill: 'none', 'stroke-linecap': 'round' }),
       E('path', { d: 'M112 78 L120 104 L132 110', stroke: '#0a2c1a', 'stroke-width': 7, fill: 'none', 'stroke-linecap': 'round' }),
@@ -1672,14 +1696,14 @@ class Component extends DCLogic {
       E('path', { d: 'M34 74 C34 56 52 48 74 48 L110 48 C130 48 138 60 136 76 C134 88 118 92 96 92 L62 92 C44 92 34 86 34 74 Z', fill: '#124d2e' }),
       E('path', { d: 'M34 70 C26 62 20 56 24 46 C34 38 50 40 56 50 C60 58 54 66 46 70 Z', fill: '#124d2e' }),
       E('path', { d: 'M23 63 C18 68 14 78 18 86 C22 80 24 74 26 68 Z', fill: '#ff8f7a' }),
-      E('path', { d: 'M22 58 C27 66 34 67 40 62', stroke: '#08210f', 'stroke-width': 2.8, fill: 'none', 'stroke-linecap': 'round' }),
+      mouth('M22 58 C27 66 34 67 40 62', 'M22 66 C27 58 34 57 40 62', '#08210f', 2.8),
       E('circle', { cx: 36, cy: 52, r: 4.8, fill: '#f4f7f5' }),
       E('circle', { cx: 35.2, cy: 52, r: 2.2, fill: '#08210f' }),
       E('circle', { cx: 70, cy: 60, r: 6, fill: '#8ed7ac' }),
       E('circle', { cx: 94, cy: 66, r: 5, fill: '#8ed7ac' }),
       E('circle', { cx: 114, cy: 60, r: 4.5, fill: '#8ed7ac' }),
       E('circle', { cx: 82, cy: 78, r: 4, fill: '#8ed7ac' }),
-      E('circle', { cx: 106, cy: 80, r: 3.4, fill: '#8ed7ac' }));
+      E('circle', { cx: 106, cy: 80, r: 3.4, fill: '#8ed7ac' })));
   }
 
   todoRows(courseKey) {
@@ -1776,7 +1800,9 @@ class Component extends DCLogic {
         return {
           code: c.code, title: c.name, blurb: c.blurb, acc: 'var(--accSoft)',
           mascot: this.mascot(k),
-          stat: k === 'fa' ? '15 sessions · 9 exercises · 142 questions' : nQ + ' drill questions · ' + (d.exercises || []).length + ' exercises',
+          // every card counts the same two things, in the same order
+        stat: (k === 'fa' ? 142 : nQ) + ' drill questions · '
+          + (k === 'fa' ? 9 : (d.exercises || []).length) + ' exercises',
           onClick: () => { if (k === 'fa') { window.location.href = 'accounting.html'; return; } this.openCourse(k); },
           style: 'padding:26px 26px 30px; border-right:2px solid var(--line); border-bottom:2px solid var(--line); cursor:pointer; text-align:left; background:transparent; color:var(--ink);'
         };
@@ -1974,9 +2000,13 @@ class Component extends DCLogic {
       v.verdictLabel = ans ? (ans.ok ? 'Correct' : 'Not quite — the answer is '
         + (q.t === 'num' ? q.a : (q.o && q.o[q.a] !== undefined ? q.o[q.a] : q.a))) : '';
       v.wasRight = !!(ans && ans.ok);
+      v.wasWrong = !!(ans && !ans.ok);
       // the course's own animal, keyed on the question so it replays each time
       v.cheerMascot = ans && ans.ok
-        ? React.createElement('div', { key: 'cheer' + this.state.qi }, this.mascot(ck))
+        ? React.createElement('div', { key: 'cheer' + this.state.qi }, this.mascot(ck, 'happy'))
+        : null;
+      v.sadMascot = ans && !ans.ok
+        ? React.createElement('div', { key: 'sad' + this.state.qi }, this.mascot(ck, 'sad'))
         : null;
       v.nextQ = () => this.nextQuestion();
       v.nextQLabel = this.state.qi + 1 >= qs.length ? 'See results' : 'Next question';
