@@ -57,11 +57,17 @@ Rows that are not Canvas obligations — readings, notices, case prep — live i
 This is a local step: the GitHub workflow cannot see the command centre, so run it
 here and commit the result.
 
-### Ticked assignments
+### Finished assignments
 
-A ticked assignment leaves the to-do list entirely and stays on the calendar, struck
-through. Clicking it there unticks it — that is the only way back, since the row is
-gone from the list.
+Two ways an assignment counts as finished, and both behave the same: it leaves the
+to-do list and stays on the calendar, struck through.
+
+- **You ticked it.** Click it on the calendar to put it back.
+- **Canvas says you submitted it** (`status: done` in the obligation, backed by
+  `canvas_state: submitted`). The calendar labels it "Submitted on Canvas" and it
+  cannot be un-struck here — the system of record says it is done.
+
+Obligations marked not-applicable or stale never appear at all.
 
 ## Updating without losing anyone's progress
 

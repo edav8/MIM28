@@ -50,6 +50,11 @@ FIELD = {"da": "daTodo", "mkt": "mktTodo", "fa": "faTodo"}
 # statuses that still represent something to do
 LIVE = {"open", "unanswered", "expired"}
 
+# Already submitted. These leave the to-do list but stay on the calendar, struck
+# through -- the same treatment a tick gives, so finished work is still visible
+# where you look for it rather than vanishing.
+DONE = {"done"}
+
 # hand-written ids that already exist in the page, mapped onto the obligation
 # they were describing, so a tick already made survives this rewrite
 ID_ALIASES = {
@@ -116,8 +121,9 @@ def collect(obligations: pathlib.Path, today: dt.date):
             continue
         if fm.get("stale", "").lower() == "true":
             continue
-        if fm.get("status", "open") not in LIVE:
-            skipped += 1
+        status = fm.get("status", "open")
+        if status not in LIVE and status not in DONE:
+            skipped += 1          # not-applicable or stale: never happened, show nothing
             continue
         stem = f.stem
         date, time = parse_local(fm)
@@ -126,14 +132,19 @@ def collect(obligations: pathlib.Path, today: dt.date):
             "title": clean_title(fm.get("title", stem)),
             "due": date,
             "time": time,
+            "done": status in DONE,
         }
         if date:
             d = dt.date.fromisoformat(date)
             when = "Due " + d.strftime("%a %d %b").lstrip("0")
             if time:
                 when += f" at {time}"
-            entry["when"] = when + (" · overdue" if d < today else "")
-            entry["tag"] = "Overdue" if d < today else "Due"
+            if entry["done"]:
+                entry["when"] = when + " · submitted"
+                entry["tag"] = "Done"
+            else:
+                entry["when"] = when + (" · overdue" if d < today else "")
+                entry["tag"] = "Overdue" if d < today else "Due"
             entry["_sort"] = date + (time or "23:59")
         else:
             rule = fm.get("due_rule") or "No date in Canvas"
@@ -155,6 +166,8 @@ def render(entries: list) -> str:
             parts.append(f"due: {js(e['due'])}")
         if e.get("time"):
             parts.append(f"time: {js(e['time'])}")
+        if e.get("done"):
+            parts.append("done: true")
         rows.append("      { " + ", ".join(parts) + " }")
     return "[\n" + ",\n".join(rows) + "\n    ]"
 
@@ -230,7 +243,7 @@ def main() -> int:
                 PAGE.write_text(html, encoding="utf-8")
                 html = PAGE.read_text(encoding="utf-8")
 
-    print(f"\n{skipped} obligation(s) skipped as already done or not applicable.")
+    print(f"\n{skipped} obligation(s) skipped as not applicable or stale.")
     if a.dry_run:
         print("dry run — nothing written.")
     elif changed:
