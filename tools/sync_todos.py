@@ -180,6 +180,7 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
                 continue
         if fm.get("stale", "").lower() == "true":
             continue
+        stem = f.stem
         title_raw = fm.get("title", stem)
         if is_private(title_raw, stem, blocked):
             personal.append(title_raw[:72])
@@ -202,7 +203,6 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
         if status not in LIVE and status not in DONE:
             skipped += 1          # not-applicable or stale: never happened, show nothing
             continue
-        stem = f.stem
         date, time = parse_local(fm)
         entry = {
             "source": OTHER_LABEL.get(ns, ""),
