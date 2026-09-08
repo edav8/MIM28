@@ -398,6 +398,38 @@ def check_memory(name: str, html: str, body_src: str) -> None:
                  "finished or gone; if you were renaming one, keep its id instead.")
 
 
+# --- answer-shape tells ----------------------------------------------------
+# A drill is worthless if the answer can be spotted without reading the question.
+# The commonest tell is length: the correct option is written carefully and the
+# distractors are dashed off, so the longest one is right. At four options that
+# should happen about a quarter of the time.
+
+def mcq_length_bias(body_src: str, name: str) -> None:
+    total = longest = 0
+    worst = []
+    for m in re.finditer(r"\{ t: 'mcq'.*?\bo: \[(.*?)\], a: (\d+)", body_src, re.S):
+        opts = re.findall(r"'((?:[^'\\]|\\.)*)'", m.group(1))
+        a = int(m.group(2))
+        if len(opts) < 2 or a >= len(opts):
+            continue
+        lens = [len(o) for o in opts]
+        total += 1
+        if lens[a] == max(lens) and lens.count(max(lens)) == 1:
+            longest += 1
+            if lens[a] - sorted(lens)[-2] > 40:
+                worst.append(opts[a][:60])
+    if not total:
+        return
+    rate = longest / total
+    print(f"  mcq answer-length tell: {longest}/{total} ({rate*100:.0f}%) — chance is about 25%")
+    if rate > 0.5:
+        warn(f"[{name}] the correct option is the longest in {rate*100:.0f}% of multiple-choice "
+             f"questions ({longest} of {total}). It is guessable without reading the question. "
+             "Shorten the right answer or give the distractors the same weight.")
+        for w in worst[:3]:
+            warn(f"[{name}]   e.g. \"{w}…\"")
+
+
 def main() -> int:
     for name in PAGES:
         page = ROOT / name
@@ -412,6 +444,7 @@ def main() -> int:
         if not src:
             continue
         check_memory(name, html, src)
+        mcq_length_bias(src, name)
         for op, oi in scan(src):
             err(f"[{name}] unclosed '{op}' opened at line {src.count(chr(10), 0, oi) + 1} "
                 "of the logic block")
