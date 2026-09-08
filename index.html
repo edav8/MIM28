@@ -373,13 +373,19 @@ a { color: var(--accSoft); text-decoration: none; border-bottom: 1px solid curre
 a:hover { color: var(--ink); }
 input, button, select { font: inherit; }
 @keyframes dc-cheer {
-  0%   { transform: translateY(0) scale(1); opacity: 0; }
-  15%  { opacity: 1; }
-  25%  { transform: translateY(-18px) scale(1.06, 0.94); }
-  40%  { transform: translateY(0) scale(0.96, 1.04); }
-  55%  { transform: translateY(-11px) scale(1.04, 0.96); }
-  70%  { transform: translateY(0) scale(0.98, 1.02); }
-  85%  { transform: translateY(-4px); }
+  /* four real jumps, each with a crouch before it and a tilt in the air, so it
+     reads as an animal enjoying itself rather than a panel sliding into place */
+  0%   { transform: translateY(0) scale(1) rotate(0deg); opacity: 0; }
+  6%   { transform: translateY(2px) scale(1.08, 0.9); opacity: 1; }
+  16%  { transform: translateY(-34px) scale(0.94, 1.1) rotate(-7deg); }
+  26%  { transform: translateY(0) scale(1.1, 0.9) rotate(0deg); }
+  34%  { transform: translateY(-28px) scale(0.95, 1.08) rotate(6deg); }
+  44%  { transform: translateY(0) scale(1.08, 0.92) rotate(0deg); }
+  52%  { transform: translateY(-20px) scale(0.96, 1.06) rotate(-5deg); }
+  62%  { transform: translateY(0) scale(1.06, 0.94); }
+  70%  { transform: translateY(-11px) scale(0.98, 1.03) rotate(3deg); }
+  80%  { transform: translateY(0) scale(1.04, 0.96) rotate(0deg); }
+  88%  { transform: translateY(-4px); }
   100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 @keyframes dc-sag {
@@ -387,7 +393,18 @@ input, button, select { font: inherit; }
   40%  { opacity: 1; }
   100% { transform: translateY(3px) rotate(-7deg); opacity: 1; }
 }
-.dc-cheer { animation: dc-cheer 1100ms cubic-bezier(.28,.84,.42,1) both; width: 86px; flex: none; transform-origin: 50% 100%; }
+.dc-cheer { animation: dc-cheer 1800ms cubic-bezier(.3,.7,.4,1) both; width: 86px; flex: none; transform-origin: 50% 100%; }
+@keyframes dc-bubble {
+  0%   { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  15%  { opacity: 0.95; }
+  100% { transform: translate(-6px, -34px) scale(1.15); opacity: 0; }
+}
+.dc-bubble { animation: dc-bubble 1600ms ease-out infinite; transform-box: fill-box; transform-origin: 50% 50%; }
+.dc-b1 { animation-delay: 0ms; }
+.dc-b2 { animation-delay: 420ms; }
+.dc-b3 { animation-delay: 820ms; }
+@media (prefers-reduced-motion: reduce) { .dc-bubble { animation: none; opacity: 0.9; } }
+.dc-cheer, .dc-sad { overflow: visible; }
 .dc-sad   { animation: dc-sag 620ms ease-out both; width: 86px; flex: none; transform-origin: 50% 100%; opacity: 0.85; }
 @media (prefers-reduced-motion: reduce) { .dc-cheer, .dc-sad { animation: none; opacity: 1; } }
 ::selection { background: var(--line); }
@@ -1653,18 +1670,33 @@ class Component extends DCLogic {
     // the giraffe get the same treatment rather than a different idea.
     const glad = mood !== 'sad';
     const mouth = (d_up, d_down, stroke, w) => E('path', {
-      d: glad ? d_up : d_down, stroke: stroke, 'stroke-width': w || 3,
+      key: 'mouth', d: glad ? d_up : d_down, stroke: stroke, 'stroke-width': w || 3,
       fill: 'none', 'stroke-linecap': 'round'
     });
     if (which === 'da') {
-      return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%', 'aria-label': 'A blue fish' },
-        E('path', { d: 'M18 60 C40 26 96 22 124 46 C138 58 138 62 124 74 C96 98 40 94 18 60 Z', fill: '#3a72c9' }),
-        E('path', { d: 'M124 46 C136 40 152 26 162 18 C160 40 158 46 150 60 C158 74 160 80 162 102 C152 94 136 80 124 74 C132 66 132 54 124 46 Z', fill: '#27508f' }),
-        E('circle', { cx: 46, cy: 54, r: 7, fill: '#e9eff9' }),
-        E('circle', { cx: 44, cy: 54, r: 3.2, fill: '#0b1729' }),
-        E('circle', { cx: 78, cy: 52, r: 5, fill: '#a7ccff' }),
-        E('circle', { cx: 98, cy: 60, r: 4.2, fill: '#a7ccff' }),
-        mouth('M28 66 C36 74 48 76 56 72', 'M28 76 C36 68 48 66 56 70', '#0b1729', 3.2));
+      const body = [
+        E('path', { key: 'b', d: 'M18 60 C40 26 96 22 124 46 C138 58 138 62 124 74 C96 98 40 94 18 60 Z', fill: '#3a72c9' }),
+        E('path', { key: 't', d: 'M124 46 C136 40 152 26 162 18 C160 40 158 46 150 60 C158 74 160 80 162 102 C152 94 136 80 124 74 C132 66 132 54 124 46 Z', fill: '#27508f' }),
+        E('circle', { key: 's1', cx: 78, cy: 52, r: 5, fill: '#a7ccff' }),
+        E('circle', { key: 's2', cx: 98, cy: 60, r: 4.2, fill: '#a7ccff' })
+      ];
+      if (glad) {
+        body.push(E('circle', { key: 'e', cx: 46, cy: 54, r: 7, fill: '#e9eff9' }));
+        body.push(E('circle', { key: 'p', cx: 44, cy: 54, r: 3.2, fill: '#0b1729' }));
+        body.push(mouth('M28 66 C36 74 48 76 56 72', '', '#0b1729', 3.2));
+        // bubbles from the mouth, staggered so they rise in a stream
+        body.push(E('circle', { key: 'b1', className: 'dc-bubble dc-b1', cx: 14, cy: 56, r: 4, fill: '#a7ccff' }));
+        body.push(E('circle', { key: 'b2', className: 'dc-bubble dc-b2', cx: 8, cy: 50, r: 2.8, fill: '#cfe2ff' }));
+        body.push(E('circle', { key: 'b3', className: 'dc-bubble dc-b3', cx: 17, cy: 46, r: 2.2, fill: '#cfe2ff' }));
+      } else {
+        // belly up, with crosses for eyes
+        body.push(E('path', { key: 'x1', d: 'M40 49 L52 59', stroke: '#0b1729', 'stroke-width': 3.4, 'stroke-linecap': 'round' }));
+        body.push(E('path', { key: 'x2', d: 'M52 49 L40 59', stroke: '#0b1729', 'stroke-width': 3.4, 'stroke-linecap': 'round' }));
+        body.push(E('path', { key: 'm', d: 'M28 76 C36 68 48 66 56 70', stroke: '#0b1729', 'stroke-width': 3.2, fill: 'none', 'stroke-linecap': 'round' }));
+      }
+      return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%',
+                        'aria-label': glad ? 'A blue fish blowing bubbles' : 'A blue fish floating upside down' },
+        glad ? body : E('g', { transform: 'translate(0 120) scale(1 -1)' }, body));
     }
     if (which === 'mkt') {
       return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%', 'aria-label': 'A purple giraffe' },
