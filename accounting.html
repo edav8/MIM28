@@ -737,7 +737,8 @@ textarea.input { min-height: 90px; resize: vertical; }
     </div>
     <button type="button" sc-camel-on-click="{{ goHome }}" style="{{ homeStyle }}">Home</button>
     <button type="button" sc-camel-on-click="{{ goHub }}" style="{{ hubStyle }}">{{ hubLabel }}</button>
-    <button type="button" sc-camel-on-click="{{ openPractice }}" style="{{ practiceStyle }}">Practice exercises</button>
+    <button type="button" sc-camel-on-click="{{ openTodo }}" style="{{ todoStyle }}">To-do &amp; assignments</button>
+            <button type="button" sc-camel-on-click="{{ openPractice }}" style="{{ practiceStyle }}">Practice exercises</button>
     <button type="button" sc-camel-on-click="{{ openGloss }}" style="{{ glossStyle }}">Glossary &amp; formulas</button>
     <div id="mobilecrumb" style="display:none; flex:1 1 100%; padding:10px 16px; border-top:1px solid var(--color-divider); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700)">{{ crumb }}</div>
     <button type="button" id="navtoggle" sc-camel-on-click="{{ toggleNav }}" style="{{ navToggleStyle }}">{{ navToggleLabel }}</button>
@@ -2534,7 +2535,30 @@ textarea.input { min-height: 90px; resize: vertical; }
 
     
 
-  <sc-if value="{{ showGloss }}" hint-placeholder-val="{{ false }}">
+  <sc-if value="{{ showTodo }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Deadlines</div>
+              <h1 style="font-size:38px; margin:8px 0 12px">To-do &amp; assignments</h1>
+              <p style="max-width:64ch; font-size:16px">Every accounting deadline from the Canvas feed. Ticks are remembered in this browser.</p>
+              <sc-if value="{{ todoEmpty }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size:15px; opacity:0.7">Nothing loaded yet — run tools/sync_todos.py to fill this in.</p>
+              </sc-if>
+              <div style="margin-top:20px; border-top:2px solid var(--color-text)">
+                <sc-for list="{{ todoRows }}" as="t" hint-placeholder-count="6">
+                  <div style="padding:14px 0; border-bottom:1px solid var(--color-divider); display:flex; gap:14px; align-items:flex-start">
+                    <button type="button" sc-camel-on-click="{{ t.onToggle }}" title="Mark done" style="{{ t.boxStyle }}">{{ t.mark }}</button>
+                    <div style="flex:1; min-width:0">
+                      <div style="{{ t.titleStyle }}">{{ t.title }}</div>
+                      <div style="font-size:12px; opacity:0.7; margin-top:2px">{{ t.when }}</div>
+                    </div>
+                    <div style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--color-accent-700); flex:none">{{ t.tag }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ showGloss }}" hint-placeholder-val="{{ false }}">
     <div>
       <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Reference</div>
       <h1 style="font-size:38px; margin:8px 0 12px">Glossary &amp; formulas</h1>
@@ -3236,7 +3260,9 @@ textarea.input { min-height: 90px; resize: vertical; }
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;defaultLevel&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;beg&quot;,&quot;std&quot;],&quot;default&quot;:&quot;beg&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Lessons&quot;},&quot;revealMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;immediate&quot;,&quot;end&quot;],&quot;default&quot;:&quot;immediate&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Drill behaviour&quot;},&quot;drillSize&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:12,&quot;min&quot;:4,&quot;max&quot;:24,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Drill behaviour&quot;},&quot;reviewAll&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Drill behaviour&quot;}}">
 class Component extends DCLogic {
-  state = { view: 'home', course: 'fa', level: null, qi: 0, answers: {}, numInput: '', order: null, best: {}, loaded: false };
+  state = { view: 'home', course: 'fa', level: null, qi: 0, answers: {}, numInput: '', order: null, best: {}, todoDone: {}, loaded: false };
+
+  todo = [];
 
   built = { s1: 1, s2: 1, s3: 1, s4: 1, s5: 1, s6: 1, f1: 1, f2: 1, f3: 1, f4: 1, f5: 1, f6: 1, f7: 1, f8: 1, f9: 1, f10: 1 };
 
@@ -5091,13 +5117,13 @@ class Component extends DCLogic {
     window.addEventListener('keydown', this.onChoiceKey);
     try {
       const raw = localStorage.getItem('fa-trainer-v1');
-      if (raw) { const d = JSON.parse(raw); this.setState({ best: d.best || {}, exDone: d.exDone || {}, missed: d.missed || {}, last: d.last || null, view: d.view || 'home', course: d.course || 'fa', level: d.level || null, loaded: true }); return; }
+      if (raw) { const d = JSON.parse(raw); this.setState({ best: d.best || {}, exDone: d.exDone || {}, todoDone: d.todoDone || {}, missed: d.missed || {}, last: d.last || null, view: d.view || 'home', course: d.course || 'fa', level: d.level || null, loaded: true }); return; }
     } catch (e) {}
     this.setState({ loaded: true });
   }
 
   save(patch) {
-    const next = Object.assign({ best: this.state.best, exDone: this.state.exDone || {}, missed: this.state.missed || {}, last: this.state.last || null, view: this.state.view, course: this.state.course, level: this.state.level }, patch || {});
+    const next = Object.assign({ best: this.state.best, exDone: this.state.exDone || {}, missed: this.state.missed || {}, todoDone: this.state.todoDone || {}, last: this.state.last || null, view: this.state.view, course: this.state.course, level: this.state.level }, patch || {});
     try { localStorage.setItem('fa-trainer-v1', JSON.stringify(next)); } catch (e) {}
   }
 
@@ -6322,6 +6348,30 @@ class Component extends DCLogic {
       openAllGen: () => this.openAllGen(),
       glossStyle: navBtn(mode === 'gloss', false),
       showGloss: mode === 'gloss',
+      openTodo: () => this.goto('todo'),
+      todoStyle: navBtn(mode === 'todo', false),
+      showTodo: mode === 'todo',
+      todoEmpty: !(this.todo || []).length,
+      todoRows: (this.todo || []).map(t => {
+        const done = !!(this.state.todoDone || {})[t.id];
+        return {
+          title: t.title, when: t.when, tag: done ? 'Done' : t.tag,
+          mark: done ? '\u2713' : '',
+          titleStyle: 'font-size:15px; font-weight:600; text-wrap:pretty; color:'
+            + (done ? 'color-mix(in srgb, var(--color-text) 45%, transparent)' : 'var(--color-text)')
+            + '; text-decoration:' + (done ? 'line-through' : 'none') + ';',
+          boxStyle: 'flex:none; width:22px; height:22px; padding:0; cursor:pointer; font:inherit; '
+            + 'display:flex; align-items:center; justify-content:center; border:2px solid '
+            + (done ? 'var(--color-accent-700)' : 'var(--color-divider)')
+            + '; background:transparent; color:var(--color-accent-700);',
+          onToggle: () => {
+            const n = Object.assign({}, this.state.todoDone || {});
+            if (n[t.id]) delete n[t.id]; else n[t.id] = true;
+            this.setState({ todoDone: n });
+            this.save({ todoDone: n });
+          }
+        };
+      }),
       crumb: mode === 'lesson' ? cur.title : (mode === 'prac' || mode === 'ex' ? 'Practice' : mode === 'gloss' ? 'Glossary' : (mode === 'quiz' || mode === 'res') ? 'Drill' : 'Overview'),
       practiceStyle: navBtn(mode === 'prac' || mode === 'ex', false),
       showEx2: mode === 'ex',
