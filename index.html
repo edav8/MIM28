@@ -764,7 +764,19 @@ input, button, select { font: inherit; }
             <div style="display:flex; gap:10px; margin-top:24px; align-items:center; flex-wrap:wrap">
               <input value="{{ typed }}" sc-camel-on-change="{{ onTyped }}" placeholder="Your answer" style="border:2px solid var(--acc); background:var(--panel); color:var(--ink); padding:12px 14px; font-size:17px; width:220px; border-radius:0">
               <button type="button" sc-camel-on-click="{{ submitNum }}" style="{{ btnPrimary }}">Check</button>
+              <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ false }}">
+                <button type="button" sc-camel-on-click="{{ toggleHint }}" style="{{ btnGhost }}">Hint</button>
+              </sc-if>
+              <sc-if value="{{ canSkip }}" hint-placeholder-val="{{ false }}">
+                <button type="button" sc-camel-on-click="{{ skipQ }}" style="{{ btnGhost }}">Skip</button>
+              </sc-if>
+              <sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:24px; font-weight:700; line-height:1; color:{{ answerMarkColor }}">{{ answerMark }}</span>
+              </sc-if>
             </div>
+            <sc-if value="{{ hintOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:14px; border-left:3px solid var(--acc); padding:8px 0 8px 14px; font-size:15px; color:var(--soft); max-width:60ch; text-wrap:pretty">{{ hintText }}</div>
+            </sc-if>
           </sc-if>
 
           <sc-if value="{{ verdictShown }}" hint-placeholder-val="{{ false }}">
@@ -2016,6 +2028,27 @@ class Component extends DCLogic {
       v.typed = this.state.typed;
       v.onTyped = (e) => this.setState({ typed: e.target.value });
       v.submitNum = () => { if (!ans && this.state.typed !== '') this.answer(this.state.typed); };
+      // Check / Hint / Skip, and a mark once answered -- the same four things the
+      // accounting exercises give you, which the drill here was missing.
+      v.hasHint = !!q.hint && !ans;
+      v.hintOpen = this.state.hintFor === this.state.qi;
+      v.hintText = q.hint || '';
+      v.toggleHint = () => this.setState({
+        hintFor: this.state.hintFor === this.state.qi ? -1 : this.state.qi
+      });
+      v.canSkip = !ans;
+      v.skipQ = () => {
+        // a skip is a miss: it goes in the review list rather than quietly vanishing
+        const answers = Object.assign({}, this.state.answers);
+        answers[this.state.qi] = { given: undefined, ok: false, skipped: true };
+        const missed = Object.assign({}, this.state.missed);
+        missed[q.p] = 1;
+        this.setState({ answers: answers, missed: missed, typed: '' });
+        this.save({ missed: missed });
+      };
+      v.answerMark = ans ? (ans.ok ? '\u2713' : '\u2715') : '';
+      v.answerMarkColor = ans && ans.ok ? 'var(--good)' : 'var(--bad)';
+      v.answered = !!ans;
       v.q = {
         kicker: q.k || '', prompt: q.p, why: q.why || q.e || '',
         isMcq: q.t !== 'num', isNum: q.t === 'num',
