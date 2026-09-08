@@ -39,6 +39,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 PAGE = ROOT / "index.html"
+ACCOUNTING = ROOT / "accounting.html"
 MANUAL = ROOT / "tools" / "manual-todos.json"
 
 DEFAULT_OBLIGATIONS = pathlib.Path.home() / "Desktop" / "INSEAD CLAUDE REPO" / "obligations"
@@ -259,6 +260,21 @@ def main() -> int:
                 # spans shift after each edit, so re-read positions next loop
                 PAGE.write_text(html, encoding="utf-8")
                 html = PAGE.read_text(encoding="utf-8")
+
+    # the accounting trainer keeps its own copy of the accounting deadlines, so it
+    # can show them without sending you back to the hub
+    if ACCOUNTING.exists():
+        acc = ACCOUNTING.read_text(encoding="utf-8")
+        span = field_span(acc, "todo")
+        if span:
+            new_lit = render(buckets["fa"])
+            if acc[span[0]:span[1]].strip() != new_lit.strip():
+                if not a.dry_run:
+                    ACCOUNTING.write_text(acc[:span[0]] + new_lit + acc[span[1]:], encoding="utf-8")
+                changed = True
+            print(f"accounting.html  {len(buckets['fa'])} entries")
+        else:
+            print("warning: no `todo` field found in accounting.html")
 
     print(f"\n{skipped} obligation(s) skipped as not applicable or stale.")
     if submitted:

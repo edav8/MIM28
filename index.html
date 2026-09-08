@@ -1229,6 +1229,7 @@ class Component extends DCLogic {
       { id: 'mkt-mkt-group-assignment-02-stp-for-insead', title: 'MKT_Group Assignment_02_STP for INSEAD', when: 'Due Sun 13 Sep at 23:59', tag: 'Due', due: '2026-09-13', time: '23:59' },
       { id: 'mkt-mkt-individual-assignment-05-michel-augustin-case-survey', title: 'MKT_Individual Assignment_05_Michel & Augustin Case Survey', when: 'Due Mon 14 Sep at 14:00', tag: 'Due', due: '2026-09-14', time: '14:00' },
       { id: 'mkt-mkt-group-assignment-04-customer-value', title: 'MKT_Group Assignment_04_Customer Value', when: 'Due Sun 20 Sep at 23:59', tag: 'Due', due: '2026-09-20', time: '23:59' },
+      { id: 'mkt-p1-final-exam-marketing', title: 'P1 FINAL EXAM — Marketing — Thursday 08 October 2026 at 14:00 CEST', when: 'Due Thu 08 Oct at 14:00', tag: 'Due', due: '2026-10-08', time: '14:00' },
       { id: 'mk2', title: 'Bring your laptops to the session', when: 'Posted 5 Sep at 17:32 · the one session laptops are allowed', tag: 'Notice' },
       { id: 'mk3', title: 'Schedule change — session timing', when: 'Posted 8 Sep at 16:44', tag: 'Notice' }
     ];
@@ -1411,7 +1412,8 @@ class Component extends DCLogic {
       { id: 'dsc-s12-da-individual-assignment-7-session-12-exercise-11-1-e1', title: 'S12_DA_Individual Assignment 7_Session 12: Exercise 11.1 (E1)', when: 'Due Mon 28 Sep at 15:45', tag: 'Due', due: '2026-09-28', time: '15:45' },
       { id: 'dsc-s13-da-group-assignment-3-firing-an-expert-e1', title: 'S13_DA_Group Assignment 3_Firing an Expert (E1)', when: 'Due Mon 28 Sep at 15:45', tag: 'Due', due: '2026-09-28', time: '15:45' },
       { id: 'dsc-s14-da-individual-assignment-8-session-14-the-set-13', title: 'S14_DA_Individual Assignment 8_Session 14: The Set 13 exercise (E1)', when: 'Due Thu 01 Oct at 17:30', tag: 'Due', due: '2026-10-01', time: '17:30' },
-      { id: 'dsc-s15-da-group-assignment-4-harmon-foods-e1', title: 'S15_DA_Group Assignment 4_Harmon Foods (E1)', when: 'Due Thu 01 Oct at 17:30', tag: 'Due', due: '2026-10-01', time: '17:30' }
+      { id: 'dsc-s15-da-group-assignment-4-harmon-foods-e1', title: 'S15_DA_Group Assignment 4_Harmon Foods (E1)', when: 'Due Thu 01 Oct at 17:30', tag: 'Due', due: '2026-10-01', time: '17:30' },
+      { id: 'dsc-p1-final-exam-data-analysis', title: 'P1 FINAL EXAM — Data Analysis — Friday 09 October 2026 at 09:00 CEST', when: 'Due Fri 09 Oct at 09:00', tag: 'Due', due: '2026-10-09', time: '09:00' }
     ];
   daGrading = [
     { k: 'Class participation (QR code, pop quizzes, activity in class)', v: '5%' },
@@ -1470,6 +1472,7 @@ class Component extends DCLogic {
       { id: 'acc-fa-assignment-10-abinbev-case-may-be-turned-in-for-credit', title: 'FA_Assignment 10_ABInBev case (may be turned in for credit)', when: 'Due Thu 01 Oct at 23:59', tag: 'Due', due: '2026-10-01', time: '23:59' },
       { id: 'acc-fa-quiz-05-practice-quiz-week-5-optional-do-not-turn-in', title: 'FA_Quiz_05_Practice Quiz Week 5_OPTIONAL_Do Not Turn In', when: 'Due Fri 02 Oct at 08:30', tag: 'Due', due: '2026-10-02', time: '08:30' },
       { id: 'acc-fa-assignment-11-fsa-group-project', title: 'FA_Assignment 11_FSA Group Project', when: 'Due Sun 04 Oct at 23:59', tag: 'Due', due: '2026-10-04', time: '23:59' },
+      { id: 'acc-p1-final-exam-financial-accounting', title: 'P1 FINAL EXAM — Financial Accounting — Thursday 08 October 2026 at 10:00 CEST', when: 'Due Thu 08 Oct at 10:00', tag: 'Due', due: '2026-10-08', time: '10:00' },
       { id: 'fa2', title: 'Practice set — the three statements', when: 'Ongoing', tag: 'Practice' }
     ];
   faGrading = [
@@ -1692,6 +1695,8 @@ class Component extends DCLogic {
     // whether you were right. The salamander already had one, so the fish and
     // the giraffe get the same treatment rather than a different idea.
     const glad = mood !== 'sad';
+    const cheering = mood === 'happy';   // bubbles only when celebrating, not on the cards
+    const fit = (tx, ty, sc, kids) => E('g', { transform: 'translate(' + tx + ' ' + ty + ') scale(' + sc + ')' }, kids);
     const mouth = (d_up, d_down, stroke, w) => E('path', {
       key: 'mouth', d: glad ? d_up : d_down, stroke: stroke, 'stroke-width': w || 3,
       fill: 'none', 'stroke-linecap': 'round'
@@ -1708,9 +1713,9 @@ class Component extends DCLogic {
         body.push(E('circle', { key: 'p', cx: 44, cy: 54, r: 3.2, fill: '#0b1729' }));
         body.push(mouth('M28 66 C36 74 48 76 56 72', '', '#0b1729', 3.2));
         // bubbles from the mouth, staggered so they rise in a stream
-        body.push(E('circle', { key: 'b1', className: 'dc-bubble dc-b1', cx: 14, cy: 56, r: 4, fill: '#a7ccff' }));
-        body.push(E('circle', { key: 'b2', className: 'dc-bubble dc-b2', cx: 8, cy: 50, r: 2.8, fill: '#cfe2ff' }));
-        body.push(E('circle', { key: 'b3', className: 'dc-bubble dc-b3', cx: 17, cy: 46, r: 2.2, fill: '#cfe2ff' }));
+        if (cheering) body.push(E('circle', { key: 'b1', className: 'dc-bubble dc-b1', cx: 14, cy: 56, r: 4, fill: '#a7ccff' }));
+        if (cheering) body.push(E('circle', { key: 'b2', className: 'dc-bubble dc-b2', cx: 8, cy: 50, r: 2.8, fill: '#cfe2ff' }));
+        if (cheering) body.push(E('circle', { key: 'b3', className: 'dc-bubble dc-b3', cx: 17, cy: 46, r: 2.2, fill: '#cfe2ff' }));
       } else {
         // belly up, with crosses for eyes
         body.push(E('path', { key: 'x1', d: 'M40 49 L52 59', stroke: '#0b1729', 'stroke-width': 3.4, 'stroke-linecap': 'round' }));
@@ -1718,11 +1723,13 @@ class Component extends DCLogic {
         body.push(E('path', { key: 'm', d: 'M28 76 C36 68 48 66 56 70', stroke: '#0b1729', 'stroke-width': 3.2, fill: 'none', 'stroke-linecap': 'round' }));
       }
       return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%',
-                        'aria-label': glad ? 'A blue fish blowing bubbles' : 'A blue fish floating upside down' },
-        glad ? body : E('g', { transform: 'translate(0 120) scale(1 -1)' }, body));
+                        'aria-label': cheering ? 'A blue fish blowing bubbles' : (glad ? 'A blue fish' : 'A blue fish floating upside down') },
+        glad ? fit(-8, 0, 1.04, body)
+             : E('g', { transform: 'translate(0 120) scale(1 -1)' }, fit(-8, 0, 1.04, body)));
     }
     if (which === 'mkt') {
       return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%', 'aria-label': 'A purple giraffe' },
+        fit(16, 19, 0.775, [
         E('path', { d: 'M44 74 C36 68 30 74 32 84 C34 92 40 94 44 90', stroke: '#8a5fd8', 'stroke-width': 5, fill: 'none', 'stroke-linecap': 'round' }),
         E('path', { d: 'M52 88 L52 112 M70 90 L70 112 M92 90 L92 112 M108 86 L108 112', stroke: '#8a5fd8', 'stroke-width': 8, 'stroke-linecap': 'round' }),
         E('path', { d: 'M44 76 C44 62 58 56 78 56 L100 56 C116 56 118 68 116 84 C114 92 100 94 78 94 C58 94 44 88 44 76 Z', fill: '#a97cf5' }),
@@ -1739,10 +1746,11 @@ class Component extends DCLogic {
         E('circle', { cx: 62, cy: 70, r: 6, fill: '#cbb0ff' }),
         E('circle', { cx: 82, cy: 78, r: 5.5, fill: '#cbb0ff' }),
         E('circle', { cx: 100, cy: 70, r: 5, fill: '#cbb0ff' }),
-        E('circle', { cx: 72, cy: 88, r: 4, fill: '#cbb0ff' }));
+        E('circle', { cx: 72, cy: 88, r: 4, fill: '#cbb0ff' })
+        ]));
     }
     return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%', 'aria-label': 'A salamander' },
-      E('g', { transform: 'translate(7.4 0) scale(0.828)' },
+      fit(-13, 3, 1.13, E('g', { transform: 'translate(7.4 0) scale(0.828)' },
       E('path', { d: 'M132 74 C154 66 168 76 176 62 C170 84 152 90 132 84 Z', fill: '#0d3a22' }),
       E('path', { d: 'M60 78 L52 104 L40 108', stroke: '#0a2c1a', 'stroke-width': 7, fill: 'none', 'stroke-linecap': 'round' }),
       E('path', { d: 'M112 78 L120 104 L132 110', stroke: '#0a2c1a', 'stroke-width': 7, fill: 'none', 'stroke-linecap': 'round' }),
@@ -1758,7 +1766,7 @@ class Component extends DCLogic {
       E('circle', { cx: 94, cy: 66, r: 5, fill: '#8ed7ac' }),
       E('circle', { cx: 114, cy: 60, r: 4.5, fill: '#8ed7ac' }),
       E('circle', { cx: 82, cy: 78, r: 4, fill: '#8ed7ac' }),
-      E('circle', { cx: 106, cy: 80, r: 3.4, fill: '#8ed7ac' })));
+      E('circle', { cx: 106, cy: 80, r: 3.4, fill: '#8ed7ac' }))));
   }
 
   todoRows(courseKey) {

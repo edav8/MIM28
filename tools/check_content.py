@@ -334,7 +334,7 @@ def check_references(name: str, html: str) -> None:
 #
 # Both are checked against the previous commit.
 
-TODO_FIELDS = {"index.html": ("mktTodo", "daTodo", "faTodo"), "accounting.html": ("faTodo",)}
+TODO_FIELDS = {"index.html": ("mktTodo", "daTodo", "faTodo"), "accounting.html": ("todo",)}
 
 
 def storage_key(html: str) -> str | None:
