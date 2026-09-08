@@ -372,6 +372,14 @@ body { margin: 0; background: #101a17; }
 a { color: var(--accSoft); text-decoration: none; border-bottom: 1px solid currentColor; }
 a:hover { color: var(--ink); }
 input, button, select { font: inherit; }
+@keyframes dc-cheer {
+  0%   { transform: translateX(-14px) rotate(-6deg); opacity: 0; }
+  35%  { transform: translateX(4px) rotate(3deg); opacity: 1; }
+  60%  { transform: translateX(-2px) rotate(-2deg); }
+  100% { transform: translateX(0) rotate(0deg); opacity: 1; }
+}
+.dc-cheer { animation: dc-cheer 620ms cubic-bezier(.2,.9,.25,1) both; width: 86px; flex: none; }
+@media (prefers-reduced-motion: reduce) { .dc-cheer { animation: none; } }
 ::selection { background: var(--line); }
 :focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
 </style>
@@ -734,7 +742,12 @@ input, button, select { font: inherit; }
 
           <sc-if value="{{ verdictShown }}" hint-placeholder-val="{{ false }}">
             <div style="border:2px solid {{ verdictColor }}; padding:16px 18px; margin-top:24px; background:var(--panel)">
-              <div style="font-family:var(--font-h); font-size:16px; font-weight:700; color:{{ verdictColor }}; letter-spacing:0.02em; text-transform:uppercase">{{ verdictLabel }}</div>
+              <div style="display:flex; align-items:center; gap:14px">
+                <sc-if value="{{ wasRight }}" hint-placeholder-val="{{ false }}">
+                  <div class="dc-cheer" aria-hidden="true">{{ cheerMascot }}</div>
+                </sc-if>
+                <div style="font-family:var(--font-h); font-size:16px; font-weight:700; color:{{ verdictColor }}; letter-spacing:0.02em; text-transform:uppercase">{{ verdictLabel }}</div>
+              </div>
               <div style="font-size:15px; margin-top:8px; max-width:62ch; text-wrap:pretty; color:var(--soft)">{{ q.why }}</div>
               <button type="button" sc-camel-on-click="{{ nextQ }}" style="{{ btnPrimaryTop }}">{{ nextQLabel }}</button>
             </div>
@@ -1428,6 +1441,15 @@ class Component extends DCLogic {
       }
     } catch (e) {}
     this.onKey = (e) => {
+      // Enter moves the drill on. Checked before the calculator guard, which
+      // used to swallow every key press unless the calculator happened to be open.
+      if (e.key === 'Enter' && this.mode() === 'drill' && !this.state.calcOpen) {
+        if (this.state.answers[this.state.qi] !== undefined) {
+          e.preventDefault();
+          this.nextQuestion();
+          return;
+        }
+      }
       if (!this.state.calcOpen) return;
       const tag = (e.target && e.target.tagName || '').toLowerCase();
       if (tag === 'input') return;
@@ -1949,7 +1971,13 @@ class Component extends DCLogic {
       };
       v.verdictShown = !!ans;
       v.verdictColor = ans && ans.ok ? 'var(--good)' : 'var(--bad)';
-      v.verdictLabel = ans ? (ans.ok ? 'Correct' : (q.t === 'num' ? 'Not quite — the answer is ' + q.a : 'Not quite')) : '';
+      v.verdictLabel = ans ? (ans.ok ? 'Correct' : 'Not quite — the answer is '
+        + (q.t === 'num' ? q.a : (q.o && q.o[q.a] !== undefined ? q.o[q.a] : q.a))) : '';
+      v.wasRight = !!(ans && ans.ok);
+      // the course's own animal, keyed on the question so it replays each time
+      v.cheerMascot = ans && ans.ok
+        ? React.createElement('div', { key: 'cheer' + this.state.qi }, this.mascot(ck))
+        : null;
       v.nextQ = () => this.nextQuestion();
       v.nextQLabel = this.state.qi + 1 >= qs.length ? 'See results' : 'Next question';
     }
