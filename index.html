@@ -450,11 +450,11 @@ input, button, select { font: inherit; }
           </sc-for></div>
         </div>
         <div>
-          <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Where you left off</div>
+          <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Your progress</div>
           <sc-for list="{{ resumeCards }}" as="r" hint-placeholder-count="3">
             <div sc-camel-on-click="{{ r.onClick }}" style="padding:14px 0; border-bottom:1px solid var(--line); cursor:pointer">
               <div style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:{{ r.acc }}">{{ r.course }}</div>
-              <div style="font-size:15px; font-weight:600; margin-top:4px; text-wrap:pretty">{{ r.label }}</div>
+              <div style="font-size:15px; font-weight:600; margin-top:4px; text-wrap:pretty">{{ r.label }}</div><div style="font-size:12px; color:var(--muted); margin-top:3px">{{ r.meta }}</div>
             </div>
           </sc-for>
         </div>
@@ -1801,15 +1801,51 @@ class Component extends DCLogic {
       v.calCells = cal.cells;
       v.calPrev = () => { const m = cal.m - 1; this.setState(m < 0 ? { calY: cal.y - 1, calM: 11 } : { calY: cal.y, calM: m }); };
       v.calNext = () => { const m = cal.m + 1; this.setState(m > 11 ? { calY: cal.y + 1, calM: 0 } : { calY: cal.y, calM: m }); };
-      v.resumeCards = ['da', 'mkt'].map(k => {
-        const lastView = (this.state.last || {})[k];
-        const d = this.data(k);
-        let label = 'Not started';
-        if (lastView) {
-          const s = d.sessions.find(x => 'ses:' + x.key === lastView);
-          label = s ? 'Session ' + s.num + ' · ' + s.title : 'Continue';
+      v.resumeCards = ['da', 'mkt', 'fa'].map(k => {
+        // Financial Accounting lives in accounting.html and keeps its own progress
+        // under fa-trainer-v1. Same origin, so it can be read from here.
+        if (k === 'fa') {
+          let n = 0, top = 0;
+          try {
+            const st = JSON.parse(window.localStorage.getItem('fa-trainer-v1') || '{}');
+            n = Object.keys(st.done || {}).length;
+            const bs = Object.keys(st.best || {}).map(x => st.best[x]);
+            if (bs.length) top = Math.max.apply(null, bs);
+          } catch (e) {}
+          return {
+            course: 'Financial Accounting',
+            label: n ? 'Carry on in the trainer' : 'Open the accounting trainer',
+            meta: n ? n + (n === 1 ? ' drill done' : ' drills done') + (top ? ' · best ' + top + '%' : '')
+                    : 'Two courses · 247 questions',
+            acc: 'var(--accSoft)',
+            onClick: () => { window.location.href = 'accounting.html'; }
+          };
         }
-        return { course: this.courses[k].name, label: label, acc: 'var(--accSoft)', onClick: () => { this.openCourse(k); if (lastView) this.go(lastView); } };
+        const d = this.data(k);
+        const lastView = (this.state.last || {})[k];
+        const done = Object.keys(this.state.done || {}).filter(x => x.indexOf(k + ':') === 0);
+        const bests = Object.keys(this.state.best || {})
+          .filter(x => x.indexOf(k + ':') === 0).map(x => this.state.best[x]);
+        const built = d.sessions.filter(x => (d.built || {})[x.key]).length;
+        let label, target;
+        if (lastView) {
+          const ses = d.sessions.find(x => 'ses:' + x.key === lastView);
+          label = ses ? 'Session ' + ses.num + ' · ' + ses.title : 'Carry on';
+          target = lastView;
+        } else {
+          // "Not started" told you nothing you could act on. Name the first thing to open.
+          const first = d.sessions.find(x => (d.built || {})[x.key]);
+          label = first ? 'Start: Session ' + first.num + ' · ' + first.title : 'Nothing released yet';
+          target = first ? 'ses:' + first.key : 'home';
+        }
+        const bits = [built + ' of ' + d.sessions.length + ' sessions ready'];
+        if (done.length) bits.push(done.length + (done.length === 1 ? ' drill done' : ' drills done'));
+        if (bests.length) bits.push('best ' + Math.max.apply(null, bests) + '%');
+        return {
+          course: this.courses[k].name, label: label, meta: bits.join(' · '),
+          acc: 'var(--accSoft)',
+          onClick: () => { this.openCourse(k); this.go(target); }
+        };
       });
       return v;
     }
