@@ -1,0 +1,13 @@
+{
+  "_comment": [
+    "Obligations that must never reach the published site, by id (the",
+    "obligation filename without .md).",
+    "",
+    "sync_todos already withholds anything sourced from a mailbox, and anything",
+    "whose title says retake / resit / remedial or counts its own audience",
+    "('(8 students)'). This file is for everything else that is yours alone and",
+    "does not announce itself -- add the id and it is held back, and named in",
+    "the run output so you can see it was."
+  ],
+  "never_publish": []
+}

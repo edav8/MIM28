@@ -65,6 +65,36 @@ LIVE = {"open", "unanswered", "expired"}
 # Canvas and the calendar feed are course material and are fine.
 PUBLISHABLE_SOURCES = {"ics", "canvas", "doc", ""}
 
+# Work set for you and a handful of others, not for the cohort. Publishing it
+# tells every reader who is on a retake, which is nobody else's business and
+# is not undone by deleting it later. Two signals catch it on its own:
+#
+#   · the word retake / resit / remedial / make-up in the title
+#   · a title that counts its own audience -- "(8 students)"
+#
+# Anything these miss goes in tools/private-todos.json by id, and is held back
+# the same way.
+PRIVATE_WORDS = ("retake", "resit", "remedial", "make-up", "makeup")
+PRIVATE_COHORT = re.compile(r"\(\s*\d{1,2}\s+students?\s*\)", re.I)
+PRIVATE_FILE = ROOT / "tools" / "private-todos.json"
+
+
+def private_ids() -> set:
+    if not PRIVATE_FILE.exists():
+        return set()
+    try:
+        data = json.loads(PRIVATE_FILE.read_text(encoding="utf-8"))
+        return {str(x) for x in data.get("never_publish", [])}
+    except Exception:
+        return set()
+
+
+def is_private(title: str, stem: str, blocked: set) -> bool:
+    low = title.lower()
+    return (stem in blocked
+            or any(w in low for w in PRIVATE_WORDS)
+            or bool(PRIVATE_COHORT.search(title)))
+
 # Already submitted, according to YOUR Canvas account.
 #
 # This is personal state and by default it is NOT published. The site is shared,
@@ -136,6 +166,8 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
     submitted = []
     skipped_done = []
     private = []
+    personal = []
+    blocked = private_ids()
     skipped = 0
     for f in sorted(obligations.glob("*.md")):
         fm = frontmatter(f)
@@ -148,6 +180,11 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
                 continue
         if fm.get("stale", "").lower() == "true":
             continue
+        title_raw = fm.get("title", stem)
+        if is_private(title_raw, stem, blocked):
+            personal.append(title_raw[:72])
+            continue
+
         src = fm.get("source", "").strip().lower()
         # found_only_in is usually harmless ("canvas api"); it disqualifies only
         # when it says the item exists nowhere but a mailbox
@@ -206,7 +243,7 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
             entry["tag"] = "Undated"
             entry["_sort"] = "9999"
         buckets[course].append(entry)
-    return buckets, skipped, submitted, skipped_done, private
+    return buckets, skipped, submitted, skipped_done, private, personal
 
 
 def render(entries: list) -> str:
@@ -273,7 +310,7 @@ def main() -> int:
         return 1
 
     today = dt.date.today()
-    buckets, skipped, submitted, skipped_done, private = collect(a.dir, today, personal=a.personal)
+    buckets, skipped, submitted, skipped_done, private, personal = collect(a.dir, today, personal=a.personal)
 
     manual = json.loads(MANUAL.read_text(encoding="utf-8")) if MANUAL.exists() else {}
     for course, items in manual.items():
@@ -321,6 +358,11 @@ def main() -> int:
     print(f"\n{skipped} obligation(s) skipped as not applicable or stale.")
     if skipped_done:
         print(f"{len(skipped_done)} finished and past their deadline, so not listed.")
+    if personal:
+        print(f"\n{len(personal)} obligation(s) held back as yours alone — a retake or a "
+              "named group, not the cohort's work:")
+        for t in personal:
+            print(f"  · {t}")
     if private:
         print(f"\n{len(private)} obligation(s) held back as private — they came from a "
               "mailbox, and this site is shared:")
