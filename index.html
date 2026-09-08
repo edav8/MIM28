@@ -423,7 +423,7 @@ input, button, select { font: inherit; }
             <div style="{{ c.style }}">
               <div style="{{ c.numStyle }}">{{ c.num }}</div>
               <sc-for list="{{ c.events }}" as="e" hint-placeholder-count="1">
-                <div style="{{ e.style }}">{{ e.label }}</div>
+                <button type="button" sc-camel-on-click="{{ e.onToggle }}" title="{{ e.hint }}" style="{{ e.style }}">{{ e.label }}</button>
               </sc-for>
             </div>
           </sc-for>
@@ -431,13 +431,14 @@ input, button, select { font: inherit; }
         <div style="margin-top:10px; display:flex; gap:20px; font-size:12px; color:var(--muted); flex-wrap:wrap">
           <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#5b9cff; display:inline-block"></span>Data Analysis</span>
           <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#a97cf5; display:inline-block"></span>Marketing</span>
+          <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#4fbf8b; display:inline-block"></span>Financial Accounting</span>
         </div>
       </div>
 
-      <div style="display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); gap:48px; margin-top:56px; align-items:start">
+      <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px; margin-top:56px; align-items:start">
         <div>
           <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Everything due</div>
-          <sc-for list="{{ allTodo }}" as="t" hint-placeholder-count="6">
+          <div style="max-height:560px; overflow-y:auto; overscroll-behavior:contain" tabindex="0" aria-label="Everything due"><sc-for list="{{ allTodo }}" as="t" hint-placeholder-count="6">
             <div style="padding:14px 0; border-bottom:1px solid var(--line); display:flex; gap:14px; align-items:flex-start">
               <button type="button" sc-camel-on-click="{{ t.onToggle }}" title="Mark done" style="{{ t.boxStyle }}">{{ t.mark }}</button>
               <div style="flex:1; min-width:0">
@@ -446,7 +447,7 @@ input, button, select { font: inherit; }
               </div>
               <div style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:{{ t.courseColor }}; flex:none">{{ t.course }}</div>
             </div>
-          </sc-for>
+          </sc-for></div>
         </div>
         <div>
           <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Where you left off</div>
@@ -1155,12 +1156,15 @@ class Component extends DCLogic {
   ];
 
   mktTodo = [
-    { id: 'mk1', title: 'MKT_Individual Assignment 1', when: 'Due 13 Sep at 14:00 · 1 point · 10% of the grade', tag: 'Individual', due: '2026-09-13', time: '14:00' },
-    { id: 'mk2', title: 'Bring your laptops to the session', when: 'Posted 5 Sep at 17:32 · the one session laptops are allowed', tag: 'Notice' },
-    { id: 'mk3', title: 'Schedule change — session timing', when: 'Posted 8 Sep at 16:44', tag: 'Notice' },
-    { id: 'mk4', title: 'Segmentation exercise spreadsheet', when: 'Before the targeting session', tag: 'Prep', due: '2026-09-09' },
-    { id: 'mk5', title: 'Read: Finding the Right Job for Your Product', when: 'Christensen, Anthony, Berstell and Nitterhouse · Sessions 04–07', tag: 'Reading', due: '2026-09-11' }
-  ];
+      { id: 'mk4', title: 'Segmentation exercise spreadsheet', when: 'Before the targeting session', tag: 'Prep', due: '2026-09-09' },
+      { id: 'mk5', title: 'Read: Finding the Right Job for Your Product', when: 'Christensen, Anthony, Berstell and Nitterhouse · Sessions 04–07', tag: 'Reading', due: '2026-09-11' },
+      { id: 'mkt-mkt-individual-assignment-03-chase-sapphire-case-survey', title: 'MKT_Individual Assignment_03_Chase Sapphire Case Survey', when: 'Due Sun 13 Sep at 14:00', tag: 'Due', due: '2026-09-13', time: '14:00' },
+      { id: 'mkt-mkt-group-assignment-02-stp-for-insead', title: 'MKT_Group Assignment_02_STP for INSEAD', when: 'Due Sun 13 Sep at 23:59', tag: 'Due', due: '2026-09-13', time: '23:59' },
+      { id: 'mkt-mkt-individual-assignment-05-michel-augustin-case-survey', title: 'MKT_Individual Assignment_05_Michel & Augustin Case Survey', when: 'Due Mon 14 Sep at 14:00', tag: 'Due', due: '2026-09-14', time: '14:00' },
+      { id: 'mkt-mkt-group-assignment-04-customer-value', title: 'MKT_Group Assignment_04_Customer Value', when: 'Due Sun 20 Sep at 23:59', tag: 'Due', due: '2026-09-20', time: '23:59' },
+      { id: 'mk2', title: 'Bring your laptops to the session', when: 'Posted 5 Sep at 17:32 · the one session laptops are allowed', tag: 'Notice' },
+      { id: 'mk3', title: 'Schedule change — session timing', when: 'Posted 8 Sep at 16:44', tag: 'Notice' }
+    ];
 
   mktGrading = [
     { k: 'Attendance, class participation and professionalism', v: '5%' },
@@ -1328,11 +1332,18 @@ class Component extends DCLogic {
     { key: 'gdesc', tag: 'Generated', title: 'Descriptive drill', blurb: 'A fresh small sample: mean, median, variance and standard deviation.' }
   ];
   daTodo = [
-    { id: 'a3', title: 'S03_DA_Individual Assignment 2 — Exercises 3.2 and 3.7', when: 'Due 9 Sep at 12:00 · 1 point · online', tag: 'Online', due: '2026-09-09', time: '12:00' },
-    { id: 'g1', title: 'Group assignment #1: Bad Statistics', when: 'Two misleading or exceptionally good visualisations from September media', tag: 'Group', due: '2026-09-30' },
-    { id: 'a2', title: 'S02_DA_Individual Assignment 1 — Exercise 2.2', when: 'Due before Session 3 · 1 point · online', tag: 'Online', due: '2026-09-04', time: '10:15' },
-    { id: 's1', title: '[Data Analysis] Class survey — judgment & class data', when: 'Due by 17:00 the day after Session 1 · ungraded', tag: 'Survey', due: '2026-09-01', time: '17:00' }
-  ];
+      { id: 's1', title: '[Data Analysis] Class survey — judgment & class data', when: 'Due by 17:00 the day after Session 1 · ungraded', tag: 'Ungraded', due: '2026-09-01', time: '17:00' },
+      { id: 'a3', title: 'S03_DA_Individual Assignment 2_Session 3: Exercises 3.2 and 3.7 (E1)', when: 'Due Wed 09 Sep at 12:00', tag: 'Due', due: '2026-09-09', time: '12:00' },
+      { id: 'dsc-s04-da-individual-assignment-3-session-4-exercises-3-12-and', title: 'S04_DA_Individual Assignment 3_Session 4: Exercises 3.12 and the Set 4 portfolio exercise  (E1)', when: 'Due Fri 11 Sep at 17:30', tag: 'Due', due: '2026-09-11', time: '17:30' },
+      { id: 'dsc-s06-da-individual-assignment-4-session-6-exercise-5-4-e1', title: 'S06_DA_Individual Assignment 4_Session 6: Exercise 5.4 (E1)', when: 'Due Mon 14 Sep at 15:45', tag: 'Due', due: '2026-09-14', time: '15:45' },
+      { id: 'dsc-s07-da-individual-assignment-5-session-7-exercises-6-4-and', title: 'S07_DA_Individual Assignment 5_Session 7: Exercises 6.4 and 7.2 (E1)', when: 'Due Thu 17 Sep at 15:45', tag: 'Due', due: '2026-09-17', time: '15:45' },
+      { id: 'dsc-s09-da-individual-assignment-6-session-9-exercise-9-2-e1', title: 'S09_DA_Individual Assignment 6_Session 9: Exercise 9.2 (E1)', when: 'Due Mon 21 Sep at 10:15', tag: 'Due', due: '2026-09-21', time: '10:15' },
+      { id: 'dsc-s11-da-group-assignment-2-loyalty-scheme-direct-mail', title: 'S11_DA_Group Assignment 2_Loyalty Scheme Direct Mail Compaigns (E1)', when: 'Due Wed 23 Sep at 15:45', tag: 'Due', due: '2026-09-23', time: '15:45' },
+      { id: 'dsc-s12-da-individual-assignment-7-session-12-exercise-11-1-e1', title: 'S12_DA_Individual Assignment 7_Session 12: Exercise 11.1 (E1)', when: 'Due Mon 28 Sep at 15:45', tag: 'Due', due: '2026-09-28', time: '15:45' },
+      { id: 'dsc-s13-da-group-assignment-3-firing-an-expert-e1', title: 'S13_DA_Group Assignment 3_Firing an Expert (E1)', when: 'Due Mon 28 Sep at 15:45', tag: 'Due', due: '2026-09-28', time: '15:45' },
+      { id: 'dsc-s14-da-individual-assignment-8-session-14-the-set-13', title: 'S14_DA_Individual Assignment 8_Session 14: The Set 13 exercise (E1)', when: 'Due Thu 01 Oct at 17:30', tag: 'Due', due: '2026-10-01', time: '17:30' },
+      { id: 'dsc-s15-da-group-assignment-4-harmon-foods-e1', title: 'S15_DA_Group Assignment 4_Harmon Foods (E1)', when: 'Due Thu 01 Oct at 17:30', tag: 'Due', due: '2026-10-01', time: '17:30' }
+    ];
   daGrading = [
     { k: 'Class participation (QR code, pop quizzes, activity in class)', v: '5%' },
     { k: 'Online exercises (0–2 per session, submitted on LMS, pass/fail)', v: '5%' },
@@ -1375,9 +1386,21 @@ class Component extends DCLogic {
   faBank = {};
   faTerms = [];
   faTodo = [
-    { id: 'fa1', title: 'Prepare the AstraZeneca case', when: 'Before the earnings-quality session', tag: 'Case' },
-    { id: 'fa2', title: 'Practice set — the three statements', when: 'Ongoing', tag: 'Practice' }
-  ];
+      { id: 'acc-fa-assignment-2-astrazeneca-case-may-be-turned-in-for', title: 'FA_Assignment 2_AstraZeneca case (may be turned in for course credit)', when: 'Due Sun 06 Sep at 23:59 · overdue', tag: 'Overdue', due: '2026-09-06', time: '23:59' },
+      { id: 'acc-fa-assignment-4-mcafee-case-may-be-turned-in-for-course', title: 'FA_Assignment 4_McAfee case (may be turned in for course credit)', when: 'Due Thu 10 Sep at 23:59', tag: 'Due', due: '2026-09-10', time: '23:59' },
+      { id: 'acc-fa-quiz-02-practice-quiz-week-2-optional-do-not-turn-in', title: 'FA_Quiz_02_Practice Quiz Week 2_OPTIONAL_Do Not Turn In', when: 'Due Fri 11 Sep at 08:30', tag: 'Due', due: '2026-09-11', time: '08:30' },
+      { id: 'acc-fa-assignment-5-netflix-case-may-be-turned-in-for-course', title: 'FA_Assignment 5_Netflix case (may be turned in for course credit and only need to turn in all parts of questions 3 – 6)', when: 'Due Tue 15 Sep at 23:59', tag: 'Due', due: '2026-09-15', time: '23:59' },
+      { id: 'acc-fa-assignment-6-lvmh-warnaco-case-may-be-turned-in-for', title: 'FA_Assignment 6_LVMH-Warnaco case (may be turned in for course credit)', when: 'Due Thu 17 Sep at 23:59', tag: 'Due', due: '2026-09-17', time: '23:59' },
+      { id: 'acc-fa-quiz-03-practice-quiz-week-3-optional-do-not-turn-in', title: 'FA_Quiz_03_Practice Quiz Week 3_OPTIONAL_Do Not Turn In', when: 'Due Fri 18 Sep at 08:30', tag: 'Due', due: '2026-09-18', time: '08:30' },
+      { id: 'acc-fa-assignment-7-deere-cnh-case-may-be-turned-in-for-course', title: 'FA_Assignment 7_Deere-CNH case (may be turned in for course credit)', when: 'Due Tue 22 Sep at 23:59', tag: 'Due', due: '2026-09-22', time: '23:59' },
+      { id: 'acc-fa-assignment-8-maersk-case-may-be-turned-in-for-course', title: 'FA_Assignment 8_Maersk case (may be turned in for course credit)', when: 'Due Thu 24 Sep at 23:59', tag: 'Due', due: '2026-09-24', time: '23:59' },
+      { id: 'acc-fa-quiz-04-practice-quiz-week-4-optional-do-not-turn-in', title: 'FA_Quiz_04_Practice Quiz Week 4_OPTIONAL_Do Not Turn In', when: 'Due Fri 25 Sep at 08:30', tag: 'Due', due: '2026-09-25', time: '08:30' },
+      { id: 'acc-fa-assignment-9-bp-case-may-be-turned-in-for-course-credit', title: 'FA_Assignment 9_BP case (may be turned in for course credit)', when: 'Due Sun 27 Sep at 23:59', tag: 'Due', due: '2026-09-27', time: '23:59' },
+      { id: 'acc-fa-assignment-10-abinbev-case-may-be-turned-in-for-credit', title: 'FA_Assignment 10_ABInBev case (may be turned in for credit)', when: 'Due Thu 01 Oct at 23:59', tag: 'Due', due: '2026-10-01', time: '23:59' },
+      { id: 'acc-fa-quiz-05-practice-quiz-week-5-optional-do-not-turn-in', title: 'FA_Quiz_05_Practice Quiz Week 5_OPTIONAL_Do Not Turn In', when: 'Due Fri 02 Oct at 08:30', tag: 'Due', due: '2026-10-02', time: '08:30' },
+      { id: 'acc-fa-assignment-11-fsa-group-project', title: 'FA_Assignment 11_FSA Group Project', when: 'Due Sun 04 Oct at 23:59', tag: 'Due', due: '2026-10-04', time: '23:59' },
+      { id: 'fa2', title: 'Practice set — the three statements', when: 'Ongoing', tag: 'Practice' }
+    ];
   faGrading = [
     { k: 'Class participation', v: '10%' },
     { k: 'Group case work', v: '30%' },
@@ -1635,7 +1658,10 @@ class Component extends DCLogic {
   todoRows(courseKey) {
     const d = this.data(courseKey);
     const td = this.state.todoDone || {};
-    return (d.todo || []).map(t => {
+    // Ticked assignments leave the list entirely. They are not forgotten: the
+    // calendar still carries them, struck through, and clicking one there
+    // unticks it -- which is the only way back, since the row is gone.
+    return (d.todo || []).filter(t => !td[t.id]).map(t => {
       const isDone = !!td[t.id];
       return {
         title: t.title, when: t.when, tag: isDone ? 'Done' : t.tag,
@@ -1664,7 +1690,7 @@ class Component extends DCLogic {
     const y = st.calY === undefined ? 2026 : st.calY;
     const m = st.calM === undefined ? 8 : st.calM;
     const items = [];
-    ['da', 'mkt'].forEach(k => {
+    ['da', 'mkt', 'fa'].forEach(k => {
       (this.data(k).todo || []).forEach(t => {
         if (!t.due) return;
         const parts = t.due.split('-');
@@ -1685,7 +1711,14 @@ class Component extends DCLogic {
         numStyle: 'font-size:12px; font-variant-numeric:tabular-nums; color:' + (evs.length ? 'var(--ink)' : 'var(--faint)') + '; font-weight:' + (evs.length ? '700' : '400') + ';',
         events: evs.map(e => ({
           label: (e.time ? e.time + ' · ' : '') + e.title,
-          style: 'display:block; margin-top:6px; padding:4px 6px; font-size:11px; line-height:1.25; text-wrap:pretty; border-left:3px solid ' + (e.course === 'mkt' ? '#a97cf5' : '#5b9cff') + '; background:var(--ground); color:' + (td[e.id] ? 'var(--faint)' : 'var(--ink)') + '; text-decoration:' + (td[e.id] ? 'line-through' : 'none') + ';'
+          hint: td[e.id] ? 'Done — click to put it back on the to-do list' : 'Click to mark done and clear it from the to-do list',
+          onToggle: () => {
+            const n = Object.assign({}, this.state.todoDone || {});
+            if (n[e.id]) delete n[e.id]; else n[e.id] = true;
+            this.setState({ todoDone: n });
+            this.save({ todoDone: n });
+          },
+          style: 'display:block; width:100%; text-align:left; cursor:pointer; font:inherit; margin-top:6px; padding:4px 6px; font-size:11px; line-height:1.25; text-wrap:pretty; border:0; border-left:3px solid ' + (e.course === 'mkt' ? '#a97cf5' : e.course === 'fa' ? '#4fbf8b' : '#5b9cff') + '; background:var(--ground); color:' + (td[e.id] ? 'var(--faint)' : 'var(--ink)') + '; text-decoration:' + (td[e.id] ? 'line-through' : 'none') + ';'
         }))
       });
     }
@@ -1721,7 +1754,7 @@ class Component extends DCLogic {
         };
       });
       let all = [];
-      ['da', 'mkt'].forEach(k => { all = all.concat(this.todoRows(k)); });
+      ['da', 'mkt', 'fa'].forEach(k => { all = all.concat(this.todoRows(k)); });
       v.allTodo = all;
       const cal = this.calendarGrid();
       v.calTitle = this.monthLabel(cal.y, cal.m);

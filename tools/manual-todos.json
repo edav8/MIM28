@@ -1,0 +1,34 @@
+{
+  "_comment": [
+    "Assignment rows that are NOT Canvas obligations and so cannot come from the",
+    "command centre: readings, announcements, preparation. sync_todos.py merges",
+    "these in and never overwrites them.",
+    "",
+    "Keep an id stable once it exists -- ticks are keyed by it. To reword a row,",
+    "change the title and leave the id alone.",
+    "",
+    "'due' (YYYY-MM-DD) also places the row on the calendar. Omit it for",
+    "open-ended items."
+  ],
+  "da": [
+    { "id": "s1", "title": "[Data Analysis] Class survey — judgment & class data",
+      "when": "Due by 17:00 the day after Session 1 · ungraded",
+      "tag": "Ungraded", "due": "2026-09-01", "time": "17:00" }
+  ],
+  "mkt": [
+    { "id": "mk4", "title": "Segmentation exercise spreadsheet",
+      "when": "Before the targeting session", "tag": "Prep", "due": "2026-09-09" },
+    { "id": "mk5", "title": "Read: Finding the Right Job for Your Product",
+      "when": "Christensen, Anthony, Berstell and Nitterhouse · Sessions 04–07",
+      "tag": "Reading", "due": "2026-09-11" },
+    { "id": "mk2", "title": "Bring your laptops to the session",
+      "when": "Posted 5 Sep at 17:32 · the one session laptops are allowed",
+      "tag": "Notice" },
+    { "id": "mk3", "title": "Schedule change — session timing",
+      "when": "Posted 8 Sep at 16:44", "tag": "Notice" }
+  ],
+  "fa": [
+    { "id": "fa2", "title": "Practice set — the three statements",
+      "when": "Ongoing", "tag": "Practice" }
+  ]
+}

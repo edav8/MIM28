@@ -36,6 +36,33 @@ Then check, commit and push:
 cd ~/Documents/GitHub/mim28 && python3 tools/check_content.py
 ```
 
+## Keeping the assignment lists right
+
+The lists are generated from the INSEAD command centre, whose `obligations/`
+files come from the Canvas ICS feed. Do not hand-edit them in `index.html`:
+
+```bash
+python3 tools/sync_todos.py --dry-run   # show what would change
+python3 tools/sync_todos.py             # rewrite the three lists
+```
+
+It reads `~/Desktop/INSEAD CLAUDE REPO/obligations` (override with `--dir`), takes
+only the `dsc` / `mkt` / `acc` namespaces, and drops anything the command centre
+marks done or not-applicable. Ids come from the obligation filename, so they never
+drift.
+
+Rows that are not Canvas obligations — readings, notices, case prep — live in
+`tools/manual-todos.json` and are merged in. The generator never touches them.
+
+This is a local step: the GitHub workflow cannot see the command centre, so run it
+here and commit the result.
+
+### Ticked assignments
+
+A ticked assignment leaves the to-do list entirely and stays on the calendar, struck
+through. Clicking it there unticks it — that is the only way back, since the row is
+gone from the list.
+
 ## Updating without losing anyone's progress
 
 Ticked assignments, drill scores and mistake history live in the reader's browser,

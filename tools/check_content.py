@@ -383,14 +383,19 @@ def check_memory(name: str, html: str, body_src: str) -> None:
     old_body = script_body(prev) if "data-dc-script" in prev else ""
     if not old_body:
         return
+    # An id that disappears orphans whatever tick was on it: the row is gone, so
+    # nothing shows up wrong -- but if the row comes BACK later under a new id it
+    # returns unticked. That is worth saying and not worth failing over, because
+    # sync_todos.py legitimately drops assignments the command centre reports as
+    # done. Reusing one id for a different assignment is the corrupting case, and
+    # that shows up as a duplicate, which is an error above.
     old_ids = todo_ids(old_body, fields)
     for f, old in old_ids.items():
         gone = [i for i in old if i not in ids.get(f, [])]
         if gone:
-            err(f"[{name}] assignment id(s) removed or renumbered in `{f}`: "
-                f"{', '.join(gone)}. Saved ticks are keyed by id -- keep the id and edit "
-                "the title instead, or completed assignments come back as unticked and "
-                "the wrong rows show as done.")
+            warn(f"[{name}] assignment id(s) no longer in `{f}`: {', '.join(gone)}. "
+                 "Any tick on them is orphaned. Fine if the assignment is genuinely "
+                 "finished or gone; if you were renaming one, keep its id instead.")
 
 
 def main() -> int:
