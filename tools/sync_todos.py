@@ -50,9 +50,15 @@ FIELD = {"da": "daTodo", "mkt": "mktTodo", "fa": "faTodo"}
 # statuses that still represent something to do
 LIVE = {"open", "unanswered", "expired"}
 
-# Already submitted. These leave the to-do list but stay on the calendar, struck
-# through -- the same treatment a tick gives, so finished work is still visible
-# where you look for it rather than vanishing.
+# Already submitted, according to YOUR Canvas account.
+#
+# This is personal state and by default it is NOT published. The site is shared,
+# and a submission flag baked into the file would tell every reader that they had
+# handed in work they have not touched -- their own ticks are the only thing that
+# can honestly say otherwise. So a shared build lists these as ordinary
+# deadlines and each reader ticks their own.
+#
+# --personal re-includes them, for a build only you will read.
 DONE = {"done"}
 
 # hand-written ids that already exist in the page, mapped onto the obligation
@@ -110,8 +116,9 @@ def js(s: str) -> str:
     return "'" + s.replace("\\", "\\\\").replace("'", "\\'") + "'"
 
 
-def collect(obligations: pathlib.Path, today: dt.date):
+def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
     buckets = {k: [] for k in FIELD}
+    submitted = []
     skipped = 0
     for f in sorted(obligations.glob("*.md")):
         fm = frontmatter(f)
@@ -132,7 +139,7 @@ def collect(obligations: pathlib.Path, today: dt.date):
             "title": clean_title(fm.get("title", stem)),
             "due": date,
             "time": time,
-            "done": status in DONE,
+            "done": personal and status in DONE,
         }
         if date:
             d = dt.date.fromisoformat(date)
@@ -142,6 +149,12 @@ def collect(obligations: pathlib.Path, today: dt.date):
             if entry["done"]:
                 entry["when"] = when + " · submitted"
                 entry["tag"] = "Done"
+            elif status in DONE:
+                # finished by you, but this build is shared: show it as a plain
+                # deadline and let each reader tick their own
+                entry["when"] = when
+                entry["tag"] = "Overdue" if d < today else "Due"
+                submitted.append(entry["title"])
             else:
                 entry["when"] = when + (" · overdue" if d < today else "")
                 entry["tag"] = "Overdue" if d < today else "Due"
@@ -152,7 +165,7 @@ def collect(obligations: pathlib.Path, today: dt.date):
             entry["tag"] = "Undated"
             entry["_sort"] = "9999"
         buckets[course].append(entry)
-    return buckets, skipped
+    return buckets, skipped, submitted
 
 
 def render(entries: list) -> str:
@@ -205,6 +218,10 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dir", type=pathlib.Path, default=DEFAULT_OBLIGATIONS)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--personal", action="store_true",
+                    help="bake YOUR Canvas submission state into the page. Do not use "
+                         "for the shared site: it marks work done for readers who have "
+                         "not done it.")
     a = ap.parse_args()
 
     if not a.dir.is_dir():
@@ -213,7 +230,7 @@ def main() -> int:
         return 1
 
     today = dt.date.today()
-    buckets, skipped = collect(a.dir, today)
+    buckets, skipped, submitted = collect(a.dir, today, personal=a.personal)
 
     manual = json.loads(MANUAL.read_text(encoding="utf-8")) if MANUAL.exists() else {}
     for course, items in manual.items():
@@ -244,6 +261,12 @@ def main() -> int:
                 html = PAGE.read_text(encoding="utf-8")
 
     print(f"\n{skipped} obligation(s) skipped as not applicable or stale.")
+    if submitted:
+        print(f"\n{len(submitted)} assignment(s) Canvas says YOU submitted are listed as "
+              "ordinary deadlines,\nbecause this build is shared. Tick them once in your "
+              "own browser and the tick sticks:")
+        for t in submitted:
+            print(f"  · {t}")
     if a.dry_run:
         print("dry run — nothing written.")
     elif changed:
