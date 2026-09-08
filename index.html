@@ -758,6 +758,17 @@ input, button, select { font: inherit; }
                 </button>
               </sc-for>
             </div>
+            <div style="display:flex; gap:10px; margin-top:14px; align-items:center; flex-wrap:wrap">
+              <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ false }}">
+                <button type="button" sc-camel-on-click="{{ toggleHint }}" style="{{ btnGhost }}">Hint</button>
+              </sc-if>
+              <sc-if value="{{ canSkip }}" hint-placeholder-val="{{ false }}">
+                <button type="button" sc-camel-on-click="{{ skipQ }}" style="{{ btnGhost }}">Skip</button>
+              </sc-if>
+            </div>
+            <sc-if value="{{ hintOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:14px; border-left:3px solid var(--acc); padding:8px 0 8px 14px; font-size:15px; color:var(--soft); max-width:60ch; text-wrap:pretty">{{ hintText }}</div>
+            </sc-if>
           </sc-if>
 
           <sc-if value="{{ q.isNum }}" hint-placeholder-val="{{ false }}">
