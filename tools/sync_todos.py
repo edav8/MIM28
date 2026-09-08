@@ -46,7 +46,13 @@ DEFAULT_OBLIGATIONS = pathlib.Path.home() / "Desktop" / "INSEAD CLAUDE REPO" / "
 
 # namespace in the obligation -> the hub's course field prefix
 COURSE = {"dsc": "da", "mkt": "mkt", "acc": "fa"}
-FIELD = {"da": "daTodo", "mkt": "mktTodo", "fa": "faTodo"}
+FIELD = {"da": "daTodo", "mkt": "mktTodo", "fa": "faTodo", "other": "otherTodo"}
+
+# Everything the command centre tracks that is not one of the three courses:
+# careers and consulting prep, the community challenge, clubs, leadership,
+# immigration. These have deadlines like any other and were invisible here.
+OTHER_LABEL = {"cdc": "Careers", "co-cdc": "Careers", "clubs": "Clubs",
+               "lead": "Leadership", "life": "Admin", "mim28": "Programme"}
 
 # statuses that still represent something to do
 LIVE = {"open", "unanswered", "expired"}
@@ -120,13 +126,17 @@ def js(s: str) -> str:
 def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
     buckets = {k: [] for k in FIELD}
     submitted = []
+    skipped_done = []
     skipped = 0
     for f in sorted(obligations.glob("*.md")):
         fm = frontmatter(f)
         ns = fm.get("namespace", "")
         course = COURSE.get(ns)
         if not course:
-            continue
+            if ns in OTHER_LABEL:
+                course = "other"
+            else:
+                continue
         if fm.get("stale", "").lower() == "true":
             continue
         status = fm.get("status", "open")
@@ -136,6 +146,7 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
         stem = f.stem
         date, time = parse_local(fm)
         entry = {
+            "source": OTHER_LABEL.get(ns, ""),
             "id": ID_ALIASES.get(stem, stem),
             "title": clean_title(fm.get("title", stem)),
             "due": date,
@@ -151,10 +162,15 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
                 entry["when"] = when + " · submitted"
                 entry["tag"] = "Done"
             elif status in DONE:
-                # finished by you, but this build is shared: show it as a plain
-                # deadline and let each reader tick their own
+                # Finished by you. A shared build cannot mark it done for everyone,
+                # so it appears as a plain deadline -- but only while it is still
+                # ahead. Work you finished weeks ago would otherwise turn up as
+                # everyone's overdue backlog, which is noise, not information.
+                if d < today:
+                    skipped_done.append(entry["title"])
+                    continue
                 entry["when"] = when
-                entry["tag"] = "Overdue" if d < today else "Due"
+                entry["tag"] = "Due"
                 submitted.append(entry["title"])
             else:
                 entry["when"] = when + (" · overdue" if d < today else "")
@@ -166,7 +182,7 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
             entry["tag"] = "Undated"
             entry["_sort"] = "9999"
         buckets[course].append(entry)
-    return buckets, skipped, submitted
+    return buckets, skipped, submitted, skipped_done
 
 
 def render(entries: list) -> str:
@@ -182,6 +198,8 @@ def render(entries: list) -> str:
             parts.append(f"time: {js(e['time'])}")
         if e.get("done"):
             parts.append("done: true")
+        if e.get("source"):
+            parts.append(f"source: {js(e['source'])}")
         rows.append("      { " + ", ".join(parts) + " }")
     return "[\n" + ",\n".join(rows) + "\n    ]"
 
@@ -231,7 +249,7 @@ def main() -> int:
         return 1
 
     today = dt.date.today()
-    buckets, skipped, submitted = collect(a.dir, today, personal=a.personal)
+    buckets, skipped, submitted, skipped_done = collect(a.dir, today, personal=a.personal)
 
     manual = json.loads(MANUAL.read_text(encoding="utf-8")) if MANUAL.exists() else {}
     for course, items in manual.items():
@@ -277,6 +295,8 @@ def main() -> int:
             print("warning: no `todo` field found in accounting.html")
 
     print(f"\n{skipped} obligation(s) skipped as not applicable or stale.")
+    if skipped_done:
+        print(f"{len(skipped_done)} finished and past their deadline, so not listed.")
     if submitted:
         print(f"\n{len(submitted)} assignment(s) Canvas says YOU submitted are listed as "
               "ordinary deadlines,\nbecause this build is shared. Tick them once in your "
