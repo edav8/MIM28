@@ -437,8 +437,8 @@ input, button, select { font: inherit; }
 
       <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px; margin-top:56px; align-items:start">
         <div>
-          <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Everything due</div>
-          <div style="max-height:560px; overflow-y:auto; overscroll-behavior:contain" tabindex="0" aria-label="Everything due"><sc-for list="{{ allTodo }}" as="t" hint-placeholder-count="6">
+          <div style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; padding-bottom:10px; border-bottom:2px solid var(--ink)"><div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase">Everything due</div><div style="font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums">{{ dueCount }}</div><div style="margin-left:auto; display:flex; gap:6px"><sc-for list="{{ dueRanges }}" as="r" hint-placeholder-count="3"><button type="button" sc-camel-on-click="{{ r.onPick }}" style="{{ r.style }}">{{ r.label }}</button></sc-for></div></div>
+          <sc-if value="{{ dueEmpty }}"><div style="padding:22px 0; color:var(--muted); font-size:14px">Nothing due in this window. Try <em>This month</em> or <em>Everything</em>.</div></sc-if><div style="max-height:560px; overflow-y:auto; overscroll-behavior:contain" tabindex="0" aria-label="Everything due"><sc-for list="{{ allTodo }}" as="t" hint-placeholder-count="6">
             <div style="padding:14px 0; border-bottom:1px solid var(--line); display:flex; gap:14px; align-items:flex-start">
               <button type="button" sc-camel-on-click="{{ t.onToggle }}" title="Mark done" style="{{ t.boxStyle }}">{{ t.mark }}</button>
               <div style="flex:1; min-width:0">
@@ -922,7 +922,7 @@ input, button, select { font: inherit; }
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;startCourse&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hub&quot;,&quot;da&quot;,&quot;mkt&quot;,&quot;fa&quot;],&quot;default&quot;:&quot;hub&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Start&quot;},&quot;drillOrder&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;fixed&quot;,&quot;shuffled&quot;],&quot;default&quot;:&quot;fixed&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Drills&quot;}}">
 class Component extends DCLogic {
-  state = { course: null, view: 'home', qi: 0, answers: {}, order: [], typed: '', missed: {}, done: {}, best: {}, exInp: {}, exUi: {}, exSeed: 1, calcOpen: false, calcDisp: '0', calcAcc: null, calcOp: null, calcFresh: true, tab: 'binom', tp: { n: '5' }, todoDone: {}, last: {} };
+  state = { course: null, view: 'home', qi: 0, answers: {}, order: [], typed: '', missed: {}, done: {}, best: {}, exInp: {}, exUi: {}, exSeed: 1, calcOpen: false, calcDisp: '0', calcAcc: null, calcOp: null, calcFresh: true, tab: 'binom', tp: { n: '5' }, todoDone: {}, last: {}, dueRange: 'week' };
 
   themes = {
     hub: '--ground:#101a17; --panel:#17251f; --line:#3a4f45; --ink:#eef3f0; --soft:#cfdbd4; --muted:#a2b3aa; --faint:#6f8479; --acc:#2f9d78; --accSoft:#7fd3b4; --onAcc:#08211a; --good:#6fd6ab; --bad:#ff8b80;',
@@ -1760,7 +1760,40 @@ class Component extends DCLogic {
       });
       let all = [];
       ['da', 'mkt', 'fa'].forEach(k => { all = all.concat(this.todoRows(k)); });
-      v.allTodo = all;
+
+      // Thirty-odd deadlines at once is not a to-do list, it is a syllabus. Show
+      // the week by default and let the month be asked for. Undated rows
+      // (readings, notices) have no week to fall in, so they always show, and
+      // anything overdue stays up until it is ticked.
+      const range = this.state.dueRange || 'week';
+      const now = new Date();
+      const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      let cutoff = null;
+      if (range === 'week') { cutoff = new Date(midnight); cutoff.setDate(cutoff.getDate() + 7); }
+      else if (range === 'month') { cutoff = new Date(midnight); cutoff.setMonth(cutoff.getMonth() + 1); }
+      const shown = all.filter(t => {
+        if (!t.due || !cutoff) return true;
+        const q = String(t.due).split('-');
+        return new Date(+q[0], +q[1] - 1, +q[2]) < cutoff;
+      });
+      v.allTodo = shown;
+      v.dueEmpty = shown.length === 0;
+      v.dueCount = shown.length === all.length
+        ? String(all.length)
+        : shown.length + ' of ' + all.length;
+      v.dueRanges = [
+        { key: 'week', label: 'This week' },
+        { key: 'month', label: 'This month' },
+        { key: 'all', label: 'Everything' }
+      ].map(r => ({
+        label: r.label,
+        onPick: () => this.setState({ dueRange: r.key }),
+        style: 'font:inherit; font-size:11px; letter-spacing:0.06em; text-transform:uppercase;'
+          + ' padding:5px 10px; cursor:pointer; border:1px solid '
+          + (range === r.key ? 'var(--acc)' : 'var(--line)') + '; background:'
+          + (range === r.key ? 'var(--acc)' : 'transparent') + '; color:'
+          + (range === r.key ? 'var(--ground)' : 'var(--muted)') + ';'
+      }));
       const cal = this.calendarGrid();
       v.calTitle = this.monthLabel(cal.y, cal.m);
       v.calDayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
