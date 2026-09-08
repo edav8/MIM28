@@ -1,6 +1,10 @@
 # MIM'28 study hub
 
-Live at **https://edav8.github.io/mim28/**
+Live at **https://edav8.github.io/MIM28/**
+
+The repository is named `MIM28` in capitals and the Pages URL is case-sensitive, so
+`/mim28/` will 404. The local folder is lowercase (`~/Documents/GitHub/mim28`); that
+is only a folder name and does not affect the address.
 
 Three courses in one place, built from the class handouts.
 
