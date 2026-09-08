@@ -57,6 +57,14 @@ OTHER_LABEL = {"cdc": "Careers", "co-cdc": "Careers", "clubs": "Clubs",
 # statuses that still represent something to do
 LIVE = {"open", "unanswered", "expired"}
 
+# Where an obligation may come from for it to be published.
+#
+# This site is shared. Anything the command centre learned from a mailbox is
+# private correspondence -- who wrote, what was sitting unread in Junk -- and
+# it does not go on a public page no matter which namespace it landed in.
+# Canvas and the calendar feed are course material and are fine.
+PUBLISHABLE_SOURCES = {"ics", "canvas", "doc", ""}
+
 # Already submitted, according to YOUR Canvas account.
 #
 # This is personal state and by default it is NOT published. The site is shared,
@@ -127,6 +135,7 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
     buckets = {k: [] for k in FIELD}
     submitted = []
     skipped_done = []
+    private = []
     skipped = 0
     for f in sorted(obligations.glob("*.md")):
         fm = frontmatter(f)
@@ -139,6 +148,19 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
                 continue
         if fm.get("stale", "").lower() == "true":
             continue
+        src = fm.get("source", "").strip().lower()
+        # found_only_in is usually harmless ("canvas api"); it disqualifies only
+        # when it says the item exists nowhere but a mailbox
+        only_in = fm.get("found_only_in", "").strip().lower()
+        found_by = fm.get("found_by", "").strip().lower()
+        mail_words = ("email", "mail", "outlook", "junk", "inbox", "gmail")
+        from_mail = (src not in PUBLISHABLE_SOURCES
+                     or any(w in only_in for w in mail_words)
+                     or any(w in found_by for w in mail_words))
+        if from_mail:
+            private.append((fm.get("title", stem)[:70], src or "unknown"))
+            continue
+
         status = fm.get("status", "open")
         if status not in LIVE and status not in DONE:
             skipped += 1          # not-applicable or stale: never happened, show nothing
@@ -173,8 +195,10 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
                 entry["tag"] = "Due"
                 submitted.append(entry["title"])
             else:
-                entry["when"] = when + (" · overdue" if d < today else "")
-                entry["tag"] = "Overdue" if d < today else "Due"
+                # No "overdue" baked in. It is stale the day after it is written,
+                # and for a shared page lateness is the reader's, not the author's.
+                entry["when"] = when
+                entry["tag"] = "Due"
             entry["_sort"] = date + (time or "23:59")
         else:
             rule = fm.get("due_rule") or "No date in Canvas"
@@ -182,7 +206,7 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
             entry["tag"] = "Undated"
             entry["_sort"] = "9999"
         buckets[course].append(entry)
-    return buckets, skipped, submitted, skipped_done
+    return buckets, skipped, submitted, skipped_done, private
 
 
 def render(entries: list) -> str:
@@ -249,7 +273,7 @@ def main() -> int:
         return 1
 
     today = dt.date.today()
-    buckets, skipped, submitted, skipped_done = collect(a.dir, today, personal=a.personal)
+    buckets, skipped, submitted, skipped_done, private = collect(a.dir, today, personal=a.personal)
 
     manual = json.loads(MANUAL.read_text(encoding="utf-8")) if MANUAL.exists() else {}
     for course, items in manual.items():
@@ -297,6 +321,11 @@ def main() -> int:
     print(f"\n{skipped} obligation(s) skipped as not applicable or stale.")
     if skipped_done:
         print(f"{len(skipped_done)} finished and past their deadline, so not listed.")
+    if private:
+        print(f"\n{len(private)} obligation(s) held back as private — they came from a "
+              "mailbox, and this site is shared:")
+        for t, sname in private:
+            print(f"  · [{sname}] {t}")
     if submitted:
         print(f"\n{len(submitted)} assignment(s) Canvas says YOU submitted are listed as "
               "ordinary deadlines,\nbecause this build is shared. Tick them once in your "
