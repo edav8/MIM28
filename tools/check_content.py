@@ -360,6 +360,23 @@ def prev_version(name: str) -> str | None:
         return None
 
 
+def check_no_personal_state(name: str, body_src: str) -> None:
+    """The published build must not carry one person's submission state.
+
+    sync_todos writes `done: true` only under --personal, for a build nobody
+    else reads. It reached the shared pages once anyway, through a variable in
+    the generator that shadowed the flag controlling it -- 34 rows marked done
+    for every reader. A generator bug should not be the last line of defence,
+    so the page itself is checked.
+    """
+    n = len(re.findall(r"\bdone:\s*true\b", body_src))
+    if n:
+        err(f"[{name}] {n} assignment(s) ship with `done: true`. That is one person's "
+            "Canvas submission state and this site is shared: every reader would be "
+            "told they had handed in work they have not touched. Re-run "
+            "tools/sync_todos.py without --personal.")
+
+
 def check_memory(name: str, html: str, body_src: str) -> None:
     fields = TODO_FIELDS.get(name, ())
     ids = todo_ids(body_src, fields)
@@ -444,6 +461,7 @@ def main() -> int:
         if not src:
             continue
         check_memory(name, html, src)
+        check_no_personal_state(name, src)
         mcq_length_bias(src, name)
         for op, oi in scan(src):
             err(f"[{name}] unclosed '{op}' opened at line {src.count(chr(10), 0, oi) + 1} "

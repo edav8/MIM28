@@ -166,7 +166,7 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
     submitted = []
     skipped_done = []
     private = []
-    personal = []
+    restricted = []
     blocked = private_ids()
     skipped = 0
     for f in sorted(obligations.glob("*.md")):
@@ -183,7 +183,7 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
         stem = f.stem
         title_raw = fm.get("title", stem)
         if is_private(title_raw, stem, blocked):
-            personal.append(title_raw[:72])
+            restricted.append(title_raw[:72])
             continue
 
         src = fm.get("source", "").strip().lower()
@@ -243,7 +243,7 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
             entry["tag"] = "Undated"
             entry["_sort"] = "9999"
         buckets[course].append(entry)
-    return buckets, skipped, submitted, skipped_done, private, personal
+    return buckets, skipped, submitted, skipped_done, private, restricted
 
 
 def render(entries: list) -> str:
@@ -310,7 +310,7 @@ def main() -> int:
         return 1
 
     today = dt.date.today()
-    buckets, skipped, submitted, skipped_done, private, personal = collect(a.dir, today, personal=a.personal)
+    buckets, skipped, submitted, skipped_done, private, restricted = collect(a.dir, today, personal=a.personal)
 
     manual = json.loads(MANUAL.read_text(encoding="utf-8")) if MANUAL.exists() else {}
     for course, items in manual.items():
@@ -358,10 +358,10 @@ def main() -> int:
     print(f"\n{skipped} obligation(s) skipped as not applicable or stale.")
     if skipped_done:
         print(f"{len(skipped_done)} finished and past their deadline, so not listed.")
-    if personal:
-        print(f"\n{len(personal)} obligation(s) held back as yours alone — a retake or a "
+    if restricted:
+        print(f"\n{len(restricted)} obligation(s) held back as yours alone — a retake or a "
               "named group, not the cohort's work:")
-        for t in personal:
+        for t in restricted:
             print(f"  · {t}")
     if private:
         print(f"\n{len(private)} obligation(s) held back as private — they came from a "
