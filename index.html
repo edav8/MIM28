@@ -1669,6 +1669,7 @@ class Component extends DCLogic {
     return (d.todo || []).filter(t => !td[t.id] && !t.done).map(t => {
       const isDone = !!td[t.id];
       return {
+        due: t.due,          // carried through so the week/month filter can see it
         title: t.title, when: t.when, tag: isDone ? 'Done' : t.tag,
         tagColor: isDone ? 'var(--good)' : 'var(--accSoft)',
         course: this.courses[courseKey].short,
