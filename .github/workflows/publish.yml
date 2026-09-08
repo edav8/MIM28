@@ -1,0 +1,61 @@
+name: Check and publish
+
+# Every push to main republishes the trainer — but only if it still parses and
+# its content fields still agree. Pages is deployed from this workflow rather
+# than straight from the branch, so a broken edit is blocked instead of shipped.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2          # so the checker can compare against the previous commit
+
+      - name: Structure and content checks
+        run: python3 tools/check_content.py
+
+      - name: JavaScript syntax check
+        run: node tools/check_syntax.mjs
+
+      - name: Files the page needs are present
+        run: |
+          set -e
+          for f in index.html support.js .nojekyll \
+                   accounting.html assets/ds-bundle.js \
+                   assets/archivo-latin.woff2; do
+            [ -f "$f" ] || { echo "error: missing $f"; exit 1; }
+          done
+          echo "OK — all required files present."
+
+  deploy:
+    needs: check
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

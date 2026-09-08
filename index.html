@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="support.js"></script>
+<title>MIM’28 Study Hub</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>/* Modernist — design-system tokens and component classes. This file is the source of truth for the system's look; retune it here and see readme.md. */
+/* vietnamese */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/archivo-vietnamese.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/archivo-latin-ext.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/archivo-latin.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/archivo-vietnamese.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/archivo-latin-ext.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/archivo-latin.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/archivo-vietnamese.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/archivo-latin-ext.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/archivo-latin.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+:root {
+  --color-bg: #f3f2f2;
+  --color-surface: #eae9e9;
+  --color-text: #201e1d;
+  --color-accent: #ec3013;
+  --color-accent-2: #e15b47;
+  --color-divider: color-mix(in srgb, #201e1d 40%, transparent);
+
+  /* Tonal ramps — generated in OKLCH on one shared lightness scale, so the
+     same step of any role matches the others in visual value. */
+  --color-neutral-100: #f8f4f4;
+  --color-neutral-200: #eae7e7;
+  --color-neutral-300: #d7d3d3;
+  --color-neutral-400: #bab6b6;
+  --color-neutral-500: #9b9797;
+  --color-neutral-600: #7d7979;
+  --color-neutral-700: #605d5d;
+  --color-neutral-800: #444141;
+  --color-neutral-900: #2d2b2b;
+
+  --color-accent-100: #fff2ef;
+  --color-accent-200: #ffe0d9;
+  --color-accent-300: #ffc4b8;
+  --color-accent-400: #ff9783;
+  --color-accent-500: #ff563c;
+  --color-accent-600: #dd2b0f;
+  --color-accent-700: #ae1800;
+  --color-accent-800: #7c1405;
+  --color-accent-900: #4d170e;
+
+  --color-accent-2-100: #fff2ef;
+  --color-accent-2-200: #ffe0da;
+  --color-accent-2-300: #ffc4b9;
+  --color-accent-2-400: #ff9784;
+  --color-accent-2-500: #ef6853;
+  --color-accent-2-600: #c94b39;
+  --color-accent-2-700: #9e3526;
+  --color-accent-2-800: #71261b;
+  --color-accent-2-900: #471d16;
+
+  --font-heading: "Archivo", system-ui, sans-serif;
+  --font-heading-weight: 800;
+  --font-body: "Archivo", system-ui, sans-serif;
+
+  --space-1: 4.0px;
+  --space-2: 8.0px;
+  --space-3: 12.0px;
+  --space-4: 16.0px;
+  --space-6: 24.0px;
+  --space-8: 32.0px;
+
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+
+  /* Elevation — derived from the ground: soft ink-tinted shadows on a
+     light theme, a hairline edge + ambient darkness on a dark one. */
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+
+.grayscale{filter:grayscale(1) contrast(1.08)}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Components — built with the tokens above. Plain CSS
+   on plain HTML: no JavaScript, no build step. Each class is documented in
+   readme.md and demonstrated in foundations/ and components/.
+   ══════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2);
+}
+h1 { font-size: 42px; }
+h2 { font-size: 32px; }
+h3 { font-size: 25px; }
+h4 { font-size: 20px; }
+h5 { font-size: 16px; }
+h6 { font-size: 13px; }
+h6 { letter-spacing: 0.08em; text-transform: uppercase; }
+p { margin: 0 0 var(--space-3); }
+a { color: var(--color-accent); text-underline-offset: 3px; }
+img { display: block; max-width: 100%; }
+figure { margin: 0; }
+figcaption {
+  font-size: 11px; margin-top: var(--space-1);
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+
+/* — rules — */
+.hr {
+  height: 2px; border: 0; margin: var(--space-4) 0;
+  background: var(--color-divider);
+}
+
+/* — buttons — */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; text-decoration: none;
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 14px; line-height: 1.2; color: var(--color-text); /* matches the .input's 14px —
+     the pair sits side by side in sign-up rows */
+  background: transparent; border: 1px solid transparent;
+  padding: var(--space-2) calc(var(--space-3) * 1.2);
+  border-radius: var(--radius-md);
+}
+.btn svg { display: block; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { background: var(--color-accent); color: var(--color-bg); }
+.btn-primary:hover { background: var(--color-accent-600); }
+.btn-primary:active { background: var(--color-accent-700); }
+.btn-secondary { border-color: var(--color-divider); }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
+.btn-ghost { color: var(--color-accent); padding-inline: var(--space-1); }
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.btn-ghost:active { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+.btn-icon { width: 36px; height: 36px; padding: 0; }
+.btn-block { width: 100%; margin-top: var(--space-2); justify-content: flex-start; text-align: left; }
+
+/* — forms — */
+.field > label {
+  display: block; font-size: 12px; margin-bottom: 5px;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+.input {
+  width: 100%; min-height: 36px; padding: 6px 10px; font: inherit;
+  font-size: 14px; color: var(--color-text); caret-color: var(--color-accent);
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+.input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
+textarea.input { min-height: 90px; resize: vertical; }
+.radio { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; }
+.radio input, .seg-opt input {
+  position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;
+}
+.radio .dot {
+  width: 16px; height: 16px; flex: none; border-radius: 50%;
+  border: 1.5px solid var(--color-divider);
+}
+.radio:hover .dot { border-color: var(--color-accent); }
+.radio input:checked + .dot {
+  border-color: var(--color-accent); background: var(--color-accent);
+  box-shadow: inset 0 0 0 4px var(--color-bg);
+}
+.radio input:focus-visible + .dot { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.seg {
+  display: inline-flex; overflow: hidden;
+  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+}
+.seg-opt {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; font-size: 13px; cursor: pointer;
+}
+.seg-opt + .seg-opt { border-left: 1px solid var(--color-divider); }
+.seg-opt:has(input:checked) { background: var(--color-accent); color: var(--color-bg); }
+.seg-opt:not(:has(input:checked)):hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.seg-opt:has(input:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: -2px; }
+
+/* — cards — */
+.card {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  padding: var(--space-3); border-radius: var(--radius-md); background: var(--color-surface);
+}
+.card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+.card-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 17px; line-height: 1.2;
+}
+.card-body { margin: 0; font-size: 13px; opacity: 0.8; flex: 1; }
+.card-meta {
+  display: flex; align-items: center; gap: 6px; font-size: 11px;
+  color: color-mix(in srgb, var(--color-text) 50%, transparent);
+}
+.elev-sm { box-shadow: var(--shadow-sm); }
+.elev-md { box-shadow: var(--shadow-md); }
+.elev-lg { box-shadow: var(--shadow-lg); }
+
+/* — tags — */
+.tag {
+  display: inline-flex; align-items: center; font-size: 11px;
+  letter-spacing: 0.02em; padding: 3px 10px;
+  border-radius: calc(var(--radius-md) * 0.75);
+}
+.tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
+.tag-accent-2 { background: var(--color-accent-2-100); color: var(--color-accent-2-800); }
+.tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-800); }
+.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
+
+/* — navigation — */
+.nav {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 2px solid var(--color-divider);
+}
+.nav-brand {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 18px; margin-right: auto;
+}
+.nav a { color: inherit; text-decoration: none; font-size: 14px; }
+.nav a:hover, .nav a[aria-current='page'] { color: var(--color-accent); }
+
+/* — tables — */
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th {
+  text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  padding: var(--space-2); border-bottom: 2px solid var(--color-divider);
+}
+.table td {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--color-divider);
+}
+.table tbody tr:hover { background: color-mix(in srgb, var(--color-text) 4%, transparent); }
+
+/* — dialog — */
+.dialog-backdrop {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-neutral-900) 50%, transparent);
+}
+.dialog {
+  width: min(440px, 100%); display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-4); border-radius: var(--radius-lg);
+  background: var(--color-surface); box-shadow: var(--shadow-lg);
+}
+.dialog-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: 20px;
+}
+.dialog-body { font-size: 14px; opacity: 0.85; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-2); }
+
+</style>
+<script src="assets/ds-bundle.js"></script>
+<style>
+:root {
+  --ground: #101a17;
+  --panel: #17251f;
+  --line: #3a4f45;
+  --ink: #eef3f0;
+  --soft: #cfdbd4;
+  --muted: #a2b3aa;
+  --faint: #6f8479;
+  --acc: #2f9d78;
+  --accSoft: #7fd3b4;
+  --onAcc: #08211a;
+  --good: #6fd6ab;
+  --bad: #ff8b80;
+  --font-h: var(--font-heading);
+}
+body { margin: 0; background: #101a17; }
+a { color: var(--accSoft); text-decoration: none; border-bottom: 1px solid currentColor; }
+a:hover { color: var(--ink); }
+input, button, select { font: inherit; }
+::selection { background: var(--line); }
+:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+</style>
+
+</helmet>
+
+<div style="{{ theme }}">
+<div style="display:flex; align-items:stretch; min-height:100vh; background:var(--ground); color:var(--ink); font-family:var(--font-body); font-size:15px; line-height:1.5">
+
+  <!-- HUB -->
+  <sc-if value="{{ isHub }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:1; min-width:0; padding:56px 48px 80px; max-width:1240px">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:32px; flex-wrap:wrap">
+        <div>
+          <img src="assets/image-4ceca88f.png" alt="MIM28" style="height:64px; width:auto; display:block; border:2px solid var(--line)">
+          <div style="font-family:var(--font-h); font-size:52px; font-weight:800; letter-spacing:-0.035em; line-height:1.0; margin-top:24px">Study hub</div>
+          <div style="margin-top:14px; font-size:18px; max-width:56ch; color:var(--soft); text-wrap:pretty">Three courses, one place to work through them. Lessons, drills and exercises built from the class handouts.</div>
+        </div>
+        <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted); text-align:right">MIM’28<br>Autumn 2026</div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); margin-top:48px; border-top:2px solid var(--line); border-left:2px solid var(--line)">
+        <sc-for list="{{ courseCards }}" as="c" hint-placeholder-count="3">
+          <div sc-camel-on-click="{{ c.onClick }}" style="{{ c.style }}">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:{{ c.acc }}">{{ c.code }}</div>
+              <div style="width:74px; height:52px; flex:none">{{ c.mascot }}</div>
+            </div>
+            <div style="font-family:var(--font-h); font-size:30px; font-weight:800; letter-spacing:-0.025em; line-height:1.08; margin-top:14px">{{ c.title }}</div>
+            <div style="font-size:15px; color:var(--soft); margin-top:10px; text-wrap:pretty">{{ c.blurb }}</div>
+            <div style="font-size:12px; letter-spacing:0.06em; text-transform:uppercase; margin-top:20px; color:{{ c.acc }}">{{ c.stat }} →</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:56px">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:20px; padding-bottom:10px; border-bottom:2px solid var(--ink); flex-wrap:wrap">
+          <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase">Calendar · {{ calTitle }}</div>
+          <div style="display:flex; gap:8px">
+            <button type="button" sc-camel-on-click="{{ calPrev }}" style="{{ btnGhost }}">← Previous</button>
+            <button type="button" sc-camel-on-click="{{ calNext }}" style="{{ btnGhost }}">Next →</button>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); margin-top:16px; border-top:1px solid var(--line); border-left:1px solid var(--line)">
+          <sc-for list="{{ calDayNames }}" as="dn" hint-placeholder-count="7">
+            <div style="padding:8px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted)">{{ dn }}</div>
+          </sc-for>
+          <sc-for list="{{ calCells }}" as="c" hint-placeholder-count="35">
+            <div style="{{ c.style }}">
+              <div style="{{ c.numStyle }}">{{ c.num }}</div>
+              <sc-for list="{{ c.events }}" as="e" hint-placeholder-count="1">
+                <div style="{{ e.style }}">{{ e.label }}</div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top:10px; display:flex; gap:20px; font-size:12px; color:var(--muted); flex-wrap:wrap">
+          <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#5b9cff; display:inline-block"></span>Data Analysis</span>
+          <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#a97cf5; display:inline-block"></span>Marketing</span>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); gap:48px; margin-top:56px; align-items:start">
+        <div>
+          <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Everything due</div>
+          <sc-for list="{{ allTodo }}" as="t" hint-placeholder-count="6">
+            <div style="padding:14px 0; border-bottom:1px solid var(--line); display:flex; gap:14px; align-items:flex-start">
+              <button type="button" sc-camel-on-click="{{ t.onToggle }}" title="Mark done" style="{{ t.boxStyle }}">{{ t.mark }}</button>
+              <div style="flex:1; min-width:0">
+                <div style="{{ t.titleStyle }}">{{ t.title }}</div>
+                <div style="font-size:12px; color:var(--muted); margin-top:2px">{{ t.when }}</div>
+              </div>
+              <div style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:{{ t.courseColor }}; flex:none">{{ t.course }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div>
+          <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Where you left off</div>
+          <sc-for list="{{ resumeCards }}" as="r" hint-placeholder-count="3">
+            <div sc-camel-on-click="{{ r.onClick }}" style="padding:14px 0; border-bottom:1px solid var(--line); cursor:pointer">
+              <div style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:{{ r.acc }}">{{ r.course }}</div>
+              <div style="font-size:15px; font-weight:600; margin-top:4px; text-wrap:pretty">{{ r.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- COURSE -->
+  <sc-if value="{{ inCourse }}" hint-placeholder-val="{{ false }}">
+    <aside style="width:292px; flex:none; border-right:2px solid var(--line); display:flex; flex-direction:column; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto; background:var(--ground)">
+
+      <div sc-camel-on-click="{{ goHub }}" title="All courses" style="padding:16px 20px; border-bottom:2px solid var(--line); cursor:pointer; font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted)" style-hover="background:var(--panel)">← All courses</div>
+
+      <div sc-camel-on-click="{{ goHome }}" style="padding:18px 20px 16px; border-bottom:2px solid var(--line); display:flex; align-items:flex-start; gap:10px; cursor:pointer" style-hover="background:var(--panel)">
+        <div style="flex:1; min-width:0">
+          <div style="font-family:var(--font-h); font-weight:800; font-size:20px; line-height:1.05; letter-spacing:-0.02em">{{ course.name }}</div>
+          <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--accSoft); margin-top:8px">{{ course.code }}</div>
+        </div>
+        <div style="width:74px; height:52px; flex:none">{{ course.mascot }}</div>
+      </div>
+
+      <button type="button" sc-camel-on-click="{{ goHome }}" style="{{ navHome }}">Dashboard</button>
+      <button type="button" sc-camel-on-click="{{ goTodo }}" style="{{ navTodo }}">To-do &amp; assignments</button>
+      <button type="button" sc-camel-on-click="{{ goPrac }}" style="{{ navPrac }}">Practice exercises</button>
+      <button type="button" sc-camel-on-click="{{ goGloss }}" style="{{ navGloss }}">{{ course.glossLabel }}</button>
+      <sc-if value="{{ course.hasTables }}" hint-placeholder-val="{{ false }}">
+        <button type="button" sc-camel-on-click="{{ goTables }}" style="{{ navTables }}">Statistical tables</button>
+      </sc-if>
+
+      <div style="padding:16px 20px 8px; font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--faint)">Sessions</div>
+      <div style="display:flex; flex-direction:column">
+        <sc-for list="{{ sessionList }}" as="s" hint-placeholder-count="8">
+          <button type="button" sc-camel-on-click="{{ s.onClick }}" style="{{ s.style }}">
+            <span style="display:flex; gap:10px; align-items:baseline">
+              <span style="font-variant-numeric:tabular-nums; opacity:0.55; font-size:12px">{{ s.num }}</span>
+              <span style="flex:1">{{ s.title }}</span>
+            </span>
+            <span style="display:block; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; margin-top:4px; padding-left:26px; color:{{ s.metaColor }}">{{ s.meta }}</span>
+          </button>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:auto; padding:16px 20px 8px; font-size:12px; color:var(--faint)">{{ course.note }}</div>
+
+      <div style="display:flex; flex-direction:column; align-items:stretch; gap:8px; padding:14px 20px; border-top:2px solid var(--line); position:sticky; bottom:0; background:var(--ground); z-index:5">
+        <sc-if value="{{ calcOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="border:2px solid var(--acc); background:var(--panel)">
+            <div style="padding:8px 10px; border-bottom:2px solid var(--line); font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted)">Calculator</div>
+            <div style="padding:10px; font-family:var(--font-h); font-size:23px; font-weight:700; text-align:right; font-variant-numeric:tabular-nums; overflow:hidden">{{ calcDisp }}</div>
+            <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1px; background:var(--line)">
+              <sc-for list="{{ calcKeys }}" as="k" hint-placeholder-count="20">
+                <button type="button" sc-camel-on-click="{{ k.onClick }}" style="{{ k.style }}">{{ k.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <button type="button" sc-camel-on-click="{{ toggleCalc }}" style="{{ calcBtn }}">{{ calcLabel }}</button>
+      </div>
+    </aside>
+
+    <main style="flex:1; min-width:0; display:flex; flex-direction:column">
+      <header style="border-bottom:2px solid var(--line); padding:18px 40px; display:flex; align-items:baseline; justify-content:space-between; gap:24px; flex-wrap:wrap">
+        <div style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accSoft)">{{ crumb }}</div>
+        <div style="font-size:12px; color:var(--muted)">{{ progressLine }}</div>
+      </header>
+
+      <!-- COURSE DASHBOARD -->
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <div style="padding:40px; max-width:1180px">
+          <div style="font-family:var(--font-h); font-size:44px; font-weight:800; letter-spacing:-0.03em; line-height:1.02">{{ course.name }}</div>
+          <div style="margin-top:12px; font-size:17px; max-width:62ch; color:var(--soft); text-wrap:pretty">{{ course.intro }}</div>
+
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:28px">
+            <button type="button" sc-camel-on-click="{{ resume }}" style="{{ btnPrimary }}">{{ resumeLabel }}</button>
+            <button type="button" sc-camel-on-click="{{ goPrac }}" style="{{ btnSecondary }}">Practice exercises</button>
+            <button type="button" sc-camel-on-click="{{ startMix }}" style="{{ btnSecondary }}">Mixed drill</button>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); margin-top:36px; border-top:2px solid var(--line); border-left:2px solid var(--line)">
+            <sc-for list="{{ stats }}" as="st" hint-placeholder-count="4">
+              <div style="padding:18px 20px; border-right:2px solid var(--line); border-bottom:2px solid var(--line)">
+                <div style="font-family:var(--font-h); font-size:34px; font-weight:800; letter-spacing:-0.02em">{{ st.v }}</div>
+                <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted); margin-top:6px">{{ st.k }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:grid; grid-template-columns:minmax(0, 1.6fr) minmax(0, 1fr); gap:40px; margin-top:44px; align-items:start">
+            <div>
+              <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Sessions</div>
+              <sc-for list="{{ sessionCards }}" as="c" hint-placeholder-count="5">
+                <div sc-camel-on-click="{{ c.onClick }}" style="padding:18px 0; border-bottom:1px solid var(--line); cursor:pointer" style-hover="background:var(--panel)">
+                  <div style="display:flex; gap:14px; align-items:baseline">
+                    <div style="font-family:var(--font-h); font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; color:var(--accSoft); flex:none; width:38px">{{ c.num }}</div>
+                    <div style="flex:1; min-width:0">
+                      <div style="font-family:var(--font-h); font-size:19px; font-weight:700; letter-spacing:-0.01em; text-wrap:pretty">{{ c.title }}</div>
+                      <div style="font-size:14px; color:var(--soft); margin-top:4px; text-wrap:pretty">{{ c.preview }}</div>
+                      <div style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:8px; color:{{ c.metaColor }}">{{ c.meta }}</div>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:32px">
+              <div>
+                <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">To do</div>
+                <sc-for list="{{ todoShort }}" as="t" hint-placeholder-count="4">
+                  <div style="padding:12px 0; border-bottom:1px solid var(--line); display:flex; gap:12px; align-items:flex-start">
+                    <button type="button" sc-camel-on-click="{{ t.onToggle }}" title="Mark done" style="{{ t.boxStyle }}">{{ t.mark }}</button>
+                    <div style="flex:1; min-width:0">
+                      <div style="{{ t.titleStyle }}">{{ t.title }}</div>
+                      <div style="font-size:12px; color:var(--muted); margin-top:2px">{{ t.when }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+                <button type="button" sc-camel-on-click="{{ goTodo }}" style="{{ btnGhostTop }}">All assignments</button>
+              </div>
+
+              <div>
+                <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Contacts</div>
+                <sc-for list="{{ contacts }}" as="p" hint-placeholder-count="2">
+                  <div style="padding:14px 0; border-bottom:1px solid var(--line)">
+                    <div style="font-family:var(--font-h); font-size:16px; font-weight:700">{{ p.name }}</div>
+                    <div style="font-size:13px; color:var(--soft)">{{ p.role }}</div>
+                    <div style="font-size:13px; margin-top:6px; color:var(--accSoft)">{{ p.mail }}</div>
+                    <div style="font-size:12px; color:var(--muted)">{{ p.where }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- TO-DO -->
+      <sc-if value="{{ isTodo }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:40px; max-width:900px">
+          <div style="font-family:var(--font-h); font-size:36px; font-weight:800; letter-spacing:-0.03em">To-do &amp; assignments</div>
+          <div style="margin-top:24px; font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">{{ course.name }}</div>
+          <sc-for list="{{ todoAll }}" as="t" hint-placeholder-count="4">
+            <div style="padding:14px 0; border-bottom:1px solid var(--line); display:flex; gap:16px; align-items:flex-start">
+              <button type="button" sc-camel-on-click="{{ t.onToggle }}" title="Mark done" style="{{ t.boxStyle }}">{{ t.mark }}</button>
+              <div style="flex:1; min-width:0">
+                <div style="{{ t.titleStyle }}">{{ t.title }}</div>
+                <div style="font-size:12px; color:var(--muted); margin-top:2px">{{ t.when }}</div>
+              </div>
+              <div style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:{{ t.tagColor }}; flex:none">{{ t.tag }}</div>
+            </div>
+          </sc-for>
+          <div style="margin-top:10px; font-size:12px; color:var(--faint)">Ticks are remembered on this device.</div>
+
+          <div style="margin-top:36px; font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Grading</div>
+          <sc-for list="{{ grading }}" as="g" hint-placeholder-count="4">
+            <div style="display:flex; justify-content:space-between; gap:20px; padding:12px 0; border-bottom:1px solid var(--line)">
+              <div style="font-size:15px; text-wrap:pretty">{{ g.k }}</div>
+              <div style="font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; flex:none">{{ g.v }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- SESSION -->
+      <sc-if value="{{ isSes }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:40px; max-width:860px">
+          <div style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accSoft)">Session {{ ses.num }}</div>
+          <div style="font-family:var(--font-h); font-size:38px; font-weight:800; letter-spacing:-0.03em; line-height:1.04; margin-top:8px; text-wrap:pretty">{{ ses.title }}</div>
+          <div style="margin-top:12px; font-size:17px; color:var(--soft); max-width:60ch; text-wrap:pretty">{{ ses.preview }}</div>
+
+          <sc-if value="{{ ses.built }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:24px">
+              <button type="button" sc-camel-on-click="{{ startDrill }}" style="{{ btnPrimary }}">{{ drillLabel }}</button>
+              <button type="button" sc-camel-on-click="{{ goPrac }}" style="{{ btnSecondary }}">Guided exercises</button>
+            </div>
+            <div style="height:2px; background:var(--line); margin:32px 0"></div>
+
+            <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="8">
+              <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}">
+                <div style="font-family:var(--font-h); font-size:24px; font-weight:700; letter-spacing:-0.015em; margin:32px 0 12px; padding-bottom:8px; border-bottom:2px solid var(--ink); text-wrap:pretty">{{ b.text }}</div>
+              </sc-if>
+              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:16px; margin:0 0 14px; max-width:64ch; text-wrap:pretty; color:var(--soft)">{{ b.text }}</div>
+              </sc-if>
+              <sc-if value="{{ b.isUl }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; flex-direction:column; gap:10px; margin:0 0 16px">
+                  <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3">
+                    <div style="display:flex; gap:12px; align-items:baseline; max-width:64ch">
+                      <span style="flex:none; width:8px; height:8px; background:var(--acc); margin-top:8px"></span>
+                      <span style="flex:1; font-size:16px; text-wrap:pretty; color:var(--soft)">{{ it }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isF }}" hint-placeholder-val="{{ false }}">
+                <div style="border:2px solid var(--acc); padding:16px 18px; margin:6px 0 18px; background:var(--panel)">
+                  <div style="font-family:var(--font-h); font-size:19px; font-weight:700; letter-spacing:0.01em; text-wrap:pretty">{{ b.text }}</div>
+                  <div style="font-size:13px; color:var(--muted); margin-top:8px; text-wrap:pretty">{{ b.note }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isNote }}" hint-placeholder-val="{{ false }}">
+                <div style="background:var(--panel); border:2px solid var(--line); padding:14px 16px; margin:6px 0 18px; max-width:64ch">
+                  <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--accSoft)">{{ b.label }}</div>
+                  <div style="font-size:15px; margin-top:6px; text-wrap:pretty; color:var(--soft)">{{ b.text }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isTbl }}" hint-placeholder-val="{{ false }}">
+                <div style="margin:6px 0 22px; overflow-x:auto">
+                  <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted); margin-bottom:8px">{{ b.label }}</div>
+                  <sc-raw-table style="width:100%; border-collapse:collapse">
+                    <sc-raw-thead>
+                      <sc-raw-tr>
+                        <sc-for list="{{ b.head }}" as="h" hint-placeholder-count="3">
+                          <sc-raw-th style="text-align:left; padding:8px 12px; border-bottom:2px solid var(--ink); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--soft)">{{ h }}</sc-raw-th>
+                        </sc-for>
+                      </sc-raw-tr>
+                    </sc-raw-thead>
+                    <sc-raw-tbody>
+                      <sc-for list="{{ b.rows }}" as="r" hint-placeholder-count="3">
+                        <sc-raw-tr>
+                          <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="3">
+                            <sc-raw-td style="padding:8px 12px; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums">{{ c }}</sc-raw-td>
+                          </sc-for>
+                        </sc-raw-tr>
+                      </sc-for>
+                    </sc-raw-tbody>
+                  </sc-raw-table>
+                </div>
+              </sc-if>
+            </sc-for>
+
+            <div style="height:2px; background:var(--line); margin:32px 0"></div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap">
+              <button type="button" sc-camel-on-click="{{ startDrill }}" style="{{ btnPrimary }}">{{ drillLabel }}</button>
+              <button type="button" sc-camel-on-click="{{ nextSes }}" style="{{ btnSecondary }}">{{ nextSesLabel }}</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ ses.notBuilt }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:28px; border:2px solid var(--line); padding:20px 22px; max-width:60ch; background:var(--panel)">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted)">Not yet released</div>
+              <div style="font-size:15px; margin-top:8px; text-wrap:pretty; color:var(--soft)">No handout has been posted for this session yet. Once it is, its lesson, drill and exercises appear here.</div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- DRILL -->
+      <sc-if value="{{ isDrill }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:40px; max-width:780px">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; gap:20px; flex-wrap:wrap">
+            <div style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accSoft)">{{ drillHead }}</div>
+            <button type="button" sc-camel-on-click="{{ goHome }}" style="{{ btnGhost }}">Leave drill</button>
+          </div>
+          <div style="height:6px; background:var(--panel); margin-top:14px">
+            <div style="height:6px; background:var(--acc); width:{{ drillPct }}"></div>
+          </div>
+
+          <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted); margin-top:24px">{{ q.kicker }}</div>
+          <div style="font-family:var(--font-h); font-size:26px; font-weight:700; letter-spacing:-0.015em; line-height:1.2; margin-top:8px; text-wrap:pretty">{{ q.prompt }}</div>
+
+          <sc-if value="{{ q.isMcq }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:24px">
+              <sc-for list="{{ q.options }}" as="o" hint-placeholder-count="4">
+                <button type="button" sc-camel-on-click="{{ o.onClick }}" style="{{ o.style }}">
+                  <span style="font-variant-numeric:tabular-nums; opacity:0.5; margin-right:12px">{{ o.n }}</span>{{ o.label }}
+                </button>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ q.isNum }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; gap:10px; margin-top:24px; align-items:center; flex-wrap:wrap">
+              <input value="{{ typed }}" sc-camel-on-change="{{ onTyped }}" placeholder="Your answer" style="border:2px solid var(--acc); background:var(--panel); color:var(--ink); padding:12px 14px; font-size:17px; width:220px; border-radius:0">
+              <button type="button" sc-camel-on-click="{{ submitNum }}" style="{{ btnPrimary }}">Check</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ verdictShown }}" hint-placeholder-val="{{ false }}">
+            <div style="border:2px solid {{ verdictColor }}; padding:16px 18px; margin-top:24px; background:var(--panel)">
+              <div style="font-family:var(--font-h); font-size:16px; font-weight:700; color:{{ verdictColor }}; letter-spacing:0.02em; text-transform:uppercase">{{ verdictLabel }}</div>
+              <div style="font-size:15px; margin-top:8px; max-width:62ch; text-wrap:pretty; color:var(--soft)">{{ q.why }}</div>
+              <button type="button" sc-camel-on-click="{{ nextQ }}" style="{{ btnPrimaryTop }}">{{ nextQLabel }}</button>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- RESULTS -->
+      <sc-if value="{{ isRes }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:40px; max-width:760px">
+          <div style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accSoft)">{{ resHead }}</div>
+          <div style="font-family:var(--font-h); font-size:64px; font-weight:800; letter-spacing:-0.04em; margin-top:10px">{{ resScore }}</div>
+          <div style="font-size:17px; color:var(--soft); max-width:56ch; text-wrap:pretty">{{ resNote }}</div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:28px">
+            <button type="button" sc-camel-on-click="{{ retryDrill }}" style="{{ btnPrimary }}">Run it again</button>
+            <button type="button" sc-camel-on-click="{{ goHome }}" style="{{ btnSecondary }}">Dashboard</button>
+          </div>
+          <sc-if value="{{ hasMissed }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:36px; font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">What went wrong</div>
+            <sc-for list="{{ missedList }}" as="m" hint-placeholder-count="2">
+              <div style="padding:16px 0; border-bottom:1px solid var(--line)">
+                <div style="font-size:16px; font-weight:600; text-wrap:pretty">{{ m.prompt }}</div>
+                <div style="font-size:14px; color:var(--bad); margin-top:6px">You said: {{ m.given }}</div>
+                <div style="font-size:14px; color:var(--good)">Answer: {{ m.correct }}</div>
+                <div style="font-size:14px; color:var(--soft); margin-top:6px; text-wrap:pretty">{{ m.why }}</div>
+              </div>
+            </sc-for>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- PRACTICE -->
+      <sc-if value="{{ isPrac }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:40px; max-width:1000px">
+          <div style="font-family:var(--font-h); font-size:36px; font-weight:800; letter-spacing:-0.03em">Practice exercises</div>
+          <div style="margin-top:12px; font-size:16px; max-width:62ch; color:var(--soft); text-wrap:pretty">{{ course.pracIntro }}</div>
+
+          <div style="margin-top:32px; font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">From the sessions</div>
+          <sc-for list="{{ exList }}" as="e" hint-placeholder-count="4">
+            <div sc-camel-on-click="{{ e.onClick }}" style="padding:18px 0; border-bottom:1px solid var(--line); cursor:pointer; display:flex; gap:16px; align-items:baseline" style-hover="background:var(--panel)">
+              <div style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accSoft); flex:none; width:96px">{{ e.tag }}</div>
+              <div style="flex:1; min-width:0">
+                <div style="font-family:var(--font-h); font-size:19px; font-weight:700; letter-spacing:-0.01em; text-wrap:pretty">{{ e.title }}</div>
+                <div style="font-size:14px; color:var(--soft); margin-top:4px; text-wrap:pretty">{{ e.blurb }}</div>
+              </div>
+              <div style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:{{ e.stateColor }}; flex:none">{{ e.state }}</div>
+            </div>
+          </sc-for>
+
+          <sc-if value="{{ hasGens }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:36px; font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Generated · new numbers every time</div>
+            <sc-for list="{{ genList }}" as="g" hint-placeholder-count="3">
+              <div sc-camel-on-click="{{ g.onClick }}" style="padding:18px 0; border-bottom:1px solid var(--line); cursor:pointer; display:flex; gap:16px; align-items:baseline" style-hover="background:var(--panel)">
+                <div style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accSoft); flex:none; width:96px">{{ g.tag }}</div>
+                <div style="flex:1; min-width:0">
+                  <div style="font-family:var(--font-h); font-size:19px; font-weight:700; letter-spacing:-0.01em">{{ g.title }}</div>
+                  <div style="font-size:14px; color:var(--soft); margin-top:4px; text-wrap:pretty">{{ g.blurb }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- EXERCISE -->
+      <sc-if value="{{ isEx }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:40px; max-width:820px">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; gap:20px; flex-wrap:wrap">
+            <div style="font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accSoft)">{{ ex.tag }}</div>
+            <button type="button" sc-camel-on-click="{{ goPrac }}" style="{{ btnGhost }}">All exercises</button>
+          </div>
+          <div style="font-family:var(--font-h); font-size:32px; font-weight:800; letter-spacing:-0.03em; margin-top:8px; text-wrap:pretty">{{ ex.title }}</div>
+          <div style="font-size:16px; color:var(--soft); margin-top:12px; max-width:64ch; text-wrap:pretty">{{ ex.stem }}</div>
+
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+            <div style="margin-top:28px; border:2px solid {{ s.borderColor }}; background:var(--panel)">
+              <div style="padding:16px 18px; border-bottom:2px solid var(--line)">
+                <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted)">Step {{ s.n }}</div>
+                <div style="font-size:17px; font-weight:600; margin-top:6px; text-wrap:pretty">{{ s.q }}</div>
+              </div>
+              <div style="padding:16px 18px; display:flex; flex-direction:column; gap:12px">
+                <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="2">
+                  <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
+                    <div style="flex:1; min-width:220px; font-size:15px; color:var(--soft)">{{ r.label }}</div>
+                    <input value="{{ r.value }}" sc-camel-on-change="{{ r.onChange }}" placeholder="Answer" style="border:2px solid {{ r.inputBorder }}; background:var(--ground); color:var(--ink); padding:9px 12px; font-size:16px; width:170px; border-radius:0">
+                  </div>
+                </sc-for>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:4px">
+                  <button type="button" sc-camel-on-click="{{ s.onCheck }}" style="{{ btnPrimary }}">Check step</button>
+                  <button type="button" sc-camel-on-click="{{ s.onHint }}" style="{{ btnGhost }}">Hint</button>
+                  <button type="button" sc-camel-on-click="{{ s.onReveal }}" style="{{ btnGhost }}">Show answer</button>
+                </div>
+                <sc-if value="{{ s.hintShown }}" hint-placeholder-val="{{ false }}">
+                  <div style="border:2px solid var(--line); padding:12px 14px; font-size:14px; color:var(--soft); text-wrap:pretty">{{ s.hint }}</div>
+                </sc-if>
+                <sc-if value="{{ s.solShown }}" hint-placeholder-val="{{ false }}">
+                  <div style="border:2px solid var(--acc); padding:12px 14px; font-size:14px; color:var(--soft); text-wrap:pretty">{{ s.sol }}</div>
+                </sc-if>
+                <sc-if value="{{ s.marked }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:14px; font-weight:700; color:{{ s.markColor }}">{{ s.markLabel }}</div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-for>
+
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:28px">
+            <button type="button" sc-camel-on-click="{{ ex.onNext }}" style="{{ btnPrimary }}">Mark as done</button>
+            <button type="button" sc-camel-on-click="{{ ex.onRedraw }}" style="{{ btnSecondary }}">{{ ex.redrawLabel }}</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- GLOSSARY -->
+      <sc-if value="{{ isGloss }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:40px; max-width:900px">
+          <div style="font-family:var(--font-h); font-size:36px; font-weight:800; letter-spacing:-0.03em">{{ course.glossLabel }}</div>
+          <sc-if value="{{ hasFormulas }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:24px; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); border-top:2px solid var(--line); border-left:2px solid var(--line)">
+              <sc-for list="{{ formulas }}" as="f" hint-placeholder-count="6">
+                <div style="padding:18px 20px; border-right:2px solid var(--line); border-bottom:2px solid var(--line)">
+                  <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--accSoft)">{{ f.k }}</div>
+                  <div style="font-family:var(--font-h); font-size:20px; font-weight:700; margin-top:8px; text-wrap:pretty">{{ f.v }}</div>
+                  <div style="font-size:13px; color:var(--muted); margin-top:8px; text-wrap:pretty">{{ f.note }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <div style="margin-top:40px; font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Terms</div>
+          <sc-for list="{{ terms }}" as="t" hint-placeholder-count="8">
+            <div style="padding:14px 0; border-bottom:1px solid var(--line); display:flex; gap:20px; align-items:baseline; flex-wrap:wrap">
+              <div style="flex:none; width:220px; font-family:var(--font-h); font-size:16px; font-weight:700">{{ t.k }}</div>
+              <div style="flex:1; min-width:260px; font-size:15px; color:var(--soft); text-wrap:pretty">{{ t.v }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- TABLES -->
+      <sc-if value="{{ isTables }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:40px; max-width:1100px">
+          <div style="font-family:var(--font-h); font-size:36px; font-weight:800; letter-spacing:-0.03em">Statistical tables</div>
+          <div style="margin-top:28px; display:flex; gap:10px; flex-wrap:wrap">
+            <sc-for list="{{ tableTabs }}" as="t" hint-placeholder-count="3">
+              <button type="button" sc-camel-on-click="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button>
+            </sc-for>
+          </div>
+          <div style="margin-top:24px; display:flex; gap:20px; align-items:center; flex-wrap:wrap">
+            <sc-for list="{{ tableControls }}" as="c" hint-placeholder-count="1">
+              <div style="display:flex; gap:10px; align-items:center">
+                <span style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted)">{{ c.label }}</span>
+                <input value="{{ c.value }}" sc-camel-on-change="{{ c.onChange }}" style="border:2px solid var(--acc); background:var(--panel); color:var(--ink); padding:8px 12px; font-size:16px; width:110px; border-radius:0; font-variant-numeric:tabular-nums">
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:24px; overflow-x:auto">
+            <sc-raw-table style="width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums">
+              <sc-raw-thead>
+                <sc-raw-tr>
+                  <sc-for list="{{ tableHead }}" as="h" hint-placeholder-count="6">
+                    <sc-raw-th style="text-align:right; padding:8px 12px; border-bottom:2px solid var(--ink); font-size:12px; letter-spacing:0.05em; color:var(--soft)">{{ h }}</sc-raw-th>
+                  </sc-for>
+                </sc-raw-tr>
+              </sc-raw-thead>
+              <sc-raw-tbody>
+                <sc-for list="{{ tableRows }}" as="r" hint-placeholder-count="8">
+                  <sc-raw-tr>
+                    <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="6">
+                      <sc-raw-td style="padding:7px 12px; border-bottom:1px solid var(--line); text-align:right; font-size:14px">{{ c }}</sc-raw-td>
+                    </sc-for>
+                  </sc-raw-tr>
+                </sc-for>
+              </sc-raw-tbody>
+            </sc-raw-table>
+          </div>
+          <div style="margin-top:14px; font-size:13px; color:var(--faint); text-wrap:pretty">{{ tableNote }}</div>
+        </div>
+      </sc-if>
+
+    </main>
+  </sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;startCourse&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hub&quot;,&quot;da&quot;,&quot;mkt&quot;,&quot;fa&quot;],&quot;default&quot;:&quot;hub&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Start&quot;},&quot;drillOrder&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;fixed&quot;,&quot;shuffled&quot;],&quot;default&quot;:&quot;fixed&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Drills&quot;}}">
+class Component extends DCLogic {
+  state = { course: null, view: 'home', qi: 0, answers: {}, order: [], typed: '', missed: {}, done: {}, best: {}, exInp: {}, exUi: {}, exSeed: 1, calcOpen: false, calcDisp: '0', calcAcc: null, calcOp: null, calcFresh: true, tab: 'binom', tp: { n: '5' }, todoDone: {}, last: {} };
+
+  themes = {
+    hub: '--ground:#101a17; --panel:#17251f; --line:#3a4f45; --ink:#eef3f0; --soft:#cfdbd4; --muted:#a2b3aa; --faint:#6f8479; --acc:#2f9d78; --accSoft:#7fd3b4; --onAcc:#08211a; --good:#6fd6ab; --bad:#ff8b80;',
+    da: '--ground:#0b1729; --panel:#12213a; --line:#35496b; --ink:#e9eff9; --soft:#c8d4e5; --muted:#a7b6cc; --faint:#7286a3; --acc:#5b9cff; --accSoft:#a7ccff; --onAcc:#08122a; --good:#6fd6ab; --bad:#ff8b80;',
+    mkt: '--ground:#160e26; --panel:#241636; --line:#4b3570; --ink:#f2ebfc; --soft:#dbcdf0; --muted:#bcaad8; --faint:#8f7cae; --acc:#a97cf5; --accSoft:#cbb0ff; --onAcc:#170a28; --good:#7ad9b4; --bad:#ff96a0;',
+    fa: '--ground:#0c1a13; --panel:#13251b; --line:#345043; --ink:#e9f3ec; --soft:#c7d9ce; --muted:#a3b8ab; --faint:#728a7c; --acc:#3faa6c; --accSoft:#8bd8ab; --onAcc:#06170e; --good:#6fd6ab; --bad:#ff8b80;'
+  };
+
+  courses = {
+    da: { key: 'da', name: 'Data Analysis', code: 'MIM-2710-DSC', short: 'Data',
+      blurb: 'Uncertainty, data and judgment. Descriptive statistics, probability models, and the pipeline from data to decision.',
+      intro: 'Uncertainty, data and judgment, worked through rather than read. Sessions 1–3 are complete here; the rest appear as their materials are released.',
+      pracIntro: 'Worked step by step, with a hint on every step and the answer one click away. The generated sets draw fresh numbers each time.',
+      glossLabel: 'Glossary & formulas', hasTables: true, hasCalc: true,
+      note: 'Built from the Session 1–3 handouts.' },
+    mkt: { key: 'mkt', name: 'Marketing', code: 'MIM-2710-MKT', short: 'Marketing',
+      blurb: 'Creating and capturing customer value: research, segmentation, targeting, positioning, and the frameworks behind them.',
+      intro: 'Marketing is arts and sciences: the map, not the route. Sessions 1 through 5 are written up here from the handouts; the rest appear as they are released.',
+      pracIntro: 'Case-shaped exercises. Score the 3Cs, size a segment, work out what a customer is worth — with a hint on every step.',
+      glossLabel: 'Frameworks & terms', hasTables: false, hasCalc: true,
+      note: 'Built from the S01, S02, S03 and S05 handouts.' },
+    fa: { key: 'fa', name: 'Financial Accounting', code: 'MIM-2710-ACC', short: 'Accounting',
+      blurb: 'Reading a company from its numbers: the three statements, earnings quality, and what the notes are hiding. Opens the accounting trainer.',
+      intro: 'The three statements and what they do and do not tell you. Carried over from the accounting trainer.',
+      pracIntro: 'Drills across the sessions. The longer guided exercises live in the original accounting trainer.',
+      glossLabel: 'Glossary', hasTables: false, hasCalc: true,
+      note: 'Question bank carried over from the accounting trainer.' }
+  };
+
+  mktSessions = [
+    { key: 'm1', num: '01', title: 'The Role of Marketing', preview: 'What marketing is, how the definition has moved, customer value and the perceptions that drive it.' },
+    { key: 'm2', num: '02–03', title: 'Why Marketing Research?', preview: 'Intuition and its biases, the research process, primary and secondary data, conjoint, experiments and endogeneity.' },
+    { key: 'm4', num: '04–07', title: 'Segmentation, Targeting and Positioning', preview: 'Value-based segmentation, the 3Cs, target selection criteria, profitability, and the jobs a product is hired to do.' },
+    { key: 'm8', num: '08', title: 'Customer Lifetime Value' },
+    { key: 'm9', num: '09', title: 'Implementing a Branding Strategy' },
+    { key: 'm10', num: '10', title: 'Customer Value in Managing Channels' },
+    { key: 'm11', num: '11–12', title: 'Extracting Customer Value Through Pricing' },
+    { key: 'm13', num: '13', title: 'Driving Engagement with Communication' },
+    { key: 'm14', num: '14', title: 'Ethics in Marketing' },
+    { key: 'm15', num: '15', title: 'Course Wrap Up' }
+  ];
+
+  mktBuilt = { m1: true, m2: true, m4: true };
+
+  mktLessons = {
+    m1: [
+      { t: 'h', text: 'Every exchange runs the same play' },
+      { t: 'p', text: 'Consumer goods, consulting, investment banking, the job market, startup fundraising, influencers, dating apps, government policy, environmental negotiation, political parties: each has a seller, a buyer and a currency. The column that actually matters is the last one — understanding the other party well enough to earn their yes.' },
+      { t: 'h', text: 'What is marketing?' },
+      { t: 'tbl', label: 'The definition has moved', head: ['Year', 'Marketing is…'], rows: [
+        { cells: ['1960', 'The performance of business activities that direct the flow of goods and services from producer to consumer or user.'] },
+        { cells: ['1985', 'The process of planning and executing the conception, pricing, promotion and distribution of ideas, goods and services to create exchanges that satisfy individual and organizational objectives.'] },
+        { cells: ['2015', 'The activity, set of institutions and processes for creating, communicating, delivering and exchanging offerings that have value for customers, clients, partners and society at large.'] }
+      ] },
+      { t: 'p', text: 'Marketing is not a static concept and should not be. It is the process of creating and exchanging value in a marketplace, and it covers product development, customer relationships, sales, channel design, advertising, branding, pricing and communication.' },
+      { t: 'note', label: 'Arts and sciences', text: 'Every marketing solution is context-dependent, and context changes fast. There is rarely a single right answer that transfers between situations that look alike — but there are wrong things to do. The course gives you the map; you choose the route.' },
+      { t: 'h', text: 'Customer value and perception' },
+      { t: 'p', text: 'Value is not only functional. Experiential, emotional, social and economic benefits all count, which is why a purely virtual item can carry a real price. And perception shapes all of it.' },
+      { t: 'ul', items: ['Adelson’s checker-shadow illusion: two squares of identical shade read as different.', 'Package design distorts how much is inside, which changes how much people eat.', 'Houston airport: passengers spent about 88% of the journey from gate to bags standing around waiting. Moving the gates further away, so walking replaced waiting, cut the complaints.'] },
+      { t: 'note', label: 'Takeaway', text: 'Focus on the drivers of value — perceived pains and perceived gains — rather than technical features or the firm’s costs.' },
+      { t: 'h', text: 'Measuring customer value' },
+      { t: 'tbl', label: 'What makes research findings trustworthy', head: ['Dimension', 'Good', 'Not good'], rows: [
+        { cells: ['Information source', 'Conversation and observation; revealed preferences — what people do', 'Questionnaire responses; stated preferences — what people say they do'] },
+        { cells: ['Environment', 'Natural habitat, home field, comfortable', 'Laboratory, artificial, unrelated to behaviour'] },
+        { cells: ['Objective', 'Covert, not obvious to the respondent', 'Overt and explicit, so strategic answering is possible'] },
+        { cells: ['Mindset', 'Natural and open, as when actually choosing', 'Unspecified, protective of the self'] },
+        { cells: ['Timeframe', 'Consistent with real behaviour; long enough for insight', 'Inconsistent; short or no discussion'] }
+      ] },
+      { t: 'h', text: 'The role of marketing in business' },
+      { t: 'p', text: 'Create value, then capture it. The course structure follows that: determine the value proposition (strategic), then deliver, communicate and capture value (tactical).' }
+    ],
+    m2: [
+      { t: 'h', text: 'Why research at all' },
+      { t: 'p', text: 'Two reasons: we need information, and we are human beings with biases. Intuition has real advantages — everyone is a consumer, it is quick, it is flexible — and it is necessary when timeliness is the whole game. In every other case, research wins.' },
+      { t: 'ul', items: ['Projection bias: assuming others share your values, beliefs and preferences.', 'Availability heuristic: treating what comes to mind easily as more important than what does not.', 'Sunk cost fallacy, endowment effect, and the rest.'] },
+      { t: 'h', text: 'Research can be wrong too' },
+      { t: 'note', label: 'New Coke', text: 'Coca-Cola ran taste tests on 190,000 consumers, most of whom preferred the new recipe. The launch became one of the great marketing debacles. Consumers were never asked whether they wanted the classic replaced — loss aversion makes losing something roughly twice as painful as gaining the same thing, and the brand ran on nostalgia. A sip is also not a purchase. Not all yes means success.' },
+      { t: 'note', label: 'Survivorship bias', text: 'Five of the ten most-viewed ads featured animals, so put an animal in the ad? You are looking only at the survivors. Same error as armouring the parts of returning bombers that show bullet holes.' },
+      { t: 'h', text: 'The research process' },
+      { t: 'ul', items: ['Formulate the problem or question.', 'Determine the sources of information and design the process.', 'Choose the data collection method.', 'Collect the data.', 'Analyse and interpret it.'] },
+      { t: 'p', text: 'Problem definition carries most of the weight. Garbage in, garbage out — and set a specific outcome measure up front, whether that is market share, total sales, brand awareness or perception.' },
+      { t: 'tbl', label: 'Research designs', head: ['By data type', 'By goal'], rows: [
+        { cells: ['Primary: run for the problem at hand, usually with problem-specific interventions — lab or field experiment, survey, focus group.', 'Exploratory: define the problem. Brainstorm, understand the situation.'] },
+        { cells: ['Secondary: collected for other purposes without problem-specific intervention — purchase records, browsing data, Census, expenditure surveys.', 'Descriptive: explore the problem. Correlational.'] },
+        { cells: ['', 'Causal: solve the problem. Find the source.'] }
+      ] },
+      { t: 'h', text: 'Surveys' },
+      { t: 'p', text: 'A survey works when what you want to know can be written as a simple question, and respondents can and will answer it. Three things to get right: what you ask (validity), how you ask it (reliability) and who you ask (generalisability).' },
+      { t: 'note', label: 'The 1936 Literary Digest poll', text: 'Ten million surveys went to people in telephone directories and car registration books; over two million replies favoured Landon. Roosevelt won by a majority. Republicans were likelier to own cars and telephones — sample frame error — and Landon supporters were likelier to bother replying — self-selection.' },
+      { t: 'h', text: 'Conjoint analysis' },
+      { t: 'p', text: 'Treat the product as a bundle of attributes. A laptop is screen size, battery, RAM, storage, weight, brand and price. Present hypothetical products with different attribute levels, ask which one people would buy, and estimate the weight of each attribute.' },
+      { t: 'f', text: 'U_ij = β₁X₁ⱼ + β₂X₂ⱼ + ⋯ + β_K X_Kⱼ − α p_j', note: 'The βs are part-worths. Willingness to pay for an attribute = −β_attribute / β_price. Assumes full information, common tastes and choice of the highest-utility option.' },
+      { t: 'note', label: 'What is owner nationality worth?', text: 'In Johannesburg, 1,973 consumers repeatedly chose between hypothetical stores with randomised attributes. Consumers acted as if a migrant-owned store were 7.68% more expensive — an invisible price penalty migrant retailers offset by charging less.' },
+      { t: 'h', text: 'Experiments and the ad-effect trap' },
+      { t: 'p', text: 'Out of 1,000 ad viewers, 100 purchased; out of 2,000 non-viewers, 50 purchased. The apparent 7.5% lift is not the effect of the ad. Ads are targeted at people the firm already believes are interested, so the number mixes the ad effect with a baseline difference between target and non-target groups. Random assignment is what isolates the incremental effect.' },
+      { t: 'note', label: 'Field experiments are not only for big firms', text: 'In Nigeria, data-based marketing coaching raised monthly sales 14% and profits 42% against the status quo over 26 months, and produced 22% more expansion into new markets. The marginal value of research is often higher for small firms.' },
+      { t: 'h', text: 'Secondary data' },
+      { t: 'ul', items: ['Why use it: RCTs are costly or impossible; it scales; the scope and richness are far greater; there is no response bias.', 'Sources: Census, Compustat, Comscore browsing data, Nielsen and IRI scanner panels, advertising spend, internal platform data.', 'The catch: analysis needs extra caution, especially for causal claims, and collection runs into regulation and ethics.'] },
+      { t: 'note', label: 'Endogeneity', text: 'A grocery chain plots price against wine sales and finds no relationship. Split by store and the true negative relationship appears — the pooled scatter hid it. Omitted variable bias and reverse causality both generate spurious correlation where you wanted causality.' },
+      { t: 'h', text: 'Takeaways' },
+      { t: 'ul', items: ['Approach research backwards: start from the decision the research has to support.', 'Beware biases — they enter at problem definition, at collection and at interpretation.'] }
+    ],
+    m4: [
+      { t: 'h', text: 'Segmentation and targeting, defined' },
+      { t: 'p', text: 'Segmentation is the concept that recognises diversity in the marketplace; the process produces clusters of similar customers. Targeting is the identification of the segments to which marketing effort will be directed — which means also deciding which segments to ignore.' },
+      { t: 'p', text: 'The choice depends on the level of segmentation, running from mass marketing on an undifferentiated market to one-to-one mass customisation on a fully differentiated one.' },
+      { t: 'h', text: 'Target selection criteria' },
+      { t: 'tbl', label: 'Three tests, three analyses', head: ['Criterion', 'What it asks', 'Where it comes from'], rows: [
+        { cells: ['Alignment', 'Does it fit our capabilities, goals and strategy?', 'Company analysis'] },
+        { cells: ['Potential', 'Current size and growth prospects?', 'Segmentation and customer analysis'] },
+        { cells: ['Defensibility', 'Can we hold it against competitors’ strengths?', 'Competitor analysis, perceptual map'] }
+      ] },
+      { t: 'note', label: 'Two boxes, one product', text: 'Quidel sells Conceive — pink box, smiling baby, $9.99, shelved near the ovulation kits — and RapidVue — mauve, no baby, $6.99, shelved near the condoms. Identical tests. One is aimed at the Hopefuls, the other at the Fearfuls.' },
+      { t: 'h', text: 'The 3Cs and the optimal value proposition' },
+      { t: 'p', text: 'Start from customer value, company value and competitor value. The possible value proposition sits where customer value meets what the company can deliver; the optimal one is what is left once you subtract what competitors already deliver well.' },
+      { t: 'tbl', label: 'UrbanStems against its competitors, on customer needs (5 = strong)', head: ['Need', 'UrbanStems', '1-800-Flowers / FTD', 'Local florists', 'Grocery'], rows: [
+        { cells: ['Longevity', '5', '3', '3', '1'] },
+        { cells: ['Variety and design', '5', '3', '3', '1'] },
+        { cells: ['Presentation', '1', '5', '5', '3'] },
+        { cells: ['Speed', '2', '3', '4', '5'] },
+        { cells: ['Accessibility', '1', '5', '3', '5'] },
+        { cells: ['Price', '1', '4', '3', '5'] }
+      ] },
+      { t: 'h', text: 'Value-based segmentation' },
+      { t: 'p', text: 'Segment by why people buy, not by who they are. For flowers: a last-minute gift, a planned gift, self-gifting, or decoration — and each weights the same six needs differently.' },
+      { t: 'tbl', label: 'Needs by segment (5 = matters most)', head: ['Need', 'Last-min gift', 'Planned gift', 'Self-gifting', 'Decoration'], rows: [
+        { cells: ['Longevity', '1', '3', '5', '5'] },
+        { cells: ['Variety and design', '1', '3', '5', '5'] },
+        { cells: ['Presentation', '5', '5', '1', '1'] },
+        { cells: ['Speed', '4', '1', '1', '1'] },
+        { cells: ['Accessibility', '5', '1', '1', '1'] },
+        { cells: ['Price', '3', '3', '3', '5'] }
+      ] },
+      { t: 'h', text: 'Profitability decides the target' },
+      { t: 'f', text: 'Profitability = segment size × [CLV − acquisition cost − retention cost]', note: 'CLV = average purchase × average frequency × average customer lifespan.' },
+      { t: 'p', text: 'High interest does not make a segment the best target. Last-minute gifting has low frequency and a short lifespan. Planned gifts, self-gifting and decoration can carry high frequency and long lifespans, and a subscription raises both.' },
+      { t: 'h', text: 'Jobs to be done' },
+      { t: 'p', text: 'Christensen, Anthony, Berstell and Nitterhouse: customers hire products to do a job. The milkshake bought at 7am is hired to make a long commute less boring and to stave off hunger until lunch, which is why making it thicker beat making it tastier. Segmenting by the job, rather than by the customer’s demographics, tells you who you are really competing with — in that case a bagel, a banana and a bored drive.' },
+      { t: 'ul', items: ['Takeaway 1: effective segmentation and targeting starts from the 3Cs. Find the optimal value proposition where the company’s relative strength meets customer value.', 'Takeaway 2: not all customers give equal profits. Size, CLV, and acquisition and retention cost all decide which segment is worth having.'] }
+    ]
+  };
+
+  mktBank = {
+    m1: [
+      { t: 'mcq', k: 'Definition', p: 'What changed most between the 1960 and 2015 definitions of marketing?', o: ['It widened from moving goods to creating and exchanging value for customers, partners and society', 'It narrowed to advertising and promotion', 'It became purely digital', 'It dropped pricing from the scope'], a: 0, why: 'The 1960 definition is about directing the flow of goods from producer to consumer. By 2015 it covers creating, communicating, delivering and exchanging offerings of value — to customers, clients, partners and society at large.' },
+      { t: 'mcq', k: 'Perception', p: 'Houston airport cut baggage complaints by moving arrival gates further from the carousel. Why did that work?', o: ['Walking replaced standing, and perceived waiting time fell', 'Bags arrived faster', 'Passengers had less luggage', 'Staff were increased at the carousel'], a: 0, why: 'Total time barely changed. About 88% of it had been spent standing around; occupied time is perceived as shorter than idle time. Perception is the thing being managed.' },
+      { t: 'tf', k: 'True or false', p: 'Stated preferences — what people say they do on a questionnaire — are generally more reliable than revealed preferences.', a: false, why: 'False. Revealed preferences, gathered by observation in a natural setting, are the trustworthy end. Stated preferences invite strategic and socially desirable answers.' },
+      { t: 'mcq', k: 'Role', p: 'The two-word summary of marketing’s role in a business:', o: ['Create value, capture value', 'Advertise and sell', 'Segment and target', 'Research and report'], a: 0, why: 'Create value, then capture it. Determining the value proposition is the strategic half; delivering, communicating and capturing it is the tactical half.' },
+      { t: 'mcq', k: 'Value types', p: 'A player pays for a premium skin that changes nothing about how the game plays. Which benefits are being bought?', o: ['Experiential and social', 'Functional', 'Economic only', 'None — it is irrational'], a: 0, why: 'Value is not only functional. Experiential, emotional and social benefits are real drivers, and they price.' }
+    ],
+    m2: [
+      { t: 'mcq', k: 'New Coke', p: 'Why did 190,000 favourable taste tests not save New Coke?', o: ['Nobody was asked whether the classic should be replaced — loss aversion and the endowment effect did the rest', 'The sample was too small', 'The new recipe actually tasted worse', 'Competitors ran a smear campaign'], a: 0, why: 'The research answered the wrong question. Losing something is roughly twice as painful as gaining the same thing, and Coke ran on nostalgia. A sip is also not a purchase.' },
+      { t: 'mcq', k: 'Bias', p: 'Five of the ten most-viewed ads featured animals, so animals make ads successful. What is wrong?', o: ['Survivorship bias — only the winners are in the sample', 'Projection bias', 'Endowment effect', 'Nothing; the inference holds'], a: 0, why: 'You never see the ads with animals that nobody watched. Same error as reinforcing the bullet holes on the bombers that came back.' },
+      { t: 'mcq', k: 'Sampling', p: 'The 1936 Literary Digest poll failed for two reasons. They were:', o: ['Sample frame error and self-selection', 'Small sample and rounding', 'Leading questions and interviewer bias', 'Endogeneity and reverse causality'], a: 0, why: 'The frame — telephone and car-registration lists — skewed Republican, and Landon supporters were likelier to reply. Two million responses could not fix either.' },
+      { t: 'mcq', k: 'Design', p: 'A focus group run to understand why customers switched away is which kind of research?', o: ['Exploratory', 'Descriptive', 'Causal', 'Secondary'], a: 0, why: 'Exploratory research defines the problem. Descriptive explores it and is correlational; causal isolates the source.' },
+      { t: 'num', k: 'Conjoint', p: 'A conjoint gives β for late opening = 0.42 and β for price = −0.06 per euro. What is willingness to pay for late opening, in euros?', a: 7, tol: 0.2, why: 'WTP = −β_attribute / β_price = 0.42 / 0.06 = €7. Dividing any part-worth by the price coefficient converts it into money.' },
+      { t: 'mcq', k: 'Causality', p: 'Ad viewers purchase at 10%, non-viewers at 2.5%. Why is the 7.5-point gap not the ad effect?', o: ['Ads were targeted at people already more likely to buy', 'The sample sizes differ', 'Purchases were measured too late', 'The ad ran on the wrong platform'], a: 0, why: 'Targeting means the two groups differ before any ad is shown. The gap mixes the ad effect with that baseline difference. Random assignment removes it.' },
+      { t: 'mcq', k: 'Endogeneity', p: 'Pooled data show no relationship between wine price and sales; splitting by store shows a clear negative one. This is:', o: ['Omitted variable bias', 'Reverse causality', 'Self-selection', 'Sample frame error'], a: 0, why: 'Store is the omitted variable. Leaving it out generates a spurious correlation that hides the true causal relationship.' },
+      { t: 'tf', k: 'True or false', p: 'Secondary data avoids response bias but demands more caution in causal analysis.', a: true, why: 'True. It is observed rather than solicited, so nobody is performing for you — but nothing was randomised, so causal claims need work.' }
+    ],
+    m4: [
+      { t: 'mcq', k: 'Definitions', p: 'Targeting is best described as:', o: ['Choosing which segments to serve and which to ignore', 'Dividing the market into clusters of similar customers', 'Deciding how the brand should be perceived', 'Setting price for each segment'], a: 0, why: 'Segmentation produces the clusters; targeting picks among them. The ignoring is as much of the decision as the serving.' },
+      { t: 'mcq', k: 'Criteria', p: 'Which target selection criterion comes from competitor analysis and the perceptual map?', o: ['Defensibility', 'Alignment', 'Potential', 'Profitability'], a: 0, why: 'Alignment comes from company analysis, potential from customer analysis, defensibility from looking at what competitors are strong at.' },
+      { t: 'mcq', k: 'UrbanStems', p: 'UrbanStems scores 5 on longevity and design but 1 on presentation, accessibility and price. Which segment fits best?', o: ['Self-gifting and decoration', 'Last-minute gifting', 'Planned gifting only', 'All four equally'], a: 0, why: 'Last-minute gifting wants presentation, speed and accessibility — exactly where UrbanStems is weak. Self-gifting and decoration weight longevity and design at 5, which is where it is strong.' },
+      { t: 'num', k: 'CLV', p: 'Average purchase €45, average frequency 4 per year, average lifespan 3 years. What is CLV in euros?', a: 540, tol: 1, why: 'CLV = 45 × 4 × 3 = €540, before subtracting acquisition and retention cost.' },
+      { t: 'num', k: 'Profitability', p: 'A segment has 8,000 customers, CLV €540, acquisition cost €90 and retention cost €50. What is segment profitability in euros?', a: 3200000, tol: 5000, why: '8,000 × (540 − 90 − 50) = 8,000 × 400 = €3.2m. Size alone never decides; net value per customer does half the work.' },
+      { t: 'mcq', k: 'Quidel', p: 'Conceive and RapidVue are the same pregnancy test in different boxes at different prices, shelved in different aisles. This is:', o: ['Multiple products aimed at multiple segments', 'Mass marketing', 'One-to-one customisation', 'A pricing error'], a: 0, why: 'Same product, two offers: the Hopefuls get a pink box near the ovulation kits at $9.99, the Fearfuls a mauve one near the condoms at $6.99.' },
+      { t: 'mcq', k: 'Jobs to be done', p: 'Morning milkshake buyers were hiring the shake to do what job?', o: ['Make a boring commute tolerable and hold off hunger until lunch', 'Provide a nutritious breakfast', 'Reward the children', 'Try a new flavour'], a: 0, why: 'Once the job is clear the competition changes — bagels, bananas and boredom — and so does the fix: thicker, so it lasts the drive.' },
+      { t: 'tf', k: 'True or false', p: 'The segment with the strongest interest in your product is the one you should target.', a: false, why: 'False. Interest is not profit. Segment size, CLV, and acquisition and retention costs decide, which is why the enthusiastic last-minute gifter can be the wrong target.' }
+    ]
+  };
+
+  mktExercises = [
+    { key: 'stems3c', tag: 'Session 04–07', title: 'UrbanStems: read the 3Cs', stem: 'UrbanStems scores 5 on longevity and variety, 2 on speed, and 1 on presentation, accessibility and price. Competitors: 1-800-Flowers/FTD score 5 on presentation and accessibility; local florists 5 on presentation, 4 on speed; grocery stores 5 on speed, accessibility and price.',
+      steps: [
+        { q: 'On how many of the six needs is UrbanStems the strongest player?', rows: [ { label: 'Count', a: 2, tol: 0 } ], hint: 'Compare its score with the best competitor score on each need.', sol: 'Two: longevity and variety/design, both 5 against a best competitor score of 3.' },
+        { q: 'Score the last-minute gift segment on how well UrbanStems serves it. Sum UrbanStems’ scores on that segment’s three top needs — presentation, speed, accessibility.', rows: [ { label: 'Total', a: 4, tol: 0 } ], hint: 'Presentation 1, speed 2, accessibility 1.', sol: '1 + 2 + 1 = 4 out of a possible 15. A poor fit.' },
+        { q: 'Do the same for self-gifting, whose top needs are longevity and variety.', rows: [ { label: 'Total', a: 10, tol: 0 } ], hint: 'Both score 5.', sol: '5 + 5 = 10 out of 10. This is where the optimal value proposition sits.' }
+      ] },
+    { key: 'clv', tag: 'Session 04–07', title: 'Which segment is worth having', stem: 'Two candidate segments. Last-minute gifting: 40,000 customers, average purchase €60, 1.2 purchases a year, lifespan 1.5 years, acquisition €35, retention €10. Self-gifting: 12,000 customers, average purchase €40, 8 purchases a year, lifespan 3 years, acquisition €50, retention €40.',
+      steps: [
+        { q: 'CLV of each segment, in euros.', rows: [ { label: 'Last-minute CLV', a: 108, tol: 1 }, { label: 'Self-gifting CLV', a: 960, tol: 2 } ], hint: 'Average purchase × frequency × lifespan.', sol: 'Last-minute: 60 × 1.2 × 1.5 = €108. Self-gifting: 40 × 8 × 3 = €960.' },
+        { q: 'Net value per customer after acquisition and retention cost.', rows: [ { label: 'Last-minute', a: 63, tol: 1 }, { label: 'Self-gifting', a: 870, tol: 2 } ], hint: 'Subtract both costs from CLV.', sol: '108 − 35 − 10 = €63. 960 − 50 − 40 = €870.' },
+        { q: 'Total profitability of each segment, in euros.', rows: [ { label: 'Last-minute', a: 2520000, tol: 5000 }, { label: 'Self-gifting', a: 10440000, tol: 20000 } ], hint: 'Multiply net value by segment size.', sol: '40,000 × 63 = €2.52m against 12,000 × 870 = €10.44m. The smaller segment is worth four times as much.' }
+      ] },
+    { key: 'adeffect', tag: 'Session 02–03', title: 'Is that really the ad effect?', stem: 'Out of 1,000 people who saw a targeted Instagram ad, 100 purchased. Out of 2,000 who did not see it, 50 purchased.',
+      steps: [
+        { q: 'Compute the naive ad effect as a difference in purchase rates. Give it as a decimal.', rows: [ { label: 'Difference', a: 0.075, tol: 0.001 } ], hint: '100/1000 minus 50/2000.', sol: '0.10 − 0.025 = 0.075, the 7.5% the analyst reported.' },
+        { q: 'Suppose randomisation shows the true incremental effect is 2 percentage points. How many of the 7.5 points were baseline difference?', rows: [ { label: 'Points', a: 5.5, tol: 0.1 } ], hint: 'Subtract the true effect from the naive figure.', sol: '7.5 − 2.0 = 5.5 points came from targeting people who were already likelier to buy.' },
+        { q: 'If the firm budgets on the naive number, by what factor is it overstating the ad’s effect?', rows: [ { label: 'Factor', a: 3.75, tol: 0.05 } ], hint: 'Divide the naive effect by the true one.', sol: '7.5 / 2.0 = 3.75×. Overestimated effects lead directly to overspending.' }
+      ] },
+    { key: 'conjoint', tag: 'Session 02–03', title: 'Turning part-worths into money', stem: 'A conjoint on convenience stores returns these part-worths: open late 0.42, WhatsApp ordering 0.30, migrant-owned −0.18, price −0.06 per euro.',
+      steps: [
+        { q: 'Willingness to pay for late opening and for WhatsApp ordering, in euros.', rows: [ { label: 'Late opening', a: 7, tol: 0.2 }, { label: 'WhatsApp', a: 5, tol: 0.2 } ], hint: 'WTP = −β / β_price, so divide by 0.06.', sol: '0.42 / 0.06 = €7 and 0.30 / 0.06 = €5.' },
+        { q: 'What is the implied penalty on a migrant-owned store, in euros?', rows: [ { label: 'Penalty', a: 3, tol: 0.2 } ], hint: 'Same arithmetic, negative part-worth.', sol: '0.18 / 0.06 = €3. Consumers behave as though the store were €3 dearer, which is why such retailers cut prices to compete.' }
+      ] },
+    { key: 'segex', tag: 'Segmentation exercise', title: 'Building the segmentation grid', stem: 'The class segmentation spreadsheet asks you to score four candidate segments against six needs, then pick a target. Work it through on the flower market, then repeat the method on your own data.',
+      steps: [
+        { q: 'A segment scores 5, 5, 1, 1, 1, 5 on longevity, design, presentation, speed and accessibility, price. Which segment is it? Enter 1 last-minute, 2 planned, 3 self-gifting, 4 decoration.', rows: [ { label: 'Segment', a: 4, tol: 0 } ], hint: 'It wants flowers that last and look good, cheaply, with no urgency.', sol: 'Decoration — the only segment that weights price at 5 alongside longevity and design.' },
+        { q: 'How many of the six needs must a firm win on to have a defensible proposition, if every competitor already wins two? Give the minimum.', rows: [ { label: 'Needs', a: 3, tol: 0 } ], hint: 'Defensibility means beating the best competitor on the needs your target actually weights.', sol: 'Three — you need more of the target’s weighted needs than any single rival holds. The point is not to win everything; it is to win the ones your segment scores 5 on.' }
+      ] }
+  ];
+
+  mktTerms = [
+    { k: 'Customer value', v: 'The perceived gains minus perceived pains of an offering. Functional, experiential, emotional, social and economic — not only the technical features.' },
+    { k: 'Revealed preference', v: 'What people actually do, observed in their natural setting. The trustworthy end of research evidence.' },
+    { k: 'Stated preference', v: 'What people say they do, usually on a questionnaire. Invites strategic and socially desirable answers.' },
+    { k: 'Projection bias', v: 'Assuming others share your values, beliefs and preferences. A standard reason intuition misfires.' },
+    { k: 'Survivorship bias', v: 'Drawing conclusions only from the cases that made it into view — the ads people watched, the bombers that returned.' },
+    { k: 'Sample frame error', v: 'The list you sample from does not match the population you care about. The 1936 telephone directories.' },
+    { k: 'Self-selection', v: 'Who chooses to respond differs systematically from who does not.' },
+    { k: 'Loss aversion', v: 'Losing something is roughly twice as painful as gaining the same thing. Half of why New Coke failed.' },
+    { k: 'Endowment effect', v: 'People value what they already have more highly than the same thing not yet owned.' },
+    { k: 'Conjoint analysis', v: 'Estimating the weight of each product attribute from repeated choices between hypothetical bundles.' },
+    { k: 'Part-worth', v: 'The estimated utility weight of one attribute level. Divide by the price coefficient to get willingness to pay.' },
+    { k: 'Endogeneity', v: 'Any relationship in the data that produces spurious correlation instead of the causal effect you want. Omitted variables, reverse causality.' },
+    { k: 'Segmentation', v: 'Recognising diversity in the market and producing clusters of similar customers — best done by why people buy.' },
+    { k: 'Targeting', v: 'Choosing which segments to serve and which to ignore, on alignment, potential and defensibility.' },
+    { k: 'Optimal value proposition', v: 'Where customer value and company strength meet, minus what competitors already deliver well.' },
+    { k: 'Customer lifetime value', v: 'Average purchase × average frequency × average lifespan. The input to segment profitability, not the answer to it.' },
+    { k: 'Jobs to be done', v: 'Customers hire a product to do a job. Segmenting by the job reveals the real competitive set.' },
+    { k: '3C analysis', v: 'Customer, company, competitor. The starting point for segmentation and targeting.' }
+  ];
+
+  mktFormulas = [
+    { k: 'Conjoint utility', v: 'U = β₁X₁ + ⋯ + β_K X_K − α p', note: 'Attribute utilities less the disutility of price.' },
+    { k: 'Willingness to pay', v: 'WTP = −β_attribute / β_price', note: 'Converts a part-worth into money.' },
+    { k: 'Customer lifetime value', v: 'CLV = purchase × frequency × lifespan', note: 'Average values within the segment.' },
+    { k: 'Segment profitability', v: 'Size × [CLV − acquisition − retention]', note: 'Interest without profitability is not a target.' },
+    { k: 'Naive ad effect', v: 'purchases_viewers/viewers − purchases_non/non', note: 'Only causal under random assignment.' }
+  ];
+
+  mktTodo = [
+    { id: 'mk1', title: 'MKT_Individual Assignment 1', when: 'Due 13 Sep at 14:00 · 1 point · 10% of the grade', tag: 'Individual', due: '2026-09-13', time: '14:00' },
+    { id: 'mk2', title: 'Bring your laptops to the session', when: 'Posted 5 Sep at 17:32 · the one session laptops are allowed', tag: 'Notice' },
+    { id: 'mk3', title: 'Schedule change — session timing', when: 'Posted 8 Sep at 16:44', tag: 'Notice' },
+    { id: 'mk4', title: 'Segmentation exercise spreadsheet', when: 'Before the targeting session', tag: 'Prep', due: '2026-09-09' },
+    { id: 'mk5', title: 'Read: Finding the Right Job for Your Product', when: 'Christensen, Anthony, Berstell and Nitterhouse · Sessions 04–07', tag: 'Reading', due: '2026-09-11' }
+  ];
+
+  mktGrading = [
+    { k: 'Attendance, class participation and professionalism', v: '5%' },
+    { k: 'Three assignments — one individual (10%), two group (15% each)', v: '40%' },
+    { k: 'In-person final exam', v: '55%' }
+  ];
+
+  mktContacts = [
+    { name: 'Rupali Kaul', role: 'Marketing Faculty', mail: 'rupali.kaul@insead.edu', where: 'OCTB Office 1.15 · by appointment' },
+    { name: 'Olivia Balloux', role: 'Marketing Faculty Support Coordinator', mail: 'olivia.balloux@insead.edu', where: 'OCTB A1.08 · Mon–Fri 9:00–17:30' },
+    { name: 'Habin Jung', role: 'Marketing Teaching Assistant', mail: 'habin.jung@insead.edu', where: 'FBL Campus · Mon–Fri 9:00–17:00' }
+  ];
+
+  daSessions = [
+    { key: 's1', num: '01', title: 'Introduction to Uncertainty, Data, and Judgment', preview: 'Expected value, process versus outcome, the kinds of uncertainty you can control, and the two modes of thinking.' },
+    { key: 's2', num: '02', title: 'Descriptive Data Analysis', preview: 'Reading a chart honestly, mean/median/mode, range, MAD, variance, standard deviation, the coefficient of variation and the empirical rule.' },
+    { key: 's3', num: '03', title: 'Binomial and Poisson Distributions', preview: 'Random variables and probability models, Bernoulli trials, the Binomial and Poisson formulas, and when each one applies.' },
+    { key: 's4', num: '04', title: 'The Normal Distribution, Functions of Random Variables, and Correlation' },
+    { key: 's5', num: '05', title: 'Sampling and the Central Limit Theorem' },
+    { key: 's6', num: '06', title: 'Estimation — Confidence Intervals' },
+    { key: 's7', num: '07', title: 'Estimation: Proportions, Margin of Error, and Sampling in Practice' },
+    { key: 's8', num: '08', title: 'Hypothesis Testing' },
+    { key: 's9', num: '09', title: 'What is Statistical Evidence?' },
+    { key: 's10', num: '10', title: 'Simple Regression & Practical Data Analysis Pipeline II' },
+    { key: 's11', num: '11', title: 'Statistical Inference in Simple Regression Models' },
+    { key: 's12', num: '12', title: 'Multiple Regression' },
+    { key: 's13', num: '13', title: 'Multicollinearity and Model Selection' },
+    { key: 's14', num: '14', title: 'Model Validation, Autocorrelations, and Outliers' },
+    { key: 's15', num: '15', title: 'Applying Regression and Course Synthesis' }
+  ];
+  daBuilt = { s1: true, s2: true, s3: true };
+  daLessons = {
+    s1: [
+      { t: 'h', text: 'Was that a good bet?' },
+      { t: 'p', text: 'Heads you earn €30 (€50 less the €20 stake); tails you lose €20. The expected value of the profit is positive, so the bet is worth taking — whether or not this particular flip goes your way.' },
+      { t: 'f', text: 'EV = 0.5 × (+€30) + 0.5 × (−€20) = +€5', note: 'In general EV = Σ pₖ vₖ over K outcomes with probabilities pₖ and payoffs vₖ.' },
+      { t: 'h', text: 'Process versus outcome' },
+      { t: 'p', text: 'A good process with a bad outcome is bad luck; a bad process with a good outcome is dumb luck. Only the process is under your control, so that is what you judge a decision on.' },
+      { t: 'tbl', label: 'The four cases', head: ['', 'Good outcome', 'Bad outcome'], rows: [ { cells: ['Good process', 'Well deserved', 'Bad luck'] }, { cells: ['Bad process', 'Dumb luck', 'Poetic justice'] } ] },
+      { t: 'h', text: 'What the course is about' },
+      { t: 'p', text: 'In management, data analysis is the pipeline for decision making under uncertainty. Three questions run through the whole course.' },
+      { t: 'ul', items: ['Uncertainty: how do I make sense of the possibilities surrounding this decision?', 'Data: how do I use data to model, and reduce, that uncertainty?', 'Judgment: how do I make good decisions using the model, the data and my intuition?'] },
+      { t: 'h', text: 'Types of uncertainty' },
+      { t: 'p', text: 'Klaus the Swiss-German banker had great control over subway uncertainty and none at all over coconut uncertainty. The first question about any uncertainty is which kind it is.' },
+      { t: 'note', label: 'A black swan or a mere coconut?', text: 'Goldman Sachs reported “25-standard-deviation moves, several days in a row” in August 2007. Either the world was staging a once-in-100,000-years event, or the model was wrong. Heavy tails are usually the second.' },
+      { t: 'h', text: 'Three stages of data analysis' },
+      { t: 'ul', items: ['Exploratory: what does the data actually look like? EDA is how you avoid the coconuts.', 'Inferential: given the data, what model of uncertainty can I infer?', 'Predictive: what does the inferred model say about what happens next?'] },
+      { t: 'h', text: 'Judgment: two modes of thinking' },
+      { t: 'p', text: '2 + 2 is answered instantly; 17 × 24 is not. Most of the brain is devoted to System 1, fast and intuitive. System 2, slow and reasoned, costs effort — which is exactly why biases survive.' },
+      { t: 'note', label: 'Not examinable', text: 'The judgment mini-modules are breaks from the technical content. They do not appear in the exercises or the final exam.' }
+    ],
+    s2: [
+      { t: 'h', text: 'Visualisation, read critically' },
+      { t: 'p', text: 'Visuals move people even when fabricated. Before believing a chart, check the vertical axis, the horizontal axis, the numbers displayed and which measure is being shown. A log scale can make a trend easier or harder to see, and both are choices someone made.' },
+      { t: 'ul', items: ['Zooming the vertical axis turns a flat record into a dramatic one — Usain Bolt’s 100m record is the classic case.', 'Histograms and bar charts are the recommended defaults.', 'Visualisation tells you which uncertainties are present and can be modelled.'] },
+      { t: 'h', text: 'The central value' },
+      { t: 'f', text: 'μ = (x₁ + x₂ + ⋯ + x_N) / N', note: 'The mean is intuitive but not robust: replacing 90 with 96,480 in 30, 40, 50, 60, 70, 80, 90 moves the mean from 60 to 13,830.' },
+      { t: 'ul', items: ['Median: the middle value when sorted (average the middle two if N is even). Robust to outliers — it stays at 60 in the example above.', 'Mode: the most frequent value. Defined for non-numeric data too, and not well defined when firsts tie.'] },
+      { t: 'note', label: 'Simpson’s paradox', text: 'In the court case, women were paid less than men on average in both departments — yet overall women earned more. Aggregation can reverse a comparison.' },
+      { t: 'h', text: 'The spread' },
+      { t: 'f', text: 'Range = max{x} − min{x}   ·   MAD = (1/N) Σ |xᵢ − μ|   ·   σ² = (1/N) Σ (xᵢ − μ)²', note: 'The worked example: MAD = (9 + 16 + 6 + 12 + 7 + 20)/6 = 11.7; σ² = (81 + 256 + 36 + 144 + 49 + 400)/6 = 161; σ = √161 ≈ 12.7.' },
+      { t: 'p', text: 'Because the variance squares everything it is not in comparable units. The standard deviation is the square root of the variance, back in the units of the data.' },
+      { t: 'h', text: 'Coefficient of variation' },
+      { t: 'f', text: 'CV = (σ / μ) × 100%', note: 'Risk per unit of return. At a given target return, how much risk am I bearing? Interest-free leverage can deliver the same 8% gain at lower CV.' },
+      { t: 'h', text: 'The normal empirical rule' },
+      { t: 'p', text: 'For roughly bell-shaped data, about 68% of observations fall within one standard deviation of the mean, about 95% within two, and about 99.7% within three.' },
+      { t: 'note', label: 'Worked in class', text: 'Mean starting salary €160,000 with σ = €20,000. Approximately 95% of starting salaries fall between €120,000 and €200,000 — provided the distribution really is bell-shaped.' },
+      { t: 'h', text: 'Anchoring bias' },
+      { t: 'p', text: 'People rely too heavily on the first piece of information offered, even when it is irrelevant or manipulative: the UN member-count anchors of 300 versus 95, the USD/EUR anchors of 0.90 versus 1.50, Attila the Hun and your phone number. Prepare independently before meetings, ask whether you have explored enough alternatives, and in a negotiation speak first to set the frame.' }
+    ],
+    s3: [
+      { t: 'h', text: 'Random variables and probability models' },
+      { t: 'p', text: 'A random variable X is an uncertain outcome of interest that has not been realised yet: tomorrow’s commute time, the next coin flip, the number of website visits between 10pm and midnight. Capital letters mark the variable as random. A probability model ℙ assigns a probability to every value X can take, and those probabilities must sum to 1.' },
+      { t: 'tbl', label: 'A discretised model for Klaus’ commute', head: ['Value of X', 'Probability'], rows: [ { cells: ['35', '0.1'] }, { cells: ['40', '0.2'] }, { cells: ['45', '0.4'] }, { cells: ['50', '0.2'] }, { cells: ['55', '0.1'] }, { cells: ['Total', '1.0'] } ] },
+      { t: 'f', text: 'E[X] = Σₓ ℙ(X = x)·x   ·   Var[X] = Σₓ ℙ(X = x)·(x − μ)²', note: 'For the table above: E[X] = 45 and Var[X] = 30. The mean is a weighted average of the values; the variance a weighted average of squared deviations.' },
+      { t: 'h', text: 'Bernoulli: the coin-flip model' },
+      { t: 'f', text: 'ℙ(X = x) = pˣ(1 − p)¹⁻ˣ for x = 0 or 1', note: 'E[X] = p and Var[X] = p(1 − p). The parameter p is the bias of the coin.' },
+      { t: 'h', text: 'The Binomial model' },
+      { t: 'ul', items: ['There are n trials with two possible outcomes each.', 'Every trial has the same Bernoulli model: ℙ(success) = p.', 'All trials are independent. X = the number of successes in the n trials.'] },
+      { t: 'f', text: 'ℙ(X = x) = C(n, x) pˣ(1 − p)ⁿ⁻ˣ = n!/(x!(n − x)!) · pˣ(1 − p)ⁿ⁻ˣ', note: 'E[X] = np and Var[X] = np(1 − p). In Excel: =BINOM.DIST(x, n, p, FALSE).' },
+      { t: 'p', text: 'With three fair coin flips the probabilities are 1/8, 3/8, 3/8, 1/8, giving E[X] = 1.5 and Var[X] = 0.866. With four flips the numerators 1, 4, 6, 4, 1 are the binomial coefficients, E[X] = 2.0 and Var[X] = 1.0.' },
+      { t: 'note', label: 'Why the variance measures uncertainty', text: 'p(1 − p) is largest at p = 0.5. A 50% chance of rain is the most uncertain forecast there is; 0% or 100% carry almost none.' },
+      { t: 'h', text: 'The Poisson model' },
+      { t: 'p', text: 'Instead of n fixed trials, count the number of arrivals over indefinitely many independent trials within a fixed period: customers per day, website visits between 10pm and midnight, patients in an emergency room, goals in a football match.' },
+      { t: 'f', text: 'ℙ(X = x) = λˣe^(−λ) / x!   for x = 0, 1, 2, …', note: 'E[X] = λ and Var[X] = λ. In Excel: =POISSON.DIST(x, lambda, FALSE).' },
+      { t: 'p', text: 'Poisson arises as the limit of many independent Bernoulli trials with a small success rate, where λ ≈ np. The process is memoryless: the past does not affect future counts.' },
+      { t: 'note', label: 'Binomial or Poisson?', text: 'Ask whether you know n. Meals served by the cafeteria in an hour, red giant stars in a volume of space, chocolate chips in a cookie — no fixed n, so Poisson. Deaths in a year among a known set of policyholders — n is known, so Binomial.' },
+      { t: 'h', text: 'Data analysis in the era of AI' },
+      { t: 'ul', items: ['Stochasticity: no two responses, reasoning chains or analyses are the same.', 'No faithful explanation: you cannot know how it reached the answer.', 'Pattern matching versus reasoning, and the model decides which it uses.', 'Tokens versus numbers: large numbers are not encoded as single numbers.', 'Version issues: different models, different contexts, different times.'] },
+      { t: 'p', text: 'The guidelines: ask for code, because procedural solutions are verifiable and reproducible; take care of data hygiene, since cleaning needs context the model does not have; cross-check with another model; sharpen your eyes, because the chart is your responsibility; be the pilot, not the passenger.' },
+      { t: 'note', label: 'Not on the final', text: 'The AI mini-module is not examinable.' }
+    ]
+  };
+  daBank = {
+    s1: [
+      { t: 'mcq', k: 'Expected value', p: 'A bet pays +€30 on heads and −€20 on tails, with a fair coin. What is the expected value of your profit?', o: ['+€5', '+€10', '−€5', '€0'], a: 0, why: 'EV = 0.5 × (+€30) + 0.5 × (−€20) = +€5. The bet is worth taking regardless of how this flip lands.' },
+      { t: 'mcq', k: 'Process vs outcome', p: 'A good process that produces a bad outcome is best described as:', o: ['Bad luck', 'Poetic justice', 'Dumb luck', 'A bad decision'], a: 0, why: 'Good process with a bad outcome is bad luck. Only the process is under your control, so that is what a decision is judged on.' },
+      { t: 'tf', k: 'True or false', p: 'A decision should be judged by its outcome rather than by the process that produced it.', a: false, why: 'False. Outcomes are contaminated by luck; the process is the part you control and the part worth judging.' },
+      { t: 'mcq', k: 'Stages of analysis', p: 'Which stage answers “what does the data actually look like?”', o: ['Exploratory data analysis', 'Inferential data analysis', 'Predictive data analysis', 'Confirmatory analysis'], a: 0, why: 'Exploratory analysis is the look-at-it-first stage — the one that stops you tripping over the coconuts.' },
+      { t: 'mcq', k: 'Uncertainty', p: 'Goldman Sachs described “25-standard-deviation moves, several days in a row”. The more sensible reading is:', o: ['The model was wrong', 'A genuine once-in-100,000-years event', 'The data was mismeasured', 'Markets became normally distributed'], a: 0, why: 'Repeated “impossible” moves are evidence about the model, not about the world. Real financial tails are much heavier than the normal model assumes.' },
+      { t: 'mcq', k: 'Two modes of thinking', p: '17 × 24 is answered by which system?', o: ['System 2 — slow, effortful reasoning', 'System 1 — fast intuition', 'Neither', 'Both equally'], a: 0, why: '2 + 2 is System 1. 17 × 24 requires deliberate work, which is System 2 — and effortful enough that most people avoid it.' }
+    ],
+    s2: [
+      { t: 'mcq', k: 'Robustness', p: 'In the data 30, 40, 50, 60, 70, 80, 96480, which summary stays at 60?', o: ['The median', 'The mean', 'Both', 'Neither'], a: 0, why: 'The median is the middle value when sorted, so a single extreme observation cannot move it. The mean jumps to 13,830.' },
+      { t: 'num', k: 'Compute it', p: 'What is the mean of 30, 40, 50, 60, 70, 80, 90?', a: 60, tol: 0.01, unit: '', ph: 'e.g. 60', why: 'The seven values are symmetric around 60, so the mean is 60 — and so is the median.' },
+      { t: 'num', k: 'Compute it', p: 'Squared deviations of 81, 256, 36, 144, 49 and 400 over six observations. What is the variance?', a: 161, tol: 0.5, unit: '', ph: 'e.g. 161', why: 'σ² = (81 + 256 + 36 + 144 + 49 + 400)/6 = 966/6 = 161, and σ = √161 ≈ 12.7.' },
+      { t: 'num', k: 'Empirical rule', p: 'Mean salary €160,000, σ = €20,000. Under the empirical rule, 95% of salaries fall between €120,000 and what upper figure (in thousands)?', a: 200, tol: 0.5, unit: '€ thousand', ph: 'e.g. 200', why: 'Two standard deviations either side: 160 ± 2 × 20, so €120,000 to €200,000.' },
+      { t: 'mcq', k: 'Coefficient of variation', p: 'An asset returns 8% with σ = 4%. Its coefficient of variation is:', o: ['50%', '32%', '2%', '200%'], a: 0, why: 'CV = σ/μ × 100% = 4/8 × 100% = 50%. CV is risk per unit of return, which is what makes two assets with different means comparable.' },
+      { t: 'mcq', k: 'Simpson’s paradox', p: 'Women are paid less than men on average in every department, yet more than men overall. This is:', o: ['Possible — the mix of departments differs', 'Impossible — the averages contradict', 'A rounding artefact', 'Evidence of a data error'], a: 0, why: 'Aggregation can reverse a comparison when group sizes differ. It is the court case from the session, and it is why you look at the breakdown.' },
+      { t: 'tf', k: 'True or false', p: 'The standard deviation is in the same units as the data.', a: true, why: 'True. The variance squares the units, which is precisely why the square root is taken.' },
+      { t: 'mcq', k: 'Anchoring', p: 'Groups asked to start from 300 rather than 95 guess a higher number of UN members. The remedy in a meeting is:', o: ['Prepare independently before the meeting', 'Discuss the anchor openly first', 'Average the group’s guesses', 'Use a wider range'], a: 0, why: 'Independent preparation stops the first number spoken from setting everyone’s frame. In a negotiation the same effect is why you speak first.' }
+    ],
+    s3: [
+      { t: 'mcq', k: 'Model conditions', p: 'Which condition is NOT required by the Binomial model?', o: ['The number of trials is unknown', 'A fixed number of trials n', 'The same p on every trial', 'Independent trials'], a: 0, why: 'Binomial needs a known, fixed n. If you do not know n but do know a rate over a fixed period, that is Poisson.' },
+      { t: 'num', k: 'Binomial', p: 'X ~ Bin(5, 0.4). What is ℙ(X = 0), to four decimals?', a: 0.0778, tol: 0.0008, unit: '', ph: 'e.g. 0.0778', why: 'ℙ(X = 0) = 0.6⁵ = 0.0778. This is the “no morning people in a group of five” case.' },
+      { t: 'num', k: 'Binomial', p: 'X ~ Bin(5, 0.4). What is ℙ(X = 2), to four decimals?', a: 0.3456, tol: 0.0008, unit: '', ph: 'e.g. 0.3456', why: 'C(5,2) × 0.4² × 0.6³ = 10 × 0.16 × 0.216 = 0.3456 — the most likely single outcome here.' },
+      { t: 'num', k: 'Binomial', p: 'X ~ Bin(5, 0.4). What is ℙ(X ≥ 2), to four decimals?', a: 0.6630, tol: 0.001, unit: '', ph: 'e.g. 0.6630', why: '1 − ℙ(0) − ℙ(1) = 1 − 0.0778 − 0.2592 = 0.6630. At least means take the complement.' },
+      { t: 'num', k: 'Mean and variance', p: 'X ~ Bin(20, 0.3). What is E[X]?', a: 6, tol: 0.01, unit: '', ph: 'e.g. 6', why: 'E[X] = np = 20 × 0.3 = 6, and Var[X] = np(1 − p) = 4.2.' },
+      { t: 'mcq', k: 'Fund managers', p: 'A manager beats the S&P with probability 0.5 each year, independently. What is the chance of beating it in all six years?', o: ['1/64', '1/36', '1/12', '6/64'], a: 0, why: 'ℙ(X = 6) = (0.5)⁶ = 1/64. Out of 900 managers you would expect about 14 by chance alone — which is exactly what was observed.' },
+      { t: 'num', k: 'Poisson', p: 'X ~ Pois(1). What is ℙ(X = 0), to four decimals?', a: 0.3679, tol: 0.0008, unit: '', ph: 'e.g. 0.3679', why: 'e^(−1) = 0.3679. With 2 cases per 8-hour shift, λ = 1 per 4 hours.' },
+      { t: 'mcq', k: 'Memorylessness', p: 'Three cases arrived in the first four hours. What is the chance of no cases in the next four?', o: ['0.3679 — unchanged', 'Lower than 0.3679', 'Higher than 0.3679', 'Cannot be determined'], a: 0, why: 'The Poisson process is memoryless: the underlying Bernoulli trials are independent, so the past does not change future counts. λ is still 1 and ℙ(X = 0) is still 0.3679.' },
+      { t: 'mcq', k: 'Which model?', p: 'The number of chocolate chips in a cookie is best modelled as:', o: ['Poisson', 'Binomial', 'Bernoulli', 'Uniform'], a: 0, why: 'There is no fixed n of chip-placement trials, only a rate per cookie. No n means Poisson.' },
+      { t: 'mcq', k: 'Which model?', p: 'Deaths in a year among the holders of a known set of life insurance policies:', o: ['Binomial', 'Poisson', 'Bernoulli', 'Neither'], a: 0, why: 'The number of policyholders is known, so n is fixed and each policy is a trial. That is Binomial — though with small p it is well approximated by Poisson with λ = np.' },
+      { t: 'num', k: 'Variance', p: 'For a Bernoulli(p) coin, at which p is the variance largest? Give p.', a: 0.5, tol: 0.01, unit: '', ph: 'e.g. 0.5', why: 'p(1 − p) peaks at p = 0.5, value 0.25. A 50% forecast is the most uncertain one available.' },
+      { t: 'tf', k: 'True or false', p: 'For a Poisson random variable the mean and the variance are equal.', a: true, why: 'True. E[X] = λ and Var[X] = λ — a property worth checking against your data before assuming Poisson.' }
+    ]
+  };
+  daExercises = [
+    { key: 'morning', tag: 'Session 3', title: 'Morning people', stem: 'In the class survey, 40% of students describe themselves as morning people. Take a random group of five students and let X be the number of morning people in it.',
+      steps: [
+        { q: 'Name the model and its parameters.', rows: [ { label: 'n', a: 5, tol: 0 }, { label: 'p', a: 0.4, tol: 0.001 } ], hint: 'Five independent students, each either a morning person or not, with the same probability each time.', sol: 'X ~ Bin(n = 5, p = 0.4).' },
+        { q: 'What is the probability that there are no morning people?', rows: [ { label: 'ℙ(X = 0)', a: 0.0778, tol: 0.0008 } ], hint: 'C(5,0) = 1, so this is just 0.6 raised to the fifth power.', sol: 'ℙ(X = 0) = 0.6⁵ = 0.0778.' },
+        { q: 'What is the probability of exactly two morning people?', rows: [ { label: 'ℙ(X = 2)', a: 0.3456, tol: 0.0008 } ], hint: 'C(5,2) = 10. Multiply by 0.4² and by 0.6³.', sol: 'ℙ(X = 2) = 10 × 0.16 × 0.216 = 0.3456.' },
+        { q: 'What is the probability of at least two morning people?', rows: [ { label: 'ℙ(X ≥ 2)', a: 0.6630, tol: 0.001 } ], hint: 'At least two is the complement of zero or one. ℙ(X = 1) = 5 × 0.4 × 0.6⁴ = 0.2592.', sol: '1 − 0.0778 − 0.2592 = 0.6630.' },
+        { q: 'Give the mean and variance of X.', rows: [ { label: 'E[X]', a: 2, tol: 0.01 }, { label: 'Var[X]', a: 1.2, tol: 0.01 } ], hint: 'np and np(1 − p).', sol: 'E[X] = 5 × 0.4 = 2 and Var[X] = 5 × 0.4 × 0.6 = 1.2.' }
+      ] },
+    { key: 'funds', tag: 'Session 3', title: '900 equity fund managers', stem: 'Of the 900 diversified equity funds in existence at the end of 1990, only 14 beat the S&P 500 in each of the six years from 1991 to 1996. Assume every manager is no more sophisticated than a coin toss: probability 0.5 of beating the index in any year, independent across years.',
+      steps: [
+        { q: 'What is the probability that one manager outperforms in all six years?', rows: [ { label: 'ℙ(X = 6)', a: 0.015625, tol: 0.0002 } ], hint: 'C(6,6) = 1, so this is 0.5⁶.', sol: 'ℙ(X = 6) = (0.5)⁶ = 1/64 = 0.015625.' },
+        { q: 'How many of the 900 managers would you expect to do that by luck alone?', rows: [ { label: 'Expected count', a: 14.06, tol: 0.3 } ], hint: '900 multiplied by the probability you just computed.', sol: '900 / 64 = 14.06 — almost exactly the 14 observed. The data is entirely consistent with no skill at all.' },
+        { q: 'What is the probability a given manager beats the index in exactly three of the six years?', rows: [ { label: 'ℙ(X = 3)', a: 0.3125, tol: 0.001 } ], hint: 'C(6,3) = 20, and every sequence of six flips has probability 0.5⁶.', sol: '20 × (0.5)⁶ = 20/64 = 0.3125.' }
+      ] },
+    { key: 'er', tag: 'Session 3', title: 'Emergency room staffing', stem: 'At a hospital, on average 2 cases arrive in the emergency room during an 8-hour shift.',
+      steps: [
+        { q: 'What is the arrival rate for a 4-hour half-shift?', rows: [ { label: 'λ', a: 1, tol: 0.01 } ], hint: 'The rate scales with the length of the window.', sol: 'Half the window, half the rate: λ = 1 per 4 hours.' },
+        { q: 'What is the probability of no cases during the first four hours?', rows: [ { label: 'ℙ(X = 0)', a: 0.3679, tol: 0.0008 } ], hint: 'λ⁰e^(−λ)/0! with λ = 1.', sol: 'ℙ(X = 0) = e^(−1) = 0.3679.' },
+        { q: 'Three cases arrived in the first four hours. What is the probability of no further cases in the next four?', rows: [ { label: 'ℙ(X = 0)', a: 0.3679, tol: 0.0008 } ], hint: 'Does what already happened change the rate?', sol: 'Still 0.3679. The Poisson process is memoryless — the underlying trials are independent, so the busy first half tells you nothing about the second.' },
+        { q: 'Give the mean and variance of the number of cases in a full 8-hour shift.', rows: [ { label: 'E[X]', a: 2, tol: 0.01 }, { label: 'Var[X]', a: 2, tol: 0.01 } ], hint: 'For Poisson these two are the same number.', sol: 'E[X] = Var[X] = λ = 2.' }
+      ] },
+    { key: 'spread', tag: 'Session 2', title: 'Spread of a small sample', stem: 'Six observations have deviations from the mean of −9, +16, −6, +12, −7 and −20 (in the units of the data). Work out the three measures of spread.',
+      steps: [
+        { q: 'What is the mean absolute deviation?', rows: [ { label: 'MAD', a: 11.667, tol: 0.05 } ], hint: 'Average the absolute values: (9 + 16 + 6 + 12 + 7 + 20)/6.', sol: 'MAD = 70/6 = 11.7.' },
+        { q: 'What is the variance?', rows: [ { label: 'σ²', a: 161, tol: 0.5 } ], hint: 'Square each deviation first: 81, 256, 36, 144, 49, 400.', sol: 'σ² = 966/6 = 161.' },
+        { q: 'What is the standard deviation?', rows: [ { label: 'σ', a: 12.69, tol: 0.05 } ], hint: 'Square root of the variance.', sol: 'σ = √161 ≈ 12.7, back in the units of the data.' }
+      ] },
+    { key: 'cv', tag: 'Session 2', title: 'Risk per unit of return', stem: 'Asset A returns 8% on average with a standard deviation of 4%. Asset B returns 12% with a standard deviation of 9%.',
+      steps: [
+        { q: 'Compute the coefficient of variation for each asset (in %).', rows: [ { label: 'CV of A', a: 50, tol: 0.5 }, { label: 'CV of B', a: 75, tol: 0.5 } ], hint: 'CV = σ/μ × 100%.', sol: 'A: 4/8 = 50%. B: 9/12 = 75%.' },
+        { q: 'Which asset carries less risk per unit of return? Enter 1 for A, 2 for B.', rows: [ { label: 'Answer', a: 1, tol: 0 } ], hint: 'Lower CV is less risk per unit of return.', sol: 'A, at 50% against 75% — even though B has the higher raw return.' }
+      ] }
+  ];
+  daGens = [
+    { key: 'gbin', tag: 'Generated', title: 'Binomial drill', blurb: 'A fresh n and p each time: point probability, tail probability, mean and variance.' },
+    { key: 'gpois', tag: 'Generated', title: 'Poisson drill', blurb: 'A fresh arrival rate each time: point probability, the probability of none, and the moments.' },
+    { key: 'gdesc', tag: 'Generated', title: 'Descriptive drill', blurb: 'A fresh small sample: mean, median, variance and standard deviation.' }
+  ];
+  daTodo = [
+    { id: 'a3', title: 'S03_DA_Individual Assignment 2 — Exercises 3.2 and 3.7', when: 'Due 9 Sep at 12:00 · 1 point · online', tag: 'Online', due: '2026-09-09', time: '12:00' },
+    { id: 'g1', title: 'Group assignment #1: Bad Statistics', when: 'Two misleading or exceptionally good visualisations from September media', tag: 'Group', due: '2026-09-30' },
+    { id: 'a2', title: 'S02_DA_Individual Assignment 1 — Exercise 2.2', when: 'Due before Session 3 · 1 point · online', tag: 'Online', due: '2026-09-04', time: '10:15' },
+    { id: 's1', title: '[Data Analysis] Class survey — judgment & class data', when: 'Due by 17:00 the day after Session 1 · ungraded', tag: 'Survey', due: '2026-09-01', time: '17:00' }
+  ];
+  daGrading = [
+    { k: 'Class participation (QR code, pop quizzes, activity in class)', v: '5%' },
+    { k: 'Online exercises (0–2 per session, submitted on LMS, pass/fail)', v: '5%' },
+    { k: 'Group exercises (4 in total)', v: '25%' },
+    { k: 'In-person final exam (3 hours, no digital sources or AI)', v: '65%' }
+  ];
+  daContacts = [
+    { name: 'Prof. Yo Joong (YJ) Choe', role: 'Assistant Professor of Decision Sciences', mail: 'yojoong.choe@insead.edu', where: 'Octa B · by appointment' },
+    { name: 'Nataliia Bogomolova', role: 'Decision Sciences Faculty Support Coordinator', mail: 'nataliia.bogomolova@insead.edu', where: 'Octa B OSP 0.05 · Mon–Fri 9:00–17:30' }
+  ];
+  daFormulas = [
+    { k: 'Expected value', v: 'EV = Σ pₖ vₖ', note: 'Probability-weighted average of the payoffs.' },
+    { k: 'Mean', v: 'μ = (1/N) Σ xᵢ', note: 'Not robust to outliers; the median is.' },
+    { k: 'Variance and SD', v: 'σ² = (1/N) Σ (xᵢ − μ)² · σ = √σ²', note: 'The SD is back in the units of the data.' },
+    { k: 'Coefficient of variation', v: 'CV = (σ / μ) × 100%', note: 'Risk per unit of return.' },
+    { k: 'Empirical rule', v: '68% / 95% / 99.7% within 1σ / 2σ / 3σ', note: 'Only for roughly bell-shaped data.' },
+    { k: 'Random variable', v: 'E[X] = Σ ℙ(X = x)·x', note: 'Var[X] = Σ ℙ(X = x)·(x − μ)².' },
+    { k: 'Bernoulli(p)', v: 'ℙ(X = x) = pˣ(1 − p)¹⁻ˣ', note: 'E[X] = p, Var[X] = p(1 − p).' },
+    { k: 'Binomial(n, p)', v: 'ℙ(X = x) = C(n,x) pˣ(1 − p)ⁿ⁻ˣ', note: 'E[X] = np, Var[X] = np(1 − p). =BINOM.DIST(x,n,p,FALSE).' },
+    { k: 'Poisson(λ)', v: 'ℙ(X = x) = λˣe^(−λ) / x!', note: 'E[X] = Var[X] = λ. =POISSON.DIST(x,lambda,FALSE).' }
+  ];
+  daTerms = [
+    { k: 'Random variable', v: 'An uncertain outcome of interest that has not been realised yet. Written with a capital letter to mark it as random.' },
+    { k: 'Probability model', v: 'An assignment of a probability to every value the random variable can take. The probabilities must sum to 1.' },
+    { k: 'Bernoulli trial', v: 'A single trial with two outcomes, success with probability p and failure with probability 1 − p.' },
+    { k: 'Independence', v: 'The outcome of one trial carries no information about another. Required by the Binomial model.' },
+    { k: 'Memorylessness', v: 'A property of the Poisson process: past arrivals do not change the distribution of future counts.' },
+    { k: 'Arrival rate λ', v: 'The expected number of arrivals in a fixed period. Scale it with the length of the window.' },
+    { k: 'Median', v: 'The middle value when the data is sorted; the mean of the middle two when N is even. Robust to outliers.' },
+    { k: 'Mode', v: 'The most frequent value. Defined for non-numeric data; not well defined when firsts tie.' },
+    { k: 'Mean absolute deviation', v: 'The average of the absolute deviations from the mean. Less used than the variance because it is harder to work with algebraically.' },
+    { k: 'Simpson’s paradox', v: 'A comparison that holds within every group can reverse once the groups are aggregated.' },
+    { k: 'Anchoring bias', v: 'Over-reliance on the first piece of information offered, even when it is irrelevant or manipulative.' },
+    { k: 'System 1 / System 2', v: 'Fast intuitive thinking versus slow effortful reasoning. Most of the brain is devoted to the first.' },
+    { k: 'Exploratory data analysis', v: 'Looking at what the data actually is, before modelling it. How you avoid the coconuts.' },
+    { k: 'Coconut', v: 'A risk that looks exotic but is ordinary and controllable, as against a genuine black swan.' }
+  ];
+
+  faSessions = [];
+  faBank = {};
+  faTerms = [];
+  faTodo = [
+    { id: 'fa1', title: 'Prepare the AstraZeneca case', when: 'Before the earnings-quality session', tag: 'Case' },
+    { id: 'fa2', title: 'Practice set — the three statements', when: 'Ongoing', tag: 'Practice' }
+  ];
+  faGrading = [
+    { k: 'Class participation', v: '10%' },
+    { k: 'Group case work', v: '30%' },
+    { k: 'Final exam', v: '60%' }
+  ];
+  faContacts = [];
+
+  data(c) {
+    if (c === 'mkt') return { sessions: this.mktSessions, built: this.mktBuilt, lessons: this.mktLessons, bank: this.mktBank, exercises: this.mktExercises, gens: [], todo: this.mktTodo, grading: this.mktGrading, contacts: this.mktContacts, formulas: this.mktFormulas, terms: this.mktTerms };
+    if (c === 'fa') return { sessions: this.faSessions, built: {}, lessons: {}, bank: this.faBank, exercises: [], gens: [], todo: this.faTodo, grading: this.faGrading, contacts: this.faContacts, formulas: [], terms: this.faTerms };
+    return { sessions: this.daSessions, built: this.daBuilt, lessons: this.daLessons, bank: this.daBank, exercises: this.daExercises, gens: this.daGens, todo: this.daTodo, grading: this.daGrading, contacts: this.daContacts, formulas: this.daFormulas, terms: this.daTerms };
+  }
+
+  componentDidMount() {
+    try {
+      const raw = window.localStorage.getItem('mim28-hub-v1');
+      if (raw) {
+        const s = JSON.parse(raw);
+        this.setState({ done: s.done || {}, best: s.best || {}, missed: s.missed || {}, last: s.last || {}, todoDone: s.todoDone || {} });
+      }
+    } catch (e) {}
+    this.onKey = (e) => {
+      if (!this.state.calcOpen) return;
+      const tag = (e.target && e.target.tagName || '').toLowerCase();
+      if (tag === 'input') return;
+      const k = e.key;
+      if (/^[0-9.]$/.test(k)) this.calcPress(k);
+      else if (k === '+' || k === '-' || k === '*' || k === '/') this.calcPress({ '+': '+', '-': '−', '*': '×', '/': '÷' }[k]);
+      else if (k === 'Enter' || k === '=') this.calcPress('=');
+      else if (k === 'Backspace') this.calcPress('⌫');
+      else if (k === 'Escape') this.calcPress('C');
+    };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this.onKey); }
+
+  save(patch) {
+    const next = Object.assign({ done: this.state.done, best: this.state.best, missed: this.state.missed, last: this.state.last, todoDone: this.state.todoDone }, patch || {});
+    try { window.localStorage.setItem('mim28-hub-v1', JSON.stringify(next)); } catch (e) {}
+  }
+
+  go(view) {
+    this.setState({ view: view, typed: '' });
+    if (view.indexOf('ses:') === 0) {
+      const last = Object.assign({}, this.state.last);
+      last[this.state.course] = view;
+      this.setState({ last: last });
+      this.save({ last: last });
+    }
+  }
+  openCourse(c) { this.setState({ course: c, view: 'home', typed: '', exInp: {}, exUi: {} }); }
+
+  mode() {
+    if (!this.state.course) return 'hub';
+    const v = this.state.view;
+    if (v.indexOf('ses:') === 0) return 'ses';
+    if (v.indexOf('drill:') === 0) return 'drill';
+    if (v.indexOf('res:') === 0) return 'res';
+    if (v.indexOf('ex:') === 0) return 'ex';
+    return v;
+  }
+
+  fact(n) { let r = 1; for (let i = 2; i <= n; i++) r *= i; return r; }
+  choose(n, k) { return this.fact(n) / (this.fact(k) * this.fact(n - k)); }
+  binPmf(n, p, x) { return this.choose(n, x) * Math.pow(p, x) * Math.pow(1 - p, n - x); }
+  poisPmf(lam, x) { return Math.pow(lam, x) * Math.exp(-lam) / this.fact(x); }
+  phi(z) {
+    const t = 1 / (1 + 0.2316419 * Math.abs(z));
+    const d = 0.3989423 * Math.exp(-z * z / 2);
+    const p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+    return z > 0 ? 1 - p : p;
+  }
+  f4(x) { return x.toFixed(4); }
+
+  normQ(q) {
+    if (q.t === 'tf') return Object.assign({}, q, { t: 'mcq', o: ['True', 'False'], a: q.a ? 0 : 1, k: q.k || 'True or false' });
+    return q;
+  }
+
+  startDrillFor(key) {
+    const d = this.data(this.state.course);
+    let list;
+    if (key === 'mix') {
+      list = [];
+      Object.keys(d.bank).forEach(k => { (d.bank[k] || []).forEach(q => list.push(q)); });
+      for (let i = list.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = list[i]; list[i] = list[j]; list[j] = t; }
+      list = list.slice(0, 12);
+    } else {
+      list = (d.bank[key] || []).slice();
+    }
+    this.setState({ view: 'drill:' + key, order: list.map(q => this.normQ(q)), qi: 0, answers: {}, typed: '' });
+  }
+
+  answer(given) {
+    const q = this.state.order[this.state.qi];
+    let ok;
+    if (q.t === 'num') ok = Math.abs(parseFloat(String(given).replace(/[, ]/g, '').replace(',', '.')) - q.a) <= (q.tol === undefined ? 0.01 : q.tol);
+    else ok = given === q.a;
+    const answers = Object.assign({}, this.state.answers);
+    answers[this.state.qi] = { given: given, ok: ok };
+    const missed = Object.assign({}, this.state.missed);
+    if (ok) delete missed[q.p]; else missed[q.p] = 1;
+    this.setState({ answers: answers, missed: missed });
+    this.save({ missed: missed });
+  }
+
+  nextQuestion() {
+    const qi = this.state.qi + 1;
+    if (qi >= this.state.order.length) {
+      const key = this.state.course + ':' + this.state.view.split(':')[1];
+      const n = this.state.order.length;
+      let right = 0;
+      Object.keys(this.state.answers).forEach(k => { if (this.state.answers[k].ok) right++; });
+      const done = Object.assign({}, this.state.done); done[key] = true;
+      const best = Object.assign({}, this.state.best);
+      const pct = Math.round(right / Math.max(n, 1) * 100);
+      if (!best[key] || best[key] < pct) best[key] = pct;
+      this.setState({ view: 'res:' + this.state.view.split(':')[1], done: done, best: best });
+      this.save({ done: done, best: best });
+      return;
+    }
+    this.setState({ qi: qi, typed: '' });
+  }
+
+  exFor(key) {
+    if (key.charAt(0) === 'g') return this.buildGen(key);
+    return this.data(this.state.course).exercises.find(e => e.key === key);
+  }
+
+  buildGen(key) {
+    const seed = this.state.exSeed;
+    const r = (a, b) => a + ((seed * 9301 + 49297 + (b - a) * 7919) % 100000) % (b - a + 1);
+    if (key === 'gbin') {
+      const n = r(6, 12), p = [0.15, 0.2, 0.25, 0.3, 0.4, 0.5][r(0, 5)], x = r(1, 3);
+      return { key: key, tag: 'Generated', gen: true, title: 'Binomial drill',
+        stem: 'X ~ Bin(n = ' + n + ', p = ' + p.toFixed(2) + '). Work with the formula, then check against the table.',
+        steps: [
+          { q: 'What is ℙ(X = ' + x + ')?', rows: [ { label: 'ℙ(X = ' + x + ')', a: +this.binPmf(n, p, x).toFixed(4), tol: 0.001 } ], hint: 'C(' + n + ',' + x + ') × ' + p.toFixed(2) + '^' + x + ' × ' + (1 - p).toFixed(2) + '^' + (n - x) + '.', sol: 'ℙ = ' + this.f4(this.binPmf(n, p, x)) + '.' },
+          { q: 'What is ℙ(X = 0)?', rows: [ { label: 'ℙ(X = 0)', a: +Math.pow(1 - p, n).toFixed(4), tol: 0.001 } ], hint: '(1 − p) to the power n.', sol: 'ℙ(X = 0) = ' + this.f4(Math.pow(1 - p, n)) + '.' },
+          { q: 'Give the mean and the variance.', rows: [ { label: 'E[X]', a: +(n * p).toFixed(3), tol: 0.02 }, { label: 'Var[X]', a: +(n * p * (1 - p)).toFixed(3), tol: 0.02 } ], hint: 'np and np(1 − p).', sol: 'E[X] = ' + (n * p).toFixed(2) + ', Var[X] = ' + (n * p * (1 - p)).toFixed(2) + '.' }
+        ] };
+    }
+    if (key === 'gpois') {
+      const lam = [0.5, 1, 1.5, 2, 2.5, 3, 4][r(0, 6)], x = r(1, 4);
+      return { key: key, tag: 'Generated', gen: true, title: 'Poisson drill',
+        stem: 'Arrivals follow X ~ Pois(λ = ' + lam + ') over one period.',
+        steps: [
+          { q: 'What is ℙ(X = ' + x + ')?', rows: [ { label: 'ℙ(X = ' + x + ')', a: +this.poisPmf(lam, x).toFixed(4), tol: 0.001 } ], hint: 'λ^x e^(−λ) / x!, with x! = ' + this.fact(x) + '.', sol: 'ℙ = ' + this.f4(this.poisPmf(lam, x)) + '.' },
+          { q: 'What is the probability of no arrivals?', rows: [ { label: 'ℙ(X = 0)', a: +Math.exp(-lam).toFixed(4), tol: 0.001 } ], hint: 'Everything but e^(−λ) drops out.', sol: 'ℙ(X = 0) = ' + this.f4(Math.exp(-lam)) + '.' },
+          { q: 'Give the mean and the variance.', rows: [ { label: 'E[X]', a: lam, tol: 0.01 }, { label: 'Var[X]', a: lam, tol: 0.01 } ], hint: 'For Poisson these are equal.', sol: 'Both equal λ = ' + lam + '.' }
+        ] };
+    }
+    const vals = [];
+    for (let i = 0; i < 7; i++) vals.push(r(10, 90) + i * 3);
+    const sorted = vals.slice().sort((a, b) => a - b);
+    const mean = vals.reduce((s, v) => s + v, 0) / vals.length;
+    const varr = vals.reduce((s, v) => s + (v - mean) * (v - mean), 0) / vals.length;
+    return { key: key, tag: 'Generated', gen: true, title: 'Descriptive drill',
+      stem: 'The sample: ' + vals.join(', ') + '.',
+      steps: [
+        { q: 'What is the mean?', rows: [ { label: 'μ', a: +mean.toFixed(3), tol: 0.05 } ], hint: 'Sum the seven values and divide by 7.', sol: 'μ = ' + mean.toFixed(2) + '.' },
+        { q: 'What is the median?', rows: [ { label: 'Median', a: sorted[3], tol: 0.01 } ], hint: 'Sort, then take the fourth of seven.', sol: 'Sorted: ' + sorted.join(', ') + '. Median = ' + sorted[3] + '.' },
+        { q: 'Give the variance and the standard deviation.', rows: [ { label: 'σ²', a: +varr.toFixed(2), tol: 0.5 }, { label: 'σ', a: +Math.sqrt(varr).toFixed(2), tol: 0.1 } ], hint: 'Average the squared deviations, then take the root.', sol: 'σ² = ' + varr.toFixed(2) + ', σ = ' + Math.sqrt(varr).toFixed(2) + '.' }
+      ] };
+  }
+
+  calcApply(op, a, b) {
+    if (op === '+') return a + b;
+    if (op === '−') return a - b;
+    if (op === '×') return a * b;
+    if (op === '÷') return b === 0 ? NaN : a / b;
+    return b;
+  }
+  calcPress(k) {
+    const s = this.state, disp = s.calcDisp;
+    if (k === 'C') { this.setState({ calcDisp: '0', calcAcc: null, calcOp: null, calcFresh: true }); return; }
+    if (k === '⌫') { this.setState({ calcDisp: s.calcFresh ? '0' : (disp.slice(0, -1) || '0'), calcFresh: false }); return; }
+    if (k === '√') { this.setState({ calcDisp: String(Math.sqrt(parseFloat(disp))), calcFresh: true }); return; }
+    if (k === 'x²') { const v = parseFloat(disp); this.setState({ calcDisp: String(v * v), calcFresh: true }); return; }
+    if (k === '+' || k === '−' || k === '×' || k === '÷') {
+      const cur = parseFloat(disp);
+      const acc = s.calcAcc === null ? cur : this.calcApply(s.calcOp, s.calcAcc, cur);
+      this.setState({ calcAcc: acc, calcOp: k, calcDisp: String(acc), calcFresh: true });
+      return;
+    }
+    if (k === '=') {
+      if (s.calcOp === null) return;
+      const out = this.calcApply(s.calcOp, s.calcAcc, parseFloat(disp));
+      this.setState({ calcDisp: String(Math.round(out * 1e10) / 1e10), calcAcc: null, calcOp: null, calcFresh: true });
+      return;
+    }
+    if (k === '.') { if (disp.indexOf('.') >= 0 && !s.calcFresh) return; this.setState({ calcDisp: (s.calcFresh ? '0' : disp) + '.', calcFresh: false }); return; }
+    this.setState({ calcDisp: s.calcFresh || disp === '0' ? k : disp + k, calcFresh: false });
+  }
+
+  btn(kind) {
+    const base = 'display:inline-block; text-align:left; font-family:var(--font-h); font-weight:700; font-size:14px; letter-spacing:0.02em; padding:12px 18px; border-radius:0; cursor:pointer; border:2px solid var(--acc);';
+    if (kind === 'primary') return base + ' background:var(--acc); color:var(--onAcc);';
+    if (kind === 'secondary') return base + ' background:transparent; color:var(--ink);';
+    return base + ' background:transparent; color:var(--muted); border-color:var(--line); padding:9px 14px;';
+  }
+  navStyle(active) {
+    return 'display:block; width:100%; text-align:left; padding:11px 20px; font-size:14px; font-weight:' + (active ? '700' : '500') + '; border:none; border-bottom:1px solid var(--line); cursor:pointer; background:' + (active ? 'var(--panel)' : 'transparent') + '; color:' + (active ? 'var(--accSoft)' : 'var(--soft)') + ';';
+  }
+
+  mascot(which) {
+    const E = React.createElement;
+    if (which === 'da') {
+      return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%', 'aria-label': 'A blue fish' },
+        E('path', { d: 'M18 60 C40 26 96 22 124 46 C138 58 138 62 124 74 C96 98 40 94 18 60 Z', fill: '#3a72c9' }),
+        E('path', { d: 'M124 46 C136 40 152 26 162 18 C160 40 158 46 150 60 C158 74 160 80 162 102 C152 94 136 80 124 74 C132 66 132 54 124 46 Z', fill: '#27508f' }),
+        E('circle', { cx: 46, cy: 54, r: 7, fill: '#e9eff9' }),
+        E('circle', { cx: 44, cy: 54, r: 3.2, fill: '#0b1729' }),
+        E('circle', { cx: 78, cy: 52, r: 5, fill: '#a7ccff' }),
+        E('circle', { cx: 98, cy: 60, r: 4.2, fill: '#a7ccff' }));
+    }
+    if (which === 'mkt') {
+      return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%', 'aria-label': 'A purple giraffe' },
+        E('path', { d: 'M44 74 C36 68 30 74 32 84 C34 92 40 94 44 90', stroke: '#8a5fd8', 'stroke-width': 5, fill: 'none', 'stroke-linecap': 'round' }),
+        E('path', { d: 'M52 88 L52 112 M70 90 L70 112 M92 90 L92 112 M108 86 L108 112', stroke: '#8a5fd8', 'stroke-width': 8, 'stroke-linecap': 'round' }),
+        E('path', { d: 'M44 76 C44 62 58 56 78 56 L100 56 C116 56 118 68 116 84 C114 92 100 94 78 94 C58 94 44 88 44 76 Z', fill: '#a97cf5' }),
+        E('path', { d: 'M100 62 L112 26', stroke: '#a97cf5', 'stroke-width': 19, 'stroke-linecap': 'round' }),
+        E('path', { d: 'M112 22 C124 16 140 18 144 26 C147 32 142 37 134 37 L114 34 Z', fill: '#a97cf5' }),
+        E('ellipse', { cx: 141, cy: 30, rx: 8, ry: 6, fill: '#8a5fd8' }),
+        E('path', { d: 'M108 18 L105 8', stroke: '#8a5fd8', 'stroke-width': 4, 'stroke-linecap': 'round' }),
+        E('path', { d: 'M119 17 L118 7', stroke: '#8a5fd8', 'stroke-width': 4, 'stroke-linecap': 'round' }),
+        E('circle', { cx: 105, cy: 6, r: 4, fill: '#cbb0ff' }),
+        E('circle', { cx: 118, cy: 5, r: 4, fill: '#cbb0ff' }),
+        E('path', { d: 'M104 24 C96 20 92 24 92 30 C98 32 102 30 106 28 Z', fill: '#8a5fd8' }),
+        E('circle', { cx: 122, cy: 26, r: 3, fill: '#160e26' }),
+        E('circle', { cx: 62, cy: 70, r: 6, fill: '#cbb0ff' }),
+        E('circle', { cx: 82, cy: 78, r: 5.5, fill: '#cbb0ff' }),
+        E('circle', { cx: 100, cy: 70, r: 5, fill: '#cbb0ff' }),
+        E('circle', { cx: 72, cy: 88, r: 4, fill: '#cbb0ff' }));
+    }
+    return E('svg', { viewBox: '0 0 190 145', width: '100%', height: '100%', 'aria-label': 'A smiling salamander' },
+      E('path', { d: 'M132 74 C154 66 168 76 176 62 C170 84 152 90 132 84 Z', fill: '#0d3a22' }),
+      E('path', { d: 'M60 78 L52 104 L40 108', stroke: '#0a2c1a', 'stroke-width': 7, fill: 'none', 'stroke-linecap': 'round' }),
+      E('path', { d: 'M112 78 L120 104 L132 110', stroke: '#0a2c1a', 'stroke-width': 7, fill: 'none', 'stroke-linecap': 'round' }),
+      E('path', { d: 'M72 80 L64 102 L54 106', stroke: '#11492b', 'stroke-width': 7, fill: 'none', 'stroke-linecap': 'round' }),
+      E('path', { d: 'M104 80 L112 102 L124 106', stroke: '#11492b', 'stroke-width': 7, fill: 'none', 'stroke-linecap': 'round' }),
+      E('path', { d: 'M34 74 C34 56 52 48 74 48 L110 48 C130 48 138 60 136 76 C134 88 118 92 96 92 L62 92 C44 92 34 86 34 74 Z', fill: '#124d2e' }),
+      E('path', { d: 'M34 70 C26 62 20 56 24 46 C34 38 50 40 56 50 C60 58 54 66 46 70 Z', fill: '#124d2e' }),
+      E('path', { d: 'M23 63 C18 68 14 78 18 86 C22 80 24 74 26 68 Z', fill: '#ff8f7a' }),
+      E('path', { d: 'M22 58 C27 66 34 67 40 62', stroke: '#08210f', 'stroke-width': 2.8, fill: 'none', 'stroke-linecap': 'round' }),
+      E('circle', { cx: 36, cy: 52, r: 4.8, fill: '#f4f7f5' }),
+      E('circle', { cx: 35.2, cy: 52, r: 2.2, fill: '#08210f' }),
+      E('circle', { cx: 70, cy: 60, r: 6, fill: '#8ed7ac' }),
+      E('circle', { cx: 94, cy: 66, r: 5, fill: '#8ed7ac' }),
+      E('circle', { cx: 114, cy: 60, r: 4.5, fill: '#8ed7ac' }),
+      E('circle', { cx: 82, cy: 78, r: 4, fill: '#8ed7ac' }),
+      E('circle', { cx: 106, cy: 80, r: 3.4, fill: '#8ed7ac' }));
+  }
+
+  todoRows(courseKey) {
+    const d = this.data(courseKey);
+    const td = this.state.todoDone || {};
+    return (d.todo || []).map(t => {
+      const isDone = !!td[t.id];
+      return {
+        title: t.title, when: t.when, tag: isDone ? 'Done' : t.tag,
+        tagColor: isDone ? 'var(--good)' : 'var(--accSoft)',
+        course: this.courses[courseKey].short,
+        courseColor: 'var(--accSoft)',
+        titleStyle: 'font-size:15px; font-weight:600; text-wrap:pretty; color:' + (isDone ? 'var(--faint)' : 'var(--ink)') + '; text-decoration:' + (isDone ? 'line-through' : 'none') + ';',
+        boxStyle: 'flex:none; width:22px; height:22px; padding:0; cursor:pointer; border:2px solid ' + (isDone ? 'var(--good)' : 'var(--acc)') + '; background:' + (isDone ? 'var(--good)' : 'transparent') + '; color:var(--onAcc); font-size:13px; font-weight:800; line-height:1; border-radius:0;',
+        mark: isDone ? '✓' : '',
+        onToggle: () => {
+          const n = Object.assign({}, this.state.todoDone || {});
+          if (n[t.id]) delete n[t.id]; else n[t.id] = true;
+          this.setState({ todoDone: n });
+          this.save({ todoDone: n });
+        }
+      };
+    });
+  }
+
+  monthLabel(y, m) {
+    return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][m] + ' ' + y;
+  }
+
+  calendarGrid() {
+    const st = this.state;
+    const y = st.calY === undefined ? 2026 : st.calY;
+    const m = st.calM === undefined ? 8 : st.calM;
+    const items = [];
+    ['da', 'mkt'].forEach(k => {
+      (this.data(k).todo || []).forEach(t => {
+        if (!t.due) return;
+        const parts = t.due.split('-');
+        items.push({ y: +parts[0], m: +parts[1] - 1, d: +parts[2], title: t.title, time: t.time, course: k, id: t.id });
+      });
+    });
+    const first = new Date(y, m, 1);
+    const offset = (first.getDay() + 6) % 7;
+    const days = new Date(y, m + 1, 0).getDate();
+    const cells = [];
+    for (let i = 0; i < offset; i++) cells.push({ blank: true, key: 'b' + i, num: '', style: 'min-height:86px; padding:8px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:transparent;', events: [] });
+    const td = st.todoDone || {};
+    for (let dnum = 1; dnum <= days; dnum++) {
+      const evs = items.filter(it => it.y === y && it.m === m && it.d === dnum);
+      cells.push({
+        blank: false, key: 'd' + dnum, num: String(dnum),
+        style: 'min-height:86px; padding:8px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:' + (evs.length ? 'var(--panel)' : 'transparent') + ';',
+        numStyle: 'font-size:12px; font-variant-numeric:tabular-nums; color:' + (evs.length ? 'var(--ink)' : 'var(--faint)') + '; font-weight:' + (evs.length ? '700' : '400') + ';',
+        events: evs.map(e => ({
+          label: (e.time ? e.time + ' · ' : '') + e.title,
+          style: 'display:block; margin-top:6px; padding:4px 6px; font-size:11px; line-height:1.25; text-wrap:pretty; border-left:3px solid ' + (e.course === 'mkt' ? '#a97cf5' : '#5b9cff') + '; background:var(--ground); color:' + (td[e.id] ? 'var(--faint)' : 'var(--ink)') + '; text-decoration:' + (td[e.id] ? 'line-through' : 'none') + ';'
+        }))
+      });
+    }
+    return { y: y, m: m, cells: cells };
+  }
+
+  renderVals() {
+    const mode = this.mode();
+    const ck = this.state.course;
+    const v = {
+      theme: this.themes[ck || 'hub'],
+      isHub: mode === 'hub', inCourse: !!ck,
+      isHome: mode === 'home', isTodo: mode === 'todo', isSes: mode === 'ses', isDrill: mode === 'drill',
+      isRes: mode === 'res', isPrac: mode === 'prac', isEx: mode === 'ex', isGloss: mode === 'gloss', isTables: mode === 'tables',
+      goHub: () => this.setState({ course: null, view: 'home' }),
+      goHome: () => this.go('home'), goTodo: () => this.go('todo'), goPrac: () => this.go('prac'),
+      goGloss: () => this.go('gloss'), goTables: () => this.go('tables'),
+      btnPrimary: this.btn('primary'), btnSecondary: this.btn('secondary'), btnGhost: this.btn('ghost'),
+      btnPrimaryTop: this.btn('primary') + ' margin-top:16px;', btnGhostTop: this.btn('ghost') + ' margin-top:14px;'
+    };
+
+    if (!ck) {
+      v.courseCards = ['da', 'mkt', 'fa'].map(k => {
+        const c = this.courses[k];
+        const d = this.data(k);
+        const nQ = Object.keys(d.bank).reduce((n, s) => n + (d.bank[s] || []).length, 0);
+        return {
+          code: c.code, title: c.name, blurb: c.blurb, acc: 'var(--accSoft)',
+          mascot: this.mascot(k),
+          stat: k === 'fa' ? '15 sessions · 9 exercises · 142 questions' : nQ + ' drill questions · ' + (d.exercises || []).length + ' exercises',
+          onClick: () => { if (k === 'fa') { window.location.href = 'accounting.html'; return; } this.openCourse(k); },
+          style: 'padding:26px 26px 30px; border-right:2px solid var(--line); border-bottom:2px solid var(--line); cursor:pointer; text-align:left; background:transparent; color:var(--ink);'
+        };
+      });
+      let all = [];
+      ['da', 'mkt'].forEach(k => { all = all.concat(this.todoRows(k)); });
+      v.allTodo = all;
+      const cal = this.calendarGrid();
+      v.calTitle = this.monthLabel(cal.y, cal.m);
+      v.calDayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      v.calCells = cal.cells;
+      v.calPrev = () => { const m = cal.m - 1; this.setState(m < 0 ? { calY: cal.y - 1, calM: 11 } : { calY: cal.y, calM: m }); };
+      v.calNext = () => { const m = cal.m + 1; this.setState(m > 11 ? { calY: cal.y + 1, calM: 0 } : { calY: cal.y, calM: m }); };
+      v.resumeCards = ['da', 'mkt'].map(k => {
+        const lastView = (this.state.last || {})[k];
+        const d = this.data(k);
+        let label = 'Not started';
+        if (lastView) {
+          const s = d.sessions.find(x => 'ses:' + x.key === lastView);
+          label = s ? 'Session ' + s.num + ' · ' + s.title : 'Continue';
+        }
+        return { course: this.courses[k].name, label: label, acc: 'var(--accSoft)', onClick: () => { this.openCourse(k); if (lastView) this.go(lastView); } };
+      });
+      return v;
+    }
+
+    const course = this.courses[ck];
+    const d = this.data(ck);
+    const view = this.state.view;
+    const sesKey = view.indexOf('ses:') === 0 ? view.slice(4) : null;
+    const ses = d.sessions.find(s => s.key === sesKey) || d.sessions[0] || { key: '', num: '', title: '' };
+    const isBuilt = (k) => ck === 'fa' ? !!(d.bank[k] || []).length : !!d.built[k];
+    const doneCount = Object.keys(this.state.done).filter(k => k.indexOf(ck + ':') === 0).length;
+    const qTotal = Object.keys(d.bank).reduce((n, k) => n + (d.bank[k] || []).length, 0);
+    const builtCount = d.sessions.filter(s => isBuilt(s.key)).length;
+
+    v.course = { name: course.name, code: course.code, intro: course.intro, note: course.note, pracIntro: course.pracIntro, glossLabel: course.glossLabel, hasTables: !!course.hasTables, mascot: this.mascot(ck) };
+    v.contacts = d.contacts;
+    v.grading = d.grading;
+    v.formulas = d.formulas;
+    v.hasFormulas = (d.formulas || []).length > 0;
+    v.terms = d.terms;
+    v.navHome = this.navStyle(mode === 'home');
+    v.navTodo = this.navStyle(mode === 'todo');
+    v.navPrac = this.navStyle(mode === 'prac' || mode === 'ex');
+    v.navGloss = this.navStyle(mode === 'gloss');
+    v.navTables = this.navStyle(mode === 'tables');
+    v.crumb = mode === 'ses' ? course.name + ' · Session ' + ses.num : course.name + ' · ' + (mode === 'home' ? 'Dashboard' : mode === 'todo' ? 'To-do' : mode === 'prac' || mode === 'ex' ? 'Practice' : mode === 'gloss' ? 'Glossary' : mode === 'tables' ? 'Tables' : 'Drill');
+    v.progressLine = doneCount ? doneCount + ' drills completed' : 'No drills completed yet';
+    v.stats = [
+      { v: builtCount + ' / ' + d.sessions.length, k: 'Sessions written up' },
+      { v: String(qTotal), k: 'Drill questions' },
+      { v: String((d.exercises || []).length + (d.gens || []).length), k: 'Exercise sets' },
+      { v: String(doneCount), k: 'Drills completed' }
+    ];
+
+    v.calcOpen = this.state.calcOpen;
+    v.calcDisp = this.state.calcDisp;
+    v.calcLabel = this.state.calcOpen ? 'Hide calculator' : 'Calculator';
+    v.calcBtn = this.btn('ghost') + ' width:100%;';
+    v.toggleCalc = () => this.setState({ calcOpen: !this.state.calcOpen });
+    v.calcKeys = ['C', '⌫', '√', '÷', '7', '8', '9', '×', '4', '5', '6', '−', '1', '2', '3', '+', '0', '.', 'x²', '='].map(k => ({
+      label: k, onClick: () => this.calcPress(k),
+      style: 'padding:11px 0; border:none; cursor:pointer; font-size:15px; font-weight:600; background:' + (k === '=' ? 'var(--acc)' : 'var(--panel)') + '; color:' + (k === '=' ? 'var(--onAcc)' : 'var(--ink)') + ';'
+    }));
+
+    v.sessionList = d.sessions.map(s => ({
+      num: s.num, title: s.title,
+      meta: isBuilt(s.key) ? (this.state.best[ck + ':' + s.key] !== undefined ? 'Best ' + this.state.best[ck + ':' + s.key] + '%' : 'Ready') : 'Not released',
+      metaColor: isBuilt(s.key) ? 'var(--accSoft)' : 'var(--faint)',
+      onClick: () => this.go('ses:' + s.key),
+      style: this.navStyle(view === 'ses:' + s.key)
+    }));
+    v.sessionCards = d.sessions.map(s => ({
+      num: s.num, title: s.title,
+      preview: s.preview || 'Materials not released yet.',
+      meta: isBuilt(s.key) ? (d.bank[s.key] || []).length + ' drill questions' : 'Not released',
+      metaColor: isBuilt(s.key) ? 'var(--accSoft)' : 'var(--faint)',
+      onClick: () => this.go('ses:' + s.key)
+    }));
+
+    v.todoAll = this.todoRows(ck);
+    v.todoShort = v.todoAll.slice(0, 4);
+
+    v.resume = () => this.go((this.state.last || {})[ck] || ('ses:' + (d.sessions[0] || {}).key));
+    v.resumeLabel = (this.state.last || {})[ck] ? 'Back to where you were' : 'Start at the beginning';
+    v.startMix = () => this.startDrillFor('mix');
+
+    const lessonBlocks = (d.lessons[ses.key] || []);
+    v.ses = { num: ses.num, title: ses.title, preview: ses.preview || 'Materials not released yet.', built: isBuilt(ses.key), notBuilt: !isBuilt(ses.key) };
+    v.blocks = lessonBlocks.map(b => ({
+      isH: b.t === 'h', isP: b.t === 'p', isUl: b.t === 'ul', isF: b.t === 'f', isNote: b.t === 'note', isTbl: b.t === 'tbl',
+      text: b.text, items: b.items, note: b.note, label: b.label, head: b.head, rows: b.rows
+    }));
+    v.startDrill = () => this.startDrillFor(ses.key);
+    v.drillLabel = 'Drill this session · ' + (d.bank[ses.key] || []).length + ' questions';
+    const idx = d.sessions.findIndex(s => s.key === ses.key);
+    const nxt = d.sessions[Math.min(idx + 1, d.sessions.length - 1)];
+    v.nextSes = () => this.go('ses:' + nxt.key);
+    v.nextSesLabel = 'Next: Session ' + nxt.num;
+
+    if (mode === 'drill') {
+      const qs = this.state.order;
+      const q = qs[this.state.qi] || { p: '', o: [] };
+      const ans = this.state.answers[this.state.qi];
+      const key = view.split(':')[1];
+      const sesFor = d.sessions.find(s => s.key === key);
+      v.drillHead = (key === 'mix' ? 'Mixed drill' : 'Session ' + (sesFor ? sesFor.num : '')) + ' · question ' + (this.state.qi + 1) + ' of ' + qs.length;
+      v.drillPct = Math.round(this.state.qi / Math.max(qs.length, 1) * 100) + '%';
+      v.typed = this.state.typed;
+      v.onTyped = (e) => this.setState({ typed: e.target.value });
+      v.submitNum = () => { if (!ans && this.state.typed !== '') this.answer(this.state.typed); };
+      v.q = {
+        kicker: q.k || '', prompt: q.p, why: q.why || q.e || '',
+        isMcq: q.t !== 'num', isNum: q.t === 'num',
+        options: (q.o || []).map((label, i) => ({
+          label: label, n: String(i + 1),
+          onClick: () => { if (!ans) this.answer(i); },
+          style: 'display:block; width:100%; text-align:left; padding:14px 18px; font-size:16px; cursor:pointer; border-radius:0; border:2px solid ' +
+            (ans ? (i === q.a ? 'var(--good)' : (ans.given === i ? 'var(--bad)' : 'var(--line)')) : 'var(--line)') +
+            '; background:var(--panel); color:var(--ink);'
+        }))
+      };
+      v.verdictShown = !!ans;
+      v.verdictColor = ans && ans.ok ? 'var(--good)' : 'var(--bad)';
+      v.verdictLabel = ans ? (ans.ok ? 'Correct' : (q.t === 'num' ? 'Not quite — the answer is ' + q.a : 'Not quite')) : '';
+      v.nextQ = () => this.nextQuestion();
+      v.nextQLabel = this.state.qi + 1 >= qs.length ? 'See results' : 'Next question';
+    }
+
+    if (mode === 'res') {
+      const key = view.split(':')[1];
+      const qs = this.state.order;
+      let right = 0;
+      Object.keys(this.state.answers).forEach(k => { if (this.state.answers[k].ok) right++; });
+      const sesFor = d.sessions.find(s => s.key === key);
+      v.resHead = key === 'mix' ? 'Mixed drill' : 'Session ' + (sesFor ? sesFor.num : '');
+      v.resScore = right + ' / ' + qs.length;
+      v.resNote = right === qs.length ? 'Every one. Move on to the exercises.' : 'Read the misses below, then run it again.';
+      v.retryDrill = () => this.startDrillFor(key);
+      const missedList = [];
+      qs.forEach((q, i) => {
+        const a = this.state.answers[i];
+        if (a && !a.ok) missedList.push({
+          prompt: q.p,
+          given: q.t === 'num' ? String(a.given) : (q.o[a.given] || 'nothing'),
+          correct: q.t === 'num' ? String(q.a) : q.o[q.a],
+          why: q.why || q.e || ''
+        });
+      });
+      v.missedList = missedList;
+      v.hasMissed = missedList.length > 0;
+    }
+
+    v.exList = (d.exercises || []).map(e => ({
+      tag: e.tag, title: e.title, blurb: e.stem.slice(0, 100) + '…',
+      state: this.state.done['ex:' + ck + ':' + e.key] ? 'Complete' : 'Open',
+      stateColor: this.state.done['ex:' + ck + ':' + e.key] ? 'var(--good)' : 'var(--faint)',
+      onClick: () => { this.setState({ exInp: {}, exUi: {} }); this.go('ex:' + e.key); }
+    }));
+    v.hasGens = (d.gens || []).length > 0;
+    v.genList = (d.gens || []).map(g => ({
+      tag: g.tag, title: g.title, blurb: g.blurb,
+      onClick: () => { this.setState({ exSeed: Date.now() % 99991, exInp: {}, exUi: {} }); this.go('ex:' + g.key); }
+    }));
+
+    if (mode === 'ex') {
+      const key = view.slice(3);
+      const ex = this.exFor(key) || (d.exercises || [])[0];
+      if (ex) {
+        v.ex = {
+          tag: ex.tag, title: ex.title, stem: ex.stem,
+          redrawLabel: ex.gen ? 'New numbers' : 'Clear my answers',
+          onNext: () => { const dn = Object.assign({}, this.state.done); dn['ex:' + ck + ':' + key] = true; this.setState({ done: dn }); this.save({ done: dn }); this.go('prac'); },
+          onRedraw: () => this.setState({ exSeed: Date.now() % 99991, exInp: {}, exUi: {} })
+        };
+        v.steps = ex.steps.map((st, si) => {
+          const ui = this.state.exUi[si] || {};
+          return {
+            n: String(si + 1), q: st.q, hint: st.hint, sol: st.sol,
+            hintShown: !!ui.hint, solShown: !!ui.sol, marked: ui.mark !== undefined,
+            markColor: ui.mark ? 'var(--good)' : 'var(--bad)',
+            markLabel: ui.mark ? 'Correct' : 'Not yet — try the hint',
+            borderColor: ui.mark === true ? 'var(--good)' : 'var(--line)',
+            rows: st.rows.map((r, ri) => ({
+              label: r.label,
+              value: (this.state.exInp[si + ':' + ri] === undefined ? '' : this.state.exInp[si + ':' + ri]),
+              inputBorder: ui.mark === true ? 'var(--good)' : 'var(--line)',
+              onChange: (e) => { const inp = Object.assign({}, this.state.exInp); inp[si + ':' + ri] = e.target.value; this.setState({ exInp: inp }); }
+            })),
+            onCheck: () => {
+              let ok = true;
+              st.rows.forEach((r, ri) => {
+                const val = parseFloat(String(this.state.exInp[si + ':' + ri] || '').replace(/[, ]/g, '').replace(',', '.'));
+                if (isNaN(val) || Math.abs(val - r.a) > (r.tol === undefined ? 0.001 : r.tol)) ok = false;
+              });
+              const u = Object.assign({}, this.state.exUi); u[si] = Object.assign({}, u[si], { mark: ok });
+              this.setState({ exUi: u });
+            },
+            onHint: () => { const u = Object.assign({}, this.state.exUi); u[si] = Object.assign({}, u[si], { hint: !(u[si] && u[si].hint) }); this.setState({ exUi: u }); },
+            onReveal: () => {
+              const u = Object.assign({}, this.state.exUi); u[si] = Object.assign({}, u[si], { sol: true });
+              const inp = Object.assign({}, this.state.exInp);
+              st.rows.forEach((r, ri) => { inp[si + ':' + ri] = String(r.a); });
+              this.setState({ exUi: u, exInp: inp });
+            }
+          };
+        });
+      }
+    }
+
+    if (mode === 'tables') {
+      const tab = this.state.tab, tp = this.state.tp;
+      v.tableTabs = [['binom', 'Binomial'], ['pois', 'Poisson'], ['norm', 'Normal']].map(pair => ({
+        label: pair[1], onClick: () => this.setState({ tab: pair[0] }),
+        style: this.btn(tab === pair[0] ? 'primary' : 'ghost')
+      }));
+      if (tab === 'binom') {
+        const n = Math.max(1, Math.min(20, parseInt(tp.n, 10) || 5));
+        const ps = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5];
+        v.tableControls = [{ label: 'n', value: tp.n, onChange: (e) => this.setState({ tp: { n: e.target.value } }) }];
+        v.tableHead = ['x'].concat(ps.map(p => p.toFixed(2)));
+        const rows = [];
+        for (let x = 0; x <= n; x++) rows.push({ cells: [String(x)].concat(ps.map(p => this.f4(this.binPmf(n, p, x)))) });
+        v.tableRows = rows;
+        v.tableNote = 'ℙ(X = x) = C(n,x) pˣ(1 − p)ⁿ⁻ˣ for n = ' + n + '. Excel: =BINOM.DIST(x, n, p, FALSE).';
+      } else if (tab === 'pois') {
+        const lams = [0.5, 1, 1.5, 2, 2.5, 3, 4, 5];
+        v.tableControls = [];
+        v.tableHead = ['x'].concat(lams.map(l => 'λ=' + l));
+        const rows = [];
+        for (let x = 0; x <= 12; x++) rows.push({ cells: [String(x)].concat(lams.map(l => this.f4(this.poisPmf(l, x)))) });
+        v.tableRows = rows;
+        v.tableNote = 'ℙ(X = x) = λˣe^(−λ)/x!. Excel: =POISSON.DIST(x, lambda, FALSE).';
+      } else {
+        v.tableControls = [];
+        v.tableHead = ['z', '0.00', '0.01', '0.02', '0.03', '0.04', '0.05', '0.06', '0.07', '0.08', '0.09'];
+        const rows = [];
+        for (let i = 0; i <= 30; i++) {
+          const z = i / 10;
+          const cells = [z.toFixed(1)];
+          for (let j = 0; j < 10; j++) cells.push(this.phi(z + j / 100).toFixed(4));
+          rows.push({ cells: cells });
+        }
+        v.tableRows = rows;
+        v.tableNote = 'Areas under the normal curve: ℙ(Z ≤ z) for the standard normal.';
+      }
+    }
+
+    return v;
+  }
+}
+</script>
+
+
+</body></html>
