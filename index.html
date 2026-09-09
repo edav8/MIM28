@@ -372,6 +372,73 @@ body { margin: 0; background: #101a17; }
 a { color: var(--accSoft); text-decoration: none; border-bottom: 1px solid currentColor; }
 a:hover { color: var(--ink); }
 input, button, select { font: inherit; }
+
+/* --- phones ------------------------------------------------------------
+   The course view put a fixed 292px sidebar beside the content, which on a
+   375px screen left 83px to actually read in. Below 860px the sidebar stops
+   being a column and becomes a band across the top, the two-column sections
+   stack, and the month grid scrolls sideways rather than being crushed into
+   40px columns. Matches what accounting.html already did. */
+#hubcalwrap { overflow-x: auto; overscroll-behavior-x: contain; }
+#hubsescaret { display: none; }          /* the fold only exists on phones */
+@media (max-width: 860px) { #hubsescaret { display: inline; } }
+
+@media (max-width: 860px) {
+  #hubside {
+    width: 100% !important;
+    height: auto !important;
+    position: static !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: stretch !important;
+    border-right: 0 !important;
+    border-bottom: 2px solid var(--line) !important;
+  }
+  #hubside > div:first-child { flex: 1 1 100%; padding: 12px 16px !important; }
+  #hubside > div:nth-child(2) { flex: 1 1 100%; padding: 14px 16px 12px !important; }
+  #hubside > button {
+    flex: 1 1 33%;
+    width: auto !important;
+    padding: 12px 8px !important;
+    text-align: center !important;
+    min-height: 46px;
+    font-size: 13px !important;
+  }
+  #hubseslabel { flex: 1 1 100%; padding: 10px 16px 6px !important; }
+  #hubsessions { flex: 1 1 100%; max-height: 42vh; overflow-y: auto; border-top: 1px solid var(--line); }
+  #hubsessions[data-open="false"] { display: none !important; }
+  #hubseslabel { cursor: pointer; display: flex !important; justify-content: space-between; align-items: center; }
+  #hubsidenote { display: none !important; }
+  #hubcalc { flex: 1 1 100%; }
+
+  /* the shell is a flex row; without wrapping, a full-width sidebar squeezes
+     the content column to zero rather than pushing it underneath */
+  #hubshell { flex-wrap: wrap !important; min-height: 0 !important; }
+  #hubshell > main { flex: 1 1 100% !important; min-width: 0 !important; }
+
+  /* hub: one column, and the month grid keeps legible cells and scrolls */
+  #hubcards { grid-template-columns: 1fr !important; }
+  #hubband { grid-template-columns: 1fr !important; gap: 36px !important; }
+  #hubcal { min-width: 620px; }
+
+  /* the 40px page gutter is too much of a 375px screen */
+  [style*="padding:40px"] { padding: 20px 16px !important; }
+  [style*="padding:18px 40px"] { padding: 14px 16px !important; }
+  [style*="padding:56px 40px"] { padding: 28px 16px !important; }
+
+  /* headings sized for a laptop */
+  [style*="font-size:38px"] { font-size: 26px !important; }
+  [style*="font-size:30px"] { font-size: 23px !important; }
+  [style*="font-size:44px"] { font-size: 28px !important; }
+
+  /* tap targets: drill options and answer boxes */
+  [style*="width:220px"] { width: 100% !important; }
+}
+
+/* very small screens: three nav buttons per row is too many */
+@media (max-width: 430px) {
+  #hubside > button { flex: 1 1 50%; }
+}
 @keyframes dc-cheer {
   /* four real jumps, each with a crouch before it and a tilt in the air, so it
      reads as an animal enjoying itself rather than a panel sliding into place */
@@ -414,7 +481,7 @@ input, button, select { font: inherit; }
 </helmet>
 
 <div style="{{ theme }}">
-<div style="display:flex; align-items:stretch; min-height:100vh; background:var(--ground); color:var(--ink); font-family:var(--font-body); font-size:15px; line-height:1.5">
+<div id="hubshell" style="display:flex; align-items:stretch; min-height:100vh; background:var(--ground); color:var(--ink); font-family:var(--font-body); font-size:15px; line-height:1.5">
 
   <!-- HUB -->
   <sc-if value="{{ isHub }}" hint-placeholder-val="{{ true }}">
@@ -428,7 +495,7 @@ input, button, select { font: inherit; }
         <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted); text-align:right">MIM’28<br>Autumn 2026</div>
       </div>
 
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); margin-top:48px; border-top:2px solid var(--line); border-left:2px solid var(--line)">
+      <div id="hubcards" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); margin-top:48px; border-top:2px solid var(--line); border-left:2px solid var(--line)">
         <sc-for list="{{ courseCards }}" as="c" hint-placeholder-count="3">
           <div sc-camel-on-click="{{ c.onClick }}" style="{{ c.style }}">
             <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px">
@@ -450,7 +517,7 @@ input, button, select { font: inherit; }
             <button type="button" sc-camel-on-click="{{ calNext }}" style="{{ btnGhost }}">Next →</button>
           </div>
         </div>
-        <div style="display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); margin-top:16px; border-top:1px solid var(--line); border-left:1px solid var(--line)">
+        <div id="hubcalwrap"><div id="hubcal" style="display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); margin-top:16px; border-top:1px solid var(--line); border-left:1px solid var(--line)">
           <sc-for list="{{ calDayNames }}" as="dn" hint-placeholder-count="7">
             <div style="padding:8px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted)">{{ dn }}</div>
           </sc-for>
@@ -460,7 +527,7 @@ input, button, select { font: inherit; }
               <sc-for list="{{ c.events }}" as="e" hint-placeholder-count="1">
                 <button type="button" sc-camel-on-click="{{ e.onToggle }}" title="{{ e.hint }}" style="{{ e.style }}">{{ e.label }}</button>
               </sc-for>
-            </div>
+            </div></div>
           </sc-for>
         </div>
         <div style="margin-top:10px; display:flex; gap:20px; font-size:12px; color:var(--muted); flex-wrap:wrap">
@@ -470,7 +537,7 @@ input, button, select { font: inherit; }
         </div>
       </div>
 
-      <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px; margin-top:56px; align-items:start">
+      <div id="hubband" style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:48px; margin-top:56px; align-items:start">
         <div>
           <div style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; padding-bottom:10px; border-bottom:2px solid var(--ink)"><div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase">Everything due</div><div style="font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums">{{ dueCount }}</div><div style="margin-left:auto; display:flex; gap:6px"><sc-for list="{{ dueRanges }}" as="r" hint-placeholder-count="3"><button type="button" sc-camel-on-click="{{ r.onPick }}" style="{{ r.style }}">{{ r.label }}</button></sc-for></div></div>
           <sc-if value="{{ dueEmpty }}"><div style="padding:22px 0; color:var(--muted); font-size:14px">Nothing due in this window. Try <em>This month</em> or <em>Everything</em>.</div></sc-if><div style="max-height:560px; overflow-y:auto; overscroll-behavior:contain" tabindex="0" aria-label="Everything due"><sc-for list="{{ allTodo }}" as="t" hint-placeholder-count="6">
@@ -519,7 +586,7 @@ input, button, select { font: inherit; }
 
   <!-- COURSE -->
   <sc-if value="{{ inCourse }}" hint-placeholder-val="{{ false }}">
-    <aside style="width:292px; flex:none; border-right:2px solid var(--line); display:flex; flex-direction:column; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto; background:var(--ground)">
+    <aside id="hubside" style="width:292px; flex:none; border-right:2px solid var(--line); display:flex; flex-direction:column; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto; background:var(--ground)">
 
       <div sc-camel-on-click="{{ goHub }}" title="All courses" style="padding:16px 20px; border-bottom:2px solid var(--line); cursor:pointer; font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted)" style-hover="background:var(--panel)">← All courses</div>
 
@@ -539,8 +606,8 @@ input, button, select { font: inherit; }
         <button type="button" sc-camel-on-click="{{ goTables }}" style="{{ navTables }}">Statistical tables</button>
       </sc-if>
 
-      <div style="padding:16px 20px 8px; font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--faint)">Sessions</div>
-      <div style="display:flex; flex-direction:column">
+      <div id="hubseslabel" sc-camel-on-click="{{ toggleSes }}" style="padding:16px 20px 8px; font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--faint)">Sessions<span id="hubsescaret">{{ sesCaret }}</span></div>
+      <div id="hubsessions" data-open="{{ sesOpenStr }}" style="display:flex; flex-direction:column">
         <sc-for list="{{ sessionList }}" as="s" hint-placeholder-count="8">
           <button type="button" sc-camel-on-click="{{ s.onClick }}" style="{{ s.style }}">
             <span style="display:flex; gap:10px; align-items:baseline">
@@ -552,9 +619,9 @@ input, button, select { font: inherit; }
         </sc-for>
       </div>
 
-      <div style="margin-top:auto; padding:16px 20px 8px; font-size:12px; color:var(--faint)">{{ course.note }}</div>
+      <div id="hubsidenote" style="margin-top:auto; padding:16px 20px 8px; font-size:12px; color:var(--faint)">{{ course.note }}</div>
 
-      <div style="display:flex; flex-direction:column; align-items:stretch; gap:8px; padding:14px 20px; border-top:2px solid var(--line); position:sticky; bottom:0; background:var(--ground); z-index:5">
+      <div id="hubcalc" style="display:flex; flex-direction:column; align-items:stretch; gap:8px; padding:14px 20px; border-top:2px solid var(--line); position:sticky; bottom:0; background:var(--ground); z-index:5">
         <sc-if value="{{ calcOpen }}" hint-placeholder-val="{{ false }}">
           <div style="border:2px solid var(--acc); background:var(--panel)">
             <div style="padding:8px 10px; border-bottom:2px solid var(--line); font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted)">Calculator</div>
@@ -1008,7 +1075,7 @@ input, button, select { font: inherit; }
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;startCourse&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hub&quot;,&quot;da&quot;,&quot;mkt&quot;,&quot;fa&quot;],&quot;default&quot;:&quot;hub&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Start&quot;},&quot;drillOrder&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;fixed&quot;,&quot;shuffled&quot;],&quot;default&quot;:&quot;fixed&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Drills&quot;}}">
 class Component extends DCLogic {
-  state = { course: null, view: 'home', qi: 0, answers: {}, order: [], typed: '', missed: {}, done: {}, best: {}, exInp: {}, exUi: {}, exSeed: 1, calcOpen: false, calcDisp: '0', calcAcc: null, calcOp: null, calcFresh: true, tab: 'binom', tp: { n: '5' }, todoDone: {}, last: {}, dueRange: 'week' };
+  state = { course: null, view: 'home', qi: 0, answers: {}, order: [], typed: '', missed: {}, done: {}, best: {}, exInp: {}, exUi: {}, exSeed: 1, calcOpen: false, calcDisp: '0', calcAcc: null, calcOp: null, calcFresh: true, tab: 'binom', tp: { n: '5' }, todoDone: {}, last: {}, dueRange: 'week', sesOpen: false };
 
   themes = {
     hub: '--ground:#101a17; --panel:#17251f; --line:#3a4f45; --ink:#eef3f0; --soft:#cfdbd4; --muted:#a2b3aa; --faint:#6f8479; --acc:#2f9d78; --accSoft:#7fd3b4; --onAcc:#08211a; --good:#6fd6ab; --bad:#ff8b80;',
@@ -1566,7 +1633,10 @@ class Component extends DCLogic {
   }
 
   go(view) {
-    this.setState({ view: view, typed: '' });
+    // On a phone the session list sits above the content, so leaving it open
+    // after a choice pushes what you just picked off the screen. Choosing folds
+    // it; on a desktop it is never folded, so this changes nothing there.
+    this.setState({ view: view, typed: '', sesOpen: false });
     if (view.indexOf('ses:') === 0) {
       const last = Object.assign({}, this.state.last);
       last[this.state.course] = view;
@@ -2057,6 +2127,13 @@ class Component extends DCLogic {
     v.navPrac = this.navStyle(mode === 'prac' || mode === 'ex');
     v.navGloss = this.navStyle(mode === 'gloss');
     v.navTables = this.navStyle(mode === 'tables');
+    // On a phone the sidebar sits above the lesson, and fifteen sessions of it is
+    // a screenful to scroll past. The list folds there; the desktop column, where
+    // it belongs beside the content, is untouched -- the CSS that hides it is
+    // inside the phone media query.
+    v.sesOpenStr = this.state.sesOpen ? 'true' : 'false';
+    v.sesCaret = this.state.sesOpen ? '\u25B4' : '\u25BE';
+    v.toggleSes = () => this.setState({ sesOpen: !this.state.sesOpen });
     v.crumb = mode === 'ses' ? course.name + ' · Session ' + ses.num : course.name + ' · ' + (mode === 'home' ? 'Dashboard' : mode === 'todo' ? 'To-do' : mode === 'prac' || mode === 'ex' ? 'Practice' : mode === 'gloss' ? 'Glossary' : mode === 'tables' ? 'Tables' : 'Drill');
     v.progressLine = doneCount ? doneCount + ' drills completed' : 'No drills completed yet';
     v.stats = [
