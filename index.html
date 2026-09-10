@@ -12,6 +12,7 @@
 <title>MIM’28 Study Hub</title>
 </head>
 <body>
+<noscript><div style="font-family:system-ui,sans-serif;padding:28px;line-height:1.5">This trainer needs JavaScript to run.</div></noscript>
 <x-dc>
 <helmet>
 <style>/* Modernist — design-system tokens and component classes. This file is the source of truth for the system's look; retune it here and see readme.md. */
@@ -378,6 +379,12 @@ body { margin: 0; background: #101a17; }
 a { color: var(--accSoft); text-decoration: none; border-bottom: 1px solid currentColor; }
 a:hover { color: var(--ink); }
 input, button, select { font: inherit; }
+
+/* The template paints before the runtime mounts -- thousands of characters of
+   {{ c.code }} and {{ calTitle }} as plain text, for as long as support.js and
+   React take to arrive. The runtime removes <x-dc> and puts #dc-root on the
+   body, so hiding it costs nothing after mount and hides only the flash. */
+x-dc { display: none !important; }
 
 /* ── polish ──────────────────────────────────────────────────────────
    Borrowed from the ski page: hairline rules instead of 2px slabs,

@@ -9,6 +9,7 @@
 <title>Financial Accounting &amp; FRA — MIM’28</title>
 </head>
 <body>
+<noscript><div style="font-family:system-ui,sans-serif;padding:28px;line-height:1.5">This trainer needs JavaScript to run.</div></noscript>
 <x-dc>
 <helmet>
 <style>/* Modernist — design-system tokens and component classes. This file is the source of truth for the system's look; retune it here and see readme.md. */
@@ -183,6 +184,12 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: var(--font-headi
 
 *, *::before, *::after { box-sizing: border-box; }
 body { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400; }
+
+/* The template paints before the runtime mounts -- 2,887 characters of
+   {{ c.code }} and {{ calTitle }} as plain text, for as long as support.js and
+   React take to arrive. The runtime removes <x-dc> and puts #dc-root on the
+   body, so hiding it costs nothing after mount and hides only the flash. */
+x-dc { display: none !important; }
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading); font-weight: var(--font-heading-weight);
   line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2);
