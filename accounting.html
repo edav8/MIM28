@@ -4622,7 +4622,1024 @@ class Component extends DCLogic {
             { l: 'Difference from the full calculation', a: 3507066, tol: 40000, w: '330,440,544 − 326,933,478 = 3,507,066 — almost exactly the associate and JV income the shortcut leaves out.' }
           ], e: 'The shortcut is within about 1% here, which is often good enough for a first pass. It goes wrong when a company has material equity-accounted income, an unusual tax position, or non-operating items large enough to distort the effective rate. On the rate itself: the effective rate from reported figures is not the statutory rate — Taiwan’s was 17% per TSMC’s Note 30, so 13.5% is in the right region but not the same thing.' }
         ]
-      }
+      },
+      {
+        key: 'ex-deere', isCase: true, title: 'Deere and CNH: LIFO, FIFO and a turnover ratio that lies',
+        sub: 'Eleven steps restating one company onto the other\u2019s inventory method',
+        ses: 'Session 10 \u00b7 Inventory',
+        brief: 'Deere & Company and CNH Global N.V. build agricultural and construction equipment and compete directly. Both report under U.S. GAAP, both are listed in New York, and both run captive finance arms that lend to dealers and end customers. Deere is the larger of the two \u2014 about 1.6\u00d7 the sales, 1.4\u00d7 the assets, 1.9\u00d7 the employees \u2014 but not so much larger that the two cannot be compared.\n\nThey differ on one accounting choice: the cost flow assumption for inventory. IFRS forbids LIFO; U.S. GAAP permits it, and U.S. tax law requires a company that uses LIFO for tax to use it in its published accounts too. When input prices rise, LIFO charges the newest, dearest costs to cost of goods sold, so reported profit and the tax bill both fall and cash stays inside the business.\n\nThe protection for the reader is the LIFO reserve: a LIFO company must disclose what its inventory would have been on FIFO. Add the reserve to the LIFO balance and you have the FIFO balance; subtract the change in the reserve from LIFO cost of goods sold and you have an estimate of FIFO cost of goods sold. That is the whole toolkit, and it is what makes this comparison possible at all.\n\nThe statements are in the Figures panel \u2014 open it with the button at the bottom right and it stays open while you work. Deere\u2019s year ends 31 October 2010, CNH\u2019s 31 December 2010; all figures in millions of dollars.',
+        tables: [
+          { title: 'Deere \u2014 income statement extract', note: 'Year ended 31 October. Deductions in brackets.', cols: ['2010', '2009', '2008'], rows: [
+            ['Net sales', '23,573.2', '20,756.1', '25,803.5'],
+            ['Finance and interest income', '1,825.3', '1,842.1', '2,068.4'],
+            ['Cost of sales', '17,398.8', '16,255.2', '19,574.8'],
+            ['Research and development expenses', '1,052.4', '977.0', '943.1'],
+            ['Selling, administrative and general expenses', '2,968.7', '2,780.6', '2,960.2'],
+            ['Interest expense', '811.4', '1,042.4', '1,137.0'],
+            ['Provision for income taxes', '1,161.6', '460.0', '1,111.2'],
+            ['Net income attributable to Deere & Company', '1,865.0', '873.5', '2,052.8', 'k']
+          ] },
+          { title: 'Deere \u2014 balance sheet extract', note: 'As of 31 October.', cols: ['2010', '2009'], rows: [
+            ['Cash and cash equivalents', '3,790.6', '4,651.7'],
+            ['Trade accounts and notes receivable \u2014 net', '3,464.2', '2,616.9'],
+            ['Financing receivables \u2014 net', '17,682.2', '15,254.7'],
+            ['Restricted financing receivables \u2014 net', '2,238.3', '3,108.4'],
+            ['Equipment on operating leases \u2014 net', '1,936.2', '1,733.3'],
+            ['Inventories', '3,063.0', '2,397.3', 'k'],
+            ['Property and equipment \u2014 net', '3,790.7', '4,532.2'],
+            ['Goodwill', '998.6', '1,036.5'],
+            ['Total assets', '43,266.8', '41,132.6', 'k'],
+            ['Total liabilities', '36,963.4', '36,309.8'],
+            ['Total stockholders\u2019 equity', '6,303.4', '4,822.8']
+          ] },
+          { title: 'Deere \u2014 Note 15, Inventories', note: 'Most inventories owned by Deere & Company and its U.S. equipment subsidiaries are valued at cost on the last-in, first-out basis; the remainder generally at the lower of first-in, first-out cost or market. Gross inventories on the LIFO basis represented 59% of worldwide gross inventories at FIFO value at 31 October 2010 and 2009. The pretax favourable income effect from the liquidation of LIFO inventory during 2009 was approximately $37 million. Had all inventories been valued on a FIFO basis, estimated inventories by major classification would have been:', cols: ['2010', '2009'], rows: [
+            ['Raw materials and supplies', '1,201', '940'],
+            ['Work-in-process', '483', '387'],
+            ['Finished goods and parts', '2,777', '2,437'],
+            ['Total FIFO value', '4,461', '3,764', 'k'],
+            ['Less adjustment to LIFO value', '1,398', '1,367', 'k'],
+            ['Inventories as reported', '3,063', '2,397']
+          ] },
+          { title: 'CNH \u2014 income statement extract', note: 'Year ended 31 December.', cols: ['2010', '2009', '2008'], rows: [
+            ['Net sales', '14,474', '12,783', '17,366'],
+            ['Finance and interest income', '1,134', '977', '1,110'],
+            ['Cost of goods sold', '11,891', '10,862', '14,054'],
+            ['Selling, general and administrative', '1,698', '1,486', '1,698'],
+            ['Research, development and engineering', '451', '398', '422'],
+            ['Income tax provision', '77', '92', '385'],
+            ['Net income (loss) attributable to CNH Global N.V.', '452', '(190)', '825', 'k']
+          ] },
+          { title: 'CNH \u2014 balance sheet extract', note: 'As of 31 December.', cols: ['2010', '2009'], rows: [
+            ['Cash and cash equivalents', '3,618', '1,263'],
+            ['Accounts and notes receivable, net', '8,621', '5,190'],
+            ['Inventories, net', '2,937', '3,297', 'k'],
+            ['Total current assets', '19,305', '13,108'],
+            ['Long-term receivables', '5,407', '3,236'],
+            ['Property, plant and equipment, net', '1,786', '1,764'],
+            ['Equipment on operating leases, net', '622', '646'],
+            ['Goodwill', '2,385', '2,374'],
+            ['Total assets', '31,589', '23,208', 'k'],
+            ['Total current liabilities', '13,469', '8,951'],
+            ['Total equity', '7,380', '6,810']
+          ] },
+          { title: 'CNH \u2014 inventory accounting policy', note: 'Inventories are stated at the lower of cost or net realisable value. Cost is determined by the first-in, first-out method. The cost of finished goods and work-in-progress includes the cost of raw materials, other direct costs and production overheads. Net realisable value is the estimate of the selling price in the ordinary course of business, less the cost of completion and selling. Provisions are made for obsolete and slow-moving inventories.', cols: [], rows: [] }
+        ],
+        steps: [
+          { t: 'pick', p: 'Step 1. Question 1. What is CNH\u2019s policy on inventory valuation and cost flow?',
+            rows: [
+              { l: 'FIFO, carried at the lower of cost or net realisable value', a: true },
+              { l: 'LIFO for its European plants and FIFO elsewhere', a: false },
+              { l: 'Weighted average cost, with no write-down rule disclosed', a: false },
+              { l: 'Whichever method minimises the current year tax charge', a: false }
+            ],
+            e: 'CNH is Dutch-headquartered and reports under U.S. GAAP, but nothing in U.S. GAAP compels LIFO \u2014 it merely permits it. CNH uses FIFO throughout and applies the lower of cost or net realisable value, with provisions for obsolete and slow-moving stock. Two consequences follow. Its inventory balance is close to current replacement cost, and its cost of goods sold carries older, cheaper costs, so in a rising market its reported profit is higher than a LIFO company\u2019s on identical economics.' },
+          { t: 'fill', p: 'Step 2. Question 2. CNH\u2019s inventory at the end of 2010, in dollars and as a share of what it owns.',
+            look: 'CNH balance sheet extract.',
+            rows: [
+            { l: 'Inventories, net (millions)', a: 2937, w: 'Down from 3,297 the year before, while sales rose 13% \u2014 CNH was selling out of stock built during the 2009 downturn.' },
+            { l: 'Total assets (millions)', a: 31589, w: 'Up from 23,208, mostly on receivables and cash.' },
+            { l: 'Inventory as a percentage of total assets (%)', a: 9.3, tol: 0.2, w: '2,937 / 31,589 = 9.3%.' }
+          ], e: 'Under 10% of the balance sheet sits in inventory. Hold on to that figure: it is the honest one, because FIFO carries stock at something close to what it would cost to replace today.' },
+          { t: 'pick', p: 'Step 3. Question 3. What is Deere\u2019s policy, exactly?',
+            rows: [
+              { l: 'LIFO across the whole group, with no FIFO equivalent disclosed anywhere in the notes', a: false },
+              { l: 'FIFO throughout, with a LIFO reserve disclosed alongside it for comparison', a: false },
+              { l: 'LIFO for most U.S. inventories, FIFO for the rest \u2014 59% of gross inventories are on LIFO', a: true },
+              { l: 'Weighted average, restated to LIFO for tax only', a: false }
+            ],
+            e: 'Note 15 is precise and the precision matters. Deere & Company and its U.S. equipment subsidiaries carry most inventory on LIFO; everything else, largely non-U.S., is at the lower of FIFO cost or market. At FIFO value, 59% of worldwide gross inventories sit in the LIFO pool. So this is not a pure LIFO company, and the restatement you are about to do touches only part of the balance.' },
+          { t: 'fill', p: 'Step 4. Question 4. The same two figures for Deere.',
+            look: 'Deere balance sheet extract.',
+            rows: [
+            { l: 'Inventories (millions)', a: 3063.0, tol: 0.5, w: 'The LIFO figure, as reported.' },
+            { l: 'Total assets (millions)', a: 43266.8, tol: 0.5, w: '' },
+            { l: 'Inventory as a percentage of total assets (%)', a: 7.1, tol: 0.2, w: '3,063.0 / 43,266.8 = 7.1%, against CNH\u2019s 9.3%.' }
+          ], e: 'Deere appears to hold proportionally less inventory than CNH. Before believing that, ask what the two numbers are measuring. One is stock at recent prices; the other is stock at prices that in some pools date back decades.' },
+          { t: 'fill', p: 'Step 5. Question 5. Restate Deere onto FIFO. Note 15 does most of the work for you.',
+            calc: 'FIFO inventory = LIFO inventory + LIFO reserve',
+            given: [
+              { l: 'Inventories as reported, 2010', v: '3,063', s: 'Balance sheet' },
+              { l: 'Adjustment to LIFO value, 2010', v: '1,398', s: 'Note 15 \u2014 this is the LIFO reserve' },
+              { l: 'Adjustment to LIFO value, 2009', v: '1,367', s: 'Note 15' }
+            ], rows: [
+            { l: 'Inventory at FIFO, 2010 (millions)', a: 4461, tol: 2, w: '3,063 + 1,398 = 4,461, which is exactly the total FIFO value Note 15 discloses.' },
+            { l: 'Inventory at FIFO, 2009 (millions)', a: 3764, tol: 2, w: '2,397 + 1,367 = 3,764.' },
+            { l: 'FIFO inventory as a percentage of total assets, 2010 (%)', a: 10.3, tol: 0.2, w: '4,461 / 43,266.8 = 10.3%. On a like-for-like basis Deere holds proportionally more inventory than CNH, not less.' },
+            { l: 'Change in the LIFO reserve during 2010 (millions)', a: 31, tol: 1, w: '1,398 \u2212 1,367 = 31. Small, and you will need it in step 9.' }
+          ], e: 'One disclosure moves Deere from 7.1% to 10.3% of assets and reverses the ranking against CNH. The reserve of 1,398 is 46% of the reported balance: nearly half of what Deere holds in stock is invisible on the face of its own balance sheet, sitting in cost layers laid down when prices were lower.' },
+          { t: 'pick', p: 'Step 6. Question 6. Set inventory aside. What dominates these two balance sheets, and is that normal for a manufacturer?',
+            rows: [
+              { l: 'Goodwill from past acquisitions, which is unusual for equipment makers but harmless', a: false },
+              { l: 'Property, plant and equipment, exactly as you would expect of two companies that own large factories', a: false },
+              { l: 'Receivables from the captive finance arms, which is not what a manufacturer normally looks like', a: true },
+              { l: 'Cash, held against a possible downturn', a: false }
+            ],
+            e: 'Deere carries financing receivables of 17,682.2 plus 2,238.3 restricted, against property and equipment of 3,790.7. CNH carries 8,621 of accounts and notes receivable plus 5,407 long-term, against 1,786 of PP&E. Both companies have far more lent out than built.\n\nThat is the equipment industry: a combine costs more than a house, and dealers and farmers need credit. But it means each firm is a bank bolted to a factory. The risks that come with it are credit risk concentrated in one cyclical customer base, funding risk from wholesale borrowing that can reprice or vanish, and interest rate risk between the two. A manufacturing margin tells you little about how such a company will fare in a downturn.' },
+          { t: 'fill', p: 'Step 7. Question 7. Inventory turnover for CNH.',
+            calc: 'Inventory turnover = cost of goods sold \u00f7 average inventory',
+            given: [
+              { l: 'Cost of goods sold, 2010', v: '11,891', s: 'CNH income statement' },
+              { l: 'Inventories, 2010 and 2009', v: '2,937 and 3,297', s: 'CNH balance sheet' }
+            ], rows: [
+            { l: 'Average inventory (millions)', a: 3117, tol: 2, w: '(2,937 + 3,297) / 2 = 3,117.' },
+            { l: 'Inventory turnover (times)', a: 3.81, tol: 0.05, w: '11,891 / 3,117 = 3.81 times, or about 96 days of stock.' }
+          ], e: 'An average is used rather than the closing balance because cost of goods sold accumulates over the whole year while a balance sheet figure is one instant. Using the year-end figure alone would flatter or punish a company purely for where its stock happened to sit on 31 December.' },
+          { t: 'fill', p: 'Step 8. Question 8. The same ratio for Deere, on the figures as reported.',
+            given: [
+              { l: 'Cost of sales, 2010', v: '17,398.8', s: 'Deere income statement' },
+              { l: 'Inventories, 2010 and 2009', v: '3,063.0 and 2,397.3', s: 'Deere balance sheet \u2014 both on LIFO' }
+            ], rows: [
+            { l: 'Average inventory (millions)', a: 2730, tol: 3, w: '(3,063.0 + 2,397.3) / 2 = 2,730.2.' },
+            { l: 'Inventory turnover (times)', a: 6.37, tol: 0.06, w: '17,398.8 / 2,730.2 = 6.37 times, against CNH\u2019s 3.81.' }
+          ], e: 'Taken at face value this says Deere turns its stock over two-thirds faster than CNH \u2014 a large operational gap between two firms selling similar machines to similar customers. That should already look too good.' },
+          { t: 'fill', p: 'Step 9. Question 9. Now do it again with Deere on FIFO, so the two ratios are measuring the same thing. Both halves of the fraction have to move.',
+            h: 'The temptation is to swap in the FIFO inventory and stop. Resist it.\n\nA ratio is only comparable if the numerator and the denominator are on the same basis. Deere\u2019s cost of sales is a LIFO number, so it has to be converted too, and the LIFO reserve is what converts it: the reserve grew by 31 during the year, which means LIFO charged 31 more to cost of sales than FIFO would have.\n\nTake that 31 back out, use the FIFO inventory balances from step 5, and the ratio finally describes the same company as CNH\u2019s does.',
+            calc: 'FIFO cost of goods sold = LIFO cost of goods sold \u2212 change in the LIFO reserve',
+            given: [
+              { l: 'Cost of sales as reported, 2010', v: '17,398.8', s: 'On LIFO' },
+              { l: 'Change in the LIFO reserve', v: '31', s: 'Your step 5 answer' },
+              { l: 'FIFO inventory, 2010 and 2009', v: '4,461 and 3,764', s: 'Your step 5 answers' }
+            ], rows: [
+            { l: 'Cost of goods sold on FIFO (millions)', a: 17367.8, tol: 3, w: '17,398.8 \u2212 31 = 17,367.8. The reserve grew, so LIFO charged more to cost of sales than FIFO would have, and the excess comes back out.' },
+            { l: 'Average FIFO inventory (millions)', a: 4112.5, tol: 3, w: '(4,461 + 3,764) / 2 = 4,112.5.' },
+            { l: 'Inventory turnover on FIFO (times)', a: 4.22, tol: 0.06, w: '17,367.8 / 4,112.5 = 4.22 times.' },
+            { l: 'Fall in Deere\u2019s turnover caused by the restatement (times)', a: 2.15, tol: 0.08, w: '6.37 \u2212 4.22 = 2.15. A third of the reported ratio was an artefact of the cost flow assumption.' }
+          ], e: 'Note which half of the fraction did the damage. Cost of goods sold barely moved \u2014 31 on 17,399, under two-tenths of a percent \u2014 because the reserve hardly changed during the year. The inventory balance moved by 1,382 on average, over 50%. Almost the whole distortion lives in the balance sheet, in accumulated layers from prior years, not in this year\u2019s trading.' },
+          { t: 'pick', p: 'Step 10. Question 10. What does the comparison actually show, before and after?',
+            rows: [
+              { l: 'Deere is genuinely far more efficient at managing stock, on either basis, and the restatement changes nothing', a: false },
+              { l: 'Most of the reported gap was a measurement artefact; on a common basis the two are close, with Deere modestly ahead', a: true },
+              { l: 'CNH is more efficient once both are on FIFO', a: false },
+              { l: 'The ratio is meaningless for manufacturers and should not be used', a: false }
+            ],
+            e: 'As reported, 6.37 against 3.81 \u2014 a gap of 67% that would look decisive in any screen or league table. Restated, 4.22 against 3.81, a gap of about 11%. Deere is still ahead, and plausibly so, but the difference is now the sort of thing that could come from product mix, dealer network structure or where the two sat in their cycles, rather than a fundamental operating advantage.\n\nThe general lesson: any ratio with inventory in it \u2014 turnover, days of stock, current ratio, gross margin, return on assets \u2014 is contaminated by the cost flow assumption, and the contamination runs in a predictable direction. LIFO understates the balance sheet and, when the reserve is growing, overstates cost of goods sold. Restate before comparing, and the LIFO reserve is the only tool you need.' },
+          { t: 'fill', p: 'Step 11. Question 11. What the choice has been worth in cash. Ignore compounding and the time value of money, and use a 35% tax rate.',
+            calc: 'Cumulative tax deferred = LIFO reserve \u00d7 tax rate',
+            given: [
+              { l: 'LIFO reserve at 31 October 2010', v: '1,398', s: 'Note 15 \u2014 the cumulative excess of FIFO cost over LIFO cost since Deere adopted the method' },
+              { l: 'Tax rate', v: '35%', s: 'Given in the question' }
+            ], rows: [
+            { l: 'Cumulative income taxes deferred (millions)', a: 489.3, tol: 3, w: '1,398 \u00d7 0.35 = 489.3.' },
+            { l: 'That figure as a percentage of 2010 net income attributable to Deere (%)', a: 26.2, tol: 0.6, w: '489.3 / 1,865.0 = 26%. A quarter of a strong year\u2019s profit, accumulated purely from one accounting election.' }
+          ], e: 'Deferred, not saved. The reserve reverses if the LIFO layers are ever liquidated \u2014 which is exactly what happened in 2009, when a drawdown of old cheap layers put roughly $37 million of pretax income into a bad year and the tax followed. That is the trap in LIFO liquidation: the benefit unwinds precisely when volumes fall, which is when a company can least afford a tax bill.\n\nStill, nearly half a billion dollars has sat inside the business rather than at the Treasury, interest-free, for as long as the layers hold. Deere\u2019s reported profit is lower than CNH\u2019s would be on the same facts, and its cash position is better. Which is the point worth carrying out of this case: the company reporting the lower profit is not always the weaker one.' }
+        ]
+      },
+      {
+        key: 'ex-lvmh', isCase: true, title: 'LVMH and Warnaco: the same ROIC, two different businesses',
+        sub: 'Ten steps taking one ratio apart until the strategies show',
+        ses: 'Session 08 \u00b7 Return on Invested Capital',
+        brief: 'LVMH Mo\u00ebt Hennessy Louis Vuitton was formed in 1987 and runs five segments \u2014 wines and spirits, fashion and leather goods, perfumes and cosmetics, watches and jewellery, and selective retailing. The names it owns are among the most recognisable in luxury: Dom P\u00e9rignon, Christian Dior, TAG Heuer, and the two in its own title.\n\nThe Warnaco Group is narrower: design and manufacture of intimate apparel, sportswear and swimwear, largely under brands it licenses \u2014 Calvin Klein and Speedo among them. The two do not compete for the same customer, and the point of putting them side by side is not to rank them. It is to ask whether an analyst can see two different strategies in the accounting numbers.\n\nIn fiscal 2011 they delivered comparable returns on invested capital by opposite routes. Your job is to find the routes.\n\nInvested capital is the money investors have tied up in the business: IC = total assets \u2212 non-operating assets \u2212 operating liabilities, which is the same thing as equity + interest-bearing debt + non-controlling interests \u2212 non-operating assets. Operating liabilities \u2014 payables, accruals, provisions, deferred tax \u2014 are excluded because they demand no financial return; suppliers and tax authorities are not investors.\n\nUse a tax rate of 33.3% for LVMH, the French corporate rate, and 35% for Warnaco, the U.S. rate. LVMH reports in millions of euros, Warnaco in thousands of dollars; keep each company in its own units throughout and compare only ratios. The statements are in the Figures panel.',
+        tables: [
+          { title: 'LVMH \u2014 consolidated income statement', note: 'EUR millions. Deductions in brackets.', cols: ['2011', '2010', '2009'], rows: [
+            ['Revenue', '23,659', '20,320', '17,053', 'k'],
+            ['Cost of sales', '(8,092)', '(7,184)', '(6,164)'],
+            ['Gross margin', '15,567', '13,136', '10,889'],
+            ['Marketing and selling expenses', '(8,360)', '(7,098)', '(6,051)'],
+            ['General and administrative expenses', '(1,944)', '(1,717)', '(1,486)'],
+            ['Profit from recurring operations', '5,263', '4,321', '3,352'],
+            ['Other operating income and expenses', '(109)', '(152)', '(191)'],
+            ['Operating profit', '5,154', '4,169', '3,161', 'k'],
+            ['Net financial income (expense)', '(242)', '612', '(342)'],
+            ['Income taxes', '(1,453)', '(1,469)', '(849)'],
+            ['Net profit, Group share', '3,065', '3,032', '1,755']
+          ] },
+          { title: 'LVMH \u2014 consolidated balance sheet, assets', note: 'EUR millions, at 31 December.', cols: ['2011', '2010', '2009'], rows: [
+            ['Brands and other intangible assets \u2014 net', '11,482', '9,104', '8,697'],
+            ['Goodwill \u2014 net', '6,957', '5,027', '4,270'],
+            ['Property, plant and equipment \u2014 net', '8,017', '6,733', '6,140'],
+            ['Investments in associates', '170', '223', '213'],
+            ['Non-current available for sale financial assets', '5,982', '3,891', '540'],
+            ['Other non-current assets', '478', '319', '750'],
+            ['Deferred tax', '716', '668', '521'],
+            ['Non-current assets', '33,802', '25,965', '21,131'],
+            ['Inventories and work in progress', '7,510', '5,991', '5,644'],
+            ['Trade accounts receivable', '1,878', '1,565', '1,455'],
+            ['Income taxes', '121', '96', '217'],
+            ['Other current assets', '1,455', '1,255', '1,213'],
+            ['Cash and cash equivalents', '2,303', '2,292', '2,446'],
+            ['Current assets', '13,267', '11,199', '10,975'],
+            ['Total assets', '47,069', '37,164', '32,106', 'k']
+          ] },
+          { title: 'LVMH \u2014 consolidated balance sheet, liabilities and equity', note: 'EUR millions, at 31 December.', cols: ['2011', '2010', '2009'], rows: [
+            ['Equity, Group share', '22,451', '17,198', '13,796'],
+            ['Minority interests', '1,061', '1,006', '989'],
+            ['Total equity', '23,512', '18,204', '14,785', 'k'],
+            ['Long term borrowings', '4,132', '3,432', '4,077'],
+            ['Provisions (non-current)', '1,400', '1,167', '990'],
+            ['Deferred tax', '3,925', '3,354', '3,117'],
+            ['Other non-current liabilities', '4,506', '3,947', '3,089'],
+            ['Non-current liabilities', '13,963', '11,900', '11,273'],
+            ['Short term borrowings', '3,134', '1,834', '1,708'],
+            ['Trade accounts payable', '2,952', '2,298', '1,911'],
+            ['Income taxes', '443', '446', '221'],
+            ['Provisions (current)', '349', '339', '334'],
+            ['Other current liabilities', '2,716', '2,143', '1,874'],
+            ['Current liabilities', '9,594', '7,060', '6,048'],
+            ['Total liabilities and equity', '47,069', '37,164', '32,106', 'k']
+          ] },
+          { title: 'Warnaco \u2014 consolidated statements of operations', note: 'USD thousands.', cols: ['FY2011', 'FY2010', 'FY2009'], rows: [
+            ['Net revenues', '2,513,388', '2,295,751', '2,019,625', 'k'],
+            ['Cost of goods sold', '1,412,446', '1,275,788', '1,155,278'],
+            ['Gross profit', '1,100,942', '1,019,963', '864,347'],
+            ['Selling, general and administrative expenses', '844,696', '758,053', '638,907'],
+            ['Amortization of intangible assets', '47,957', '11,549', '11,032'],
+            ['Pension expense', '26,744', '2,550', '20,873'],
+            ['Operating income', '181,545', '247,811', '193,535', 'k'],
+            ['Interest expense', '16,274', '14,483', '23,897'],
+            ['Provision for income taxes', '36,006', '82,107', '64,272'],
+            ['Net income attributable to Warnaco Group', '127,450', '138,581', '95,998']
+          ] },
+          { title: 'Warnaco \u2014 consolidated balance sheets', note: 'USD thousands. The prior year end is 1 January 2011.', cols: ['31 Dec 2011', '1 Jan 2011'], rows: [
+            ['Cash and cash equivalents', '232,531', '191,227'],
+            ['Accounts receivable, net', '322,976', '318,123'],
+            ['Inventories', '350,835', '310,504'],
+            ['Assets of discontinued operations', '\u2014', '125'],
+            ['Prepaid expenses and other current assets', '99,686', '100,389'],
+            ['Deferred income taxes (current)', '58,602', '58,270'],
+            ['Property, plant and equipment, net', '133,022', '129,252'],
+            ['Licenses, trademarks and other intangible assets, net', '320,880', '373,276'],
+            ['Deferred financing costs, net', '8,790', '2,540'],
+            ['Deferred income taxes (non-current)', '21,885', '11,769'],
+            ['Other assets', '58,695', '42,519'],
+            ['Goodwill', '139,948', '115,278'],
+            ['Total assets', '1,747,850', '1,653,272', 'k'],
+            ['Short-term debt', '47,513', '32,172'],
+            ['Accounts payable', '141,797', '152,714'],
+            ['Accrued liabilities', '212,655', '227,561'],
+            ['Liabilities of discontinued operations', '6,797', '18,800'],
+            ['Accrued income taxes payable', '41,762', '37,957'],
+            ['Deferred income taxes (current)', '1,476', '262'],
+            ['Long-term debt', '208,477', '\u2014'],
+            ['Deferred income taxes (non-current)', '37,000', '74,233'],
+            ['Other long-term liabilities', '137,973', '136,967'],
+            ['Redeemable non-controlling interest', '15,200', '\u2014'],
+            ['Total stockholders\u2019 equity', '897,200', '972,606', 'k']
+          ] }
+        ],
+        steps: [
+          { t: 'fill', p: 'Step 1. Question 1, first half. Sort LVMH\u2019s right-hand side into money that demands a return and money that does not, then build invested capital for both years.',
+            h: 'Every line on the right-hand side of a balance sheet is money someone provided. The question is whether that someone expects to be paid for the wait.\n\nShareholders and lenders do, so equity and borrowings are invested capital. Suppliers who let you pay in sixty days, tax authorities waiting for a deferred balance, provisions for future costs \u2014 none of them charge interest, so none of them belong.\n\nSubtract the second group from total assets and what remains is what investors actually have tied up. There is a check built in: the answer should equal equity plus borrowings.',
+            calc: 'IC = total assets \u2212 operating liabilities   (non-operating assets assumed zero for now)',
+            look: 'LVMH balance sheet, liabilities and equity.',
+            rows: [
+            { l: 'LVMH operating liabilities, 2011 (EUR m)', a: 16291, tol: 5, w: 'Provisions 1,400 + deferred tax 3,925 + other non-current liabilities 4,506 + trade payables 2,952 + income taxes 443 + current provisions 349 + other current liabilities 2,716 = 16,291. Borrowings are excluded: they carry interest.' },
+            { l: 'LVMH invested capital, 2011 (EUR m)', a: 30778, tol: 6, w: '47,069 \u2212 16,291 = 30,778. Check it the other way: equity 23,512 + long term borrowings 4,132 + short term borrowings 3,134 = 30,778. The two routes agree, which is the sign the sorting was done consistently.' },
+            { l: 'LVMH operating liabilities, 2010 (EUR m)', a: 13694, tol: 5, w: '1,167 + 3,354 + 3,947 + 2,298 + 446 + 339 + 2,143 = 13,694.' },
+            { l: 'LVMH invested capital, 2010 (EUR m)', a: 23470, tol: 6, w: '37,164 \u2212 13,694 = 23,470, and equity 18,204 + borrowings 5,266 gives the same.' },
+            { l: 'Average invested capital (EUR m)', a: 27124, tol: 8, w: '(30,778 + 23,470) / 2 = 27,124. An average is used because NOPAT accrues across the year while a balance sheet figure is one instant.' }
+          ], e: 'Invested capital grew 31% in a single year, from 23,470 to 30,778. Most of that is acquisition: goodwill rose 1,930 and brands 2,378, largely Bulgari. Keep it in mind \u2014 a denominator growing that fast drags the current year\u2019s return down even if nothing operational changed.' },
+          { t: 'fill', p: 'Step 2. Question 1, second half. NOPAT and ROIC for LVMH.',
+            calc: 'NOPAT = operating profit \u00d7 (1 \u2212 tax rate)     ROIC = NOPAT \u00f7 average IC',
+            given: [
+              { l: 'Operating profit, 2011', v: '5,154', s: 'Income statement' },
+              { l: 'Tax rate', v: '33.3%', s: 'The French corporate rate, as the question directs' },
+              { l: 'Average invested capital', v: '27,124', s: 'Your step 1 answer' }
+            ], rows: [
+            { l: 'NOPAT (EUR m)', a: 3438, tol: 12, w: '5,154 \u00d7 (1 \u2212 0.333) = 3,438. Operating profit is used rather than net profit because ROIC has to measure the business, not the financing.' },
+            { l: 'ROIC (%)', a: 12.7, tol: 0.3, w: '3,438 / 27,124 = 12.7%.' }
+          ], e: 'Note what NOPAT deliberately ignores: the 242 of net financial expense and the 400 due to minority shareholders. Those describe how the business was funded and who owns it, not how well it operates. Financing decisions belong in the cost of capital, on the other side of the comparison.' },
+          { t: 'fill', p: 'Step 3. The same two calculations for Warnaco. Keep everything in thousands of dollars.',
+            h: 'Nothing new here \u2014 it is the same three sums as steps 1 and 2, on a company that presents its balance sheet in a different order.\n\nThe one thing to watch is the redeemable non-controlling interest of 15,200. It sits between liabilities and equity on the face of the statement, and it is a genuine investor claim, so it belongs in invested capital rather than among the operating liabilities.\n\nThe same cross-check applies: total assets less operating liabilities should equal equity plus that non-controlling interest plus the two debt lines.',
+            calc: 'IC = total assets \u2212 operating liabilities',
+            given: [
+              { l: 'Tax rate', v: '35%', s: 'The U.S. corporate rate, as the question directs' }
+            ], rows: [
+            { l: 'Warnaco operating liabilities, 2011 (USD k)', a: 579460, tol: 400, w: 'Payables 141,797 + accrued liabilities 212,655 + liabilities of discontinued operations 6,797 + accrued income taxes 41,762 + current deferred tax 1,476 + non-current deferred tax 37,000 + other long-term liabilities 137,973 = 579,460.' },
+            { l: 'Warnaco invested capital, 2011 (USD k)', a: 1168390, tol: 500, w: '1,747,850 \u2212 579,460 = 1,168,390. Check: equity 897,200 + redeemable non-controlling interest 15,200 + short-term debt 47,513 + long-term debt 208,477 = 1,168,390.' },
+            { l: 'Warnaco invested capital, 1 January 2011 (USD k)', a: 1004778, tol: 500, w: 'Operating liabilities 152,714 + 227,561 + 18,800 + 37,957 + 262 + 74,233 + 136,967 = 648,494, so 1,653,272 \u2212 648,494 = 1,004,778.' },
+            { l: 'Average invested capital (USD k)', a: 1086584, tol: 700, w: '(1,168,390 + 1,004,778) / 2 = 1,086,584.' },
+            { l: 'NOPAT (USD k)', a: 118004, tol: 300, w: '181,545 \u00d7 0.65 = 118,004.' },
+            { l: 'ROIC (%)', a: 10.9, tol: 0.3, w: '118,004 / 1,086,584 = 10.9%, against LVMH\u2019s 12.7%.' }
+          ], e: 'Two businesses with almost nothing in common \u2014 one sells champagne and handbags at full retail price, the other manufactures swimwear under licence \u2014 land within two points of each other. That is the puzzle the rest of the case exists to solve. A single summary ratio tells you the outcome and hides everything about how it was produced.' },
+          { t: 'pick', p: 'Step 4. Question 2 calls for judgment before arithmetic. Which LVMH asset is most clearly non-operating?',
+            rows: [
+              { l: 'Investments in associates of 170, since LVMH does not control the companies it holds them in', a: false },
+              { l: 'Deferred tax assets of 716, since they arise from tax positions rather than from trading with customers', a: false },
+              { l: 'Non-current available for sale financial assets of 5,982, up from 540 in two years', a: true },
+              { l: 'Brands of 11,482, since they were bought rather than built', a: false }
+            ],
+            e: 'The test for a non-operating asset is whether it earns an operating return. A financial portfolio that has grown from 540 to 3,891 to 5,982 in two years \u2014 the bulk of it the stake LVMH built in Herm\u00e8s \u2014 does not: it earns dividends and fair value movements, and those sit in net financial income, which NOPAT excludes.\n\nThe others fail the test. Associates of 170 are strategic partnerships, trivially small either way. Deferred tax follows the operations that created it. Brands are the operating assets \u2014 leaving them out would remove the very thing that generates the margin. Cash is the genuinely arguable one: some analysts strip all of it out, on the ground that it could be paid out tomorrow; others keep a working balance. The next step strips it, so the effect is visible.' },
+          { t: 'fill', p: 'Step 5. Question 2. Recalculate both ROICs with the non-operating assets taken out. Strip the financial portfolio and cash from LVMH, and cash from Warnaco.',
+            calc: 'IC = total assets \u2212 non-operating assets \u2212 operating liabilities',
+            given: [
+              { l: 'LVMH available for sale financial assets', v: '5,982 (2011) and 3,891 (2010)', s: 'Balance sheet' },
+              { l: 'LVMH cash', v: '2,303 (2011) and 2,292 (2010)', s: 'Balance sheet' },
+              { l: 'Warnaco cash', v: '232,531 (2011) and 191,227 (2010)', s: 'Balance sheet' }
+            ], rows: [
+            { l: 'LVMH invested capital, 2011 (EUR m)', a: 22493, tol: 8, w: '30,778 \u2212 5,982 \u2212 2,303 = 22,493.' },
+            { l: 'LVMH invested capital, 2010 (EUR m)', a: 17287, tol: 8, w: '23,470 \u2212 3,891 \u2212 2,292 = 17,287.' },
+            { l: 'LVMH ROIC on operating capital (%)', a: 17.3, tol: 0.4, w: 'Average IC (22,493 + 17,287) / 2 = 19,890, so 3,438 / 19,890 = 17.3%.' },
+            { l: 'Warnaco average invested capital (USD k)', a: 874705, tol: 700, w: '(1,168,390 \u2212 232,531 = 935,859) and (1,004,778 \u2212 191,227 = 813,551), averaging 874,705.' },
+            { l: 'Warnaco ROIC on operating capital (%)', a: 13.5, tol: 0.4, w: '118,004 / 874,705 = 13.5%.' }
+          ], e: 'Both rise, because the denominator shrank while NOPAT \u2014 which never included the income from those assets \u2014 stayed put. That consistency is the whole justification for the adjustment: exclude the income, exclude the asset that produced it.' },
+          { t: 'pick', p: 'Step 6. Question 3. LVMH gains 4.6 points from the adjustment and Warnaco 2.6. What does the size of LVMH\u2019s gap tell you?',
+            rows: [
+              { l: 'LVMH is the riskier of the two, since a portfolio of financial assets that size can fall in value fast', a: false },
+              { l: 'The reported figure understates the luxury business, which is diluted by a large non-strategic portfolio', a: true },
+              { l: 'LVMH is more efficient at managing working capital', a: false },
+              { l: 'The two ROIC figures are inconsistent and one must be wrong', a: false }
+            ],
+            e: 'A gap that size means a large slice of the balance sheet is not employed in trading. LVMH is running a luxury operation that earns roughly 17% on the capital it actually uses, plus an investment portfolio of 5,982 that earns whatever markets deliver. Consolidating the two and dividing gives 12.7%, which describes neither.\n\nThe practical consequences: judge the operating business on 17.3%, value the portfolio separately at market, and treat the aggregate as an artefact. And the direction of travel matters \u2014 540 to 5,982 in two years is a strategic choice about deploying capital outside the business, one shareholders may or may not have wanted. A widening gap between the two ROIC figures is the signal to go looking for it.' },
+          { t: 'pick', p: 'Step 7. Question 4. How would you describe the two strategic positions before doing any more arithmetic?',
+            rows: [
+              { l: 'Both compete mainly on price in a crowded market where the customer compares before buying', a: false },
+              { l: 'Both are asset-heavy manufacturers with broadly similar cost structures and distribution', a: false },
+              { l: 'LVMH sells scarcity at a premium; Warnaco sells volume through licensed brands', a: true },
+              { l: 'LVMH is a retailer and Warnaco a wholesaler, which is the only real difference', a: false }
+            ],
+            e: 'LVMH owns its brands outright, controls distribution through its own boutiques, and prices for exclusivity. Scarcity is the product. Warnaco designs and manufactures under licences it does not own, selling through department stores and mass channels where the buyer compares prices and the licensor takes a royalty.\n\nWrite down the prediction before you test it, because the point of the next step is to see whether the numbers confirm it. Premium pricing with a heavy asset base should show up as high margin and low turnover. Licensed volume through wholesale should show the opposite.' },
+          { t: 'fill', p: 'Step 8. Question 5. Split ROIC into the two things management can actually move.',
+            calc: 'ROIC = (NOPAT \u00f7 sales) \u00d7 (sales \u00f7 average IC) = NOPAT margin \u00d7 IC turnover',
+            given: [
+              { l: 'LVMH', v: 'NOPAT 3,438, revenue 23,659, average IC 27,124', s: 'Steps 1 and 2, non-operating assets at zero' },
+              { l: 'Warnaco', v: 'NOPAT 118,004, revenue 2,513,388, average IC 1,086,584', s: 'Step 3' }
+            ], rows: [
+            { l: 'LVMH NOPAT margin (%)', a: 14.5, tol: 0.3, w: '3,438 / 23,659 = 14.5%. Of every euro a customer hands over, 14.5 cents survives to the investors after operating costs and tax.' },
+            { l: 'LVMH IC turnover (times)', a: 0.87, tol: 0.03, w: '23,659 / 27,124 = 0.87. Each euro of invested capital produces 87 cents of sales in a year.' },
+            { l: 'Warnaco NOPAT margin (%)', a: 4.7, tol: 0.2, w: '118,004 / 2,513,388 = 4.7% \u2014 under a third of LVMH\u2019s.' },
+            { l: 'Warnaco IC turnover (times)', a: 2.31, tol: 0.06, w: '2,513,388 / 1,086,584 = 2.31, more than two and a half times LVMH\u2019s.' }
+          ], e: 'Multiply back and the identity holds: 14.5% \u00d7 0.87 = 12.7%, and 4.7% \u00d7 2.31 = 10.9%. Sales cancel, which is exactly why the decomposition is free \u2014 it adds no assumption, only a question the single ratio cannot answer.' },
+          { t: 'pick', p: 'Step 9. Question 6. Does the split match the strategies you described in step 7?',
+            rows: [
+              { l: 'No \u2014 the figures contradict both descriptions, and the strategies are the other way round', a: false },
+              { l: 'Yes \u2014 margin for LVMH, turnover for Warnaco, each executing its own model', a: true },
+              { l: 'Yes for LVMH, but Warnaco should show the higher margin', a: false },
+              { l: 'The split says nothing about strategy either way', a: false }
+            ],
+            e: 'Almost exactly as predicted. LVMH earns three times Warnaco\u2019s margin and turns its capital over a third as fast. Warnaco reverses both. Neither is better; they are different answers to the same question, and each management team is delivering on the model it chose.\n\nThere is usually a trade-off between the two, which is why comparable ROIC from opposite directions is common. Firms that push margin and turnover up together \u2014 a luxury house that also turns capital twice a year \u2014 are rare and worth studying. What should worry an investor is the opposite: a company whose strategy calls for premium positioning while its numbers show thin margins and fast turnover. That is a strategy the business is not actually executing.' },
+          { t: 'fill', p: 'Step 10. Questions 7 and 8. Go one level deeper into each driver, and find where the margin gap really sits.',
+            h: 'The obvious guess is that a luxury house out-earns a swimwear licensee because it spends less on selling. Test it before you believe it.\n\nWork out each cost as a share of revenue for both companies and compare the lines one by one. Then do the same on the balance sheet, dividing revenue by each individual item to see how hard each asset is working.\n\nOne pair of lines will look almost identical across the two firms, and one pair will look nothing alike. Which is which is the finding.',
+            calc: 'Expense ratio = expense \u00f7 revenue     Item turnover = revenue \u00f7 balance sheet item',
+            rows: [
+            { l: 'LVMH cost of sales as a percentage of revenue (%)', a: 34.2, tol: 0.4, w: '8,092 / 23,659 = 34.2%, so a gross margin of 65.8%.' },
+            { l: 'Warnaco cost of goods sold as a percentage of revenue (%)', a: 56.2, tol: 0.4, w: '1,412,446 / 2,513,388 = 56.2%, a gross margin of 43.8%. Twenty-two points of the difference between these two businesses is decided before a single selling cost is incurred.' },
+            { l: 'LVMH marketing and selling as a percentage of revenue (%)', a: 35.3, tol: 0.4, w: '8,360 / 23,659 = 35.3%. Boutiques, advertising, and the visible apparatus of a luxury brand cost more than the goods themselves.' },
+            { l: 'Warnaco selling, general and administrative as a percentage of revenue (%)', a: 33.6, tol: 0.4, w: '844,696 / 2,513,388 = 33.6% \u2014 within two points of LVMH. This is the finding: the premium is not bought with a lighter selling budget.' },
+            { l: 'LVMH inventory turnover (times)', a: 3.15, tol: 0.08, w: '23,659 / 7,510 = 3.15. Champagne and cognac age for years before sale, and boutiques hold depth in every size.' },
+            { l: 'Warnaco inventory turnover (times)', a: 7.16, tol: 0.15, w: '2,513,388 / 350,835 = 7.16, more than twice as fast. Seasonal apparel that does not move gets marked down, so it is not allowed to sit.' },
+            { l: 'LVMH property, plant and equipment turnover (times)', a: 2.95, tol: 0.08, w: '23,659 / 8,017 = 2.95. LVMH owns its stores, its vineyards and its workshops.' },
+            { l: 'Warnaco property, plant and equipment turnover (times)', a: 18.9, tol: 0.4, w: '2,513,388 / 133,022 = 18.9 \u2014 more than six times LVMH\u2019s. Manufacturing is outsourced and the brands are licensed, so there is very little to own. This single line is most of the IC turnover advantage.' },
+            { l: 'LVMH receivables turnover (times)', a: 12.6, tol: 0.3, w: '23,659 / 1,878 = 12.6, about 29 days. Selling direct to the public means the customer pays at the till.' },
+            { l: 'Warnaco receivables turnover (times)', a: 7.78, tol: 0.2, w: '2,513,388 / 322,976 = 7.78, about 47 days. Department stores pay on terms, and the reserve of 94,739 against those receivables says what that exposure is worth.' }
+          ], e: 'Two conclusions, and the second is the one worth keeping.\n\nThe margin gap is a gross margin gap. LVMH spends as heavily on selling as Warnaco does \u2014 35.3% against 33.6% \u2014 so the premium is created at the point of pricing, not saved on the way to market. Owning the brand rather than licensing it is what makes that pricing possible, and it is why the brands sit on LVMH\u2019s balance sheet and not on Warnaco\u2019s.\n\nThe turnover gap is a fixed asset gap. Warnaco turns property and equipment 18.9 times against 2.95, because it owns almost nothing: no boutiques, no vineyards, no factories. It collects more slowly and holds a thinner brand base, but it needs so little capital that a 4.7% margin still returns 10.9%.\n\nWhich is the general lesson. ROIC is an outcome, and the same outcome can be assembled in opposite ways. Decomposing it costs nothing and turns a number into a description of a business \u2014 and it is the only way to notice when a company\u2019s numbers are quietly describing a different strategy from the one in its annual report.' }
+        ]
+      },
+      {
+        key: 'ex-maersk', isCase: true, title: 'Maersk: what IFRS 16 did to a company that leases everything',
+        sub: 'Nine steps through a balance sheet that grew by six billion without a single new ship',
+        ses: 'Session 11 \u00b7 Leases',
+        brief: 'A.P. Moller \u2013 Maersk, founded in Denmark in 1904, runs container shipping and port terminals (Ocean), freight forwarding and supply chain management (Logistics & Services), towage and salvage (Terminals & Towage), and container and vessel manufacturing. Through 2018 and 2019 it divested its oil and drilling businesses. It leases on an enormous scale: vessels, terminals, land, warehouses, containers.\n\nUntil 2019, a lease that did not transfer substantially all the risks and rewards of ownership stayed off the balance sheet entirely. The rent went through operating costs and the future commitments sat in a note. IFRS 16 ended that. From 1 January 2019, almost every lease longer than twelve months is recognised as a right-of-use asset and a matching lease liability, measured at the present value of the future payments \u2014 in effect, treating the lease as an asset bought with a loan from the lessor.\n\nThe income statement splits accordingly. Under IFRS the right-of-use asset is depreciated, an operating cost, while interest accrues on the liability, a financial cost. Under the old rules the whole rent was a single operating expense, because there was no liability to charge interest on. (U.S. GAAP takes a third route for operating leases, adding the two components back together into one straight-line operating charge \u2014 which many practitioners regard as economically wrong.)\n\nMaersk adopted on 1 January 2019 using the modified retrospective approach, so 2018 was never restated. You have three years in the Figures panel: the 2018 report forecasting the effect, the 2019 statements showing it, and the 2020 note showing what steady state looks like. All figures in USD millions.',
+        tables: [
+          { title: 'Exhibit 1 \u2014 what the 2018 report told investors to expect', note: 'Unaudited pro forma amounts published in the 2018 Annual Report, restating 2018 as if IFRS 16 had applied.', cols: ['Effect on 2018'], rows: [
+            ['EBITDA', 'rises approx. USD 1.2bn, from 3.8bn to 5.0bn'],
+            ['EBIT', 'rises to approx. USD 0.8bn, from USD 627m'],
+            ['Net loss, continuing operations', 'worsens to approx. USD 0.3bn, from a loss of USD 148m'],
+            ['Total borrowings', 'rise approx. USD 6.0bn, to USD 17.9bn'],
+            ['Invested capital', 'rises approx. USD 6.0bn, to USD 49bn'],
+            ['Net interest-bearing debt', 'rises approx. USD 6.0bn, from 8.7bn to 14.7bn'],
+            ['Cash flow from operating activities', 'rises approx. USD 1.2bn, from 3.2bn to 4.4bn'],
+            ['Hub and gateway terminal concessions', 'add approx. USD 2.2bn to the balance sheet'],
+            ['Dry containers and leases under 12 months', 'not recognised \u2014 low-value and short-term exemptions']
+          ] },
+          { title: 'Exhibit 2 \u2014 balance sheet at 31 December, from the 2019 report', note: '2018 is as originally reported; Maersk did not restate it.', cols: ['2019', '2018'], rows: [
+            ['Assets', '', 'h'],
+            ['Intangible assets', '4,219', '4,278'],
+            ['Property, plant and equipment', '27,516', '31,107'],
+            ['Right-of-use assets', '8,460', '\u2014', 'k'],
+            ['Financial non-current assets, etc.', '3,267', '2,994'],
+            ['Total non-current assets', '43,699', '38,646'],
+            ['Inventories', '1,430', '1,073'],
+            ['Receivables, etc.', '5,351', '5,687'],
+            ['Cash and bank balances', '4,768', '2,863'],
+            ['Total assets', '55,399', '56,622', 'k'],
+            ['Equity and liabilities', '', 'h'],
+            ['Total equity', '28,837', '33,380', 'k'],
+            ['Lease liabilities, non-current', '7,295', '1,858', 'k'],
+            ['Borrowings, non-current', '7,455', '8,036'],
+            ['Pensions and similar obligations', '272', '259'],
+            ['Provisions (non-current)', '636', '728'],
+            ['Deferred tax', '362', '372'],
+            ['Other non-current liabilities', '1,977', '1,949'],
+            ['Lease liabilities, current', '1,282', '408', 'k'],
+            ['Borrowings, current', '721', '1,586'],
+            ['Trade payables', '5,567', '5,281'],
+            ['Other current liabilities', '7,757', '7,456'],
+            ['Total liabilities', '26,562', '23,242']
+          ] },
+          { title: 'Exhibit 2 \u2014 Note 2, operating costs', note: 'From the 2019 report.', cols: ['2019', '2018'], rows: [
+            ['Costs of goods sold', '998', '1,182'],
+            ['Bunker costs', '4,628', '5,231'],
+            ['Terminal costs', '6,775', '7,070'],
+            ['Intermodal costs', '4,151', '4,158'],
+            ['Port costs', '2,265', '2,392'],
+            ['Rent and lease costs', '1,502', '2,985', 'k'],
+            ['Staff costs', '4,955', '4,919'],
+            ['Other', '7,856', '7,689'],
+            ['Total operating costs', '33,130', '35,626', 'k']
+          ] },
+          { title: 'Exhibit 2 \u2014 Note 4, financial income and expenses', note: 'From the 2019 report. Footnote 1 to the first line: of which USD 477m (143m) relates to interest expenses on lease liabilities.', cols: ['2019', '2018'], rows: [
+            ['Interest expenses on liabilities', '971', '809', 'k'],
+            ['\u2014 of which interest on lease liabilities', '477', '143', 'k'],
+            ['Interest income on loans and receivables', '91', '70'],
+            ['Net interest expenses', '885', '731'],
+            ['Net foreign exchange gains/losses', '49', '51'],
+            ['Net fair value gains/losses', '57', '17'],
+            ['Financial expenses, net', '758', '401']
+          ] },
+          { title: 'Exhibit 2 \u2014 cash flow statement extract', note: 'From the 2019 report.', cols: ['2019', '2018'], rows: [
+            ['Cash flow from operating activities', '5,919', '3,228', 'k'],
+            ['Purchase of intangible assets and property, plant and equipment', '(2,035)', '(3,219)'],
+            ['Cash flow used for investing activities', '874', '646'],
+            ['Repayment of borrowings', '(2,533)', '(7,148)'],
+            ['Repayment of lease liabilities', '(1,291)', '(629)', 'k'],
+            ['Financial expenses paid on lease liabilities', '(477)', '(143)', 'k'],
+            ['Cash flow from financing activities', '(4,800)', '(6,865)'],
+            ['Net cash flow for the period', '1,621', '976']
+          ] },
+          { title: 'Exhibit 3 \u2014 Note 20, cash flow specifications, from the 2020 report', note: 'Reconciling what Maersk purchased with what it paid.', cols: ['2020', '2019'], rows: [
+            ['Addition \u2014 purchase of intangible assets and property, plant and equipment', '(2,929)', '(9,757)', 'k'],
+            ['Of which right-of-use assets, etc.', '1,575', '7,989', 'k'],
+            ['Of which borrowing costs capitalised on assets', '7', '23'],
+            ['Change in payables to suppliers regarding purchase of assets', '25', '(290)'],
+            ['Total, per the cash flow statement', '(1,322)', '(2,035)', 'k']
+          ] }
+        ],
+        steps: [
+          { t: 'pick', p: 'Step 1. Question 1, part one. Exhibit 1 says EBITDA will rise by 1.2bn. What causes that?',
+            rows: [
+              { l: 'Maersk expects to sign considerably more new leases during 2019 than it did the year before', a: false },
+              { l: 'Rent leaves operating costs and reappears as depreciation and interest, both below EBITDA', a: true },
+              { l: 'The right-of-use assets are recognised at fair value, creating a gain', a: false },
+              { l: 'Lease payments fall because the standard renegotiates the contracts', a: false }
+            ],
+            e: 'EBITDA is earnings before interest, tax, depreciation and amortisation. Under the old rules the whole rent sat in operating costs, above the line. Under IFRS 16 the rent is split: the depreciation part is excluded from EBITDA by definition, and the interest part is excluded too. Nothing about the business changed, and no cash payment changed. The line simply had two of its components moved out from under it.\n\nWhich is why EBIT rises much less \u2014 to 0.8bn from 627m rather than by a full 1.2bn. EBIT is after depreciation, so it keeps that half of the cost and only gains back the interest. And net profit actually falls, to a loss of about 0.3bn from 148m, because front-loaded interest on a fresh lease portfolio exceeds the straight-line rent it replaced.' },
+          { t: 'pick', p: 'Step 2. Question 1, part two. Exhibit 1 also promises operating cash flow up 1.2bn. Is Maersk generating more cash?',
+            rows: [
+              { l: 'Yes \u2014 the standard reduces the cash Maersk actually has to pay its lessors each year', a: false },
+              { l: 'Yes \u2014 the right-of-use assets can be borrowed against', a: false },
+              { l: 'No \u2014 total cash flow is unchanged; lease payments move from operating to financing', a: true },
+              { l: 'No \u2014 the cash flow statement is unaffected by IFRS 16', a: false }
+            ],
+            e: 'Not one dollar of payment changed. Under the old rules the entire rent was an operating outflow. Under IFRS 16 the principal portion is a repayment of a liability, which belongs in financing, and Maersk classifies the interest portion there too. Look at the 2019 cash flow statement: repayment of lease liabilities of 1,291 and financial expenses paid on lease liabilities of 477, both in the financing section, against 629 and 143 the year before.\n\nThis is worth remembering beyond leases. Operating cash flow feels like a hard fact next to accrual profit, but it is still defined by classification rules, and a change in those rules can move billions across the line without any change in the bank balance. Free cash flow, which nets investing against operating, is harder to game this way \u2014 which is one reason analysts reach for it.' },
+          { t: 'fill', p: 'Step 3. Question 2. Financial debt to equity at both dates. Count as financial debt everything owed to investors who charge for the wait: borrowings, lease liabilities and pension obligations, current and non-current.',
+            calc: 'Financial debt \u00f7 total equity',
+            look: 'Exhibit 2, balance sheet.',
+            rows: [
+            { l: 'Financial debt, 2018', a: 12147, tol: 8, w: 'Lease liabilities 1,858 + 408, borrowings 8,036 + 1,586, pensions 259 = 12,147. Note that 2018 already carries 2,266 of lease liabilities \u2014 finance leases were always on the balance sheet.' },
+            { l: 'Financial debt to equity, 2018', a: 0.364, tol: 0.01, w: '12,147 / 33,380 = 0.364.' },
+            { l: 'Financial debt, 2019', a: 17025, tol: 8, w: 'Lease liabilities 7,295 + 1,282, borrowings 7,455 + 721, pensions 272 = 17,025.' },
+            { l: 'Financial debt to equity, 2019', a: 0.590, tol: 0.015, w: '17,025 / 28,837 = 0.590.' },
+            { l: 'Increase in lease liabilities over the year', a: 6311, tol: 10, w: '(7,295 + 1,282) \u2212 (1,858 + 408) = 6,311, close to the 6.0bn Exhibit 1 predicted a year earlier.' }
+          ], e: 'The ratio rises 62%, from 0.364 to 0.590. Qualitatively: a portfolio of lease commitments that had been disclosed in a note and nowhere else now sits on the face of the balance sheet, and every leverage ratio computed from that balance sheet moves with it. Debt covenants written before 2019 had to be renegotiated across whole industries for exactly this reason.' },
+          { t: 'fill', p: 'Step 4. Before answering question 3, check how much of the move is really the leases. Equity fell too, from 33,380 to 28,837.',
+            h: 'Two things moved at once. Debt went up and equity went down, and both push a debt-to-equity ratio in the same direction.\n\nSo before crediting the whole change to IFRS 16, hold the lease liabilities at their 2018 level and recompute. Whatever ratio you get is what 2019 would have looked like on the old rules, with the equity fall still in it.\n\nCompare that with 0.364 and you will see how much of the story the equity decline actually tells.',
+            calc: 'Counterfactual debt = 2019 financial debt \u2212 the increase in lease liabilities',
+            given: [
+              { l: '2019 financial debt', v: '17,025', s: 'Your step 3 answer' },
+              { l: 'Increase in lease liabilities', v: '6,311', s: 'Your step 3 answer' },
+              { l: '2019 equity', v: '28,837', s: 'Balance sheet' }
+            ], rows: [
+            { l: 'Financial debt excluding the lease increase', a: 10714, tol: 15, w: '17,025 \u2212 6,311 = 10,714. Maersk repaid borrowings during the year, so its non-lease debt actually fell.' },
+            { l: 'Debt to equity on that basis', a: 0.372, tol: 0.012, w: '10,714 / 28,837 = 0.372, against 0.364 in 2018.' }
+          ], e: 'On the old rules the ratio would have barely moved \u2014 0.364 to 0.372 \u2014 even with equity down 4.5bn. So essentially the entire increase is IFRS 16.\n\nWorth knowing what the equity fall was, though, since it was not trading losses: 3,371 of it was distributing shares in The Drilling Company of 1972 to shareholders, plus 791 of buybacks and 542 of dividends. A company can shrink its equity by choice, and it changes every ratio with equity in the denominator.' },
+          { t: 'pick', p: 'Step 5. Question 3. Does the higher ratio mean Maersk is riskier than it was in 2018?',
+            rows: [
+              { l: 'Yes \u2014 it now owes 6.3bn more than before', a: false },
+              { l: 'No \u2014 the obligations were always there; only the disclosure changed', a: true },
+              { l: 'Yes \u2014 lease liabilities rank ahead of bondholders in a default', a: false },
+              { l: 'No \u2014 lease liabilities are not real debt because the asset can be handed back', a: false }
+            ],
+            e: 'The contracts signed before 2019 are the same contracts. Maersk was already obliged to pay for those vessels and terminals, and those obligations were already disclosed \u2014 in a commitments note that anyone could read, and that careful analysts had been capitalising by hand for years. The standard moved information from a note onto the face of the statements.\n\nSo the economic risk is unchanged, but three real things did change. Covenants written on reported leverage suddenly bite. Anyone screening on debt-to-equity now sees Maersk differently. And the balance sheet is a better description of the business than it was.\n\nThe fourth option deserves an answer, because it is the argument lessees have always made. It is partly true \u2014 walking away from a lease is easier than defaulting on a bond, and the lessor keeps the asset. But it is a matter of degree, not of kind: a lease still obliges you to pay, and a shipping line that hands back its chartered vessels has no business left. The old accounting treated that difference of degree as a difference of kind, which is what IFRS 16 corrected.' },
+          { t: 'fill', p: 'Step 6. Question 4. Find the adoption in the operating cost note.',
+            look: 'Exhibit 2, Note 2.',
+            rows: [
+            { l: 'Rent and lease costs, 2018', a: 2985, tol: 3, w: 'The whole rent, expensed as incurred.' },
+            { l: 'Rent and lease costs, 2019', a: 1502, tol: 3, w: 'Roughly halved, in a year when the business did not halve.' },
+            { l: 'The fall', a: 1483, tol: 5, w: '2,985 \u2212 1,502 = 1,483. What remains is short-term leases, low-value leases and the variable payments IFRS 16 does not capitalise.' },
+            { l: 'Total operating costs, 2019', a: 33130, tol: 5, w: 'Against 35,626 in 2018 \u2014 down 2,496, of which the lease reclassification is 1,483, roughly 60%.' }
+          ], e: 'A reader comparing 2019 operating costs with 2018 without knowing about IFRS 16 would conclude that Maersk had taken 1.5bn of cost out of the business. It had not. The cost moved to depreciation and interest. This is the practical hazard of the modified retrospective approach: the comparative year is not restated, so the two columns in the same table are prepared on different rules, and only the note tells you.' },
+          { t: 'fill', p: 'Step 7. Question 5. Now find the other half of the split, in the financial expense note.',
+            look: 'Exhibit 2, Note 4, and its footnote.',
+            rows: [
+            { l: 'Interest on lease liabilities, 2018', a: 143, tol: 2, w: 'Interest on the finance leases that were already capitalised under the old rules.' },
+            { l: 'Interest on lease liabilities, 2019', a: 477, tol: 2, w: 'The new liability of 8,577 now carries interest.' },
+            { l: 'The increase', a: 334, tol: 3, w: '477 \u2212 143 = 334.' },
+            { l: 'Implied interest rate on the average lease liability (%)', a: 8.8, tol: 1.2, w: '477 / ((8,577 + 2,266) / 2 = 5,422) = 8.8%. Rough, since the liabilities arrived at the start of the year rather than accruing evenly, but high enough to be worth noticing \u2014 the discount rate a lessee uses is its incremental borrowing rate, and a higher rate means a smaller liability recognised at the outset.' }
+          ], e: 'Follow the whole 1,483. About 334 of it reappears here as interest and the balance in depreciation \u2014 total depreciation, amortisation and impairment went from 3,737 to 4,287. Nothing was saved; it was redistributed down the income statement, past EBITDA and past EBIT.\n\nHence the pattern in Exhibit 1: EBITDA up 1.2bn, EBIT up only about 0.2bn, net profit down. Every margin above the interest line improves and the bottom line gets worse. Any comparison of Maersk against a competitor that owns its vessels outright \u2014 or against its own prior year \u2014 has to start from that.' },
+          { t: 'fill', p: 'Step 8. Question 6. In 2020, the cash flow statement reports 1,322 of additions while Note 20 says Maersk purchased 2,929. Account for the difference.',
+            calc: 'Note 20 addition \u2212 non-cash items \u2212 payables movement = cash flow figure',
+            look: 'Exhibit 3, Note 20.',
+            rows: [
+            { l: 'Addition per Note 20, 2020', a: 2929, tol: 3, w: 'Everything added to intangibles, property, plant and equipment and right-of-use assets during the year.' },
+            { l: 'Total per the cash flow statement, 2020', a: 1322, tol: 3, w: 'What actually left the bank.' },
+            { l: 'The difference', a: 1607, tol: 5, w: '2,929 \u2212 1,322 = 1,607.' },
+            { l: 'Right-of-use asset additions, 2020', a: 1575, tol: 3, w: '98% of the difference. Signing a lease adds an asset and a liability and moves no cash, so it can never appear as an investing outflow.' },
+            { l: 'The same figure for 2019', a: 7989, tol: 5, w: 'On additions of 9,757 \u2014 the transition year, when the entire existing lease portfolio arrived at once.' }
+          ], e: 'Two further items complete the reconciliation: 7 of capitalised borrowing costs, which is interest turned into an asset rather than cash spent, and 25 of movement in payables to asset suppliers, which is timing.' },
+          { t: 'pick', p: 'Step 9. Question 6, second half. To measure how fast Maersk is growing its fixed asset base, which figure should you use?',
+            rows: [
+              { l: 'The cash flow figure of 1,322, because cash cannot be manipulated', a: false },
+              { l: 'Note 20\u2019s 2,929, because leased capacity is capacity', a: true },
+              { l: 'Neither \u2014 depreciation is the only reliable measure of the asset base', a: false },
+              { l: 'The average of the two, to balance the cash and accrual views', a: false }
+            ],
+            e: 'A vessel Maersk charters for ten years does the same work as one it buys. If you count only cash purchases, a company that leases looks as though it is investing nothing and shrinking, when it is doing neither. In 2020 that error would have you record 1,322 of investment against a real addition of 2,929 \u2014 you would understate the capital going into the business by more than half.\n\nThe general rule: the cash flow statement answers what did we pay, and Note 20 answers what did we acquire. For measuring growth in productive capacity, acquisition is the question, and IFRS 16 is what finally made the leased half of it visible. This is the same lesson as the balance sheet half of the case, arriving from the other direction: an obligation you can walk away from more easily than a bond is still an obligation, and an asset you rent is still an asset you use.' }
+        ]
+      },
+      {
+        key: 'ex-bp', isCase: true, title: 'BP: provisioning for a disaster nobody could measure',
+        sub: 'Nine steps on where an obligation gets recognised, and where it only gets described',
+        ses: 'Session 12 \u00b7 Provisions & Contingent Liabilities',
+        brief: 'On 20 April 2010 the Deepwater Horizon rig exploded in the Gulf of Mexico, killing eleven workers. The well flowed for almost three months and was capped on 15 July. BP was the principal developer and operator of the Macondo Prospect and leased the rig from Transocean; its share price collapsed, and its chief executive left in September.\n\nBP established a $20 billion Deepwater Horizon Oil Spill Trust for individual and business claims, state and local claims, response costs and natural resource damages. In March 2012 it reached a proposed $7.8 billion settlement with the Plaintiffs\u2019 Steering Committee, approved that December, payable from the trust. In November 2012 it agreed to plead guilty to manslaughter and pay $4.5 billion in government penalties \u2014 the largest on record \u2014 directly rather than from the trust.\n\nStill open was a civil penalty under Section 311 of the Clean Water Act. BP provided $3.5 billion. The Department of Justice alleged gross negligence and a \u201cculture of corporate recklessness\u201d; Macquarie Securities Group estimated the fine could reach $20 billion if the court agreed.\n\nThe accounting question is where each of these belongs. IFRS calls an obligation of uncertain timing or amount a provision, and recognises it when an outflow is more likely than not \u2014 at least a 50% chance \u2014 measured at the expected value of the possible outcomes. U.S. GAAP calls it a loss contingency, recognises it only when a loss is probable, which this case treats as roughly 80%, and measures at the minimum of the range. Where the amount cannot be estimated reliably at all, neither framework permits recognition: the item is a contingent liability, described in a note and absent from every total.\n\nBP\u2019s 2011 report says it \u201chas provided for all potential liabilities that can be estimated reliably at this time, including fines and penalties under the Clean Water Act\u201d, and that \u201cit is not possible to estimate reliably any obligation in relation to natural resource damage claims\u2026 These items are therefore contingent liabilities.\u201d All figures in USD millions.',
+        tables: [
+          { title: 'Exhibit 3 \u2014 provisions relating to the Gulf of Mexico oil spill, 2011', note: 'Movements during the year ended 31 December 2011.', cols: ['Environmental', 'Spill response', 'Litigation and claims', 'Clean Water Act', 'Total'], rows: [
+            ['At 1 January 2011', '809', '1,043', '10,973', '3,510', '16,335'],
+            ['New or increased provisions', '1,167', '586', '3,430', '\u2014', '5,183', 'k'],
+            ['Unwinding of discount', '6', '\u2014', '\u2014', '\u2014', '6'],
+            ['Change in discount rate', '17', '\u2014', '\u2014', '\u2014', '17'],
+            ['Utilisation', '(482)', '(1,293)', '(4,433)', '\u2014', '(6,208)'],
+            ['At 31 December 2011', '1,517', '336', '9,970', '3,510', '15,333', 'k'],
+            ['\u2014 of which current', '961', '282', '8,194', '\u2014', '9,437'],
+            ['\u2014 of which non-current', '556', '54', '1,776', '3,510', '5,896'],
+            ['\u2014 of which payable from the trust fund', '1,066', '\u2014', '8,809', '\u2014', '9,875']
+          ] },
+          { title: 'Exhibit 3 \u2014 the same table for 2010', note: 'The provisions did not exist before the spill.', cols: ['Environmental', 'Spill response', 'Litigation and claims', 'Clean Water Act', 'Total'], rows: [
+            ['At 1 January 2010', '\u2014', '\u2014', '\u2014', '\u2014', '\u2014'],
+            ['New or increased provisions', '929', '10,883', '14,939', '3,510', '30,261', 'k'],
+            ['Unwinding of discount', '4', '\u2014', '\u2014', '\u2014', '4'],
+            ['Change in discount rate', '5', '\u2014', '\u2014', '\u2014', '5'],
+            ['Utilisation', '(129)', '(9,840)', '(3,966)', '\u2014', '(13,935)'],
+            ['At 31 December 2010', '809', '1,043', '10,973', '3,510', '16,335', 'k']
+          ] },
+          { title: 'Exhibit 3 \u2014 how the Clean Water Act provision was built', note: 'BP\u2019s own explanation, from Note 36.', cols: ['Input'], rows: [
+            ['Flow rate used, the mid-point of the Flow Rate Technical Group range of 35,000 to 60,000 barrels per day', '47,500 barrels per day'],
+            ['Days from 22 April to 15 July 2010', '85 days'],
+            ['Oil estimated to have been captured on the surface', 'approximately 850,000 barrels'],
+            ['Per-barrel rate applied', '$1,100 \u2014 the statutory maximum absent gross negligence or wilful misconduct'],
+            ['Statutory maximum rate if gross negligence or wilful misconduct is proven', '$4,300 per barrel'],
+            ['Government estimate, 2 August 2010', '4.9 million barrels flowed, of which 4.05 million discharged into the Gulf'],
+            ['BP\u2019s view of the government estimate', 'flow rate potentially 20\u201350% lower; a 50% lower rate implies about 1.6 million barrels discharged']
+          ] },
+          { title: 'Exhibit 3 \u2014 the litigation and claims estimate', note: 'From the same note.', cols: ['Amount'], rows: [
+            ['Reasonable range of possible outcomes at 31 December 2011, per the Q4 2011 preliminary announcement', '$4.1 billion to $8.3 billion'],
+            ['Provision after reflecting the proposed PSC settlement of 3 March 2012', '$7.8 billion'],
+            ['Claims already paid in total ($2.9bn in 2011, $3.4bn in 2010)', '$6.3 billion'],
+            ['\u2014 of which paid out of the trust fund', '$5.9 billion'],
+            ['Environmental provision: 10-year research programme committed', '$500 million, of which $421 million remained provided']
+          ] },
+          { title: 'Exhibit 2 \u2014 BP group income statement extract', note: 'USD millions. Deductions in brackets.', cols: ['2011', '2010', '2009'], rows: [
+            ['Sales and other operating revenues', '375,517', '297,107', '239,272'],
+            ['Production and manufacturing expenses', '24,145', '64,615', '23,202', 'k'],
+            ['Depreciation, depletion and amortization', '11,135', '11,164', '12,106'],
+            ['Profit (loss) before interest and taxation', '39,817', '(3,702)', '26,426'],
+            ['Profit (loss) before taxation', '38,834', '(4,825)', '25,124', 'k'],
+            ['Taxation', '12,737', '(1,501)', '8,365'],
+            ['Profit (loss) for the year', '26,097', '(3,324)', '16,759', 'k']
+          ] },
+          { title: 'Exhibit 2 \u2014 BP group balance sheet extract', note: 'USD millions, at 31 December.', cols: ['2011', '2010'], rows: [
+            ['Total assets', '293,068', '272,262'],
+            ['Provisions (current)', '11,238', '9,489', 'k'],
+            ['Provisions (non-current)', '26,404', '22,418', 'k'],
+            ['Finance debt (current and non-current)', '44,213', '45,336'],
+            ['Total liabilities', '180,586', '176,371'],
+            ['Total equity', '112,482', '95,891', 'k']
+          ] },
+          { title: 'Exhibit 4 \u2014 Note 43, contingent liabilities', note: 'BP is named as a defendant in approximately 600 civil lawsuits in U.S. federal and state courts arising from the spill, and further suits are likely. It is not possible to estimate reliably any obligation for natural resource damage claims beyond the emergency and early restoration costs already provided, nor for claims asserted in civil litigation including opt-outs from the proposed settlement. With the exception of the estimated costs of the proposed PSC settlement, no amounts have been provided for these items. BP has also agreed to indemnify Anadarko, MOEX and M-I for certain claims arising from the accident, excluding fines, penalties and punitive damages; no amount has been provided, because no obligation can be reliably measured.', cols: [], rows: [] }
+        ],
+        steps: [
+          { t: 'pick', p: 'Step 1. Question 1. BP\u2019s own disclosures name individuals, businesses, state and local governments and the federal government. Which stakeholder group is affected but appears in none of the numbers?',
+            rows: [
+              { l: 'BP\u2019s shareholders, who watched the share price collapse under heavy trading', a: false },
+              { l: 'BP\u2019s bondholders, who faced sharply higher credit spreads on the group\u2019s debt', a: false },
+              { l: 'Future generations and the ecosystem itself, which has no legal claimant', a: true },
+              { l: 'BP\u2019s employees, whose jobs were at risk', a: false }
+            ],
+            e: 'The eleven who died, their families, the fishing and tourism economies of five states, the response workers, the rig contractors, BP\u2019s shareholders, employees and pensioners, the drilling industry facing a moratorium, and the governments running the response \u2014 all of these appear somewhere, because each of them can sue, sell, or legislate.\n\nThe pelicans cannot. Natural resource damages are the accounting system\u2019s attempt to price the ecosystem, and they are the one class of claim BP said it could not estimate reliably at all. So the item with no human claimant is precisely the item that stayed off the balance sheet.\n\nThat is not an accounting failure so much as a boundary. Financial statements record obligations to parties who can enforce them. When something has no owner and no price, the framework has nothing to measure, and the note is all the reader gets.' },
+          { t: 'pick', p: 'Step 2. Question 2(a). What actually separates a provision from a contingent liability?',
+            rows: [
+              { l: 'A provision is legally enforceable against the company; a contingent liability never is', a: false },
+              { l: 'A provision is settled within a year; a contingent liability is always longer-dated than that', a: false },
+              { l: 'A provision can be measured reliably and is recognised; a contingent liability cannot and is only disclosed', a: true },
+              { l: 'A provision is under IFRS; a contingent liability is the U.S. GAAP term', a: false }
+            ],
+            e: 'Two tests, applied in order. Is an outflow more likely than not? And can the amount be estimated reliably? Pass both and it is a provision: an expense on the income statement and a liability on the balance sheet. Fail the second and it is a contingent liability, described in a note and included in no total.\n\nNote what does not decide it. Legal enforceability is not the test \u2014 BP\u2019s natural resource damage exposure is entirely real and entirely unrecognised. Timing is not the test either: the Clean Water Act provision sits in non-current liabilities and is recognised in full. And both terms exist in both frameworks, under different names.\n\nThe uncomfortable consequence: a company facing a catastrophic but unquantifiable claim reports a smaller balance sheet than one facing a modest, well-defined one. Reading the notes is not optional.' },
+          { t: 'pick', p: 'Step 3. Question 2(b). How does a provision differ from an ordinary liability such as trade payables or a bond?',
+            rows: [
+              { l: 'It is uncertain in timing or amount, so it is an estimate management chose', a: true },
+              { l: 'It ranks behind every other creditor in a liquidation, which payables and bonds do not', a: false },
+              { l: 'It carries no interest, and so unlike a bond it is never discounted to present value', a: false },
+              { l: 'It is settled in kind rather than cash', a: false }
+            ],
+            e: 'A trade payable is a known amount owed to a known party on a known date; a bond has a contract that fixes all three. A provision has none of that. Someone inside the company chose the number, from a range, and that choice moves reported profit directly.\n\nBP\u2019s own disclosure shows how wide the discretion was. The range for individual, business, state and local claims at 31 December 2011 was $4.1 billion to $8.3 billion \u2014 a spread of $4.2 billion, larger than most companies\u2019 total assets, all of it within the bounds of a defensible estimate.\n\nThe third option deserves correcting rather than dismissing: provisions are discounted where the time value of money is material, which is exactly why the table has a line for unwinding of discount and another for the change in the discount rate. The unwinding of a provision is an accounting expense that no one is paid.' },
+          { t: 'fill', p: 'Step 4. Question 3. Total up what BP recognised and expensed across the two years, by class of cost.',
+            look: 'The two Exhibit 3 movement tables.',
+            calc: 'New or increased provisions, 2010 + 2011',
+            rows: [
+            { l: 'Environmental', a: 2096, tol: 5, w: '929 + 1,167 = 2,096. Includes the $500 million ten-year research programme and the assessment phase of natural resource damages \u2014 the part of that exposure BP could put a number on.' },
+            { l: 'Spill response', a: 11469, tol: 5, w: '10,883 + 586 = 11,469. Almost all of it in 2010, and almost all of it spent immediately \u2014 utilisation of 9,840 in 2010 alone. Capping a well and cleaning a shoreline is the one cost here that is easy to measure, because you pay it as you go.' },
+            { l: 'Litigation and claims', a: 18369, tol: 5, w: '14,939 + 3,430 = 18,369. The largest class and the hardest to estimate: economic loss, medical claims, and claims not yet reported.' },
+            { l: 'Clean Water Act penalties', a: 3510, tol: 5, w: '3,510 in 2010 and nothing added in 2011 \u2014 a striking non-movement in a year when the Department of Justice was alleging gross negligence.' },
+            { l: 'Total recognised', a: 35444, tol: 15, w: '30,261 + 5,183 = 35,444, plus 32 of discount effects.' },
+            { l: 'Provision balance remaining at 31 December 2011', a: 15333, tol: 10, w: 'From 35,444 recognised, 20,143 had already been spent \u2014 utilisation of 13,935 in 2010 and 6,208 in 2011.' }
+          ], e: 'Look at the 2010 income statement for the scale of it. Production and manufacturing expenses were 64,615 in 2010 against 24,145 in 2011 and 23,202 in 2009, and BP reported a pre-tax loss of 4,825 in a year when revenues were 297 billion.\n\nThat is the accrual principle doing precisely what it is for. The costs were recognised in the year of the event, not in the years the cash goes out, and the reader of the 2010 statements sees the disaster in the year it happened. A cash-based system would have dribbled it out over a decade and shown a profitable 2010.' },
+          { t: 'fill', p: 'Step 5. Question 5, first part. Rebuild the Clean Water Act provision from BP\u2019s inputs.',
+            h: 'The whole provision comes from three numbers and two multiplications, which is exactly why it repays checking.\n\nStart with the daily flow rate BP used, multiply by the days the well was open, and subtract the oil that was captured at the surface rather than reaching the water \u2014 the penalty is charged on what was discharged, not on what came out of the ground.\n\nThen apply the per-barrel rate. Each of those three inputs was contested, and the arithmetic between them is trivial; that contrast is the point of the step.',
+            calc: 'Barrels discharged = (flow rate \u00d7 days) \u2212 barrels captured;   provision = barrels \u00d7 rate',
+            given: [
+              { l: 'Flow rate', v: '47,500 barrels per day', s: 'The mid-point of the Flow Rate Technical Group range of 35,000 to 60,000' },
+              { l: 'Days', v: '85', s: '22 April to 15 July 2010' },
+              { l: 'Captured on the surface', v: '850,000 barrels', s: 'As estimated at the time' },
+              { l: 'Rate', v: '$1,100 per barrel', s: 'The statutory maximum absent gross negligence' }
+            ], rows: [
+            { l: 'Total flow (barrels)', a: 4037500, tol: 2000, w: '47,500 \u00d7 85 = 4,037,500.' },
+            { l: 'Barrels discharged into the Gulf', a: 3187500, tol: 2000, w: '4,037,500 \u2212 850,000 = 3,187,500, which BP rounded to 3.2 million.' },
+            { l: 'Provision ($ million)', a: 3506, tol: 20, w: '3,187,500 \u00d7 $1,100 = $3,506 million, the 3,510 in the table.' }
+          ], e: 'Three inputs, each of them an argument rather than a fact. The flow rate was the mid-point of a range whose top is 71% above its bottom. The days are the only figure nobody disputed. The capture estimate came from BP\u2019s own containment operation. And the rate assumes the outcome of the very trial that was pending.' },
+          { t: 'fill', p: 'Step 6. Question 5, second part. Now find the maximum, and see how wide the outcome really was.',
+            calc: 'Maximum = barrels discharged \u00d7 $4,300',
+            given: [
+              { l: 'Government estimate, 2 August 2010', v: '4.9 million barrels flowed; 4.05 million discharged', s: 'U.S. Department of Energy and the Flow Rate Technical Group' },
+              { l: 'Gross negligence rate', v: '$4,300 per barrel', s: 'The statutory maximum under Section 311' }
+            ], rows: [
+            { l: 'Maximum on the government\u2019s discharged volume ($ million)', a: 17415, tol: 100, w: '4,050,000 \u00d7 $4,300 = $17,415 million.' },
+            { l: 'Maximum on the government\u2019s total flow ($ million)', a: 21070, tol: 150, w: '4,900,000 \u00d7 $4,300 = $21,070 million \u2014 which is where Macquarie\u2019s $20 billion came from.' },
+            { l: 'Ratio of that maximum to the provision (times)', a: 6.0, tol: 0.4, w: '21,070 / 3,510 = 6.0 times. The recognised liability is a sixth of the worst defensible case.' },
+            { l: 'The gap, as a percentage of BP\u2019s total equity at 31 December 2011 (%)', a: 15.6, tol: 1.0, w: '(21,070 \u2212 3,510) / 112,482 = 15.6% of equity riding on one contested multiplication.' }
+          ], e: 'Two independent uncertainties multiply together: how much oil was discharged, and at what rate per barrel. BP took the low end of both \u2014 its own volume estimate and the no-gross-negligence rate \u2014 and disclosed the reasoning in full.\n\nIs that manipulation? A defence lawyer would say BP is required to estimate the most likely outcome and cannot provide for a finding of gross negligence it does not accept; provisioning for the maximum would look like an admission. A sceptic would note that BP chose the low end of both ranges and that the two errors compound.\n\nBoth are right, and the framework knows it, which is why the note discloses every input. The disclosure is doing more work than the number \u2014 which is the general lesson about provisions.' },
+          { t: 'pick', p: 'Step 7. Question 4. Had BP reported under U.S. GAAP, which way would the numbers have moved?',
+            rows: [
+              { l: 'Higher provisions, since U.S. GAAP requires the maximum of the range rather than an expected value', a: false },
+              { l: 'Lower provisions and more disclosed contingencies, on both the threshold and the measurement', a: true },
+              { l: 'No difference \u2014 the two frameworks converged on provisions', a: false },
+              { l: 'Higher provisions, since the litigation is under U.S. law', a: false }
+            ],
+            e: 'Both differences run the same way. The recognition threshold is higher \u2014 more likely than not, at least 50%, under IFRS, against probable, which this case treats as roughly 80%, under U.S. GAAP \u2014 so items in the 50\u201380% band are recognised under IFRS and merely disclosed under U.S. GAAP. And the measurement differs: IFRS takes the expected value across the possible outcomes, U.S. GAAP the minimum of the range.\n\nThe litigation provision shows the size of it. The range was $4.1 billion to $8.3 billion; U.S. GAAP would take $4.1 billion. BP recognised $7.8 billion once the proposed settlement fixed the number.\n\nSo a U.S. GAAP BP would have reported a smaller loss in 2010, a smaller balance sheet, and a longer note. Two companies, identical facts, materially different statements \u2014 and the difference is invisible to anyone who reads only the totals. In fairness, ASC 450 sets no numeric threshold; probable is a word, and 80% is the reading convention, which is its own kind of imprecision.' },
+          { t: 'pick', p: 'Step 8. Question 6. What does this case suggest about the role of financial reporting in a corporate crisis?',
+            rows: [
+              { l: 'Reporting should be minimised during a crisis to avoid prejudicing litigation', a: false },
+              { l: 'Detailed disclosure of assumptions substitutes for a precision the numbers cannot have', a: true },
+              { l: 'The provision should always be set at the maximum to demonstrate good faith', a: false },
+              { l: 'Financial reporting is irrelevant during a crisis, since markets trade on news', a: false }
+            ],
+            e: 'BP\u2019s note tells you the flow rate it used, that the rate was a mid-point of 35,000 to 60,000, the days, the capture estimate, the per-barrel rate, why it chose $1,100 rather than $4,300, the government\u2019s competing estimate, and its own view that the government was 20\u201350% too high. A reader who disagrees with any input can recompute the provision in one line \u2014 as you did in step 5.\n\nThat is what good reporting looks like when the number itself cannot be trusted to be right. The single figure of 3,510 is nearly meaningless on its own; the note around it is what an analyst actually uses. Note too that BP walks a genuine tightrope: everything it publishes is evidence in a trial that has not happened, and provisioning for the maximum would be read as an admission of gross negligence.\n\nThe first option is worth naming as the temptation it is. Saying less is legally safer in the short run and destroys credibility with investors, which is the currency you need most in a crisis.' },
+          { t: 'pick', p: 'Step 9. Question 7. And the strategic consequence, visible in the statements themselves?',
+            rows: [
+              { l: 'BP became a smaller, more cautious company funding claims through asset sales', a: true },
+              { l: 'BP\u2019s strategy was left largely unaffected, since the provisions were non-cash charges', a: false },
+              { l: 'BP exited oil and gas in favour of renewables immediately', a: false },
+              { l: 'BP\u2019s growth accelerated, since competitors faced the same moratorium', a: false }
+            ],
+            e: 'The financial trace is in Exhibit 2. Gains on sale of businesses and fixed assets were 6,383 in 2010 and 4,130 in 2011, against 2,173 in 2009 \u2014 BP was selling assets to fund the trust. Total assets did keep growing, but the composition changed, and a company disposing of producing fields is disposing of future revenue.\n\nThen the tail: 15,333 of provisions still outstanding at the end of 2011, the criminal penalty of $4.5 billion agreed a year later, and a Clean Water Act case that could still cost six times what was provided. Capital that would have gone into exploration went into claims instead, for years.\n\nAnd the reputational cost has no line at all. A company that has pleaded guilty to manslaughter negotiates for drilling licences from a weaker position, which is a real constraint on growth that no provision measures. The accounting captures what can be measured; the strategy absorbs the rest.' }
+        ]
+      },
+      {
+        key: 'ex-abinbev', isCase: true, title: 'AB InBev and Grupo Modelo: owning half and consolidating none of it',
+        sub: 'Eight steps from the equity method to a step acquisition',
+        ses: 'Session 14 \u00b7 Intercorporate Investments',
+        brief: 'At 31 December 2012 Anheuser-Busch InBev held a 35.29% direct interest in Grupo Modelo, Mexico\u2019s largest brewer and the maker of Corona, and a 23.25% direct interest in Diblo S.A. de C.V., Modelo\u2019s operating subsidiary. Together those give it an economic interest of about 50.34% \u2014 and, as Note 16 states plainly, no voting or other control of either company.\n\nSo AB InBev accounted for Modelo using the equity method: a single line on the balance sheet for the investment, a single line on the income statement for its share of Modelo\u2019s profit, and none of Modelo\u2019s revenue, assets, liabilities or debt anywhere in the consolidated statements.\n\nIn June 2012 AB InBev announced it would buy the 49.65% it did not own for $20.1 billion in cash. The deal did not close until 2013. Under IFRS 3, when an acquirer gains control of a business in which it already held an interest \u2014 a step acquisition \u2014 it must first remeasure that existing interest to fair value and put the difference through income. At the acquisition, the fair value of AB InBev\u2019s existing investment exceeded its carrying value by $6.216 billion.\n\nThe questions run from why the equity method applied at all, through how Modelo\u2019s profits and dividends were reported, to what the balance sheet looks like the day consolidation begins. All figures in millions of U.S. dollars.',
+        tables: [
+          { title: 'Consolidated income statement extract', note: 'Year ended 31 December. Deductions in brackets.', cols: ['2012', '2011'], rows: [
+            ['Revenue', '39,758', '39,046', 'k'],
+            ['Cost of sales', '(16,447)', '(16,634)'],
+            ['Gross profit', '23,311', '22,412'],
+            ['Distribution expenses', '(3,785)', '(3,313)'],
+            ['Sales and marketing expenses', '(5,258)', '(5,143)'],
+            ['Administrative expenses', '(2,187)', '(2,043)'],
+            ['Profit from operations', '12,733', '12,329'],
+            ['Net finance cost', '(2,206)', '(3,137)'],
+            ['Share of result of associates', '624', '623', 'k'],
+            ['Profit before tax', '11,151', '9,815'],
+            ['Income tax expense', '(1,717)', '(1,856)'],
+            ['Profit', '9,434', '7,959', 'k'],
+            ['\u2014 attributable to equity holders of AB InBev', '7,243', '5,855'],
+            ['\u2014 attributable to non-controlling interest', '2,191', '2,104']
+          ] },
+          { title: 'Consolidated statement of financial position extract', note: 'At 31 December.', cols: ['2012', '2011'], rows: [
+            ['Property, plant and equipment', '16,461', '16,022'],
+            ['Goodwill', '51,766', '51,302'],
+            ['Intangible assets', '24,371', '23,818'],
+            ['Investments in associates', '7,090', '6,696', 'k'],
+            ['Investment securities (non-current)', '256', '244'],
+            ['Investment securities (current)', '6,827', '103'],
+            ['Inventories', '2,500', '2,466'],
+            ['Cash and cash equivalents', '7,051', '5,320'],
+            ['Total assets', '122,621', '112,427', 'k'],
+            ['Equity attributable to equity holders of AB InBev', '41,142', '37,492'],
+            ['Non-controlling interest', '4,299', '3,552'],
+            ['Interest-bearing loans and borrowings (non-current)', '38,951', '34,598'],
+            ['Interest-bearing loans and borrowings (current)', '5,390', '5,559'],
+            ['Total equity and liabilities', '122,621', '112,427']
+          ] },
+          { title: 'Note 16 \u2014 Investment in associates', note: 'AB InBev holds a 35.29% direct interest in Grupo Modelo and a 23.25% direct interest in Diblo S.A. de C.V., Grupo Modelo\u2019s operating subsidiary, providing AB InBev with, directly and indirectly, an approximate 50.34% interest in Modelo without however having voting or other control of either Grupo Modelo or Diblo. On 30 April 2012, AB InBev received a dividend of 9.2 billion Mexican pesos ($715 million) from its participation in Grupo Modelo.', cols: ['2012', '2011'], rows: [
+            ['Balance at end of previous year', '6,696', '7,295'],
+            ['Effect of movements in foreign exchange', '485', '(820)'],
+            ['Share of results of associates', '624', '623', 'k'],
+            ['Dividends', '(719)', '(403)', 'k'],
+            ['Capital increase', '4', '1'],
+            ['Balance at end of the period', '7,090', '6,696', 'k']
+          ] },
+          { title: 'Note 16 \u2014 Grupo Modelo on a stand-alone basis (100%)', note: 'Aggregate amounts for 2012 under IFRS, as disclosed by AB InBev.', cols: ['2012'], rows: [
+            ['Assets', '17,461', 'k'],
+            ['Liabilities', '3,013', 'k'],
+            ['Net revenue', '7,516'],
+            ['Profit', '1,228', 'k']
+          ] },
+          { title: 'Consolidated cash flow statement extract', note: 'Year ended 31 December.', cols: ['2012', '2011'], rows: [
+            ['Profit', '9,434', '7,959'],
+            ['Share of result of associates', '(624)', '(623)', 'k'],
+            ['Cash flow from operating activities before working capital', '15,728', '15,379'],
+            ['Dividends received', '720', '406', 'k'],
+            ['Cash flow from operating activities', '13,268', '12,486'],
+            ['Acquisition of property, plant and equipment and of intangible assets', '(3,264)', '(3,376)'],
+            ['Net proceeds from sale/(acquisition) of investment in short-term debt securities', '(6,702)', '529', 'k'],
+            ['Cash flow from investing activities', '(11,341)', '(2,731)'],
+            ['Proceeds from borrowings', '18,463', '17,291'],
+            ['Payments on borrowings', '(14,814)', '(21,849)'],
+            ['Cash and cash equivalents at end of period', '7,051', '5,312']
+          ] }
+        ],
+        steps: [
+          { t: 'pick', p: 'Step 1. Question 1. AB InBev holds about 50.34% of Modelo and still uses the equity method rather than consolidating. What is the justification?',
+            rows: [
+              { l: 'The interest is held indirectly through Diblo, and indirect holdings never consolidate', a: false },
+              { l: 'The holding is below the 51% consolidation threshold', a: false },
+              { l: 'It has no voting or other control, and control rather than ownership is the test', a: true },
+              { l: 'Modelo reports under Mexican rules, so its statements cannot be combined', a: false }
+            ],
+            e: 'Note 16 says it in one clause: an approximate 50.34% interest \u201cwithout however having voting or other control\u201d. Under IFRS 10 consolidation follows control \u2014 power over the relevant activities, exposure to variable returns, and the ability to use that power to affect them. An economic interest above half is evidence of control, not proof of it, and here Modelo\u2019s governance kept the decisions elsewhere.\n\nThat is why the deal in question 4 costs $20.1 billion. AB InBev was not paying for economics it already had; it was paying for control it did not.\n\nThe principle cuts the other way too. A company can consolidate an entity it owns 30% of, or none of, if it directs the activities and takes the returns \u2014 which is what the special purpose vehicles at Enron were, and why the rules moved from ownership to control in the first place.' },
+          { t: 'fill', p: 'Step 2. Question 2. How much of Modelo\u2019s profit did AB InBev report, and where?',
+            look: 'Note 16, and the income statement.',
+            calc: 'Share of profit = Modelo\u2019s profit \u00d7 the economic interest',
+            given: [
+              { l: 'Modelo\u2019s profit, 100% basis', v: '1,228', s: 'Note 16, stand-alone' },
+              { l: 'Economic interest', v: '50.34%', s: 'Note 16' }
+            ], rows: [
+            { l: 'AB InBev\u2019s share of Modelo\u2019s profit', a: 618, tol: 12, w: '1,228 \u00d7 50.34% = 618.' },
+            { l: 'Share of result of associates, per the income statement', a: 624, tol: 2, w: '624, covering all associates. Modelo is essentially all of it \u2014 the residual is a handful of small holdings.' },
+            { l: 'Modelo\u2019s net revenue included in AB InBev\u2019s revenue of 39,758', a: 0, w: 'Nothing. The equity method brings in a share of profit and no revenue at all. Modelo\u2019s 7,516 of net revenue is invisible in the consolidated statements.' },
+            { l: 'Share of associates as a percentage of profit before tax (%)', a: 5.6, tol: 0.3, w: '624 / 11,151 = 5.6%.' }
+          ], e: 'One line, placed after net finance cost and before tax, already net of Modelo\u2019s own tax. That single line carries a business with 7,516 of revenue and 17,461 of assets.\n\nThe distortion runs one way and it is systematic. Revenue, operating profit and total assets all exclude Modelo, while the profit line includes its earnings, so every margin computed on AB InBev\u2019s consolidated numbers is overstated \u2014 profit from a business whose sales are nowhere in the denominator. An analyst comparing AB InBev with a brewer that owns its subsidiaries outright is not comparing like with like.' },
+          { t: 'fill', p: 'Step 3. Question 3. Modelo paid AB InBev a dividend on 30 April 2012. Trace where it went.',
+            h: 'The instinct is to call a dividend income. Under the equity method it is not, and the reason is worth holding on to.\n\nThe share of profit was already recognised when Modelo earned it, and that recognition increased the carrying amount of the investment. When the cash then arrives, recognising income again would count the same profit twice.\n\nSo the dividend has to reduce something rather than add to something. Look at Note 16 and ask which line moves, then ask where the cash itself shows up.',
+            look: 'Note 16, and the cash flow statement.',
+            rows: [
+            { l: 'Dividend received from Modelo', a: 715, tol: 3, w: '9.2 billion Mexican pesos, $715 million. Note 16 shows 719 of dividends in total across all associates.' },
+            { l: 'Amount recognised as income on the income statement', a: 0, w: 'None. The income was recognised when Modelo earned the profit, not when it paid the cash out.' },
+            { l: 'Dividends received, per the cash flow statement', a: 720, tol: 3, w: 'In the operating section. The cash is real even though no income accompanies it.' },
+            { l: 'Net movement in the investment from profit and dividends', a: -95, tol: 5, w: '624 recognised less 719 paid out = \u221295. Modelo distributed slightly more than it earned in the year, so the carrying amount fell on that account.' },
+            { l: 'Closing balance of the investment', a: 7090, tol: 3, w: '6,696 + 485 foreign exchange + 624 profit \u2212 719 dividends + 4 capital increase = 7,090. The peso strengthened, and that is the largest single mover.' }
+          ], e: 'The equity method treats the investment as a claim on Modelo\u2019s net assets. Profit increases it, distributions reduce it, and the carrying amount tracks the underlying business rather than any market price.\n\nWhich creates a real cash flow question. The income statement shows 624 of profit from a business that AB InBev cannot compel to pay a dividend, because it does not control it. In 2012 the cash happened to arrive; in a year when it does not, that 624 is profit with no cash behind it and no way to force the issue. Equity-method income is worth reading with the dividends received line beside it.' },
+          { t: 'pick', p: 'Step 4. Question 4. The fair value of the existing stake exceeded its carrying value by 6,216 at the acquisition. When and how does that hit the accounts?',
+            rows: [
+              { l: 'In 2012, as a revaluation reserve within equity', a: false },
+              { l: 'In 2012, as a gain in profit from operations', a: false },
+              { l: 'In 2013 when control passes, as a non-cash gain in income', a: true },
+              { l: 'Never \u2014 it is absorbed into goodwill on consolidation', a: false }
+            ],
+            e: 'IFRS 3 treats a step acquisition as though the acquirer sold its old stake and bought the whole business at fair value. The previously held interest is remeasured to fair value on the date control passes, and the difference goes to profit or loss.\n\nThe date is what matters here. The deal was announced in June 2012 and closed in 2013, so the 2012 statements you are looking at contain none of this: the investment sits at 7,090 on the equity method, and the 6,216 appears in the 2013 income statement.\n\nIt is a strange kind of gain \u2014 no cash, no sale, and it arises from an asset AB InBev has held for years, recognised only because the accounting basis changed. Which is why an analyst reading the 2013 statements has to strip it out before comparing with 2012. The two figures describe different things.' },
+          { t: 'fill', p: 'Step 5. Question 5, first part. Work out what AB InBev is paying for the whole of Modelo, and what its net assets are worth on the books.',
+            calc: 'Fair value of 100% = fair value of the existing stake + cash for the rest',
+            given: [
+              { l: 'Carrying value of the investment', v: '7,090', s: 'Note 16, at 31 December 2012' },
+              { l: 'Excess of fair value over carrying value', v: '6,216', s: 'Given in the question' },
+              { l: 'Cash for the remaining 49.65%', v: '20,100', s: 'Announced June 2012' },
+              { l: 'Modelo assets and liabilities, 100% basis', v: '17,461 and 3,013', s: 'Note 16' }
+            ], rows: [
+            { l: 'Fair value of the previously held interest', a: 13306, tol: 10, w: '7,090 + 6,216 = 13,306.' },
+            { l: 'Total fair value of 100% of Modelo', a: 33406, tol: 20, w: '13,306 + 20,100 = 33,406.' },
+            { l: 'Modelo\u2019s net assets at book value', a: 14448, tol: 10, w: '17,461 \u2212 3,013 = 14,448.' },
+            { l: 'Goodwill and identifiable intangibles to be recognised', a: 18958, tol: 30, w: '33,406 \u2212 14,448 = 18,958. Part of it will be allocated to identifiable intangibles \u2014 the Corona brand above all \u2014 and the remainder is goodwill.' },
+            { l: 'That figure as a multiple of Modelo\u2019s book net assets (times)', a: 1.31, tol: 0.06, w: '18,958 / 14,448 = 1.31. AB InBev is paying more than twice book value for the business, and more than half of what it pays has no physical asset behind it.' }
+          ], e: 'Check the two halves against each other, because they disagree. The existing 50.34% is valued at 13,306, implying 26,432 for the whole company. The final 49.65% costs 20,100, implying 40,483.\n\nThat is not an error. Fair value of a stake that carries no control excludes the control premium, and control is precisely what the last block delivers \u2014 the ability to direct Modelo\u2019s distribution, integrate its brewing, and take the synergies. The same percentage of the same company is genuinely worth different amounts depending on what comes with it.\n\nIt does mean the 6,216 gain is smaller than a naive per-share calculation would suggest, and that most of the 18,958 arises on the half being bought rather than the half already held.' },
+          { t: 'pick', p: 'Step 6. Question 5, second part. On the day consolidation begins, what happens to the 7,090 investment line?',
+            rows: [
+              { l: 'It stays where it is, and Modelo\u2019s own assets are added to the balance sheet alongside it', a: false },
+              { l: 'It is written off against goodwill on consolidation, with no effect on reported income', a: false },
+              { l: 'It disappears, replaced by Modelo\u2019s assets and liabilities line by line', a: true },
+              { l: 'It is reclassified to investment securities at fair value', a: false }
+            ],
+            e: 'The single line was a stand-in for a share of Modelo\u2019s net assets. Once Modelo is consolidated, the real assets and liabilities take its place \u2014 17,461 of assets and 3,013 of liabilities, each on its own line \u2014 and keeping the investment as well would count the same business twice.\n\nThe mechanics: derecognise the 7,090, recognise the 6,216 remeasurement gain in income, reduce cash or raise debt by 20,100, bring in Modelo\u2019s assets and liabilities at fair value, and recognise 18,958 of goodwill and identifiable intangibles for the difference. Because 100% is acquired, no non-controlling interest arises.' },
+          { t: 'fill', p: 'Step 7. Size the change. What does the 2012 balance sheet look like once Modelo comes inside it?',
+            h: 'Take the 2012 statements as they stand and apply the entries from step 6 one at a time.\n\nAssets move in four directions at once: the investment line goes, Modelo\u2019s own assets arrive, cash leaves to pay for the deal, and goodwill and intangibles appear for the premium. Liabilities gain only Modelo\u2019s 3,013.\n\nDo them separately and add. The revenue comparison at the end needs no adjustment at all \u2014 it is simply the number that was never there.',
+            calc: 'Pro forma total assets = reported + Modelo\u2019s assets \u2212 the investment + goodwill and intangibles \u2212 cash paid',
+            given: [
+              { l: 'Reported total assets, 2012', v: '122,621', s: 'Balance sheet' },
+              { l: 'Modelo\u2019s assets and liabilities', v: '17,461 and 3,013', s: 'Note 16' },
+              { l: 'Investment derecognised', v: '7,090', s: 'Note 16' },
+              { l: 'Goodwill and intangibles arising', v: '18,958', s: 'Your step 5 answer' },
+              { l: 'Cash consideration', v: '20,100', s: 'Assume paid in cash' }
+            ], rows: [
+            { l: 'Pro forma total assets', a: 131850, tol: 60, w: '122,621 + 17,461 \u2212 7,090 + 18,958 \u2212 20,100 = 131,850, up 7.5%.' },
+            { l: 'Increase in reported liabilities', a: 3013, tol: 5, w: 'Modelo\u2019s own liabilities. Modest \u2014 Modelo carried very little debt, which is part of what made it worth buying.' },
+            { l: 'Pro forma revenue', a: 47274, tol: 20, w: '39,758 + 7,516 = 47,274, a 19% increase in reported revenue from a business AB InBev already had half the economics of.' },
+            { l: 'Cash and cash equivalents after paying, before any borrowing', a: -13049, tol: 60, w: '7,051 \u2212 20,100 = \u221213,049. It cannot go negative, which is the point: AB InBev had to fund this.' },
+            { l: 'Short-term investment securities held at 31 December 2012', a: 6827, tol: 10, w: 'Up from 103 a year earlier \u2014 the cash flow statement shows 6,702 moved into short-term debt securities during 2012. The war chest was already being assembled.' }
+          ], e: 'Revenue rises 19% and profit barely moves, because that profit was already in the accounts as equity-method income. Everything AB InBev gains here is presentational \u2014 plus the control, and the synergies that follow from it.\n\nThe funding is visible in the 2012 statements if you look for it. Investment securities went from 103 to 6,827, borrowings of 18,463 were drawn during the year, and cash rose to 7,051. A company preparing for a $20 billion cash purchase leaves traces on its balance sheet a year before the deal closes.' },
+          { t: 'pick', p: 'Step 8. Stand back. What is the general lesson about intercorporate investments?',
+            rows: [
+              { l: 'The equity method is a loophole that should be abolished', a: false },
+              { l: 'Presentation follows control, so the same economics can look entirely different', a: true },
+              { l: 'Consolidation always produces more useful statements than the equity method does, in every case', a: false },
+              { l: 'Ownership percentage is what determines the accounting', a: false }
+            ],
+            e: 'Nothing about AB InBev\u2019s economic exposure to Modelo changed between 2012 and 2013. It had roughly half the profits before and after. What changed was control, and with it the presentation: revenue up 19%, assets up 7.5%, a $6.2 billion non-cash gain, and $19 billion of goodwill and intangibles that did not exist the day before.\n\nSo the two questions to ask of any investment line are what does the reporting company actually own, and what does the presentation hide. Under the equity method, revenue, assets and debt are all missing and a single profit line stands in for them. Under consolidation everything appears, including 100% of a subsidiary that may be only partly owned, with the rest carried as non-controlling interest \u2014 AB InBev\u2019s own was 4,299 of equity and 2,191 of profit in 2012.\n\nNeither method is wrong. Both are answers to a question the reader has to know was asked.' }
+        ]
+      },
+      {
+        key: 'ex-netflix', isCase: true, title: 'Netflix: in search of cash flow',
+        sub: 'Eleven steps on why a profitable company burned cash for six years',
+        ses: 'Session 07 \u00b7 Statement of Cash Flows',
+        brief: '\u201cWe believe we no longer have a need to raise external financing for our day-to-day operations.\u201d Netflix management said that on 20 January 2021, and on 28 January the company reported its first year of positive operating cash flow since 2014. The share price rose 12%.\n\nFor years the pattern had been the opposite. Netflix reported rising net income \u2014 1.2 billion in 2018, 1.9 billion in 2019 \u2014 while operating cash flow ran to minus 2.7 billion and minus 2.9 billion. Critics asked whether the profits were real. Management raised its prices, and kept borrowing.\n\nThe explanation is a single accounting choice about where content spending goes. Netflix classifies payments for content \u2014 additions to content assets and the movements in the related liabilities \u2014 inside operating activities, not investing. Its earlier DVD library, by contrast, was bought through investing, exactly as Blockbuster did not do. The choice moves billions between two subtotals without touching the bank balance.\n\nThe case runs through the 2020 statements, back to the 2011 DVD accounting alongside Blockbuster\u2019s, and out to the question of whether the 2020 turn was a business reaching maturity or a pandemic that stopped film crews from working. All figures in thousands of U.S. dollars unless stated.',
+        tables: [
+          { title: 'Exhibit 2 \u2014 consolidated statements of operations', note: 'In thousands. Deductions in brackets.', cols: ['2020', '2019', '2018'], rows: [
+            ['Revenues', '24,996,056', '20,156,447', '15,794,341', 'k'],
+            ['Cost of revenues', '15,276,319', '12,440,213', '9,967,538'],
+            ['Marketing', '2,228,362', '2,652,462', '2,369,469', 'k'],
+            ['Technology and development', '1,829,600', '1,545,149', '1,221,814'],
+            ['General and administrative', '1,076,486', '914,369', '630,294'],
+            ['Operating income', '4,585,289', '2,604,254', '1,605,226', 'k'],
+            ['Interest expense', '(767,499)', '(626,023)', '(420,493)'],
+            ['Interest and other income (expense)', '(618,441)', '84,000', '41,725'],
+            ['Provision for income taxes', '(437,954)', '(195,315)', '(15,216)'],
+            ['Net income', '2,761,395', '1,866,916', '1,211,242', 'k']
+          ] },
+          { title: 'Exhibit 3 \u2014 consolidated statements of cash flows', note: 'In thousands. Deductions in brackets.', cols: ['2020', '2019', '2018'], rows: [
+            ['Net income', '2,761,395', '1,866,916', '1,211,242'],
+            ['Additions to content assets', '(11,779,284)', '(13,916,683)', '(13,043,437)', 'k'],
+            ['Change in content liabilities', '(757,433)', '(694,011)', '999,880'],
+            ['Amortization of content assets', '10,806,912', '9,216,247', '7,532,088', 'k'],
+            ['Depreciation and amortization of property, equipment and intangibles', '115,710', '103,579', '83,157'],
+            ['Stock-based compensation expense', '415,180', '405,376', '320,657'],
+            ['Foreign currency remeasurement loss (gain) on debt', '533,278', '(45,576)', '(73,953)'],
+            ['Other non-cash items', '293,126', '228,230', '81,640'],
+            ['Deferred income taxes', '70,066', '(94,443)', '(85,520)'],
+            ['Changes in operating assets and liabilities:', '', '', '', 'h'],
+            ['Other current assets', '(187,623)', '(252,113)', '(200,192)'],
+            ['Accounts payable', '(41,605)', '96,063', '199,198', 'k'],
+            ['Accrued expenses and other liabilities', '198,183', '157,778', '150,422'],
+            ['Deferred revenue', '193,247', '163,846', '142,277', 'k'],
+            ['Other non-current assets and liabilities', '(194,075)', '(122,531)', '2,062'],
+            ['Net cash provided by (used in) operating activities', '2,427,077', '(2,887,322)', '(2,680,479)', 'k'],
+            ['Purchases of property and equipment', '(497,923)', '(253,035)', '(173,946)'],
+            ['Change in other assets', '(7,431)', '(134,029)', '(165,174)'],
+            ['Net cash used in investing activities', '(505,354)', '(387,064)', '(339,120)', 'k'],
+            ['Proceeds from issuance of debt', '1,009,464', '4,469,306', '3,961,852', 'k'],
+            ['Debt issuance costs', '(7,559)', '(36,134)', '(35,871)'],
+            ['Proceeds from issuance of common stock', '235,406', '72,490', '124,502'],
+            ['Net cash provided by financing activities', '1,237,311', '4,505,662', '4,048,527', 'k'],
+            ['Net increase in cash, cash equivalents and restricted cash', '3,195,084', '1,231,745', '989,246']
+          ] },
+          { title: 'Exhibit 4 \u2014 consolidated balance sheets', note: 'In thousands, as of 31 December.', cols: ['2020', '2019'], rows: [
+            ['Cash and cash equivalents', '8,205,550', '5,018,437'],
+            ['Other current assets', '1,556,030', '1,160,067'],
+            ['Content assets, net', '25,383,950', '24,504,567', 'k'],
+            ['Property and equipment, net', '960,183', '565,221'],
+            ['Other non-current assets', '3,174,646', '2,727,420'],
+            ['Total assets', '39,280,359', '33,975,712', 'k'],
+            ['Current content liabilities', '4,429,536', '4,413,561'],
+            ['Accounts payable', '656,183', '674,347'],
+            ['Deferred revenue', '1,117,992', '924,745'],
+            ['Non-current content liabilities', '2,618,084', '3,334,323'],
+            ['Long-term debt', '15,809,095', '14,759,260', 'k'],
+            ['Total liabilities', '28,215,119', '26,393,555'],
+            ['Total stockholders\u2019 equity', '11,065,240', '7,582,157', 'k']
+          ] },
+          { title: 'Exhibit 14 \u2014 content assets footnote', note: 'In thousands, as of 31 December.', cols: ['2020', '2019'], rows: [
+            ['Licensed content, net', '13,747,607', '14,703,352', 'k'],
+            ['Produced content, net:', '', '', 'h'],
+            ['\u2014 Released, less amortization', '5,809,681', '4,382,685'],
+            ['\u2014 In production', '4,827,455', '4,750,664'],
+            ['\u2014 In development and pre-production', '999,207', '667,866'],
+            ['Total produced content, net', '11,636,343', '9,801,215', 'k'],
+            ['Content assets, net', '25,383,950', '24,504,567', 'k']
+          ] },
+          { title: 'Exhibit 13 \u2014 the accounting policy, in Netflix\u2019s words', note: 'Payment terms for certain content licences and the production of content require more upfront cash payments relative to the amortization expense. Payments for content, including additions to content assets and the changes in related liabilities, are classified within net cash provided by (used in) operating activities. For licensed content the Company capitalizes the fee per title; for produced content it capitalizes production, development, direct costs and production overhead. Amortization runs through cost of revenues over the shorter of the contractual window, the estimated period of use, or ten years, on an accelerated basis. On average, over 90% of a content asset is expected to be amortized within four years of first availability.', cols: [], rows: [] },
+          { title: 'Exhibit 7 \u2014 Netflix 2011 cash flow statement, DVD-era extract', note: 'In thousands.', cols: ['2011', '2010'], rows: [
+            ['Net income', '226,126', '160,853'],
+            ['Additions to streaming content library (operating)', '(2,320,732)', '(406,210)'],
+            ['Amortization of streaming content library (operating)', '699,128', '158,100'],
+            ['Amortization of DVD content library (operating)', '96,744', '142,496', 'k'],
+            ['Net cash provided by operating activities', '317,712', '276,401', 'k'],
+            ['Acquisition of DVD content library (investing)', '(85,154)', '(123,901)', 'k'],
+            ['Net cash used in investing activities', '(265,814)', '(116,081)', 'k']
+          ] },
+          { title: 'Exhibit 10 \u2014 Blockbuster 2010 cash flow statement extract', note: 'In millions. Fiscal year ended 3 January 2010.', cols: ['FY2009', 'FY2008'], rows: [
+            ['Net income (loss)', '(558.2)', '(374.1)'],
+            ['Rental library purchases (operating)', '(500.2)', '(610.5)', 'k'],
+            ['Rental library amortization (operating)', '519.8', '681.8', 'k'],
+            ['Net cash flow provided by operating activities', '29.3', '51.0', 'k'],
+            ['Capital expenditures (investing)', '(32.3)', '(118.1)'],
+            ['Net cash flow used in investing activities', '(74.9)', '(116.5)']
+          ] }
+        ],
+        steps: [
+          { t: 'fill', p: 'Step 1. Question 1(a) and 1(b). Find the single largest consumer of cash in 2019, and work out who paid for it.',
+            look: 'Exhibit 3, the 2019 column.',
+            rows: [
+            { l: 'Largest single outflow in 2019', a: 13916683, tol: 2000, w: 'Additions to content assets. Nothing else on the statement is within an order of magnitude \u2014 purchases of property and equipment were 253,035.' },
+            { l: 'Net cash used in operating activities, 2019', a: -2887322, tol: 2000, w: 'Negative, in a year when Netflix reported net income of 1,866,916.' },
+            { l: 'Proceeds from issuance of debt, 2019', a: 4469306, tol: 2000, w: 'Where the money came from. Netflix borrowed to fund the shortfall.' },
+            { l: 'Net cash provided by financing activities, 2019', a: 4505662, tol: 2000, w: 'Debt plus a small share issue. Financing exceeded the operating deficit, which is how cash still rose 1,231,745 over the year.' },
+            { l: 'Long-term debt at 31 December 2019', a: 14759260, tol: 3000, w: 'Against total equity of 7,582,157 \u2014 nearly twice the shareholders\u2019 stake.' }
+          ], e: 'This is the shape of the whole case. Subscribers paid 20.2 billion, Netflix spent 13.9 billion on content, and the difference went out faster than it came in. The gap was funded by bondholders, year after year, and the balance sheet shows the accumulation.\n\nWhich is precisely why management\u2019s January 2021 sentence mattered so much to the share price. It was not a claim about profit. It was a claim about no longer needing the bond market.' },
+          { t: 'pick', p: 'Step 2. Question 1(c). Why is depreciation and amortization of property, equipment and intangibles added back?',
+            rows: [
+              { l: 'It is a cash cost of the year that belongs in the investing section rather than in operating', a: false },
+              { l: 'It is a non-cash expense \u2014 the cash left when the asset was bought', a: true },
+              { l: 'It reverses an error in the income statement', a: false },
+              { l: 'It represents cash set aside to replace the assets', a: false }
+            ],
+            e: 'The cash left the business when the equipment was bought, and it appeared then under investing as purchases of property and equipment. Depreciation is the accounting spread of that past payment across the years of use. Since the cash flow statement starts from net income and is trying to get back to cash, every non-cash charge has to come back out.\n\nThe fourth option is the common misconception, and it is worth killing. Depreciation sets nothing aside. There is no fund, no reserve, no money anywhere. A company can depreciate assets for a decade and have nothing at the end of it with which to replace them.' },
+          { t: 'pick', p: 'Step 3. Question 1(d). And why is deferred revenue added back?',
+            rows: [
+              { l: 'It is revenue Netflix expects to earn from existing subscribers but has not yet billed them for', a: false },
+              { l: 'It is a receivable that has not been collected', a: false },
+              { l: 'Subscribers paid in advance, so cash came in without revenue being recognised', a: true },
+              { l: 'It corrects for subscribers who cancelled mid-month', a: false }
+            ],
+            e: 'Netflix charges monthly in advance. The cash arrives on the first of the month; the revenue is earned over the month that follows. Between the two moments Netflix holds cash it has not yet earned, and the obligation to provide a month of service is a liability \u2014 deferred revenue of 1,117,992 at the end of 2020.\n\nSo cash exceeds revenue by the increase in the balance, 193,247 in 2020, and the reconciliation adds it back. Note that this liability is one of the most comfortable on any balance sheet: it is settled by delivering a service that costs almost nothing at the margin, not by paying anyone.\n\nAnd it is a growth signal. Deferred revenue rises when the subscriber base grows or prices rise, and a fall would be an early warning that arrives before the revenue line shows it.' },
+          { t: 'pick', p: 'Step 4. Question 1(e). Accounts payable adds 96,063 in 2019 and subtracts 41,605 in 2020. What changed?',
+            rows: [
+              { l: 'Netflix negotiated materially worse payment terms with its content suppliers during the year', a: false },
+              { l: 'Content production stopped during the pandemic, so there was less to owe', a: true },
+              { l: 'Netflix switched from accrual to cash accounting for payables', a: false },
+              { l: 'The 2019 figure was restated', a: false }
+            ],
+            e: 'A rising payables balance is a source of cash: the company has received goods or services it has not yet paid for. A falling balance is a use of cash. In 2019 Netflix was commissioning at full speed and its payables grew with the activity. In 2020 productions shut down worldwide, spending fell \u2014 content additions dropped from 13.9 billion to 11.8 billion \u2014 and the payables balance fell with it, from 674,347 to 656,183.\n\nThe sign flip is not a working capital decision. It is what a production halt looks like when it reaches the balance sheet. Hold on to that, because it is the crux of the last question in this case.' },
+          { t: 'fill', p: 'Step 5. Question 5. Reconcile 2019: net income of 1,866,916 against operating cash flow of minus 2,887,322. Where does the gap come from?',
+            h: 'A gap of 4.75 billion is not made of many small things. Look for the two or three lines big enough to explain it on their own.\n\nContent is the only candidate. Netflix pays cash for content when it commissions or licenses it, and charges it to profit through amortisation over the years that follow. When the spending is growing, the payment always runs ahead of the charge.\n\nSo measure the distance between what left the bank and what reached the income statement, then check what is left over.',
+            calc: 'Content gap = additions to content assets \u2212 amortization of content assets',
+            given: [
+              { l: 'Additions to content assets, 2019', v: '13,916,683', s: 'Cash out' },
+              { l: 'Amortization of content assets, 2019', v: '9,216,247', s: 'Charged to cost of revenues' },
+              { l: 'Change in content liabilities, 2019', v: '(694,011)', s: 'Netflix also paid down what it owed on content' }
+            ], rows: [
+            { l: 'The gap between net income and operating cash flow', a: 4754238, tol: 3000, w: '1,866,916 \u2212 (\u22122,887,322) = 4,754,238.' },
+            { l: 'Content spending in excess of content amortization', a: 4700436, tol: 3000, w: '13,916,683 \u2212 9,216,247 = 4,700,436 \u2014 98.9% of the gap, from one pair of lines.' },
+            { l: 'Content spending as a multiple of amortization (times)', a: 1.51, tol: 0.04, w: '13,916,683 / 9,216,247 = 1.51. Netflix was paying for content half as fast again as it was charging it to profit.' },
+            { l: 'Cost of revenues, 2019', a: 12440213, tol: 3000, w: 'Of which 9,216,247, about 74%, is content amortization \u2014 the largest single expense in the company.' }
+          ], e: 'The profits were real and the cash burn was real, and there is no contradiction between them. Amortisation reflects content commissioned in earlier, smaller years, while the cash reflects what Netflix is commissioning now.\n\nAs long as spending grows faster than the amortisation of past spending, the gap persists no matter how profitable the company is. It closes when growth in spending slows and the amortisation of prior years finally catches up. Every subscription business that builds its own inventory of assets \u2014 studios, pharmaceutical pipelines, software \u2014 has some version of this, and the cash flow statement is where you see it.' },
+          { t: 'fill', p: 'Step 6. Question 4(a) to (d). Look at what all that spending bought.',
+            look: 'Exhibits 4 and 14.',
+            rows: [
+            { l: 'Largest asset on the 2020 balance sheet', a: 25383950, tol: 3000, w: 'Content assets, net.' },
+            { l: 'That asset as a percentage of total assets (%)', a: 64.6, tol: 0.8, w: '25,383,950 / 39,280,359 = 64.6%. Property and equipment is 960,183, about 2.4%.' },
+            { l: 'Produced content, net, 2020', a: 11636343, tol: 3000, w: 'Content Netflix commissioned itself: 5,809,681 released, 4,827,455 in production, 999,207 in development.' },
+            { l: 'Produced content as a percentage of content assets (%)', a: 45.8, tol: 0.8, w: '11,636,343 / 25,383,950 = 45.8%, up from 40.0% a year earlier \u2014 the shift from licensing other studios\u2019 shows to making its own, visible in one ratio.' },
+            { l: 'Cash spent on content assets in 2019', a: 13916683, tol: 3000, w: 'The same figure from step 1, now recognisable as an investment in an asset rather than an expense.' },
+            { l: 'Annual amortization of a 1,000 content asset on four-year straight line', a: 250, tol: 1, w: '1,000 / 4 = 250. Netflix does not use straight line \u2014 it amortises on an accelerated basis, expecting over 90% within four years, because viewing is front-loaded.' }
+          ], e: 'The asset is intangible, and awkwardly so. A film has no physical substance; what Netflix owns is a bundle of rights, and it capitalises the cost of production including overhead. Whether that cost has anything to do with the value is the open question \u2014 a show nobody watches sits at cost until Netflix decides otherwise, and Exhibit 13 says the company reviews content in aggregate rather than title by title, because the business is sold as a subscription and not by the film.\n\nWhich means no single flop can ever trigger an impairment. That is defensible \u2014 it matches how the revenue is earned \u2014 and it removes the mechanism by which a reader would find out that individual bets went wrong.' },
+          { t: 'pick', p: 'Step 7. Question 4(e). Marketing spending also creates future benefit \u2014 brand, subscribers. Why is content capitalised and marketing expensed?',
+            rows: [
+              { l: 'Marketing benefits cannot be reliably measured or attributed to an identifiable asset', a: true },
+              { l: 'Marketing is smaller, so materiality permits expensing it', a: false },
+              { l: 'Content is legally owned by Netflix, and only things a company legally owns can be recognised as assets', a: false },
+              { l: 'Marketing benefits accrue to the industry rather than to Netflix', a: false }
+            ],
+            e: 'The definition of an asset requires a resource controlled by the entity from which future economic benefits are expected to flow, and the cost must be measurable. Content passes: an identified title exists, Netflix controls the rights, the production cost is known, and the viewing pattern gives an amortisation basis.\n\nA television campaign fails on identifiability. Some subscribers who joined in that month would have joined anyway, some who saw the advertisement will join in three years, and there is no way to attribute a benefit to the spend or to say when it stops. So accounting takes the conservative route and expenses it as incurred.\n\nThe consequence is a systematic bias worth carrying around. Companies that build value through advertising and research look asset-poor and unprofitable in their growth years, while companies that build it through capitalisable production look asset-rich. The economics can be identical.\n\nThe third option is worth naming as a near-miss: control is the test, not legal title \u2014 a leased asset is on the balance sheet without ownership. Netflix does own most of these rights, but that is not what settles it.' },
+          { t: 'fill', p: 'Step 8. Question 3(e). Marketing spending itself, absolute and relative.',
+            calc: 'Marketing as a percentage of revenue',
+            rows: [
+            { l: 'Marketing expense, 2019', a: 2652462, tol: 2000, w: '' },
+            { l: 'Marketing expense, 2020', a: 2228362, tol: 2000, w: 'Down 424,100 in absolute terms \u2014 in a year when revenue rose 24%.' },
+            { l: 'Marketing as a percentage of revenue, 2019 (%)', a: 13.2, tol: 0.3, w: '2,652,462 / 20,156,447 = 13.2%.' },
+            { l: 'Marketing as a percentage of revenue, 2020 (%)', a: 8.9, tol: 0.3, w: '2,228,362 / 24,996,056 = 8.9%. The relative fall is far steeper than the absolute one.' },
+            { l: 'Marketing as a percentage of revenue, 2018 (%)', a: 15.0, tol: 0.3, w: '2,369,469 / 15,794,341 = 15.0%. The three-year trend is 15.0%, 13.2%, 8.9%.' }
+          ], e: 'Two readings, and the honest answer is that 2020 does not settle between them.\n\nThe optimistic one: Netflix has reached the scale where the brand sells itself, word of mouth does the work that advertising used to, and marketing can fall as a share of revenue indefinitely. The sceptical one: lockdowns delivered subscribers for free, so paid acquisition was simply unnecessary for a year, and the ratio will revert once people leave their homes.\n\nA cut in a discretionary expense always flatters current profit and may cost future revenue, and no reader outside the company can tell from a single year which of the two is happening. Which is exactly why marketing being expensed rather than capitalised matters: the entire effect lands in one year\u2019s income statement, with nothing carried forward to make it visible.' },
+          { t: 'fill', p: 'Step 9. Question 2. Now the DVD era, where Netflix and Blockbuster made opposite classification choices on the same kind of asset.',
+            h: 'Both companies bought discs, rented them out, and amortised the cost. The economics are as close to identical as two companies get.\n\nThe difference is one line\u2019s placement. Find where each company put the purchase of its library, note that both put the amortisation back in operating, and then ask what happens to operating cash flow when the outflow sits in one section and the add-back in another.\n\nThen move Netflix\u2019s purchase into operating, as Blockbuster had it, and see what happens to the number analysts quote.',
+            look: 'Exhibits 7 and 10.',
+            given: [
+              { l: 'Netflix 2011: acquisition of DVD content library', v: '(85,154) in investing', s: 'Exhibit 7' },
+              { l: 'Netflix 2011: amortization of DVD content library', v: '96,744 added back in operating', s: 'Exhibit 7' },
+              { l: 'Blockbuster FY2009: rental library purchases', v: '(500.2) in operating', s: 'Exhibit 10' }
+            ], rows: [
+            { l: 'Netflix reported operating cash flow, 2011', a: 317712, tol: 300, w: 'Flattered: the amortisation is added back in operating while the purchase never passed through it.' },
+            { l: 'Netflix operating cash flow on Blockbuster\u2019s treatment', a: 232558, tol: 400, w: '317,712 \u2212 85,154 = 232,558, a fall of 27%.' },
+            { l: 'Netflix investing cash flow on Blockbuster\u2019s treatment', a: -180660, tol: 400, w: '(265,814) + 85,154 = (180,660). Investing improves by exactly what operating loses.' },
+            { l: 'Net change in cash under the two treatments', a: 0, w: 'Zero. Not one dollar moves; only the subtotals do.' },
+            { l: 'Blockbuster\u2019s operating cash flow, FY2009 ($ millions)', a: 29.3, tol: 0.4, w: 'Barely positive, on a net loss of 558.2. Its purchases of 500.2 and amortisation of 519.8 both sat in operating, so they largely cancelled \u2014 an honest presentation of a business standing still.' }
+          ], e: 'Which treatment is right? The case for investing: a DVD library lasts years, it is a long-lived asset, and buying long-lived assets is what investing means. The case for operating: renting discs is the business, and a cost you must incur every year to stay in business is operating by any economic test.\n\nBlockbuster\u2019s presentation is the more informative one. Purchases and amortisation sit side by side, and a reader sees immediately that the company was spending roughly what it was charging \u2014 running to stand still. Netflix\u2019s split put the outflow where analysts rarely look and left the add-back where they always do.\n\nThe irony is that Netflix now does the opposite. Streaming content payments run through operating, which is why operating cash flow was minus 2.9 billion in 2019. Same company, same kind of asset, opposite choice \u2014 and the second choice is the conservative one.' },
+          { t: 'fill', p: 'Step 10. Question 6, first part. Measure the 2020 turn and find what caused it.',
+            calc: 'Swing = 2020 operating cash flow \u2212 2019 operating cash flow',
+            rows: [
+            { l: 'Swing in operating cash flow, 2019 to 2020', a: 5314399, tol: 3000, w: '2,427,077 \u2212 (\u22122,887,322) = 5,314,399.' },
+            { l: 'Fall in additions to content assets', a: 2137399, tol: 3000, w: '13,916,683 \u2212 11,779,284 = 2,137,399. The first fall in the company\u2019s history, and not a decision.' },
+            { l: 'Rise in amortization of content assets', a: 1590665, tol: 3000, w: '10,806,912 \u2212 9,216,247 = 1,590,665. Prior years\u2019 spending arriving in the income statement.' },
+            { l: 'Those two together, as a percentage of the swing (%)', a: 70.1, tol: 1.5, w: '(2,137,399 + 1,590,665) / 5,314,399 = 70%. The rest is higher net income and working capital.' },
+            { l: 'Rise in net income', a: 894479, tol: 2000, w: '2,761,395 \u2212 1,866,916 = 894,479 \u2014 real, and a sixth of the swing.' },
+            { l: 'Free cash flow, 2020 (operating less purchases of property and equipment)', a: 1929154, tol: 3000, w: '2,427,077 \u2212 497,923 = 1,929,154. Positive for the first time.' }
+          ], e: 'Content spending fell for one reason: film and television production stopped almost everywhere for much of 2020. Netflix did not choose to spend less. Meanwhile amortisation kept rising, because it reflects the enormous commissioning of 2018 and 2019, and subscribers arrived in record numbers with nothing else to do.\n\nEvery one of those effects pushed cash flow the same way, and two of the three were temporary.' },
+          { t: 'pick', p: 'Step 11. Question 6, second part. Is Netflix in a virtuous loop?',
+            rows: [
+              { l: 'Yes \u2014 positive cash flow proves the model works and that no further borrowing will be needed', a: false },
+              { l: 'Partly \u2014 the structural mechanism is real, but 2020 is not the year that proves it', a: true },
+              { l: 'No \u2014 the improvement is entirely an artefact of the pandemic', a: false },
+              { l: 'The question cannot be answered from financial statements', a: false }
+            ],
+            e: 'The structural argument is sound. Content spending cannot grow at 30% a year forever; when growth slows, the amortisation of prior years keeps rising and catches up, and the gap that consumed 4.7 billion in 2019 closes on its own arithmetic. Revenue grew 24% in 2020 while content spending fell, so the ratio moved decisively. That is the loop, and it does not depend on a pandemic.\n\nBut 2020 is a bad year to prove it with. Roughly 2.1 billion of the improvement is production that could not happen, and it will happen later \u2014 shifted, not saved. Subscriber growth was pulled forward by lockdowns, and marketing was cut in a year when marketing was barely needed. Strip the temporary effects and the underlying position is better than 2019 but not yet obviously self-funding.\n\nThe honest conclusion is the one the case title points at: the search for cash flow ended in a year that cannot be repeated, and the test is what 2021 and 2022 look like once the studios reopen. Which is the general lesson about cash flow statements \u2014 they are the hardest statement to manipulate and still the easiest to misread, because a single year tells you what happened and almost nothing about what recurs.' }
+        ]
+      },
     ],
     fra: [
       {
@@ -5442,15 +6459,33 @@ class Component extends DCLogic {
       ] },
       { heading: 'Profit, cash and who checks the numbers', items: [
         { t: 'tf', p: 'A company can report a healthy profit and still run out of money.', a: true, e: 'Deliver goods in December, get paid in February: profit in December, empty till. Businesses fail for want of cash, not profit.' },
-        { t: 'mcq', p: 'A clean audit opinion tells you that:', o: ['The business is financially healthy', 'The statements are fairly presented under the rules', 'The share price is fair', 'Management is trustworthy'], a: 1, e: 'A company can be audited, compliant and heading for bankruptcy at once. Wirecard is the cautionary version.' },
-        { t: 'mcq', p: 'Two honest companies in identical situations report different profits. The most likely reason is:', o: ['One of them made an error', 'They chose different estimates', 'They use different currencies', 'One of them is not audited'], a: 1, e: 'They chose different estimates, such as how long an asset will last. The rules require estimates, and estimates are judgements. Always ask what management had to assume.' }
+        { t: 'pick', p: 'A clean audit opinion tells you that:', rows: [
+              { l: 'The business is financially healthy', a: false },
+              { l: 'The statements are fairly presented under the rules', a: true },
+              { l: 'The share price is fair', a: false },
+              { l: 'Management is trustworthy', a: false }
+            ],
+            e: 'A company can be audited, compliant and heading for bankruptcy at once. Wirecard is the cautionary version.' },
+        { t: 'pick', p: 'Two honest companies in identical situations report different profits. The most likely reason is:', rows: [
+              { l: 'One of them made an error', a: false },
+              { l: 'They chose different estimates', a: true },
+              { l: 'They use different currencies', a: false },
+              { l: 'One of them is not audited', a: false }
+            ],
+            e: 'They chose different estimates, such as how long an asset will last. The rules require estimates, and estimates are judgements. Always ask what management had to assume.' }
       ] }
     ],
     s2: [
       { heading: 'The equation', items: [
         { t: 'blank', p: 'Complete the accounting equation.', before: 'Assets = Liabilities +', after: '.', a: 'equity', alt: ['shareholders equity', 'owners equity'], e: 'Equity is the residual — whatever is left for owners once creditors are satisfied.' },
         { t: 'tf', p: 'A balance sheet can fail to balance if the company had a bad year.', a: false, e: 'It cannot. Every asset was paid for by a lender or an owner, so the two sides are the same money counted twice.' },
-        { t: 'mcq', p: 'You put in 500, borrow 300, buy a van for 600 and keep the rest in the bank. Total assets are:', o: ['500', '600', '800', '1,100'], a: 2, e: 'A van of 600 plus 200 of cash. Funded by 300 of debt and 500 of equity.' }
+        { t: 'pick', p: 'You put in 500, borrow 300, buy a van for 600 and keep the rest in the bank. Total assets are:', rows: [
+              { l: '500', a: false },
+              { l: '600', a: false },
+              { l: '800', a: true },
+              { l: '1,100', a: false }
+            ],
+            e: 'A van of 600 plus 200 of cash. Funded by 300 of debt and 500 of equity.' }
       ] },
       { heading: 'What gets on the list', items: [
         { t: 'match', p: 'Match each item to how it is treated.', pairs: [
@@ -5473,7 +6508,13 @@ class Component extends DCLogic {
         { t: 'tf', p: 'Under accrual accounting, revenue is recorded when the cash arrives.', a: false, e: 'It is recorded when goods or services are delivered. Cash timing is a separate question.' }
       ] },
       { heading: 'Profit and what is not a cost', items: [
-        { t: 'mcq', p: 'You sell 100 of drinks costing 40, pay 20 of wages, then hand 10 to the owners. Profit is:', o: ['30', '40', '50', '60'], a: 1, e: 'Revenue 100 less costs 60 gives 40. The 10 is a dividend — a distribution of profit already made, not a cost of trading.' },
+        { t: 'pick', p: 'You sell 100 of drinks costing 40, pay 20 of wages, then hand 10 to the owners. Profit is:', rows: [
+              { l: '30', a: false },
+              { l: '40', a: true },
+              { l: '50', a: false },
+              { l: '60', a: false }
+            ],
+            e: 'Revenue 100 less costs 60 gives 40. The 10 is a dividend — a distribution of profit already made, not a cost of trading.' },
         { t: 'tf', p: 'Dividends reduce reported profit.', a: false, e: 'They reduce cash and equity. Profit is untouched, and dividends never appear on the income statement.' },
         { t: 'blank', p: 'Complete the sentence.', before: 'Revenue minus cost of sales gives', after: ' profit.', a: 'gross', e: 'The markup on product above direct input costs.' }
       ] }
@@ -5487,7 +6528,13 @@ class Component extends DCLogic {
           { term: 'Accrued expense', d: 'Expense first, cash later' }
         ], e: 'Two questions define the grid: revenue or expense, and did cash move before or after.' },
         { t: 'tf', p: 'Cash moves when an adjusting entry is recorded.', a: false, e: 'Never. Cash moved earlier or will move later; the adjustment puts the amount in the right period.' },
-        { t: 'mcq', p: 'A client pays 240 on 1 January for two years of magazines. Revenue recognised by 31 March is:', o: ['0', '30', '120', '240'], a: 1, e: '240 over 24 months is 10 a month; three months delivered. The other 210 stays as a liability.' }
+        { t: 'pick', p: 'A client pays 240 on 1 January for two years of magazines. Revenue recognised by 31 March is:', rows: [
+              { l: '0', a: false },
+              { l: '30', a: true },
+              { l: '120', a: false },
+              { l: '240', a: false }
+            ],
+            e: '240 over 24 months is 10 a month; three months delivered. The other 210 stays as a liability.' }
       ] },
       { heading: 'Earnings quality', items: [
         { t: 'blank', p: 'Complete the sentence.', before: 'How well reported profit describes performance that will repeat is called earnings', after: '.', a: 'quality', e: 'Two problems sit inside it: which items are in the number, and how they were measured.' },
@@ -5503,7 +6550,13 @@ class Component extends DCLogic {
       { heading: 'The two old policies', items: [
         { t: 'tf', p: 'Under the pre-2018 policy, an engine costing £50m sold for £40m produced a £10m loss.', a: false, e: 'It produced break-even. Revenue was grossed up to the £50m cost and the £10m excess over cash became an intangible.' },
         { t: 'blank', p: 'Complete the sentence.', before: 'Selling the engine cheaply to make money on servicing is called the razor and', after: ' model.', a: 'razor blades', alt: ['blades', 'blade'], e: 'Long-term service contracts make up roughly half of Rolls-Royce revenue.' },
-        { t: 'mcq', p: 'Before 2018, service revenue was recognised in proportion to:', o: ['Overhauls completed', 'Cash received', 'Flying hours', 'Engines delivered'], a: 2, e: 'Flying hours of the fleet under contract. The obligation was to keep the fleet operational, and the Directors took fleet operation as the best measure of that.' }
+        { t: 'pick', p: 'Before 2018, service revenue was recognised in proportion to:', rows: [
+              { l: 'Overhauls completed', a: false },
+              { l: 'Cash received', a: false },
+              { l: 'Flying hours', a: true },
+              { l: 'Engines delivered', a: false }
+            ],
+            e: 'Flying hours of the fleet under contract. The obligation was to keep the fleet operational, and the Directors took fleet operation as the best measure of that.' }
       ] },
       { heading: 'What IFRS 15 does', items: [
         { t: 'match', p: 'Match each treatment to the rule that produces it.', pairs: [
@@ -5512,14 +6565,26 @@ class Component extends DCLogic {
           { term: 'Service revenue spread over flying hours', d: 'Pre-2018 policy' },
           { term: 'Service revenue recognised at each overhaul', d: 'IFRS 15' }
         ], e: 'The old pair pulls profit forward; IFRS 15 waits for the work in both cases.' },
-        { t: 'mcq', p: 'A ten-year contract has £100m revenue and £50m costs, with equal overhauls in years 4 and 8. Under IFRS 15, cumulative profit at the end of year 3 is:', o: ['£0m', '£15m', '£25m', '£50m'], a: 0, e: 'Nothing, against £15m under the old policy. Total profit is £50m either way — only the timing moves.' },
+        { t: 'pick', p: 'A ten-year contract has £100m revenue and £50m costs, with equal overhauls in years 4 and 8. Under IFRS 15, cumulative profit at the end of year 3 is:', rows: [
+              { l: '£0m', a: true },
+              { l: '£15m', a: false },
+              { l: '£25m', a: false },
+              { l: '£50m', a: false }
+            ],
+            e: 'Nothing, against £15m under the old policy. Total profit is £50m either way — only the timing moves.' },
         { t: 'tf', p: 'IFRS 15 changes the amount of cash Rolls-Royce receives.', a: false, e: 'Same contracts, same amounts, same dates. The FT is explicit that there is no effect on the fundamentals or cash flow.' }
       ] }
     ],
     s6: [
       { heading: 'What channel stuffing is', items: [
         { t: 'tf', p: 'Every form of channel stuffing breaks the accounting rules.', a: false, e: 'Execution runs from benign discounts to conduct plainly outside GAAP. Over 40% of CFOs said they would offer buying incentives, within GAAP.' },
-        { t: 'mcq', p: 'What ends a stuffing strategy?', o: ['The auditor refuses to sign', 'The distributor stops buying', 'Regulators intervene', 'Sales plateau at the inflated level'], a: 1, e: 'The distributor stops buying because its inventory is too high. And the decline persists while the excess drains out. McAfee’s sales fell 31% and stayed down.' },
+        { t: 'pick', p: 'What ends a stuffing strategy?', rows: [
+              { l: 'The auditor refuses to sign', a: false },
+              { l: 'The distributor stops buying', a: true },
+              { l: 'Regulators intervene', a: false },
+              { l: 'Sales plateau at the inflated level', a: false }
+            ],
+            e: 'The distributor stops buying because its inventory is too high. And the decline persists while the excess drains out. McAfee’s sales fell 31% and stayed down.' },
         { t: 'blank', p: 'Complete the sentence.', before: 'Receivables expressed as days of sales are called days sales', after: '.', a: 'outstanding', e: 'McAfee’s went 45 days, 71, then 116 across 1997 to 1999.' }
       ] },
       { heading: 'Reading it from outside', items: [
@@ -5529,7 +6594,13 @@ class Component extends DCLogic {
           { term: 'The allowance moving the wrong way', d: '10.5% of gross receivables in 1996, down to 4.3% in 1998' },
           { term: 'Cash diverging from income', d: 'Operating cash flow fell from $90.7m to $52.5m while sales rose 62%' }
         ], e: 'All four visible in the published statements before any announcement.' },
-        { t: 'mcq', p: 'McAfee funded the strategy in 1998 mainly through:', o: ['Retained profits', 'Convertibles and options', 'Asset sales', 'Government grants'], a: 1, e: 'Convertible debt and employee stock option exercises. $337.6m of convertible debt plus $151.1m of option exercises and $43.5m of tax benefits — essentially the whole $533m financing inflow.' },
+        { t: 'pick', p: 'McAfee funded the strategy in 1998 mainly through:', rows: [
+              { l: 'Retained profits', a: false },
+              { l: 'Convertibles and options', a: true },
+              { l: 'Asset sales', a: false },
+              { l: 'Government grants', a: false }
+            ],
+            e: 'Convertible debt and employee stock option exercises. $337.6m of convertible debt plus $151.1m of option exercises and $43.5m of tax benefits — essentially the whole $533m financing inflow.' },
         { t: 'tf', p: 'Ratio analysis would have detected the Ingram Micro quarter-end timing scheme.', a: false, e: 'Ratios detect the consequences of stuffing, not its mechanisms. That one only surfaced in the SEC complaint.' }
       ] }
     ]

@@ -424,7 +424,7 @@ def check_memory(name: str, html: str, body_src: str) -> None:
 def mcq_length_bias(body_src: str, name: str) -> None:
     total = longest = 0
     worst = []
-    for m in re.finditer(r"\{ t: 'mcq'.*?\bo: \[(.*?)\], a: (\d+)", body_src, re.S):
+    for m in re.finditer(r"\{ t: 'mcq'.*?\bo: \[(.*?)\],\s*a: (\d+)", body_src, re.S):
         opts = re.findall(r"'((?:[^'\\]|\\.)*)'", m.group(1))
         a = int(m.group(2))
         if len(opts) < 2 or a >= len(opts):
