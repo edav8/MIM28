@@ -1,0 +1,16 @@
+<!doctype html><meta charset="utf-8"><title>capture</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<body style="margin:0;background:#111">
+<iframe id="f" src="_capture_src.html" style="width:1200px;height:630px;border:0"></iframe>
+<script>
+window.shoot = async () => {
+  const doc = document.getElementById('f').contentDocument;
+  const canvas = await html2canvas(doc.body, {
+    width: 1200, height: 630, windowWidth: 1200, windowHeight: 630,
+    backgroundColor: '#101a17', scale: 1, logging: false, useCORS: true
+  });
+  const b = canvas.toDataURL('image/jpeg', 0.82).split(',')[1];
+  const r = await fetch('http://127.0.0.1:8955/', { method: 'POST', body: b });
+  return { status: r.status, kb: Math.round(b.length * 3 / 4 / 1024), w: canvas.width, h: canvas.height };
+};
+</script>
