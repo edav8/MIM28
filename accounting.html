@@ -2,6 +2,9 @@
 <html><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="assets/image-4ceca88f.png">
 <link rel="apple-touch-icon" href="assets/image-4ceca88f.png">
@@ -190,6 +193,70 @@ body { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 400; }
    React take to arrive. The runtime removes <x-dc> and puts #dc-root on the
    body, so hiding it costs nothing after mount and hides only the flash. */
 x-dc { display: none !important; }
+
+/* ── polish ──────────────────────────────────────────────────────────
+   The same vocabulary the hub took from the ski page, in this file's
+   token names, so the two halves of the site stop looking like
+   different products: hairlines rather than 2px slabs, rounded
+   surfaces, pill buttons that lift, a display face, an ambient glow. */
+:root{
+  --hair: color-mix(in srgb, var(--color-text) 20%, transparent);
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --display: "Anton", "Archivo", system-ui, sans-serif;
+}
+
+[style*="2px solid var(--color-divider)"]{ border-width:1px !important; border-color:var(--hair) !important; }
+[style*="1px solid var(--color-divider)"]{ border-color:var(--hair) !important; }
+[style*="2px solid var(--color-text)"]{ border-width:1px !important; }
+
+/* raised surfaces get a corner */
+[style*="background:var(--color-surface)"],
+[style*="background: var(--color-surface)"]{ border-radius:14px; }
+
+/* buttons become pills that lift, as on the hub */
+button[style*="padding:8px 14px"],
+button[style*="padding:11px 14px"],
+button[style*="padding:12px 18px"],
+button[style*="padding:12px 20px"]{
+  border-radius:999px !important;
+  transition:transform .25s var(--ease), box-shadow .35s var(--ease);
+}
+button[style*="border-radius:999px"]:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 26px -12px color-mix(in srgb, var(--color-accent) 70%, transparent);
+}
+button[style*="border-radius:999px"]:active{ transform:translateY(0); }
+
+/* the course cards on the overview, as tiles */
+[style*="grid-template-columns:repeat(auto-fit, minmax(300px, 1fr))"] > *{
+  border-radius:18px !important;
+  transition:transform .3s var(--ease), box-shadow .4s var(--ease), border-color .3s var(--ease);
+}
+[style*="grid-template-columns:repeat(auto-fit, minmax(300px, 1fr))"] > *:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 40px -22px color-mix(in srgb, var(--color-accent) 60%, transparent);
+}
+
+/* display type on the page headings */
+h1{
+  font-family:var(--display) !important; font-weight:400 !important;
+  letter-spacing:.005em !important; line-height:.95 !important;
+  text-transform:uppercase;
+  font-size:clamp(28px, 4.4vw, 44px) !important;
+}
+
+/* an ambient glow behind the top of the reading column */
+#shell{ position:relative; isolation:isolate; }
+#shell::before{
+  content:""; position:absolute; inset:0 0 auto; height:min(520px,60vh); z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(110% 70% at 18% 0%, color-mix(in srgb, var(--color-accent) 13%, transparent) 0%, transparent 62%),
+    radial-gradient(80% 55% at 86% 4%, color-mix(in srgb, var(--color-accent-2) 10%, transparent) 0%, transparent 60%);
+}
+
+/* kickers get the wider tracking */
+[style*="letter-spacing:0.09em"]{ letter-spacing:.18em !important; }
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading); font-weight: var(--font-heading-weight);
   line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 var(--space-2);
