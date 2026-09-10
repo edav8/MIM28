@@ -700,6 +700,13 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
         </div>
       </div>
       <div style="margin-top:56px; padding-top:18px; border-top:1px solid var(--line); font-size:12px; color:var(--faint); max-width:70ch">
+        Study notes written for this site. No course handout, reading, exercise set or case
+        document is reproduced here: the lessons are written from scratch, the drills and
+        exercises are original, and quotations from published sources are short and attributed.
+        Course readings and exercise sets stay on the LMS, where their licences put them.
+        If you hold rights in something here and would rather it were not, say so and it goes.
+      </div>
+      <div style="margin-top:14px; font-size:12px; color:var(--faint); max-width:70ch">
         Fontainebleau footage: <a href="https://commons.wikimedia.org/wiki/File:For%C3%AAt_et_ch%C3%A2teau_de_Fontainebleau.webm" style="color:var(--muted)">Forêt et château de Fontainebleau</a>
         by filmaviator, <a href="https://creativecommons.org/licenses/by/3.0" style="color:var(--muted)">CC BY 3.0</a>, via Wikimedia Commons. Played muted.
       </div>
@@ -1661,6 +1668,38 @@ class Component extends DCLogic {
     ]
   };
   daExercises = [
+    // Original practice, written for this trainer. The course's own Exercise
+    // Sets are INSEAD material and are not reproduced here -- work those on the
+    // LMS. These drill the same methods on different numbers, which is also
+    // better practice than re-reading a worked answer.
+    { key: 'desc', tag: 'Session 2', title: 'Summarising a small sample', stem: 'A team records how many minutes seven meetings overran: 12, 15, 15, 18, 20, 22, 26. Summarise the data the way Session 02 asks you to — centre first, then spread, then risk per unit of return.',
+      steps: [
+        { q: 'Give the three measures of centre.', rows: [ { label: 'Mean', a: 18.29, tol: 0.02 }, { label: 'Median', a: 18, tol: 0 }, { label: 'Mode', a: 15, tol: 0 } ], hint: 'Seven values, already sorted. The median is the fourth; the mode is the only repeated value.', sol: 'Mean = 128/7 = 18.29, median = 18, mode = 15. The mean sits above the median because 26 pulls it up.' },
+        { q: 'Give the population variance and standard deviation.', rows: [ { label: 'σ²', a: 19.63, tol: 0.05 }, { label: 'σ', a: 4.43, tol: 0.02 } ], hint: 'Average the squared deviations from 18.29, dividing by N = 7 rather than N − 1.', sol: 'σ² = 19.63 and σ = √19.63 = 4.43 minutes. In Excel, VAR.P and STDEV.P.' },
+        { q: 'Give the coefficient of variation, as a percentage.', rows: [ { label: 'CV', a: 24.23, tol: 0.2 } ], hint: 'σ divided by μ, times 100.', sol: 'CV = 4.43 / 18.29 × 100 = 24.2%. Useful precisely because it is unitless — you can compare it with a team whose overruns are measured in hours.' },
+        { q: 'One meeting is re-timed and turns out to have overrun by 226 minutes, not 26. Which summaries move a lot?', rows: [ { label: 'New mean', a: 46.86, tol: 0.05 }, { label: 'New median', a: 18, tol: 0 } ], hint: 'Recompute the mean with 226 in place of 26. Then ask where the fourth value sits now.', sol: 'The mean jumps to 46.86 while the median stays at 18. This is the robustness point from the session, on your own data rather than in the abstract.' }
+      ] },
+    { key: 'pois', tag: 'Session 3', title: 'Arrivals in a fixed window', stem: 'A help desk receives 2.5 tickets an hour on average, arriving independently. Let X be the number of tickets in the next hour.',
+      steps: [
+        { q: 'Name the model and its parameter.', rows: [ { label: 'λ', a: 2.5, tol: 0.001 } ], hint: 'Arrivals in a fixed window with no upper bound on how many could come.', sol: 'X ~ Pois(λ = 2.5). There is no n here, which is what rules the binomial out.' },
+        { q: 'What is the probability of no tickets at all?', rows: [ { label: 'ℙ(X = 0)', a: 0.0821, tol: 0.0008 } ], hint: 'λ⁰ = 1 and 0! = 1, so the formula collapses to e raised to minus lambda.', sol: 'ℙ(X = 0) = e^(−2.5) = 0.0821.' },
+        { q: 'What is the probability of three or more?', rows: [ { label: 'ℙ(X ≥ 3)', a: 0.4562, tol: 0.001 } ], hint: 'Take one minus the first three terms: 0.0821, 0.2052 and 0.2565.', sol: '1 − (0.0821 + 0.2052 + 0.2565) = 0.4562. Going via the complement avoids an infinite sum.' },
+        { q: 'Now take a fifteen-minute window. Give the new λ and the chance of no tickets.', rows: [ { label: 'λ', a: 0.625, tol: 0.001 }, { label: 'ℙ(X = 0)', a: 0.5353, tol: 0.001 } ], hint: 'Rate scales with the window: a quarter of an hour means a quarter of the rate.', sol: 'λ = 2.5/4 = 0.625, so ℙ(X = 0) = e^(−0.625) = 0.5353. Rescaling λ with the window is the step most people miss.' }
+      ] },
+    { key: 'norm', tag: 'Session 4', title: 'Standardising a normal', stem: 'Scores on an entry test are normal with mean 68 and standard deviation 9. Use the table values ℙ(Z < 1.33) = 0.9082 and ℙ(Z < 1.00) = 0.8413.',
+      steps: [
+        { q: 'What is the z-score of a mark of 80?', rows: [ { label: 'z', a: 1.333, tol: 0.01 } ], hint: 'Subtract the mean, divide by the standard deviation.', sol: 'z = (80 − 68)/9 = 1.33 — a third over one standard deviation above the mean.' },
+        { q: 'What share of candidates score above 80?', rows: [ { label: 'ℙ(X > 80)', a: 0.0918, tol: 0.002 } ], hint: 'The table gives the area to the left. You want the rest.', sol: '1 − 0.9082 = 0.0918, about one in eleven.' },
+        { q: 'What share score below 59?', rows: [ { label: 'ℙ(X < 59)', a: 0.1587, tol: 0.002 } ], hint: 'z = −1 exactly. Use symmetry rather than looking for a negative z in the table.', sol: 'ℙ(Z < −1) = ℙ(Z > 1) = 1 − 0.8413 = 0.1587.' },
+        { q: 'What share fall between 59 and 80?', rows: [ { label: 'ℙ(59 < X < 80)', a: 0.7495, tol: 0.003 } ], hint: 'Subtract the two tails from one.', sol: '1 − 0.1587 − 0.0918 = 0.7495. Roughly three quarters, which the empirical rule would have put near 68% for ±1σ and 95% for ±2σ — this window is asymmetric, so neither applies directly.' }
+      ] },
+    { key: 'port', tag: 'Session 4', title: 'A two-asset portfolio', stem: 'Assets X and Y each have an expected return of 100 and a standard deviation of 10. You hold 3 units of X and 2 of Y.',
+      steps: [
+        { q: 'What is the expected return of the portfolio?', rows: [ { label: 'E[3X + 2Y]', a: 500, tol: 0.5 } ], hint: 'Expectation is linear, whatever the correlation.', sol: 'E = 3(100) + 2(100) = 500. Correlation never touches the expectation.' },
+        { q: 'If X and Y are independent, what is the portfolio variance and standard deviation?', rows: [ { label: 'Var', a: 1300, tol: 2 }, { label: 'σ', a: 36.06, tol: 0.1 } ], hint: 'a²σₓ² + b²σᵥ², with no covariance term.', sol: 'Var = 9(100) + 4(100) = 1,300 and σ = 36.06.' },
+        { q: 'Now suppose ρ = 0.3. Give the covariance and the new standard deviation.', rows: [ { label: 'Cov', a: 30, tol: 0.5 }, { label: 'σ', a: 40.74, tol: 0.15 } ], hint: 'Cov = ρσₓσᵥ, then add the 2ab·Cov term.', sol: 'Cov = 0.3 × 10 × 10 = 30, so Var = 1,300 + 2(3)(2)(30) = 1,660 and σ = 40.74. Positive correlation makes the portfolio riskier than the independent case.' },
+        { q: 'And if ρ = −0.3?', rows: [ { label: 'σ', a: 30.66, tol: 0.15 } ], hint: 'Same arithmetic, but the covariance term is now subtracted.', sol: 'Cov = −30, so Var = 1,300 − 360 = 940 and σ = 30.66. Same expected return as the other two cases, and the lowest risk of the three — which is the whole argument for diversifying across things that do not move together.' }
+      ] },
     { key: 'morning', tag: 'Session 3', title: 'Morning people', stem: 'In the class survey, 40% of students describe themselves as morning people. Take a random group of five students and let X be the number of morning people in it.',
       steps: [
         { q: 'Name the model and its parameters.', rows: [ { label: 'n', a: 5, tol: 0 }, { label: 'p', a: 0.4, tol: 0.001 } ], hint: 'Five independent students, each either a morning person or not, with the same probability each time.', sol: 'X ~ Bin(n = 5, p = 0.4).' },
