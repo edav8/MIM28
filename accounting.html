@@ -6463,8 +6463,8 @@ class Component extends DCLogic {
       openTodo: () => this.goto('todo'),
       todoStyle: navBtn(mode === 'todo', false),
       showTodo: mode === 'todo',
-      todoEmpty: !(this.todo || []).length,
-      todoRows: (this.todo || []).map(t => {
+      todoEmpty: !(this.todo || []).filter(t => !t.closed).length,
+      todoRows: (this.todo || []).filter(t => !t.closed).map(t => {
         const done = !!(this.state.todoDone || {})[t.id];
         // late is judged now, in this browser, against this reader's ticks --
         // never written into the file, which is shared and would go stale

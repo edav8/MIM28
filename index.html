@@ -668,6 +668,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
           <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#5b9cff; display:inline-block"></span>Data Analysis</span>
           <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#a97cf5; display:inline-block"></span>Marketing</span>
           <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#4fbf8b; display:inline-block"></span>Financial Accounting</span>
+          <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#8a93a6; display:inline-block"></span>Everything else</span>
         </div>
       </div>
 
@@ -2504,7 +2505,7 @@ class Component extends DCLogic {
     // Ticked assignments leave the list entirely. They are not forgotten: the
     // calendar still carries them, struck through, and clicking one there
     // unticks it -- which is the only way back, since the row is gone.
-    return (d.todo || []).filter(t => !td[t.id] && !t.done).map(t => {
+    return (d.todo || []).filter(t => !td[t.id] && !t.done && !t.closed).map(t => {
       const isDone = !!td[t.id];
       const st = this.lateness(t);
       return {
@@ -2535,11 +2536,16 @@ class Component extends DCLogic {
     const y = st.calY === undefined ? 2026 : st.calY;
     const m = st.calM === undefined ? 8 : st.calM;
     const items = [];
-    ['da', 'mkt', 'fa'].forEach(k => {
-      (this.data(k).todo || []).forEach(t => {
+    // Every list, including the assignments that belong to no course -- careers,
+    // the community challenge, clubs, immigration. Work that is finished and past
+    // stays here, struck through, though it has left the to-do lists.
+    const lists = ['da', 'mkt', 'fa'].map(k => [k, this.data(k).todo || []]);
+    lists.push(['other', this.otherTodo || []]);
+    lists.forEach(pair => {
+      pair[1].forEach(t => {
         if (!t.due) return;
         const parts = t.due.split('-');
-        items.push({ y: +parts[0], m: +parts[1] - 1, d: +parts[2], title: t.title, time: t.time, course: k, id: t.id, done: !!t.done });
+        items.push({ y: +parts[0], m: +parts[1] - 1, d: +parts[2], title: t.title, time: t.time, course: pair[0], id: t.id, done: !!t.done, closed: !!t.closed, source: t.source || '' });
       });
     });
     const first = new Date(y, m, 1);
@@ -2556,14 +2562,14 @@ class Component extends DCLogic {
         numStyle: 'font-size:12px; font-variant-numeric:tabular-nums; color:' + (evs.length ? 'var(--ink)' : 'var(--faint)') + '; font-weight:' + (evs.length ? '700' : '400') + ';',
         events: evs.map(e => ({
           label: (e.time ? e.time + ' · ' : '') + e.title,
-          hint: e.done ? 'Submitted on Canvas' : td[e.id] ? 'Done — click to put it back on the to-do list' : 'Click to mark done and clear it from the to-do list',
+          hint: e.closed ? (e.source ? e.source + ' — closed, the deadline has passed' : 'Closed — the deadline has passed') : e.done ? 'Submitted on Canvas' : td[e.id] ? 'Done — click to put it back on the to-do list' : 'Click to mark done and clear it from the to-do list',
           onToggle: () => {
             const n = Object.assign({}, this.state.todoDone || {});
             if (n[e.id]) delete n[e.id]; else n[e.id] = true;
             this.setState({ todoDone: n });
             this.save({ todoDone: n });
           },
-          style: 'display:block; width:100%; text-align:left; cursor:pointer; font:inherit; margin-top:6px; padding:4px 6px; font-size:11px; line-height:1.25; text-wrap:pretty; border:0; border-left:3px solid ' + (e.course === 'mkt' ? '#a97cf5' : e.course === 'fa' ? '#4fbf8b' : '#5b9cff') + '; background:var(--ground); color:' + ((td[e.id] || e.done) ? 'var(--faint)' : 'var(--ink)') + '; text-decoration:' + ((td[e.id] || e.done) ? 'line-through' : 'none') + ';'
+          style: 'display:block; width:100%; text-align:left; cursor:pointer; font:inherit; margin-top:6px; padding:4px 6px; font-size:11px; line-height:1.25; text-wrap:pretty; border:0; border-left:3px solid ' + (e.course === 'mkt' ? '#a97cf5' : e.course === 'fa' ? '#4fbf8b' : e.course === 'other' ? '#8a93a6' : '#5b9cff') + '; background:var(--ground); color:' + ((td[e.id] || e.done || e.closed) ? 'var(--faint)' : 'var(--ink)') + '; text-decoration:' + ((td[e.id] || e.done || e.closed) ? 'line-through' : 'none') + ';'
         }))
       });
     }
@@ -2645,7 +2651,7 @@ class Component extends DCLogic {
       // Careers, the community challenge, clubs, leadership, immigration -- real
       // deadlines that belong to no course, so they had nowhere to appear.
       const otd = this.state.todoDone || {};
-      const otherAll = (this.otherTodo || []).filter(t => !otd[t.id]);
+      const otherAll = (this.otherTodo || []).filter(t => !otd[t.id] && !t.closed);
       v.otherRows = otherAll.map(t => ({
         title: t.title, when: t.when, source: t.source || '',
         tag: this.lateness(t).tag,
