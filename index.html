@@ -1768,7 +1768,15 @@ class Component extends DCLogic {
           src.type = 'video/webm';
           src.src = stem + (window.innerWidth < 800 ? '.360p.vp9.webm' : '.480p.vp9.webm');
           v.appendChild(src);
+          // The clip opens on forest and a duck; the château runs from about 1:16
+          // to 2:18. Start there and loop that window, so the background is the
+          // castle rather than whatever the file happens to begin with.
+          const FROM = 76, TO = 138;
+          const toCastle = () => { if (v.currentTime < FROM || v.currentTime > TO) v.currentTime = FROM; };
+          v.addEventListener('loadedmetadata', toCastle, { once: true });
+          v.addEventListener('timeupdate', () => { if (v.currentTime > TO) v.currentTime = FROM; });
           v.addEventListener('playing', () => {
+            toCastle();
             hero.classList.remove('has-poster');
             v.classList.add('is-ready');
           }, { once: true });
