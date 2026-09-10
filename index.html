@@ -1528,7 +1528,17 @@ class Component extends DCLogic {
       { t: 'p', text: 'For roughly bell-shaped data, about 68% of observations fall within one standard deviation of the mean, about 95% within two, and about 99.7% within three.' },
       { t: 'note', label: 'Worked in class', text: 'Mean starting salary €160,000 with σ = €20,000. Approximately 95% of starting salaries fall between €120,000 and €200,000 — provided the distribution really is bell-shaped.' },
       { t: 'h', text: 'Anchoring bias' },
-      { t: 'p', text: 'People rely too heavily on the first piece of information offered, even when it is irrelevant or manipulative: the UN member-count anchors of 300 versus 95, the USD/EUR anchors of 0.90 versus 1.50, Attila the Hun and your phone number. Prepare independently before meetings, ask whether you have explored enough alternatives, and in a negotiation speak first to set the frame.' }
+      { t: 'p', text: 'People rely too heavily on the first piece of information offered, even when it is irrelevant or manipulative: the UN member-count anchors of 300 versus 95, the USD/EUR anchors of 0.90 versus 1.50, Attila the Hun and your phone number. Prepare independently before meetings, ask whether you have explored enough alternatives, and in a negotiation speak first to set the frame.' },
+      { t: 'note', label: 'Three kinds of lies', text: '“There are three kinds of lies: lies, damned lies, and statistics.” — Mark Twain, who attributed it to Benjamin Disraeli. The session opens on how far a chart can mislead while every number on it is true.' },
+      { t: 'h', text: 'Mode, including on non-numeric data' },
+      { t: 'ul', items: ['30, 40, 50, 60, 70, 70, 80, 90 → mode 70. When firsts tie the mode is not well defined; take one at random.', 'A, A, B, B, B, C, D, F, F → mode B. The mode is the only one of the three that works on categories, which is why it is the “most likely outcome” for discrete data.'] },
+      { t: 'h', text: 'The birthday bet' },
+      { t: 'p', text: 'The claim: at least two people in this section share a birthday. Bet €10 against it and win €20 if no two match. With 99 students the chance of no match is about 1 in 2.4 million — the bet is close to free money for the person offering it.' },
+      { t: 'f', text: 'ℙ(at least one match) = 1 − (364/365) × (363/365) × ⋯ × ((365 − n + 1)/365)', note: 'Intuition fails because you count people, not pairs. With n = 99 there are n(n−1)/2 = 99 × 98 / 2 = 4,851 comparisons, not 99.' },
+      { t: 'h', text: 'Reading for this session' },
+      { t: 'ul', items: ['S02.1 — “The hidden traps in decision making” (Hammond, Keeney and Raiffa), the anchoring material.', 'S02.2 — Descriptive Statistics, pp. 89–97.', 'S02.3 — Hanke & Reitsch, Measures of Variability and Measures of Position, pp. 104–112, via the Doriot Library: copyright means the chapter PDFs are not on the LMS.', 'Dig deeper: “Freud, Finance and Folly” and “Doctor’s orders”.'] },
+      { t: 'note', label: 'In Excel', text: 'AVERAGE, MEDIAN, MODE for the centre; AVEDEV for mean absolute deviation; VAR.P and STDEV.P for the population variance and standard deviation used here (VAR.S and STDEV.S divide by N−1 and belong to a sample).' },
+      { t: 'note', label: 'When the empirical rule fails', text: 'It assumes a roughly bell-shaped distribution. On skewed data — salaries with a few very large ones, or anything with heavy tails — two standard deviations will not hold 95%, and the rule quietly overstates how much you know.' }
     ],
     s3: [
       { t: 'h', text: 'Random variables and probability models' },
@@ -1540,7 +1550,7 @@ class Component extends DCLogic {
       { t: 'h', text: 'The Binomial model' },
       { t: 'ul', items: ['There are n trials with two possible outcomes each.', 'Every trial has the same Bernoulli model: ℙ(success) = p.', 'All trials are independent. X = the number of successes in the n trials.'] },
       { t: 'f', text: 'ℙ(X = x) = C(n, x) pˣ(1 − p)ⁿ⁻ˣ = n!/(x!(n − x)!) · pˣ(1 − p)ⁿ⁻ˣ', note: 'E[X] = np and Var[X] = np(1 − p). In Excel: =BINOM.DIST(x, n, p, FALSE).' },
-      { t: 'p', text: 'With three fair coin flips the probabilities are 1/8, 3/8, 3/8, 1/8, giving E[X] = 1.5 and Var[X] = 0.866. With four flips the numerators 1, 4, 6, 4, 1 are the binomial coefficients, E[X] = 2.0 and Var[X] = 1.0.' },
+      { t: 'p', text: 'With three fair coin flips the probabilities are 1/8, 3/8, 3/8, 1/8, giving E[X] = 1.5, Var[X] = np(1 − p) = 0.75 and SD ≈ 0.866. With four flips the numerators are the binomial coefficients 1, 4, 6, 4, 1 over 16, giving E[X] = 2.0 and Var[X] = 1.0.' },
       { t: 'note', label: 'Why the variance measures uncertainty', text: 'p(1 − p) is largest at p = 0.5. A 50% chance of rain is the most uncertain forecast there is; 0% or 100% carry almost none.' },
       { t: 'h', text: 'The Poisson model' },
       { t: 'p', text: 'Instead of n fixed trials, count the number of arrivals over indefinitely many independent trials within a fixed period: customers per day, website visits between 10pm and midnight, patients in an emergency room, goals in a football match.' },
@@ -1550,7 +1560,19 @@ class Component extends DCLogic {
       { t: 'h', text: 'Data analysis in the era of AI' },
       { t: 'ul', items: ['Stochasticity: no two responses, reasoning chains or analyses are the same.', 'No faithful explanation: you cannot know how it reached the answer.', 'Pattern matching versus reasoning, and the model decides which it uses.', 'Tokens versus numbers: large numbers are not encoded as single numbers.', 'Version issues: different models, different contexts, different times.'] },
       { t: 'p', text: 'The guidelines: ask for code, because procedural solutions are verifiable and reproducible; take care of data hygiene, since cleaning needs context the model does not have; cross-check with another model; sharpen your eyes, because the chart is your responsibility; be the pilot, not the passenger.' },
-      { t: 'note', label: 'Not on the final', text: 'The AI mini-module is not examinable.' }
+      { t: 'note', label: 'Not on the final', text: 'The AI mini-module is not examinable.' },
+      { t: 'note', label: 'A slip in the handout', text: 'The Session 03 slide for three fair coin flips prints 0.866 against the label “Variance”. For Bin(3, 0.5) the variance is np(1 − p) = 0.75; 0.866 is the standard deviation, √0.75. The four-flip slide is right because there Var = 1.0 and SD = 1.0 coincide.' },
+      { t: 'h', text: 'Why model at all' },
+      { t: 'p', text: 'Every decision is about an outcome that has not happened yet. A probability model is an assumption about how your data was generated — and the data, in turn, is what tells you which model describes it. The two directions are the whole course in one line.' },
+      { t: 'h', text: 'Worked: morning people' },
+      { t: 'p', text: 'In a random group of five, with a 40% chance each is a morning person, X ~ Bin(5, 0.4).' },
+      { t: 'ul', items: ['No morning people: ℙ(X = 0) = 0.6⁵ = 0.0778.', 'Exactly two: ℙ(X = 2) = C(5,2)(0.4)²(0.6)³ = 0.3456.', 'At least two: 1 − ℙ(0) − ℙ(1) = 0.6630. Always go via the complement rather than summing the tail.'] },
+      { t: 'h', text: 'Worked: emergency room staffing' },
+      { t: 'p', text: 'Two cases arrive per eight-hour shift on average. For the first four hours the rate halves, so λ = 1 and X ~ Pois(1). The probability of no cases is e⁻¹ = 0.3679. Rescaling λ with the window is the step people miss.' },
+      { t: 'note', label: 'Only 14 of 900', text: 'U.S. News & World Report (8 July 1996) reported that of 900 diversified equity funds alive at the end of 1990, only 14 beat the S&P 500 year in, year out. The binomial asks the right question: how many would you expect to manage that by chance alone?' },
+      { t: 'note', label: 'Is it safe to fly?', text: 'If crashes were rare independent events — Poisson — then clusters in some decades are exactly what you should expect. A run of accidents is not evidence that flying got more dangerous.' },
+      { t: 'h', text: 'Reading for this session' },
+      { t: 'ul', items: ['S03.1 — The Binomial Distribution, pp. 146–149.', 'S03.2 — The Poisson Distribution, pp. 161–164.', 'The binomial and Poisson tables are in the course statistical tables — and this trainer computes both live under Statistical tables, so you can check a table reading against the formula.'] }
     ]
   };
   daBank = {
