@@ -226,11 +226,20 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
                 # ahead. Work you finished weeks ago would otherwise turn up as
                 # everyone's overdue backlog, which is noise, not information.
                 if d < today:
+                    # Finished and past. It leaves the to-do list -- there is
+                    # nothing left to do -- but stays on the calendar, struck
+                    # through, so the term still reads as a record of what
+                    # happened. `closed` rather than `done`: on a shared page
+                    # this says the deadline is closed in the course record, not
+                    # that the reader submitted anything.
+                    entry["closed"] = True
+                    entry["when"] = when
+                    entry["tag"] = "Closed"
                     skipped_done.append(entry["title"])
-                    continue
-                entry["when"] = when
-                entry["tag"] = "Due"
-                submitted.append(entry["title"])
+                else:
+                    entry["when"] = when
+                    entry["tag"] = "Due"
+                    submitted.append(entry["title"])
             else:
                 # No "overdue" baked in. It is stale the day after it is written,
                 # and for a shared page lateness is the reader's, not the author's.
@@ -259,6 +268,8 @@ def render(entries: list) -> str:
             parts.append(f"time: {js(e['time'])}")
         if e.get("done"):
             parts.append("done: true")
+        if e.get("closed"):
+            parts.append("closed: true")
         if e.get("source"):
             parts.append(f"source: {js(e['source'])}")
         rows.append("      { " + ", ".join(parts) + " }")
@@ -357,7 +368,7 @@ def main() -> int:
 
     print(f"\n{skipped} obligation(s) skipped as not applicable or stale.")
     if skipped_done:
-        print(f"{len(skipped_done)} finished and past their deadline, so not listed.")
+        print(f"{len(skipped_done)} finished and past their deadline: calendar only, struck through.")
     if restricted:
         print(f"\n{len(restricted)} obligation(s) held back as yours alone — a retake or a "
               "named group, not the cohort's work:")
