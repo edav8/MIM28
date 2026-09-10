@@ -2,6 +2,9 @@
 <html><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 <script src="support.js"></script>
 <title>MIM’28 Study Hub</title>
 </head>
@@ -373,6 +376,106 @@ a { color: var(--accSoft); text-decoration: none; border-bottom: 1px solid curre
 a:hover { color: var(--ink); }
 input, button, select { font: inherit; }
 
+/* ── polish ──────────────────────────────────────────────────────────
+   Borrowed from the ski page: hairline rules instead of 2px slabs,
+   rounded glass surfaces, an ambient glow behind the header, a display
+   face for the big type, and buttons that lift. The information
+   density is untouched -- this is a study tool, not a teaser page. */
+:root{
+  --hair: color-mix(in srgb, var(--muted) 26%, transparent);
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --display: "Anton", "Archivo", system-ui, sans-serif;
+  --glass: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+/* every hard 2px rule becomes a hairline */
+[style*="2px solid var(--line)"]{ border-width:1px !important; border-color:var(--hair) !important; }
+[style*="1px solid var(--line)"]{ border-color:var(--hair) !important; }
+[style*="2px solid var(--ink)"]{ border-width:1px !important; border-color:var(--hair) !important; }
+
+/* course cards: separate rounded tiles rather than cells in a ruled table */
+#hubcards{ border:0 !important; gap:14px; padding-top:4px; }
+#hubcards > *{
+  border:1px solid var(--hair) !important;
+  border-radius:18px !important;
+  background:var(--glass) !important;
+  transition:transform .3s var(--ease), box-shadow .4s var(--ease), border-color .3s var(--ease);
+}
+#hubcards > *:hover{
+  transform:translateY(-3px);
+  border-color:color-mix(in srgb, var(--acc) 55%, transparent) !important;
+  box-shadow:0 18px 40px -22px color-mix(in srgb, var(--acc) 70%, transparent);
+}
+
+/* buttons lift the way the ski page's do */
+button[style*="border-radius:999px"]:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 26px -12px color-mix(in srgb, var(--acc) 75%, transparent);
+}
+button[style*="border-radius:999px"]:active{ transform:translateY(0); }
+
+/* raised surfaces get a corner and stop being flat rectangles */
+[style*="background:var(--panel)"]{ border-radius:14px; }
+#hubcal [style*="background:var(--panel)"]{ border-radius:0; }   /* calendar cells stay a grid */
+
+/* display type: the hero and section headings */
+.dc-display{
+  font-family:var(--display) !important;
+  font-weight:400 !important;
+  letter-spacing:.005em !important;
+  line-height:.94 !important;
+  text-transform:uppercase;
+}
+
+/* Fontainebleau behind the header. The poster carries it on its own; the
+   video is only fetched when the visitor is not on a metered or slow
+   connection and has not asked for less motion. Text sits on the scrim,
+   never on the footage. */
+#hubhero{
+  position:absolute; inset:0 0 auto; height:min(560px,64vh); z-index:-1;
+  overflow:hidden; pointer-events:none;
+}
+#hubvid{
+  width:100%; height:100%; object-fit:cover; display:block;
+  opacity:0; transition:opacity 1.4s var(--ease);
+  transform:scale(1.06);
+  animation:hub-drift 42s ease-in-out infinite alternate;
+}
+#hubvid.is-ready{ opacity:.30 }
+#hubhero.has-poster #hubvid{ opacity:.22 }
+@keyframes hub-drift{
+  from{ transform:scale(1.06) translate3d(0,0,0) }
+  to  { transform:scale(1.14) translate3d(0,-2.5%,0) }
+}
+#hubscrim{
+  position:absolute; inset:0;
+  background:linear-gradient(180deg,
+    color-mix(in srgb, var(--ground) 55%, transparent) 0%,
+    color-mix(in srgb, var(--ground) 72%, transparent) 45%,
+    var(--ground) 100%);
+}
+@media (prefers-reduced-motion: reduce){ #hubvid{ animation:none } }
+
+/* an ambient glow behind the top of the page, as on the ski hero */
+#hubshell{ position:relative; isolation:isolate; }
+#hubshell::before{
+  content:""; position:absolute; inset:0 0 auto; height:min(620px,70vh); z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(120% 70% at 12% 0%, color-mix(in srgb, var(--acc) 15%, transparent) 0%, transparent 62%),
+    radial-gradient(90% 60% at 88% 6%, color-mix(in srgb, var(--good) 10%, transparent) 0%, transparent 60%);
+}
+
+/* fluid type, so a laptop heading is not a phone heading */
+[style*="font-size:52px"]{ font-size:clamp(38px, 6.5vw, 62px) !important; }
+[style*="font-size:44px"]{ font-size:clamp(30px, 5vw, 46px) !important; }
+[style*="font-size:38px"]{ font-size:clamp(26px, 4vw, 38px) !important; }
+[style*="font-size:30px"]{ font-size:clamp(22px, 2.6vw, 30px) !important; }
+
+/* kickers get the ski page's wider tracking */
+[style*="letter-spacing:0.09em"]{ letter-spacing:.18em !important; }
+[style*="letter-spacing:0.1em"]{ letter-spacing:.2em !important; }
+
 /* --- phones ------------------------------------------------------------
    The course view put a fixed 292px sidebar beside the content, which on a
    375px screen left 83px to actually read in. Below 860px the sidebar stops
@@ -485,11 +588,16 @@ input, button, select { font: inherit; }
 
   <!-- HUB -->
   <sc-if value="{{ isHub }}" hint-placeholder-val="{{ true }}">
+    <div id="hubhero" aria-hidden="true">
+      <video id="hubvid" muted loop playsinline preload="none"
+             poster="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/For%C3%AAt_et_ch%C3%A2teau_de_Fontainebleau.webm/1280px--For%C3%AAt_et_ch%C3%A2teau_de_Fontainebleau.webm.jpg"></video>
+      <div id="hubscrim"></div>
+    </div>
     <div style="flex:1; min-width:0; padding:56px 48px 80px; max-width:1240px">
       <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:32px; flex-wrap:wrap">
         <div>
-          <img src="assets/image-4ceca88f.png" alt="MIM28" style="height:64px; width:auto; display:block; border:2px solid var(--line)">
-          <div style="font-family:var(--font-h); font-size:52px; font-weight:800; letter-spacing:-0.035em; line-height:1.0; margin-top:24px">Study hub</div>
+          <img src="assets/image-4ceca88f.png" alt="MIM28" style="height:64px; width:auto; display:block; border-radius:12px">
+          <div class="dc-display" style="font-family:var(--font-h); font-size:52px; font-weight:800; letter-spacing:-0.035em; line-height:1.0; margin-top:24px">Study hub</div>
           <div style="margin-top:14px; font-size:18px; max-width:56ch; color:var(--soft); text-wrap:pretty">Three courses, one place to work through them. Lessons, drills and exercises built from the class handouts.</div>
         </div>
         <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted); text-align:right">MIM’28<br>Autumn 2026</div>
@@ -502,7 +610,7 @@ input, button, select { font: inherit; }
               <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:{{ c.acc }}">{{ c.code }}</div>
               <div style="width:74px; height:52px; flex:none">{{ c.mascot }}</div>
             </div>
-            <div style="font-family:var(--font-h); font-size:30px; font-weight:800; letter-spacing:-0.025em; line-height:1.08; margin-top:14px">{{ c.title }}</div>
+            <div class="dc-display" style="font-family:var(--font-h); font-size:30px; font-weight:800; letter-spacing:-0.025em; line-height:1.08; margin-top:14px">{{ c.title }}</div>
             <div style="font-size:15px; color:var(--soft); margin-top:10px; text-wrap:pretty">{{ c.blurb }}</div>
             <div style="font-size:12px; letter-spacing:0.06em; text-transform:uppercase; margin-top:20px; color:{{ c.acc }}">{{ c.stat }} →</div>
           </div>
@@ -580,6 +688,10 @@ input, button, select { font: inherit; }
             </sc-for>
           </div>
         </div>
+      </div>
+      <div style="margin-top:56px; padding-top:18px; border-top:1px solid var(--line); font-size:12px; color:var(--faint); max-width:70ch">
+        Fontainebleau footage: <a href="https://commons.wikimedia.org/wiki/File:For%C3%AAt_et_ch%C3%A2teau_de_Fontainebleau.webm" style="color:var(--muted)">Forêt et château de Fontainebleau</a>
+        by filmaviator, <a href="https://creativecommons.org/licenses/by/3.0" style="color:var(--muted)">CC BY 3.0</a>, via Wikimedia Commons. Played muted.
       </div>
     </div>
   </sc-if>
@@ -1624,6 +1736,45 @@ class Component extends DCLogic {
       else if (k === 'Escape') this.calcPress('C');
     };
     window.addEventListener('keydown', this.onKey);
+
+    // The hero footage is 23MB. The poster alone is 100KB and carries the page,
+    // so the video is an upgrade for people who can afford it -- not a tax on a
+    // phone in a lecture hall.
+    try {
+      const hero = document.getElementById('hubhero');
+      const v = document.getElementById('hubvid');
+      if (hero && v) {
+        // The template drops `muted` and `loop` from the markup -- the element
+        // arrives with only playsinline, preload and poster -- so the footage
+        // autoplayed with its soundtrack. Set on the element, where nothing
+        // between here and the DOM can strip them, and before any load.
+        v.muted = true;
+        v.defaultMuted = true;
+        v.volume = 0;
+        v.loop = true;
+        v.setAttribute('muted', '');
+        hero.classList.add('has-poster');
+        const conn = navigator.connection || {};
+        const thrifty = conn.saveData === true || /2g/.test(conn.effectiveType || '');
+        const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!thrifty && !still && v.canPlayType('video/webm')) {
+          const stem = 'https://upload.wikimedia.org/wikipedia/commons/transcoded/d/de/'
+            + 'For%C3%AAt_et_ch%C3%A2teau_de_Fontainebleau.webm/'
+            + 'For%C3%AAt_et_ch%C3%A2teau_de_Fontainebleau.webm';
+          const src = document.createElement('source');
+          src.type = 'video/webm';
+          src.src = stem + (window.innerWidth < 800 ? '.360p.vp9.webm' : '.480p.vp9.webm');
+          v.appendChild(src);
+          v.addEventListener('playing', () => {
+            hero.classList.remove('has-poster');
+            v.classList.add('is-ready');
+          }, { once: true });
+          v.load();
+          const go = v.play();
+          if (go && go.catch) go.catch(() => {});   // autoplay refused: poster stays
+        }
+      }
+    } catch (e) {}
   }
   componentWillUnmount() { window.removeEventListener('keydown', this.onKey); }
 
@@ -1790,7 +1941,7 @@ class Component extends DCLogic {
   }
 
   btn(kind) {
-    const base = 'display:inline-block; text-align:left; font-family:var(--font-h); font-weight:700; font-size:14px; letter-spacing:0.02em; padding:12px 18px; border-radius:0; cursor:pointer; border:2px solid var(--acc);';
+    const base = 'display:inline-block; text-align:left; font-family:var(--font-h); font-weight:700; font-size:14px; letter-spacing:0.02em; padding:12px 20px; border-radius:999px; cursor:pointer; border:1px solid var(--acc); transition:transform .25s var(--ease), box-shadow .35s var(--ease), background .2s;';
     if (kind === 'primary') return base + ' background:var(--acc); color:var(--onAcc);';
     if (kind === 'secondary') return base + ' background:transparent; color:var(--ink);';
     return base + ' background:transparent; color:var(--muted); border-color:var(--line); padding:9px 14px;';
