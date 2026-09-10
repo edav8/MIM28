@@ -596,7 +596,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
              poster="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/For%C3%AAt_et_ch%C3%A2teau_de_Fontainebleau.webm/1280px--For%C3%AAt_et_ch%C3%A2teau_de_Fontainebleau.webm.jpg"></video>
       <div id="hubscrim"></div>
     </div>
-    <div style="flex:1; min-width:0; padding:56px 48px 80px; max-width:1240px">
+    <div style="flex:1; min-width:0; padding:56px 48px 80px; max-width:1240px; margin-inline:auto; width:100%">
       <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:32px; flex-wrap:wrap">
         <div>
           <img src="assets/image-4ceca88f.png" alt="MIM28" style="height:64px; width:auto; display:block; border-radius:12px">
@@ -1772,17 +1772,20 @@ class Component extends DCLogic {
           // to 2:18. Start there and loop that window, so the background is the
           // castle rather than whatever the file happens to begin with.
           const FROM = 76, TO = 138;
-          const toCastle = () => { if (v.currentTime < FROM || v.currentTime > TO) v.currentTime = FROM; };
-          v.addEventListener('loadedmetadata', toCastle, { once: true });
+          // Seeking into the middle of the file interrupts playback, so the seek
+          // has to land before play() is called -- calling it first left the
+          // video parked at 76s, paused, showing the poster.
+          v.addEventListener('loadedmetadata', () => { v.currentTime = FROM; }, { once: true });
+          v.addEventListener('seeked', () => {
+            const go = v.play();
+            if (go && go.catch) go.catch(() => {});   // autoplay refused: poster stays
+          }, { once: true });
           v.addEventListener('timeupdate', () => { if (v.currentTime > TO) v.currentTime = FROM; });
           v.addEventListener('playing', () => {
-            toCastle();
             hero.classList.remove('has-poster');
             v.classList.add('is-ready');
           }, { once: true });
           v.load();
-          const go = v.play();
-          if (go && go.catch) go.catch(() => {});   // autoplay refused: poster stays
         }
       }
     } catch (e) {}
