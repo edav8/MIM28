@@ -17,8 +17,13 @@ permissions:
   id-token: write
 
 concurrency:
+  # Queue deploys, never cancel them. cancel-in-progress kills the previous run
+  # the moment another push arrives, and a deploy takes about ninety seconds --
+  # so a few commits in quick succession cancelled each other and the site sat
+  # on whichever run happened to survive. Runs 31 to 34 were all cancelled that
+  # way, which is why the published page was four commits behind.
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   check:
