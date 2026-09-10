@@ -775,6 +775,9 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
             <button type="button" sc-camel-on-click="{{ resume }}" style="{{ btnPrimary }}">{{ resumeLabel }}</button>
             <button type="button" sc-camel-on-click="{{ goPrac }}" style="{{ btnSecondary }}">Practice exercises</button>
             <button type="button" sc-camel-on-click="{{ startMix }}" style="{{ btnSecondary }}">Mixed drill</button>
+              <sc-if value="{{ hasMissed }}" hint-placeholder-val="{{ false }}">
+                <button type="button" sc-camel-on-click="{{ startMissed }}" style="{{ btnSecondary }}">{{ missedLabel }}</button>
+              </sc-if>
           </div>
 
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); margin-top:36px; border-top:2px solid var(--line); border-left:2px solid var(--line)">
@@ -1845,10 +1848,26 @@ class Component extends DCLogic {
     return q;
   }
 
+  // Mistakes were recorded and never shown. answer() writes each miss into
+  // state.missed under the question's prompt and deletes it when that question
+  // is next answered correctly, so this is a live list of what is still wrong
+  // rather than a history of everything ever missed.
+  missedFor(courseKey) {
+    const d = this.data(courseKey);
+    const missed = this.state.missed || {};
+    const out = [];
+    Object.keys(d.bank || {}).forEach(k => {
+      (d.bank[k] || []).forEach(q => { if (missed[q.p]) out.push(this.normQ(q)); });
+    });
+    return out;
+  }
+
   startDrillFor(key) {
     const d = this.data(this.state.course);
     let list;
-    if (key === 'mix') {
+    if (key === 'mist') {
+      list = this.missedFor(this.state.course);
+    } else if (key === 'mix') {
       list = [];
       Object.keys(d.bank).forEach(k => { (d.bank[k] || []).forEach(q => list.push(q)); });
       for (let i = list.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = list[i]; list[i] = list[j]; list[j] = t; }
@@ -2346,6 +2365,11 @@ class Component extends DCLogic {
     v.resume = () => this.go((this.state.last || {})[ck] || ('ses:' + (d.sessions[0] || {}).key));
     v.resumeLabel = (this.state.last || {})[ck] ? 'Back to where you were' : 'Start at the beginning';
     v.startMix = () => this.startDrillFor('mix');
+    const missedNow = this.missedFor(ck);
+    v.missedCount = String(missedNow.length);
+    v.hasMissed = missedNow.length > 0;
+    v.missedLabel = 'Review ' + missedNow.length + (missedNow.length === 1 ? ' mistake' : ' mistakes');
+    v.startMissed = () => this.startDrillFor('mist');
 
     const lessonBlocks = (d.lessons[ses.key] || []);
     v.ses = { num: ses.num, title: ses.title, preview: ses.preview || 'Materials not released yet.', built: isBuilt(ses.key), notBuilt: !isBuilt(ses.key) };
@@ -2366,7 +2390,7 @@ class Component extends DCLogic {
       const ans = this.state.answers[this.state.qi];
       const key = view.split(':')[1];
       const sesFor = d.sessions.find(s => s.key === key);
-      v.drillHead = (key === 'mix' ? 'Mixed drill' : 'Session ' + (sesFor ? sesFor.num : '')) + ' · question ' + (this.state.qi + 1) + ' of ' + qs.length;
+      v.drillHead = (key === 'mix' ? 'Mixed drill' : key === 'mist' ? 'Your mistakes' : 'Session ' + (sesFor ? sesFor.num : '')) + ' · question ' + (this.state.qi + 1) + ' of ' + qs.length;
       v.drillPct = Math.round(this.state.qi / Math.max(qs.length, 1) * 100) + '%';
       v.typed = this.state.typed;
       v.onTyped = (e) => this.setState({ typed: e.target.value });
