@@ -1489,8 +1489,88 @@ class Component extends DCLogic {
     { key: 's14', num: '14', title: 'Model Validation, Autocorrelations, and Outliers' },
     { key: 's15', num: '15', title: 'Applying Regression and Course Synthesis' }
   ];
-  daBuilt = { s1: true, s2: true, s3: true, s4: true };
+  daBuilt = { s1: true, s2: true, s3: true, s4: true, s5: true, s6: true, s7: true, s8: true, s9: true, s10: true, s11: true, s12: true, s13: true, s14: true, s15: true };
   daLessons = {
+    s5: [
+      { t: 'h', text: 'Why sample at all' },
+      { t: 'p', text: 'You almost never see the population. Measuring all of it is too slow, too expensive or impossible, so you take a sample and reason back. The whole of inference is the price you pay for that shortcut, and the point of the session is to price it exactly rather than hope.' },
+      { t: 'tbl', label: 'Keep the two vocabularies apart', head: ['', 'Population', 'Sample'], rows: [ { cells: ['Called a', 'Parameter', 'Statistic'] }, { cells: ['Mean', 'μ', 'x̄'] }, { cells: ['Standard deviation', 'σ', 's'] }, { cells: ['Status', 'Fixed and unknown', 'Random, and known once drawn'] } ] },
+      { t: 'h', text: 'The sampling distribution of the mean' },
+      { t: 'p', text: 'Draw a sample and x̄ is one number. Draw another and it differs. The distribution of x̄ across all the samples you might have drawn is the sampling distribution, and it is the object everything else is built on.' },
+      { t: 'f', text: 'E[x̄] = μ   ·   SD(x̄) = σ / √n', note: 'The second is the standard error. It is the sampling distribution\'s spread, not the data\'s — a common and expensive confusion.' },
+      { t: 'note', label: 'The √n law', text: 'Precision improves with the square root of n, not with n. Quadrupling the sample halves the standard error; halving the error again costs sixteen times the original sample. This is why survey precision gets expensive so fast.' },
+      { t: 'h', text: 'The Central Limit Theorem' },
+      { t: 'p', text: 'For a large enough sample the distribution of x̄ is approximately normal — whatever the shape of the population it came from. Skewed, bimodal, discrete: it does not matter. This is why the normal distribution turns up everywhere in inference even when nothing in the data looks bell-shaped.' },
+      { t: 'ul', items: ['n ≥ 30 is the usual rule of thumb, and it is only a rule of thumb.', 'The more skewed the population, the larger the n you need before the approximation is safe.', 'If the population is already normal, x̄ is exactly normal at any n.'] },
+      { t: 'h', text: 'Normal approximations' },
+      { t: 'p', text: 'The CLT is also what lets you replace an awkward discrete calculation with a normal one. A binomial with a large n is a sum of independent trials, so it behaves like a normal with the binomial\'s own mean and standard deviation.' },
+      { t: 'f', text: 'Bin(n, p) ≈ N(np, np(1 − p))   ·   Pois(λ) ≈ N(λ, λ)', note: 'For the binomial, check np and n(1 − p) are both comfortably above about 5 before trusting it. For Poisson, the approximation improves as λ grows.' },
+      { t: 'note', label: 'Availability bias', text: 'People judge how likely something is by how easily examples come to mind — which tracks how vivid and recent the coverage was, not how common the event is. Shark attacks and plane crashes are the standard illustrations. It is the mechanism by which one anecdote outweighs a table of statistical evidence.' },
+      { t: 'h', text: 'This session' },
+      { t: 'ul', items: ['Reading: S05.1 — Sampling Distributions, pp. 220–230.', 'Exercises: Set 5, first half (5.1 and 5.2). No graded online exercise this session.'] }
+    ],
+    s6: [
+      { t: 'h', text: 'From a point to an interval' },
+      { t: 'p', text: 'x̄ is a point estimate: one number, certain to be wrong by some amount you cannot see. A confidence interval reports the estimate together with how far off it plausibly is, which is the honest version of the same answer.' },
+      { t: 'f', text: 'x̄ ± z · σ/√n', note: 'The standard error from Session 05, scaled by how confident you want to be. z = 1.645 for 90%, 1.96 for 95%, 2.576 for 99%.' },
+      { t: 'note', label: 'Worked', text: 'x̄ = €160,000, σ = €20,000, n = 25. The standard error is 20,000/5 = €4,000, so the 95% interval is 160,000 ± 1.96 × 4,000 = €152,160 to €167,840.' },
+      { t: 'h', text: 'What the 95% actually refers to' },
+      { t: 'p', text: 'Not to this interval. μ is a fixed number; it is either in this interval or it is not, and no probability attaches to that. The 95% describes the procedure: of all the intervals built this way from all the samples you might have drawn, 95% would contain μ. Saying “there is a 95% chance μ is in here” is the single most common error in the topic.' },
+      { t: 'h', text: 'The sample variance, and why n − 1' },
+      { t: 'f', text: 's² = (1/(n − 1)) Σ (xᵢ − x̄)²', note: 'Dividing by n would understate the spread, because the deviations are taken from x̄ rather than the unknown μ, and x̄ sits closer to its own sample than μ does. Losing one degree of freedom corrects that.' },
+      { t: 'h', text: 'Small samples: the t-distribution' },
+      { t: 'p', text: 'With σ unknown you estimate it with s, which adds uncertainty of its own. The t-distribution accounts for it: same symmetric shape as the normal, but heavier tails, so the intervals it gives are wider.' },
+      { t: 'ul', items: ['Degrees of freedom = n − 1, and there is a different t for each.', 'As n grows t converges on z — by n ≈ 30 the difference stops mattering, which is where the rule of thumb comes from.', 'At n = 10 the 95% multiplier is 2.262 rather than 1.96: about 15% wider, for the same confidence.'] },
+      { t: 'note', label: 'What makes an interval wide', text: 'Three things, and only one is free. More spread in the population widens it; more confidence widens it; more data narrows it. You cannot buy confidence without either wider intervals or a bigger sample.' },
+      { t: 'h', text: 'This session' },
+      { t: 'ul', items: ['Reading: S06.1 — Estimation, pp. 254–261, and S06.2 — Estimating Means (Makridakis & Winkler).', 'Exercises: the rest of Set 5 (5.3 and 5.4) plus Set 7 (7.1). Graded online exercise: 5.4, due before Session 07.'] }
+    ],
+    s7: [
+      { t: 'h', text: 'Intervals for a proportion' },
+      { t: 'p', text: 'Categorical outcomes — voted or did not, clicked or did not — are counts, and the same machinery applies with the binomial standard deviation in place of σ.' },
+      { t: 'f', text: 'p̂ ± z · √(p̂(1 − p̂) / n)', note: 'p̂ is the sample proportion. The standard error is largest at p̂ = 0.5 and shrinks towards either end, which is why a 50/50 split is the hardest thing to measure precisely.' },
+      { t: 'note', label: 'Worked', text: '420 of 600 surveyed say yes, so p̂ = 0.70. The standard error is √(0.7 × 0.3 / 600) = 0.0187, and the 95% interval is 0.70 ± 1.96 × 0.0187 = 66.3% to 73.7%.' },
+      { t: 'h', text: 'Margin of error and sample size' },
+      { t: 'p', text: 'Turn the interval around and it tells you how big a sample you need. Since you do not know p̂ before sampling, use the worst case: p = 0.5 maximises p(1 − p) and so gives the sample size that is safe whatever the answer turns out to be.' },
+      { t: 'f', text: 'n = z² · p(1 − p) / E²', note: 'At 95% confidence and a margin of error of 3 percentage points: n = 1.96² × 0.25 / 0.03² ≈ 1,068. This is why national polls are almost always around a thousand people.' },
+      { t: 'ul', items: ['Margin of error is the half-width of the interval, not the whole thing.', 'It scales with 1/√n, so halving it needs four times the sample.', 'A published margin of error covers sampling error only. It says nothing about a bad question, a bad frame or people who did not answer.'] },
+      { t: 'h', text: 'Finite populations, and practice' },
+      { t: 'p', text: 'When the sample is a large fraction of the population, the standard error is smaller than the formula suggests, and a finite population correction applies. In practice the harder problems are elsewhere: cost per response, non-response bias, and a sampling frame that quietly excludes the people you most needed to hear from.' },
+      { t: 'note', label: 'Overconfidence', text: 'Asked for a 90% interval, most people give one that contains the true value far less than 90% of the time — commonly nearer 50%. The bias is not about knowing too little, it is about believing your range is tighter than it is. The class checks its own calibration, which is the only way to feel it.' },
+      { t: 'h', text: 'This session' },
+      { t: 'ul', items: ['Opens with the debrief of the Bad Statistics group assignment.', 'Reading: S07.1 — Hanke & Reitsch, Proportions, pp. 263–268, via the Doriot Library. Copyright keeps the chapter off the LMS.', 'Exercises: Sets 6 and 7 (7.2 and 7.3). Graded online: 6.4 and 7.2, due before Session 08.'] }
+    ],
+    s8: [
+      { t: 'h', text: 'The shape of a test' },
+      { t: 'p', text: 'Hypothesis testing is a procedure for deciding whether a claim about a population survives contact with a sample. It is deliberately asymmetric: one hypothesis is on trial and the other is presumed until the evidence is strong enough to abandon it.' },
+      { t: 'ul', items: ['H₀, the null: the claim of no effect, no difference, nothing going on. This is what is presumed.', 'H₁, the alternative: what you actually suspect, and what the data must earn.', 'You never prove H₀. You either reject it or fail to reject it — which is not the same as accepting it.'] },
+      { t: 'h', text: 'The five steps' },
+      { t: 'ul', items: ['State H₀ and H₁, and decide whether the test is one-tailed or two.', 'Choose α, the significance level, BEFORE seeing the data. Conventionally 0.05.', 'Compute the test statistic: how many standard errors the sample sits from the null value.', 'Compare it with the critical value, or equivalently compare the p-value with α.', 'State the conclusion in the language of the problem, not in symbols.'] },
+      { t: 'f', text: 'z = (x̄ − μ₀) / (σ/√n)', note: 'The test statistic is a distance measured in standard errors. Everything else is bookkeeping about how far is far enough.' },
+      { t: 'note', label: 'Worked', text: 'A supplier claims a mean of 500. You sample 64 units, find x̄ = 494, and know σ = 24. The standard error is 24/8 = 3, so z = (494 − 500)/3 = −2.0. At α = 0.05 two-tailed the critical values are ±1.96, so −2.0 falls outside and the claim is rejected — just.' },
+      { t: 'h', text: 'The two ways to be wrong' },
+      { t: 'tbl', label: 'And they trade off', head: ['', 'H₀ is true', 'H₀ is false'], rows: [ { cells: ['Reject H₀', 'Type I error, probability α', 'Correct'] }, { cells: ['Fail to reject', 'Correct', 'Type II error, probability β'] } ] },
+      { t: 'p', text: 'Lowering α makes a false positive less likely and a false negative more likely. You cannot reduce both without more data — which is the real reason sample size matters. Power, 1 − β, is the chance of catching a real effect.' },
+      { t: 'note', label: 'One tail or two', text: 'Use one tail only when you genuinely care about a single direction, and decide before you look. Switching to a one-tailed test after seeing which way the data went halves your p-value without any new evidence, which is cheating with extra steps.' },
+      { t: 'h', text: 'This session' },
+      { t: 'ul', items: ['Reading: S08.1 — Hypothesis Testing, pp. 289–309, with pp. 289–301 the focus for this session.', 'Exercises: Set 9, first part. No graded online exercise this session.'] }
+    ],
+    s9: [
+      { t: 'h', text: 'What counts as evidence' },
+      { t: 'p', text: 'A test gives a verdict; evidence is a matter of degree. The session steps back from reject-or-not and asks how strongly a sample speaks against a hypothesis — and the standard answer, for better and worse, is the p-value.' },
+      { t: 'f', text: 'p = ℙ(a result at least this extreme | H₀ is true)', note: 'Read the conditioning bar carefully. It assumes the null and asks about the data. It does not assume the data and give you the probability of the null.' },
+      { t: 'h', text: 'What a p-value is not' },
+      { t: 'ul', items: ['Not the probability that H₀ is true. That question needs a prior, which the p-value does not have.', 'Not the probability you made a mistake.', 'Not a measure of size. A tiny p-value on a huge sample can describe an effect too small to care about.', 'Not a threshold in nature. p = 0.049 and p = 0.051 are the same evidence; only the convention differs.'] },
+      { t: 'note', label: 'A large p-value is not evidence of no effect', text: 'Failing to reject means the data was consistent with the null, which is also what a small, underpowered study looks like when a real effect is present. Absence of evidence and evidence of absence are different claims, and the confidence interval tells them apart where the p-value cannot.' },
+      { t: 'h', text: 'The betting interpretation' },
+      { t: 'p', text: 'One way to make the p-value concrete is as a bet against the null. If you wager on the null being wrong and the null is in fact true, a small p-value corresponds to a large payoff — evidence is what you would have been willing to stake. It is the intuition behind the professor\'s own research area, statistics-by-betting, and it makes the strength of evidence continuous rather than a verdict.' },
+      { t: 'h', text: 'Multiple testing and p-hacking' },
+      { t: 'p', text: 'Run twenty independent tests at α = 0.05 on data with nothing in it and you expect one significant result. Nothing has gone wrong with any single test; the error is in reporting the winner and not the twenty.' },
+      { t: 'ul', items: ['Testing many outcomes and reporting the one that worked.', 'Adding data until the p-value crosses the line, then stopping.', 'Choosing the subgroup, the covariates or the exclusion rule after seeing the result.', 'Switching one tail for two, or the reverse, once the direction is known.'] },
+      { t: 'note', label: 'The fix is procedural', text: 'Decide the analysis before the data, say how many tests you ran, correct for them, and prefer estimates with intervals to verdicts. A pre-registered plan is not bureaucracy — it is what makes the p-value mean what it claims.' },
+      { t: 'h', text: 'This session' },
+      { t: 'ul', items: ['Reading: “Trampling Science in a Rush to Judgment”, and re-read S08.1 pp. 302–309.', 'Exercises: Set 9, continued. Graded online exercise: 9.2, due before Session 10.'] }
+    ],
     s4: [
       { t: 'h', text: 'The normal distribution' },
       { t: 'p', text: 'A continuous distribution fixed entirely by two numbers: its mean and its standard deviation. Symmetric about the mean, with the familiar bell shape, and — unlike the binomial or Poisson — defined over a continuum, so probabilities attach to intervals rather than to single values.' },
@@ -1617,9 +1697,136 @@ class Component extends DCLogic {
       { t: 'note', label: 'Is it safe to fly?', text: 'If crashes were rare independent events — Poisson — then clusters in some decades are exactly what you should expect. A run of accidents is not evidence that flying got more dangerous.' },
       { t: 'h', text: 'Reading for this session' },
       { t: 'ul', items: ['S03.1 — The Binomial Distribution, pp. 146–149.', 'S03.2 — The Poisson Distribution, pp. 161–164.', 'The binomial and Poisson tables are in the course statistical tables — and this trainer computes both live under Statistical tables, so you can check a table reading against the formula.'] }
+    ],
+    s10: [
+      { t: 'h', text: 'Simple linear regression' },
+      { t: 'p', text: 'One predictor, one outcome, a straight line through the cloud. Regression is the workhorse for two different jobs — describing how two variables move together, and predicting an outcome you have not seen — and most of the trouble in the topic comes from doing the second while talking as if you had done a third, causal, one.' },
+      { t: 'f', text: 'Y = β₀ + β₁X + ε', note: 'β₀ is the intercept, β₁ the slope, and ε the error the model does not explain. The fitted line replaces the βs with estimates b₀ and b₁ from the sample.' },
+      { t: 'h', text: 'Reading the coefficients' },
+      { t: 'ul', items: ['The slope is the average change in Y for a one-unit rise in X. Say the units out loud: “€1,200 more sales per extra square metre”, not “1,200”.', 'The intercept is the fitted value at X = 0, which is often meaningless — nobody has zero square metres — and is not a defect.', 'The line is fitted by least squares: it minimises the sum of squared vertical distances from the points.'] },
+      { t: 'note', label: 'Fitted values and residuals', text: 'ŷ is what the line predicts; the residual e = y − ŷ is what it missed. Residuals are the raw material for everything in Session 14, so it is worth getting used to reading them now.' },
+      { t: 'h', text: 'The pipeline, in order' },
+      { t: 'ul', items: ['Load the data and look at it. Types, ranges, missing values, obvious nonsense.', 'Explore and visualise before fitting anything. A scatter plot answers questions the output cannot.', 'Fit the model.', 'Verify the output against what you already know about the data. This is the step the session emphasises and the one people skip.'] },
+      { t: 'note', label: 'The plot comes first', text: 'A single line of regression output is compatible with wildly different scatter plots — curvature, a single leverage point, two separate groups. Fit second, look first.' },
+      { t: 'h', text: 'This session' },
+      { t: 'ul', items: ['Reading: S10.1 — Simple Regression, pp. 186–207.', 'Dig deeper: “The Hemline Theory of the Dow”, which is what spurious correlation looks like when it is dressed up.'] }
+    ],
+    s11: [
+      { t: 'h', text: 'Inference in regression' },
+      { t: 'p', text: 'The slope you computed is an estimate from one sample, so it has a standard error like any other estimate — and the same machinery from Session 06 applies. The question is no longer “what is the slope” but “is there a relationship here at all”.' },
+      { t: 'f', text: 't = b₁ / SE(b₁),   with H₀: β₁ = 0', note: 'The null is that the predictor does nothing. The p-value beside a coefficient is the result of exactly this test, and nothing more.' },
+      { t: 'ul', items: ['A large standard error relative to the coefficient means the slope is poorly pinned down, whatever its size.', 'A confidence interval for β₁ is more informative than the p-value: it shows both the direction and how precisely you know it.', 'An interval that straddles zero is the same information as p > 0.05, said more usefully.'] },
+      { t: 'h', text: 'R², and what it does not mean' },
+      { t: 'f', text: 'R² = explained variation / total variation', note: 'The share of the variation in Y the model accounts for, between 0 and 1. It says nothing about whether the model is correct, whether the relationship is causal, or whether the coefficients are precise.' },
+      { t: 'note', label: 'High R², useless model', text: 'Regress anything on time and R² will look impressive. A high R² with a residual plot that curves is a model that fits well and is wrong; a modest R² on genuinely noisy behaviour can be the best available answer.' },
+      { t: 'h', text: 'What a controlled comparison buys' },
+      { t: 'p', text: 'The loyalty-scheme debrief turns on this. In observational data the people who joined the scheme differ from those who did not in ways you cannot see, and the coefficient absorbs all of it. Randomised assignment makes the groups comparable in expectation, so the difference can be read as an effect rather than a correlation.' },
+      { t: 'h', text: 'Representativeness and regression to the mean' },
+      { t: 'p', text: 'People judge probability by resemblance to a stereotype rather than by base rates — which is representativeness bias, and it is why the conjunction of two vivid details can seem likelier than one of them alone.' },
+      { t: 'note', label: 'Regression to the mean', text: 'Extreme observations are extreme partly by luck, and luck does not repeat, so the next measurement drifts back towards the average. Praise a spectacular performance and the follow-up disappoints; punish a terrible one and it improves. Neither the praise nor the punishment did anything, and this is how superstitions about management style are born.' },
+      { t: 'h', text: 'This session' },
+      { t: 'ul', items: ['Reading: S10.1 — Simple Regression, pp. 208–221.', 'Opens with the debrief of the loyalty scheme and direct mail assignment.'] }
+    ],
+    s12: [
+      { t: 'h', text: 'Multiple regression' },
+      { t: 'p', text: 'More than one predictor, and the interpretation of every coefficient changes with it. Each slope is now the effect of its own variable holding the others fixed — which is what makes multiple regression powerful and what makes it so easy to describe wrongly.' },
+      { t: 'f', text: 'Y = β₀ + β₁X₁ + β₂X₂ + ⋯ + βₖXₖ + ε', note: 'β₁ is the average change in Y per unit of X₁ with X₂ … Xₖ held constant. Drop the “holding the others constant” and the sentence is no longer true.' },
+      { t: 'h', text: 'Multicollinearity' },
+      { t: 'p', text: 'When predictors are strongly correlated with each other, the model cannot tell their contributions apart. The fit stays fine and the individual coefficients become unstable: large standard errors, signs that flip when you add a variable, significance that appears and vanishes.' },
+      { t: 'ul', items: ['Symptom: a model that predicts well overall while no single coefficient looks significant.', 'Diagnose it by looking at correlations among the predictors, or a variance inflation factor.', 'Remedies: drop one of the pair, combine them into a single measure, or accept it — if you only want prediction, collinearity is not fatal.'] },
+      { t: 'h', text: 'Two different intervals' },
+      { t: 'tbl', label: 'Do not confuse them', head: ['', 'Answers', 'Width'], rows: [ { cells: ['Confidence interval', 'Where the mean of Y sits at these X values', 'Narrower'] }, { cells: ['Forecast interval', 'Where a single new observation will fall', 'Wider — it also carries ε'] } ] },
+      { t: 'note', label: 'Prediction is not causation', text: 'A coefficient is a statement about the data-generating process only if the model is right and nothing important is omitted. Absent that, regression supports prediction and description. An omitted variable correlated with both X and Y will happily hand you a confident, significant, wrong coefficient.' },
+      { t: 'h', text: 'This session' },
+      { t: 'ul', items: ['Reading: S12.1 — Introduction to Multiple Linear Regression, pp. 241–262, via the Doriot Library. Copyright keeps the chapter off the LMS.'] }
+    ],
+    s13: [
+      { t: 'h', text: 'Choosing between models' },
+      { t: 'p', text: 'Add a predictor and R² can only rise, even if the predictor is noise. So R² cannot be used to compare models of different sizes, and the session is about what can.' },
+      { t: 'ul', items: ['Adjusted R² penalises extra predictors, so it can fall when a variable does not earn its place.', 'The F-test asks whether the model as a whole explains anything, against the null that every slope is zero.', 'Neither settles it. Out-of-sample performance does.'] },
+      { t: 'h', text: 'Overfitting' },
+      { t: 'p', text: 'A model with enough freedom will fit the sample it was trained on, including its noise, and then fail on anything new. In-sample fit always flatters; the only honest test is data the model has never seen.' },
+      { t: 'note', label: 'Out-of-sample evaluation', text: 'Hold data back, fit on the rest, and measure the error on the part you withheld. Prediction error is itself an estimate, so it gets a confidence interval like anything else — and two models can be compared with a paired test on their errors, using exactly the inference tools from Session 08.' },
+      { t: 'h', text: 'Variable selection' },
+      { t: 'p', text: 'Stepwise procedures that add or drop variables by p-value are convenient and quietly invalidate the p-values they use, because the same data chose the model and then tested it. Prefer a small model motivated by what you know about the problem, and judge it out of sample.' },
+      { t: 'h', text: 'This session' },
+      { t: 'ul', items: ['Reading: S13.1 — Variable Selection and Multicollinearity, pp. 274–290.', 'Opens with the debrief of the “Firing an Expert” assignment.'] }
+    ],
+    s14: [
+      { t: 'h', text: 'What the residuals tell you' },
+      { t: 'p', text: 'Regression assumes the errors are independent, of constant variance, and roughly normal. None of that is checked by R² or by any p-value — it is checked by plotting the residuals, which is why this session exists.' },
+      { t: 'ul', items: ['Plot residuals against fitted values: curvature means the functional form is wrong, a fan shape means the variance is not constant.', 'Plot residuals against time or order: a pattern means autocorrelation.', 'A histogram or normal plot of residuals checks the normality assumption, which matters most for small samples.'] },
+      { t: 'h', text: 'Autocorrelated errors' },
+      { t: 'p', text: 'In time series, this period\'s error tends to resemble last period\'s. The coefficients stay roughly unbiased but the standard errors are understated, so everything looks more significant than it is — the most common way a time-series regression misleads.' },
+      { t: 'note', label: 'Remedies', text: 'Include a lagged predictor or a lagged outcome, model the error process explicitly, or difference the series. Adding a variable that captures the trend both series share is often enough.' },
+      { t: 'h', text: 'Heteroskedasticity, outliers, and spurious correlation' },
+      { t: 'ul', items: ['Heteroskedasticity: variance that grows with the level. Coefficients survive, standard errors do not; a log transformation often fixes it.', 'Outliers and leverage points: a single observation far out in X can set the slope on its own. Find it, understand it, and report what happens with and without it rather than deleting it quietly.', 'Spurious correlation: two series that both trend will correlate beautifully and mean nothing. This is what “The Hemline Theory of the Dow” and the sunshine-and-stock-returns paper are for.'] },
+      { t: 'h', text: 'This session' },
+      { t: 'ul', items: ['Reading: S14.01 — Regression with Time Series, pp. 263–273.', 'Dig deeper: “Good Day Sunshine: Stock Returns and the Weather”.'] }
+    ],
+    s15: [
+      { t: 'h', text: 'Beyond the straight line' },
+      { t: 'p', text: 'The final session widens the toolkit and then closes the loop back to the first one.' },
+      { t: 'ul', items: ['Nonlinear models: transform a variable, or fit a curve, when the relationship plainly is not straight.', 'Logistic regression: when the outcome is binary, model the log-odds rather than the probability, so predictions cannot fall outside 0 and 1.', 'Machine learning: more flexible predictors, better out-of-sample performance when there is enough data, and much less interpretability — the trade-off is explicit, not free.'] },
+      { t: 'h', text: 'The three tenets, again' },
+      { t: 'p', text: 'Uncertainty, data, judgment. The course began with a bet and ends with model selection, and the shape is the same throughout: work out what kind of uncertainty you face, use data to model and reduce it, and keep judgment in the loop because the model cannot supply it.' },
+      { t: 'note', label: 'The pitfalls, collected', text: 'Reading a chart without reading its axes. Summarising with a mean that an outlier owns. Treating a coconut as a subway — the illusion of control. Mistaking a p-value for the probability of a hypothesis. Reporting the one test that worked out of twenty. And the extra one: a coefficient described as an effect when the data was never able to support that word.' },
+      { t: 'h', text: 'This session' },
+      { t: 'ul', items: ['Opens with the “Harmon Foods” debrief.', 'No mandatory reading. Guidance on the final exam is given in class.'] }
     ]
+
   };
   daBank = {
+    s5: [
+      { t: 'mcq', k: 'Vocabulary', p: 'μ and σ describe which thing?', o: ['The sample you drew', 'The population, unknown', 'The sampling distribution', 'The estimate and its error'], a: 1, why: 'Greek letters are population parameters: fixed, and almost always unknown. Roman letters — x̄ and s — are what you compute from a sample.' },
+      { t: 'num', k: 'Standard error', p: 'σ = 20 and n = 25. What is the standard error of the mean?', a: 4, tol: 0.01, hint: 'Divide the population standard deviation by the square root of n.', why: 'SE = 20/√25 = 4. Note it is the spread of x̄ across samples, not the spread of the data.' },
+      { t: 'num', k: 'The √n law', p: 'Same population, but n rises from 25 to 100. What is the new standard error?', a: 2, tol: 0.01, hint: 'Four times the sample. What does that do to the square root?', why: '20/√100 = 2. Quadrupling n halves the error — precision improves with √n, which is why it gets expensive.' },
+      { t: 'mcq', k: 'CLT', p: 'The Central Limit Theorem says that for large n:', o: ['The data becomes normal', 'x̄ is approximately normal', 'σ shrinks towards zero', 'The sample equals the population'], a: 1, why: 'The theorem is about the sampling distribution of the mean, not about the data. A skewed population stays skewed however large the sample.' },
+      { t: 'mcq', k: 'CLT', p: 'A population is heavily skewed. What follows?', o: ['The CLT does not apply', 'You need a larger n', 'x̄ is never normal', 'You must use the median'], a: 1, why: 'The approximation still arrives, just later. n ≥ 30 is a rule of thumb for well-behaved populations and can be far too small for a badly skewed one.' },
+      { t: 'num', k: 'Approximation', p: 'X ~ Bin(100, 0.3) is approximated by a normal. What is its standard deviation, to two decimals?', a: 4.58, tol: 0.02, hint: 'The binomial standard deviation is √(np(1 − p)).', why: '√(100 × 0.3 × 0.7) = √21 = 4.58, with mean np = 30. Both np and n(1 − p) are well above 5, so the approximation is safe.' },
+      { t: 'mcq', k: 'Approximation', p: 'For Pois(λ) approximated by a normal, the variance is:', o: ['λ, the same as the mean', 'λ squared', 'The square root of λ', 'One over λ'], a: 0, why: 'Mean and variance are both λ — the one distribution where they coincide. The approximation improves as λ grows.' },
+      { t: 'mcq', k: 'Availability bias', p: 'Availability bias makes people judge likelihood by:', o: ['How recent the underlying data is', 'How easily examples come to mind', 'The size of the sample', 'Who reported the number'], a: 1, why: 'Vivid and recent coverage is easy to recall, and ease of recall gets mistaken for frequency. It is why one plane crash outweighs a decade of safety statistics.' }
+    ],
+    s6: [
+      { t: 'mcq', k: 'Interpretation', p: 'A 95% confidence interval means:', o: ['μ is 95% likely to be inside', '95% of such intervals hold μ', '95% of the data lies inside', 'The estimate is 95% accurate'], a: 1, why: 'μ is fixed, so no probability attaches to whether it is in this particular interval. The 95% is a property of the procedure, across the samples you might have drawn.' },
+      { t: 'num', k: 'Interval', p: 'x̄ = 160, σ = 20, n = 25. What is the half-width of the 95% interval? Use z = 1.96.', a: 7.84, tol: 0.02, hint: 'z times the standard error. The standard error is 4.', why: '1.96 × 4 = 7.84, so the interval runs from 152.16 to 167.84.' },
+      { t: 'mcq', k: 'Confidence level', p: 'Moving from 95% to 99% confidence does what to the interval?', o: ['Widens it', 'Narrows it', 'Leaves it unchanged', 'Depends on the sample'], a: 0, why: 'z rises from 1.96 to 2.576. More confidence is bought with a vaguer answer — the only way to have both is more data.' },
+      { t: 'mcq', k: 'Degrees of freedom', p: 'Why does the sample variance divide by n − 1?', o: ['To make the arithmetic easier', 'Deviations are taken from x̄', 'Because n is unknown', 'To match the t-distribution'], a: 1, why: 'x̄ sits closer to its own sample than μ does, so the squared deviations come out too small. Losing a degree of freedom corrects the bias.' },
+      { t: 'num', k: 'Sample variance', p: 'For the sample 2, 4, 6, 8, what is s², to two decimals?', a: 6.67, tol: 0.02, hint: 'Mean 5. Sum the squared deviations, then divide by n − 1 = 3.', why: '(9 + 1 + 1 + 9)/3 = 20/3 = 6.67. Dividing by 4 would have given 5, which understates it.' },
+      { t: 'mcq', k: 't-distribution', p: 'The t-distribution is used when:', o: ['n is very large', 'σ is unknown', 'The data is skewed', 'You want more confidence'], a: 1, why: 'Estimating σ with s adds uncertainty, and t\'s heavier tails price it in. As n grows t converges on z.' },
+      { t: 'num', k: 't-distribution', p: 'At n = 10, the 95% t multiplier is 2.262 against z = 1.96. How much wider is the interval, in per cent, to the nearest whole number?', a: 15, tol: 1, hint: 'Compare the two multipliers as a ratio.', why: '2.262/1.96 = 1.154, about 15% wider — the price of not knowing σ, on a small sample.' },
+      { t: 'mcq', k: 'Width', p: 'Which change narrows a confidence interval?', o: ['A substantially larger sample', 'Higher confidence', 'More spread in the data', 'A smaller sample'], a: 0, why: 'Only n narrows it for free. Confidence and population spread both widen it.' }
+    ],
+    s7: [
+      { t: 'num', k: 'Proportions', p: '420 of 600 people say yes. What is the standard error of the proportion, to four decimals?', a: 0.0187, tol: 0.0005, hint: 'p̂ = 0.7. Use √(p̂(1 − p̂)/n).', why: '√(0.7 × 0.3 / 600) = √0.00035 = 0.0187, so the 95% interval is 66.3% to 73.7%.' },
+      { t: 'mcq', k: 'Worst case', p: 'When planning a sample size you assume p = 0.5 because:', o: ['It is the most likely value', 'It maximises p(1 − p)', 'It simplifies the algebra', 'Surveys are usually even'], a: 1, why: 'p(1 − p) peaks at 0.25 when p = 0.5, so that assumption gives the sample size that is safe whatever the true proportion turns out to be.' },
+      { t: 'num', k: 'Sample size', p: 'What sample size gives a 3 percentage point margin of error at 95% confidence? Round up.', a: 1068, tol: 3, hint: 'n = z²p(1 − p)/E² with p = 0.5, z = 1.96 and E = 0.03.', why: '1.96² × 0.25 / 0.0009 = 1,067.1, so 1,068. This is why national polls hover around a thousand respondents.' },
+      { t: 'mcq', k: 'Scaling', p: 'To halve a margin of error you must:', o: ['Double the sample', 'Quadruple the sample', 'Halve the confidence', 'Double the confidence'], a: 1, why: 'Margin of error scales with 1/√n, so cutting it in half costs four times the sample. Precision is bought at a punishing rate.' },
+      { t: 'mcq', k: 'What it covers', p: 'A published margin of error accounts for:', o: ['Sampling error only', 'All survey error', 'Question wording too', 'Non-response as well'], a: 0, why: 'It is arithmetic on the sample size. A leading question, a frame that misses people, or the wrong people answering are all invisible to it — and usually larger.' },
+      { t: 'mcq', k: 'Finite populations', p: 'Sampling a large fraction of a small population means the true standard error is:', o: ['Larger than the formula says', 'Smaller than the formula says', 'Unchanged', 'Impossible to compute'], a: 1, why: 'Each observation removes some of the remaining uncertainty, so the finite population correction reduces the error. Census the whole population and it goes to zero.' },
+      { t: 'mcq', k: 'Overconfidence', p: 'Asked for 90% intervals, people typically produce ones that contain the truth:', o: ['About 90% of the time', 'Far less often', 'Slightly more often', 'Almost always'], a: 1, why: 'Commonly nearer 50%. The failure is not ignorance but believing your range is tighter than it is — which is why calibration has to be measured rather than assumed.' },
+      { t: 'mcq', k: 'Precision', p: 'Which sample proportion is hardest to estimate precisely?', o: ['0.5', '0.1', '0.9', '0.01'], a: 0, why: 'p(1 − p) is largest there, so the standard error is too. Lopsided proportions are easier to pin down than even splits.' }
+    ],
+    s8: [
+      { t: 'mcq', k: 'The null', p: 'The null hypothesis is:', o: ['What you suspect is true', 'The claim of no effect', 'Whatever the data shows', 'The larger of the two means'], a: 1, why: 'H₀ is the presumption the data has to overturn. Your actual suspicion belongs in H₁, where it has to earn its place.' },
+      { t: 'mcq', k: 'Conclusions', p: 'Failing to reject H₀ means:', o: ['H₀ has been proven correct', 'The data is consistent with H₀', 'H₁ is false', 'The test was invalid'], a: 1, why: 'You never prove a null. Consistency with H₀ is also what an underpowered study looks like when an effect is really there.' },
+      { t: 'num', k: 'Test statistic', p: 'μ₀ = 500, x̄ = 494, σ = 24, n = 64. What is z?', a: -2, tol: 0.02, hint: 'Standard error first: σ over the root of n. Then the gap divided by it.', why: 'SE = 24/8 = 3, so z = (494 − 500)/3 = −2.0.' },
+      { t: 'mcq', k: 'Decision', p: 'With z = −2.0, α = 0.05 and a two-tailed test, you:', o: ['Reject H₀', 'Fail to reject H₀', 'Cannot decide', 'Need a one-tailed test'], a: 0, why: 'The critical values are ±1.96 and −2.0 lies beyond them. Only just — which is worth saying out loud rather than reporting a bare rejection.' },
+      { t: 'mcq', k: 'Type I', p: 'A Type I error is:', o: ['Rejecting a true H₀', 'Missing a real effect', 'Choosing the wrong test', 'A calculation mistake'], a: 0, why: 'A false positive, and its probability is exactly the α you chose in advance.' },
+      { t: 'mcq', k: 'Trade-off', p: 'Lowering α from 0.05 to 0.01 does what to β?', o: ['Raises it', 'Lowers it', 'Leaves it alone', 'Sets it to zero'], a: 0, why: 'Guarding harder against false positives lets more real effects slip through. Reducing both at once takes a larger sample.' },
+      { t: 'mcq', k: 'Power', p: 'Statistical power is:', o: ['1 − α', '1 − β', 'The p-value', 'The effect size'], a: 1, why: 'The chance of detecting an effect that is genuinely there. Low power is why a null result so often means nothing at all.' },
+      { t: 'mcq', k: 'Tails', p: 'Switching to a one-tailed test after seeing the direction of the data:', o: ['Is standard practice', 'Invalidates the p-value', 'Increases the power', 'Requires a larger α'], a: 1, why: 'It halves the p-value without adding evidence. The choice of tail has to be made before the data, for the same reason α does.' }
+    ],
+    s9: [
+      { t: 'mcq', k: 'Definition', p: 'A p-value is the probability of:', o: ['The null hypothesis being true', 'A result this extreme, given H₀', 'Making an error', 'The effect being large'], a: 1, why: 'It conditions on the null and asks about the data. Reversing the conditioning is the single most common misreading in statistics.' },
+      { t: 'mcq', k: 'Misreading', p: 'p = 0.03 means:', o: ['A 3% chance the null holds true', 'Data this extreme is rare under H₀', 'A 3% chance of error', 'The effect is 3% in size'], a: 1, why: 'Getting from the data to a probability about H₀ needs a prior, which a p-value has not got.' },
+      { t: 'mcq', k: 'Large p-values', p: 'A large p-value tells you:', o: ['There is definitely no effect', 'The data is consistent with H₀', 'The sample was too small', 'H₀ is probably true'], a: 1, why: 'Absence of evidence is not evidence of absence. A wide confidence interval will show you which of the two you are looking at; the p-value will not.' },
+      { t: 'mcq', k: 'Size', p: 'A very small p-value on a very large sample means:', o: ['The effect is large', 'The effect may be tiny', 'The test was wrong', 'H₀ is certainly false'], a: 1, why: 'Enough data makes any departure from the null detectable, however trivial. Significance is not importance — report the size as well.' },
+      { t: 'num', k: 'Multiple testing', p: 'You run 20 independent tests at α = 0.05 on data with no real effects. How many significant results do you expect?', a: 1, tol: 0.01, hint: 'Each test has a 5% chance of a false positive.', why: '20 × 0.05 = 1. Nothing is wrong with any single test; reporting only the winner is what breaks it.' },
+      { t: 'mcq', k: 'p-hacking', p: 'Which of these is p-hacking?', o: ['Pre-registering the analysis', 'Adding data until p < 0.05', 'Reporting the interval', 'Correcting for many tests'], a: 1, why: 'Optional stopping guarantees you cross the line eventually. The other three are the remedies.' },
+      { t: 'mcq', k: 'Thresholds', p: 'p = 0.049 against p = 0.051 represents:', o: ['Essentially the same evidence', 'A decisive difference in evidence', 'Twice the evidence', 'Opposite conclusions'], a: 0, why: '0.05 is a convention, not a property of nature. Treating it as a cliff is how a continuous measure of evidence became a verdict.' },
+      { t: 'mcq', k: 'Remedy', p: 'The most effective guard against manufactured significance is:', o: ['A larger sample', 'Deciding the analysis first', 'A stricter α', 'More replications'], a: 1, why: 'Fixing the plan before the data removes the freedom that p-hacking exploits. The others help, but they do not close the door.' }
+    ],
     s4: [
       { t: 'mcq', k: 'Normal', p: 'A normal distribution is fixed by which quantities?', o: ['Its range and its median', 'Its mean and standard deviation', 'Its skewness and its median value', 'Its sample size and range'], a: 1, why: 'Two numbers, and no others. That is what makes the family so tractable: fix μ and σ and the whole curve is determined.' },
       { t: 'mcq', k: 'Continuity', p: 'For a continuous random variable, ℙ(X = 5) equals:', o: ['Whatever the density gives', 'Zero, exactly', 'One over the range', 'It cannot be defined'], a: 1, why: 'Probability attaches to intervals, not points — the area under a curve over a single point is zero. Only ℙ(a < X < b) says anything.' },
@@ -1665,7 +1872,54 @@ class Component extends DCLogic {
       { t: 'mcq', k: 'Which model?', p: 'Deaths in a year among the holders of a known set of life insurance policies:', o: ['Binomial', 'Poisson', 'Bernoulli', 'Neither'], a: 0, why: 'The number of policyholders is known, so n is fixed and each policy is a trial. That is Binomial — though with small p it is well approximated by Poisson with λ = np.' },
       { t: 'num', k: 'Variance', p: 'For a Bernoulli(p) coin, at which p is the variance largest? Give p.', a: 0.5, tol: 0.01, unit: '', ph: 'e.g. 0.5', hint: 'Variance is p(1 − p). Sketch it between 0 and 1 and find the peak.', why: 'p(1 − p) peaks at p = 0.5, value 0.25. A 50% forecast is the most uncertain one available.' },
       { t: 'tf', k: 'True or false', p: 'For a Poisson random variable the mean and the variance are equal.', a: true, why: 'True. E[X] = λ and Var[X] = λ — a property worth checking against your data before assuming Poisson.' }
+    ],
+    s10: [
+      { t: 'mcq', k: 'Coefficients', p: 'In Y = β₀ + β₁X + ε, the slope β₁ is:', o: ['The value of Y at X = 0', 'The average change in Y per unit X', 'The correlation between X and Y', 'The share of variation explained'], a: 1, why: 'And it carries units. Saying the slope is “1,200” without saying per what is how a regression gets misread.' },
+      { t: 'mcq', k: 'Least squares', p: 'Least squares fits the line by minimising:', o: ['The sum of the residuals', 'The squared vertical distances', 'The perpendicular distances', 'The largest residual'], a: 1, why: 'Vertical, because the model predicts Y from X, and squared, so that positive and negative misses cannot cancel out.' },
+      { t: 'mcq', k: 'Intercept', p: 'An intercept with no sensible real-world meaning is:', o: ['A sign of a broken model', 'Often perfectly normal', 'A reason to drop it', 'Evidence of collinearity'], a: 1, why: 'X = 0 is frequently outside the data and physically impossible. That does not stop the intercept doing its job of positioning the line.' },
+      { t: 'mcq', k: 'Residuals', p: 'The residual for an observation is:', o: ['y − ŷ', 'ŷ − ȳ', 'y − ȳ', 'The standard error'], a: 0, why: 'What the line missed by. These are the raw material for the diagnostics in Session 14.' },
+      { t: 'mcq', k: 'Pipeline', p: 'The step the session insists on and people skip is:', o: ['Loading the data', 'Verifying the output', 'Fitting the model', 'Exporting the results'], a: 1, why: 'Checking the output against what you already know about the data. A model that runs is not a model that is right.' },
+      { t: 'mcq', k: 'Plots', p: 'Why plot before fitting?', o: ['To decide which software to use', 'Identical output, different data', 'To find missing values', 'It is required by the exam'], a: 1, why: 'Curvature, one leverage point, or two distinct groups all produce respectable-looking regression output. Only the scatter plot distinguishes them.' }
+    ],
+    s11: [
+      { t: 'mcq', k: 'The test', p: 'The p-value printed beside a regression coefficient tests:', o: ['That the model is correct', 'H₀: the slope is zero', 'That R² is large enough', 'That the residuals are normal'], a: 1, why: 'Nothing more than whether that predictor does anything. It says nothing about the model being right or the relationship being causal.' },
+      { t: 'mcq', k: 'Intervals', p: 'A confidence interval for β₁ that includes zero corresponds to:', o: ['p > 0.05', 'p < 0.05', 'A high R²', 'Multicollinearity'], a: 0, why: 'The same information, more usefully expressed — the interval also shows how large the effect could plausibly be.' },
+      { t: 'mcq', k: 'R²', p: 'R² measures:', o: ['Whether the model is correct', 'Variation in Y explained', 'The size of the slope', 'The precision of β₁'], a: 1, why: 'A share of variation, and nothing else. A high R² with curved residuals is a model that fits and is wrong.' },
+      { t: 'mcq', k: 'Standard error', p: 'A coefficient with a large standard error relative to its size is:', o: ['Large but imprecise', 'Precise but small', 'Evidence of causation', 'Necessarily zero'], a: 0, why: 'The estimate is poorly pinned down. Size and precision are separate questions and a single p-value conflates them.' },
+      { t: 'mcq', k: 'Controlled comparison', p: 'Randomised assignment buys you:', o: ['A higher R²', 'Comparable groups', 'Smaller standard errors', 'Freedom from outliers'], a: 1, why: 'Groups that differ only by chance, so the difference can be read as an effect. Observational data leaves the coefficient carrying every unobserved difference too.' },
+      { t: 'mcq', k: 'Regression to the mean', p: 'A team has a terrible quarter, gets a stern talking-to, and improves. The likeliest explanation is:', o: ['The talk worked', 'Regression to the mean', 'A change in the market', 'Better measurement'], a: 1, why: 'Extremes are extreme partly by luck, and luck does not repeat. The improvement was coming whatever anyone said.' },
+      { t: 'mcq', k: 'Representativeness', p: 'Representativeness bias means judging probability by:', o: ['The base rate', 'Resemblance to a stereotype', 'How recent the case is', 'The size of the sample'], a: 1, why: 'Detail that makes a story feel typical makes it feel likelier, even when each added detail can only lower the probability.' }
+    ],
+    s12: [
+      { t: 'mcq', k: 'Interpretation', p: 'In a multiple regression, β₁ is the effect of X₁:', o: ['On its own', 'Holding the others fixed', 'Combined with the other predictors', 'On the residuals'], a: 1, why: 'Leave out “holding the others fixed” and the sentence is simply false. It is the commonest error in reporting a multiple regression.' },
+      { t: 'mcq', k: 'Multicollinearity', p: 'The classic symptom of multicollinearity is:', o: ['A low R² for the whole model', 'Good fit, no significant slopes', 'Curved residuals', 'A negative R²'], a: 1, why: 'The model predicts well while no individual predictor can be credited, because the data cannot separate them.' },
+      { t: 'mcq', k: 'Multicollinearity', p: 'If you only care about prediction, multicollinearity is:', o: ['Fatal', 'Often tolerable', 'A sign of overfitting', 'A cause of bias'], a: 1, why: 'It destabilises individual coefficients, not the fitted values. It matters when you want to interpret a slope.' },
+      { t: 'mcq', k: 'Intervals', p: 'A forecast interval is wider than a confidence interval because it:', o: ['Uses a larger z', 'Includes the error term', 'Has fewer degrees of freedom', 'Assumes collinearity'], a: 1, why: 'One is about the mean of Y at those X values; the other about a single new observation, which also carries ε.' },
+      { t: 'mcq', k: 'Causation', p: 'An omitted variable correlated with both X and Y produces:', o: ['A larger standard error', 'A biased coefficient', 'A lower R²', 'Heteroskedasticity'], a: 1, why: 'The coefficient absorbs the omitted variable\'s effect and can be confident, significant and wrong — which is why prediction and causation are different claims.' }
+    ],
+    s13: [
+      { t: 'mcq', k: 'Model choice', p: 'Adding a predictor to a regression does what to R²?', o: ['It can only rise', 'It can rise or fall', 'It always falls', 'It is unchanged'], a: 0, why: 'Even pure noise cannot reduce it, which is exactly why R² cannot compare models of different sizes.' },
+      { t: 'mcq', k: 'Adjusted R²', p: 'Adjusted R² differs from R² in that it:', o: ['Penalises extra predictors', 'Is always larger', 'Ignores the intercept', 'Measures out-of-sample fit'], a: 0, why: 'It can fall when a variable does not earn its place, which makes it comparable across model sizes in a way R² is not.' },
+      { t: 'mcq', k: 'The F-test', p: 'The F-test in a regression tests:', o: ['One coefficient at a time', 'All slopes are zero', 'Whether residuals are normal', 'Whether R² exceeds 0.5'], a: 1, why: 'Whether the model explains anything at all. It can reject while no individual coefficient does — the collinearity case.' },
+      { t: 'mcq', k: 'Overfitting', p: 'Overfitting shows up as:', o: ['Poor fit on all of the data', 'Great in sample, poor out', 'A low F-statistic', 'Correlated predictors'], a: 1, why: 'The model has learned the noise in its training data. Only data it has not seen can reveal it.' },
+      { t: 'mcq', k: 'Selection', p: 'Why are stepwise p-value procedures suspect?', o: ['They are slow to run', 'The data chose the model', 'They need large samples', 'They ignore R²'], a: 1, why: 'Selecting and testing on the same data invalidates the p-values being used to select. Judge the result out of sample instead.' },
+      { t: 'mcq', k: 'Comparison', p: 'Comparing two models on their prediction errors is done with:', o: ['A paired test on errors', 'Whichever model has larger R²', 'A bigger sample', 'The F-test'], a: 0, why: 'Same held-out observations, two sets of errors, one paired test — the Session 08 machinery applied to models rather than means.' }
+    ],
+    s14: [
+      { t: 'mcq', k: 'Assumptions', p: 'Which assumption do residual plots check?', o: ['That the reported R² is high', 'Constant variance and independence', 'That X is normal', 'That the slope is non-zero'], a: 1, why: 'Independence, constant variance and approximate normality of the errors. No p-value or R² tells you about any of them.' },
+      { t: 'mcq', k: 'Curvature', p: 'Residuals that curve against fitted values mean:', o: ['The functional form is wrong', 'Autocorrelation', 'Heteroskedasticity', 'An outlier'], a: 0, why: 'A straight line was fitted to something bent. Transform a variable or add a term rather than accepting the fit.' },
+      { t: 'mcq', k: 'Autocorrelation', p: 'Autocorrelation in a time-series regression mainly causes:', o: ['Systematically biased coefficients', 'Understated standard errors', 'A lower R²', 'Non-normal residuals'], a: 1, why: 'Everything looks more significant than it is, which is the most common way a time-series regression misleads.' },
+      { t: 'mcq', k: 'Heteroskedasticity', p: 'A fan-shaped residual plot suggests:', o: ['Variance grows with level', 'That the true slope is zero', 'Multicollinearity', 'Overfitting'], a: 0, why: 'Non-constant variance. The coefficients survive; the standard errors do not. A log transformation often settles it.' },
+      { t: 'mcq', k: 'Outliers', p: 'The right response to a high-leverage outlier is to:', o: ['Delete it and say nothing', 'Report results with and without', 'Always keep it', 'Switch to the median'], a: 1, why: 'Understand it first, then be transparent. A single far-out point can set the slope by itself, and the reader deserves to know.' },
+      { t: 'mcq', k: 'Spurious correlation', p: 'Two unrelated series that both trend upwards will show:', o: ['No correlation', 'A high correlation', 'Heteroskedasticity', 'A low R²'], a: 1, why: 'Shared trend produces beautiful, meaningless correlation. Hemlines and the Dow, sunshine and stock returns.' }
+    ],
+    s15: [
+      { t: 'mcq', k: 'Logistic', p: 'Logistic regression is used when the outcome is:', o: ['Binary', 'Continuous', 'A time series', 'Highly skewed'], a: 0, why: 'It models the log-odds, so predictions stay between 0 and 1 — which a straight line fitted to a 0/1 outcome will not.' },
+      { t: 'mcq', k: 'Machine learning', p: 'The usual trade-off in moving to machine learning models is:', o: ['Computation against accuracy', 'Prediction against interpretability', 'Bias against sample size', 'Cost against precision'], a: 1, why: 'Better out-of-sample prediction given enough data, at the price of being able to say why. The trade is explicit, not free.' },
+      { t: 'mcq', k: 'Synthesis', p: 'The three tenets the course closes on are:', o: ['Sampling, testing, regression', 'Uncertainty, data, judgment', 'Mean, variance, correlation', 'Model, fit, forecast'], a: 1, why: 'The same three it opened with, and the reason judgment has its own mini-modules rather than being left implicit.' },
+      { t: 'mcq', k: 'Pitfalls', p: 'Which is the extra pitfall added to the five?', o: ['Ignoring the axes', 'Calling a coefficient an effect', 'Using the mean with outliers', 'Reporting one test of twenty'], a: 1, why: 'Describing a coefficient causally when the data cannot support the word. The other three are among the original five.' }
     ]
+
   };
   daExercises = [
     // Original practice, written for this trainer. The course's own Exercise
