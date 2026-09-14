@@ -1230,6 +1230,7 @@ class Component extends DCLogic {
     hub: '--ground:#101a17; --panel:#17251f; --line:#3a4f45; --ink:#eef3f0; --soft:#cfdbd4; --muted:#a2b3aa; --faint:#6f8479; --acc:#2f9d78; --accSoft:#7fd3b4; --onAcc:#08211a; --good:#6fd6ab; --bad:#ff8b80;',
     da: '--ground:#0b1729; --panel:#12213a; --line:#35496b; --ink:#e9eff9; --soft:#c8d4e5; --muted:#a7b6cc; --faint:#7286a3; --acc:#5b9cff; --accSoft:#a7ccff; --onAcc:#08122a; --good:#6fd6ab; --bad:#ff8b80;',
     mkt: '--ground:#160e26; --panel:#241636; --line:#4b3570; --ink:#f2ebfc; --soft:#dbcdf0; --muted:#bcaad8; --faint:#8f7cae; --acc:#a97cf5; --accSoft:#cbb0ff; --onAcc:#170a28; --good:#7ad9b4; --bad:#ff96a0;',
+    ips: '--ground:#1b1410; --panel:#2a201a; --line:#57433a; --ink:#f7efe8; --soft:#e2d2c5; --muted:#c0aa9b; --faint:#8d7666; --acc:#d08a4a; --accSoft:#f0bb85; --onAcc:#241609; --good:#6fd6ab; --bad:#ff8b80;',
     fa: '--ground:#0c1a13; --panel:#13251b; --line:#345043; --ink:#e9f3ec; --soft:#c7d9ce; --muted:#a3b8ab; --faint:#728a7c; --acc:#3faa6c; --accSoft:#8bd8ab; --onAcc:#06170e; --good:#6fd6ab; --bad:#ff8b80;'
   };
 
@@ -1240,6 +1241,12 @@ class Component extends DCLogic {
       pracIntro: 'Worked step by step, with a hint on every step and the answer one click away. The generated sets draw fresh numbers each time.',
       glossLabel: 'Glossary & formulas', hasTables: true, hasCalc: true,
       note: 'Built from the Session 1–3 handouts.' },
+    ips: { key: 'ips', name: 'Integrated Problem Solving', code: 'MIM-2710-IPS', short: 'IPS',
+      blurb: 'Structured problem solving when answers are cheap and judgment is not. The seven-step method, and the frameworks library behind it.',
+      intro: 'The workshop method, worked through rather than read. Built from the lecture slides and the frameworks list.',
+      pracIntro: 'No worked exercises yet \u2014 the drills are the practice.',
+      glossLabel: 'Frameworks library', hasTables: false, hasCalc: false,
+      note: 'Built from the workshop slides and the frameworks list.' },
     mkt: { key: 'mkt', name: 'Marketing', code: 'MIM-2710-MKT', short: 'Marketing',
       blurb: 'Creating and capturing customer value: research, segmentation, targeting, positioning, and the frameworks behind them.',
       intro: 'Marketing is arts and sciences: the map, not the route. Sessions 1 through 5 are written up here from the handouts; the rest appear as they are released.',
@@ -1719,9 +1726,10 @@ class Component extends DCLogic {
       { id: 'mk1', title: 'MKT_Individual Assignment_01_Conjoint Analysis (E01) (E1)', when: 'Due Sun 06 Sep at 23:59', tag: 'Closed', due: '2026-09-06', time: '23:59', closed: true },
       { id: 'mk4', title: 'Segmentation exercise spreadsheet', when: 'Before the targeting session', tag: 'Prep', due: '2026-09-09' },
       { id: 'mk5', title: 'Read: Finding the Right Job for Your Product', when: 'Christensen, Anthony, Berstell and Nitterhouse · Sessions 04–07', tag: 'Reading', due: '2026-09-11' },
-      { id: 'mkt-mkt-individual-assignment-03-chase-sapphire-case-survey', title: 'MKT_Individual Assignment_03_Chase Sapphire Case Survey', when: 'Due Sun 13 Sep at 14:00', tag: 'Due', due: '2026-09-13', time: '14:00' },
+      { id: 'mkt-mkt-individual-assignment-03-chase-sapphire-case-survey', title: 'MKT_Individual Assignment_03_Chase Sapphire Case Survey', when: 'Due Sun 13 Sep at 14:00', tag: 'Closed', due: '2026-09-13', time: '14:00', closed: true },
       { id: 'mkt-mkt-group-assignment-02-stp-for-insead', title: 'MKT_Group Assignment_02_STP for INSEAD', when: 'Due Sun 13 Sep at 23:59', tag: 'Due', due: '2026-09-13', time: '23:59' },
-      { id: 'mkt-mkt-individual-assignment-05-michel-augustin-case-survey', title: 'MKT_Individual Assignment_05_Michel & Augustin Case Survey', when: 'Due Mon 14 Sep at 14:00', tag: 'Due', due: '2026-09-14', time: '14:00' },
+      { id: 'mkt-mkt-individual-assignment-05-michel-augustin-case-survey', title: 'MKT_Individual Assignment_05_Michel & Augustin Case Survey', when: 'Due Mon 14 Sep at 21:30', tag: 'Due', due: '2026-09-14', time: '21:30' },
+      { id: 'mkt-read-chase-sapphire-session-8', title: 'MKT prep: read Chase Sapphire case before Session 8 (Monday)', when: 'Due Tue 15 Sep', tag: 'Due', due: '2026-09-15' },
       { id: 'mkt-mkt-group-assignment-04-customer-value', title: 'MKT_Group Assignment_04_Customer Value', when: 'Due Sun 20 Sep at 23:59', tag: 'Due', due: '2026-09-20', time: '23:59' },
       { id: 'mkt-p1-final-exam-marketing', title: 'P1 FINAL EXAM — Marketing — Thursday 08 October 2026 at 14:00 CEST', when: 'Due Thu 08 Oct at 14:00', tag: 'Due', due: '2026-10-08', time: '14:00' },
       { id: 'mk2', title: 'Bring your laptops to the session', when: 'Posted 5 Sep at 17:32 · the one session laptops are allowed', tag: 'Notice' },
@@ -2340,10 +2348,11 @@ class Component extends DCLogic {
       { id: 's1', title: '[Data Analysis] Class survey — judgment & class data', when: 'Due by 17:00 the day after Session 1 · ungraded', tag: 'Ungraded', due: '2026-09-01', time: '17:00' },
       { id: 'a2', title: 'S02_DA_Individual Assignment 1_Session 2: Exercise 2.2 (E1)', when: 'Due Fri 04 Sep at 10:15', tag: 'Closed', due: '2026-09-04', time: '10:15', closed: true },
       { id: 'a3', title: 'S03_DA_Individual Assignment 2_Session 3: Exercises 3.2 and 3.7 (E1)', when: 'Due Wed 09 Sep at 12:00', tag: 'Closed', due: '2026-09-09', time: '12:00', closed: true },
-      { id: 'dsc-s04-da-individual-assignment-3-session-4-exercises-3-12-and', title: 'S04_DA_Individual Assignment 3_Session 4: Exercises 3.12 and the Set 4 portfolio exercise  (E1)', when: 'Due Sat 12 Sep at 12:00', tag: 'Due', due: '2026-09-12', time: '12:00' },
-      { id: 'dsc-s06-da-individual-assignment-4-session-6-exercise-5-4-e1', title: 'S06_DA_Individual Assignment 4_Session 6: Exercise 5.4 (E1)', when: 'Due Mon 14 Sep at 15:45', tag: 'Due', due: '2026-09-14', time: '15:45' },
+      { id: 'dsc-s04-da-individual-assignment-3-session-4-exercises-3-12-and', title: 'S04_DA_Individual Assignment 3_Session 4: Exercises 3.12 and the Set 4 portfolio exercise  (E1)', when: 'Due Sat 12 Sep at 12:00', tag: 'Closed', due: '2026-09-12', time: '12:00', closed: true },
       { id: 'g1', title: 'S07_DA_Group Assignment 1_Bad Statistics Detection (E1)', when: 'Due Mon 14 Sep at 15:45', tag: 'Due', due: '2026-09-14', time: '15:45' },
-      { id: 'dsc-s07-da-individual-assignment-5-session-7-exercises-6-4-and', title: 'S07_DA_Individual Assignment 5_Session 7: Exercises 6.4 and 7.2 (E1)', when: 'Due Thu 17 Sep at 15:45', tag: 'Due', due: '2026-09-17', time: '15:45' },
+      { id: 'dsc-session-readings-week-15-sep', title: 'DA prep: session readings S06–S09 (before each class this week)', when: 'Due Tue 15 Sep', tag: 'Due', due: '2026-09-15' },
+      { id: 'dsc-s06-da-individual-assignment-4-session-6-exercise-5-4-e1', title: 'S06_DA_Individual Assignment 4_Session 6: Exercise 5.4 (E1)', when: 'Due Thu 17 Sep at 15:45', tag: 'Due', due: '2026-09-17', time: '15:45' },
+      { id: 'dsc-s07-da-individual-assignment-5-session-7-exercises-6-4-and', title: 'S07_DA_Individual Assignment 5_Session 7: Exercises 6.4 and 7.2 (E1)', when: 'Due Fri 18 Sep at 14:00', tag: 'Due', due: '2026-09-18', time: '14:00' },
       { id: 'dsc-s09-da-individual-assignment-6-session-9-exercise-9-2-e1', title: 'S09_DA_Individual Assignment 6_Session 9: Exercise 9.2 (E1)', when: 'Due Mon 21 Sep at 10:15', tag: 'Due', due: '2026-09-21', time: '10:15' },
       { id: 'dsc-s11-da-group-assignment-2-loyalty-scheme-direct-mail', title: 'S11_DA_Group Assignment 2_Loyalty Scheme Direct Mail Compaigns (E1)', when: 'Due Wed 23 Sep at 15:45', tag: 'Due', due: '2026-09-23', time: '15:45' },
       { id: 'dsc-s12-da-individual-assignment-7-session-12-exercise-11-1-e1', title: 'S12_DA_Individual Assignment 7_Session 12: Exercise 11.1 (E1)', when: 'Due Mon 28 Sep at 15:45', tag: 'Due', due: '2026-09-28', time: '15:45' },
@@ -2415,8 +2424,9 @@ class Component extends DCLogic {
       { id: 'atl-community-challenge-peer-review', title: 'Community Challenge — Peer Review — done by a groupmate on behalf of the team', when: 'Due Thu 03 Sep at 23:59', tag: 'Closed', due: '2026-09-03', time: '23:59', closed: true, source: 'Programme' },
       { id: 'clubs-mim28-clubs-leadership-interest-mim28', title: 'MIM28 Clubs Leadership Interest (MIM28)', when: 'Due Fri 04 Sep at 12:00', tag: 'Due', due: '2026-09-04', time: '12:00', source: 'Clubs' },
       { id: 'life-fbl-register-your-immigration-status-during-your-stay-in', title: 'Register your immigration status in France — Canvas step DONE (submitted 11 Aug 2026)', when: 'Due Sat 05 Sep at 23:59', tag: 'Closed', due: '2026-09-05', time: '23:59', closed: true, source: 'Admin' },
-      { id: 'mim28-mim28-student-council-election', title: 'MIM28 - Student Council Election', when: 'Due Thu 10 Sep at 15:00', tag: 'Due', due: '2026-09-10', time: '15:00', source: 'Programme' },
-      { id: 'atl-p0-and-launch-week-evaluations', title: 'P0 and Launch Week Evaluations', when: 'Due Sun 13 Sep at 23:59', tag: 'Due', due: '2026-09-13', time: '23:59', source: 'Programme' },
+      { id: 'mim28-mim28-student-council-election', title: 'MIM28 - Student Council Election', when: 'Due Thu 10 Sep at 15:00', tag: 'Closed', due: '2026-09-10', time: '15:00', closed: true, source: 'Programme' },
+      { id: 'atl-p0-and-launch-week-evaluations', title: 'P0 and Launch Week Evaluations', when: 'Due Sun 13 Sep at 23:59', tag: 'Closed', due: '2026-09-13', time: '23:59', closed: true, source: 'Programme' },
+      { id: 'mim28-mim28-locker', title: 'MIM28 — Locker: register/collect by Mon 14 Sep 13:00 CEST', when: 'Due Mon 14 Sep at 13:00', tag: 'Due', due: '2026-09-14', time: '13:00', source: 'Programme' },
       { id: 'atl-add-your-cv-to-the-class-cv-book-on-careerglobe', title: 'Add your CV to the Class CV Book on CareerGlobe', when: 'Due Sun 27 Sep at 23:59', tag: 'Due', due: '2026-09-27', time: '23:59', source: 'Careers' },
       { id: 'cdc-quiz-test-your-understanding-of-consulting-recruitment', title: 'Quiz: Test your understanding of Consulting Recruitment Preparation', when: 'no due date in Canvas — the date, if any, is on the course page', tag: 'Undated', source: 'Careers' },
       { id: 'cdc-quiz-test-your-understanding-of-consulting-sector', title: 'Quiz: Test your understanding of Consulting Sector', when: 'no due date in Canvas — the date, if any, is on the course page', tag: 'Undated', source: 'Careers' },
@@ -2434,7 +2444,7 @@ class Component extends DCLogic {
       { id: 'acc-fa-assignment-2-astrazeneca-case-may-be-turned-in-for', title: 'FA_Assignment 2_AstraZeneca case (may be turned in for course credit)', when: 'Due Sun 06 Sep at 23:59', tag: 'Due', due: '2026-09-06', time: '23:59' },
       { id: 'acc-fa-assignment-3-rolls-royce-case-may-be-turned-in-for', title: 'FA_Assignment 3_Rolls Royce case (may be turned in for course credit)', when: 'Due Tue 08 Sep at 23:59', tag: 'Closed', due: '2026-09-08', time: '23:59', closed: true },
       { id: 'acc-fa-assignment-4-mcafee-case-may-be-turned-in-for-course', title: 'FA_Assignment 4_McAfee case (may be turned in for course credit)', when: 'Due Thu 10 Sep at 23:59', tag: 'Due', due: '2026-09-10', time: '23:59' },
-      { id: 'acc-fa-quiz-02-practice-quiz-week-2-optional-do-not-turn-in', title: 'FA_Quiz_02_Practice Quiz Week 2_OPTIONAL_Do Not Turn In', when: 'Due Fri 11 Sep at 08:30', tag: 'Due', due: '2026-09-11', time: '08:30' },
+      { id: 'acc-fa-quiz-02-practice-quiz-week-2-optional-do-not-turn-in', title: 'FA_Quiz_02_Practice Quiz Week 2_OPTIONAL_Do Not Turn In', when: 'Due Fri 11 Sep at 08:30', tag: 'Closed', due: '2026-09-11', time: '08:30', closed: true },
       { id: 'acc-fa-assignment-5-netflix-case-may-be-turned-in-for-course', title: 'FA_Assignment 5_Netflix case (may be turned in for course credit and only need to turn in all parts of questions 3 – 6)', when: 'Due Tue 15 Sep at 23:59', tag: 'Due', due: '2026-09-15', time: '23:59' },
       { id: 'acc-fa-assignment-6-lvmh-warnaco-case-may-be-turned-in-for', title: 'FA_Assignment 6_LVMH-Warnaco case (may be turned in for course credit)', when: 'Due Thu 17 Sep at 23:59', tag: 'Due', due: '2026-09-17', time: '23:59' },
       { id: 'acc-fa-quiz-03-practice-quiz-week-3-optional-do-not-turn-in', title: 'FA_Quiz_03_Practice Quiz Week 3_OPTIONAL_Do Not Turn In', when: 'Due Fri 18 Sep at 08:30', tag: 'Due', due: '2026-09-18', time: '08:30' },
@@ -2448,6 +2458,111 @@ class Component extends DCLogic {
       { id: 'acc-p1-final-exam-financial-accounting', title: 'P1 FINAL EXAM — Financial Accounting — Thursday 08 October 2026 at 10:00 CEST', when: 'Due Thu 08 Oct at 10:00', tag: 'Due', due: '2026-10-08', time: '10:00' },
       { id: 'fa2', title: 'Practice set — the three statements', when: 'Ongoing', tag: 'Practice' }
     ];
+  ipsSessions = [
+    { key: 'i1', num: '01', title: 'The Seven-Step Method', preview: 'Why judgment got expensive when answers got cheap, the cost-to-produce against cost-to-verify grid, and the full cycle from Define to Recommend.' },
+    { key: 'i2', num: '02', title: 'Defining and Structuring the Problem', preview: 'The SMART frame, recap and clarify, MECE, and the choice between an issue tree and a hypothesis tree.' }
+  ];
+  ipsBuilt = { i1: true, i2: true };
+  ipsTodo = [];
+  ipsGrading = [
+    { k: 'Case competition submission', v: 'Deck and app link' },
+    { k: 'Finalists', v: 'Three per section' },
+    { k: 'Final', v: 'Pitch to the client leadership team' }
+  ];
+  ipsTerms = [
+    { t: 'MECE', d: 'Mutually exclusive, collectively exhaustive. Branches must not overlap and must cover the whole problem.' },
+    { t: 'Issue tree', d: 'Breaks a problem into sub-questions \u2014 What? or How? Rigorous and open-minded, but slow.' },
+    { t: 'Hypothesis tree', d: 'States an answer and lists the arguments that would support it \u2014 Why? Fast and easy to sell, but prone to bias.' },
+    { t: 'Cost to verify', d: 'What it costs to check an answer is right. Where it is high and stakes are high, keep the work human.' },
+    { t: 'Slop trap', d: 'Cheap to produce, expensive to verify. Output that looks finished and is not \u2014 the characteristic failure of generated work.' },
+    { t: 'SMART frame', d: 'Basic question, context, success, scope, constraints, stakeholders, insight \u2014 the seven things a problem definition has to pin down.' },
+    { t: 'Key drivers', d: 'The two or three branches that actually move the answer. Prioritising is choosing them and dropping the rest.' }
+  ];
+  ipsLessons = {
+    i1: [
+      { t: 'h', text: 'Generation is cheap; trust is expensive' },
+      { t: 'p', text: 'The cost of producing an answer has collapsed. The cost of establishing that an answer is right has not moved at all. Everything about how this course works follows from that one asymmetry \u2014 cheap generation creates inventory, and inventory is not insight.' },
+      { t: 'tbl', label: 'Where the work should go', head: ['Cost to produce', 'Cost to verify', 'What it is', 'What to do'], rows: [
+        { cells: ['Low', 'Low', 'Trivial / goldmine', 'Low stakes \u2014 send it to the machine'] },
+        { cells: ['Low', 'High', 'The slop trap', 'Seductive. Looks finished, cannot be checked cheaply'] },
+        { cells: ['High', 'High', 'Hard', 'Split it, or keep it human'] }
+      ] },
+      { t: 'p', text: 'The slop trap is the dangerous cell, because everything in it arrives looking like finished work. A plausible market sizing, a confident summary of an industry, a set of interview quotes that were never said \u2014 all cheap to make, all expensive to check, and all indistinguishable from the real thing until someone does the checking.' },
+      { t: 'h', text: 'What stays human' },
+      { t: 'ul', items: ['Frame the problem \u2014 deciding what question is worth answering is not a generation task.', 'Find the real facts \u2014 field evidence, not a synthesis of what has been written before.', 'Control the output \u2014 knowing what good looks like, and rejecting what is not.', 'Own the decision \u2014 someone has to be accountable for the recommendation.'] },
+      { t: 'h', text: 'Instinctive against structured' },
+      { t: 'tbl', label: 'Two ways to attack a problem', head: ['', 'Instinctive', 'Structured'], rows: [
+        { cells: ['Mind', 'Closed', 'Open'] },
+        { cells: ['Method', 'Satisfactory', 'Comprehensive'] },
+        { cells: ['Alternatives', 'No', 'Yes'] },
+        { cells: ['Solution', 'Flawed', 'Optimal'] }
+      ] },
+      { t: 'note', label: 'The honest caveat', text: 'Structured is slower, and slower is sometimes wrong. An experienced operator with a good hypothesis beats a beginner building a full issue tree. The method is the default when you do not have that experience \u2014 and the way you acquire it.' },
+      { t: 'h', text: 'The seven steps' },
+      { t: 'tbl', label: 'The cycle, once, properly', head: ['Step', 'The output'], rows: [
+        { cells: ['1. Define', 'A sharp, answerable question'] },
+        { cells: ['2. Structure', 'The problem broken into parts that do not overlap'] },
+        { cells: ['3. Prioritise', 'One wedge, not ten \u2014 the branches that move the answer'] },
+        { cells: ['4. Plan the work', 'Who does what, by when, and who they talk to'] },
+        { cells: ['5. Analyse', 'Field evidence, not opinion'] },
+        { cells: ['6. Synthesise', 'One thesis \u2014 where meets how'] },
+        { cells: ['7. Recommend', 'A plan the client can run on Monday'] }
+      ] },
+      { t: 'note', label: 'Why evidence quality decides it', text: 'A polished deck built on desk research loses to a rough deck built on five real conversations. Direct quotes count; so does disconfirming evidence you went looking for and reported. That is the one judging criterion that cannot be faked by generation, which is exactly why it is the primary one.' }
+    ],
+    i2: [
+      { t: 'h', text: 'Define: the SMART frame' },
+      { t: 'p', text: 'Most bad answers are answers to the wrong question. Before anything else, pin down seven things \u2014 and the basic question is only the first of them.' },
+      { t: 'tbl', label: 'What a definition has to settle', head: ['Element', 'The question it answers'], rows: [
+        { cells: ['Basic question', 'What are we actually being asked?'] },
+        { cells: ['Context', 'What internal and external situation does the client face?'] },
+        { cells: ['Success', 'What outcome counts as solved, and by when?'] },
+        { cells: ['Scope', 'What is in the study, and what is deliberately left out?'] },
+        { cells: ['Constraints', 'What can we not do?'] },
+        { cells: ['Stakeholders', 'Who decides, and who is affected?'] },
+        { cells: ['Insight', 'What do we already suspect that is worth testing?'] }
+      ] },
+      { t: 'p', text: 'The hotel example sorts cleanly. \u201cGuest satisfaction declined to 3.7 out of 5\u201d is context. \u201cGuest satisfaction should reach 4.5\u201d is success. \u201cOnly the lobby elevators\u201d is scope. \u201cThe elevators cannot have downtime during summer\u201d is a constraint. Four sentences that sound alike, doing four different jobs.' },
+      { t: 'h', text: 'Recap, then clarify' },
+      { t: 'p', text: 'Two moves before you start work. Recap: play the problem back \u2014 let me see if I understood, is that correct? Clarify: ask what the situation is, what a successful outcome looks like and by when, and what is in and out of the study. Both are cheap and both routinely change the question.' },
+      { t: 'note', label: 'The elevator, twice', text: 'A slow elevator invites a new elevator or an upgrade. An annoying wait invites mirrors and music. Same building, same complaint, two definitions and two entirely different budgets. Likewise a call centre: high cost per call points at automation and training, high volume points at communication and incentives.' },
+      { t: 'h', text: 'Structure: MECE, and which tree' },
+      { t: 'p', text: 'Branches must be mutually exclusive \u2014 no overlap \u2014 and collectively exhaustive \u2014 nothing missing. Overlap double-counts; a gap is where the answer was hiding.' },
+      { t: 'tbl', label: 'Issue tree or hypothesis tree', head: ['', 'Issue tree', 'Hypothesis tree'], rows: [
+        { cells: ['Asks', 'What? or How?', 'Why?'] },
+        { cells: ['Shape', 'Question \u2192 sub-issues', 'Answer \u2192 supporting arguments'] },
+        { cells: ['Strengths', 'Rigorous, open-minded', 'Fast, easy to sell'] },
+        { cells: ['Weaknesses', 'Time consuming, may not yield a solution', 'Prone to bias, logically fragile'] },
+        { cells: ['Use it when', 'You have no hypothesis \u2014 the default', 'Experience gives you a narrow, testable one'] }
+      ] },
+      { t: 'note', label: 'Open beats closed', text: 'Can? Does? Is? are closed \u2014 they invite yes or no and stop the tree. What? How? Why? are open and keep it growing. The wording of a branch decides how much of the problem you can still see from it.' },
+      { t: 'h', text: 'The same problem, structured several ways' },
+      { t: 'p', text: 'There is no single correct tree. A household\u2019s finances split into income and spending; income into recurring and one-off; spending into less and cheaper. Or the same money splits into legal and illegal, essential and luxury, work and investments. Each cut is MECE and each shows you something the others hide.' },
+      { t: 'f', text: 'A way of seeing is also a way of not seeing', note: 'Which is the reason to build more than one tree before choosing, and the reason frameworks are dangerous when they are picked before the problem is defined.' },
+      { t: 'h', text: 'Prioritise: the key drivers' },
+      { t: 'p', text: 'A complete tree is not a plan \u2014 it is a map of everything you could do. Prioritising means picking the two or three branches that actually move the answer and abandoning the rest on purpose. \u201cHow can WeWork become profitable?\u201d can be cut into revenue and cost, or into existing locations and new locations, or into existing locations, adding and removing locations, and other profit opportunities. The cut you choose determines what the analysis can find.' },
+      { t: 'note', label: 'Who is asking changes the tree', text: 'An equity research analyst asking how WeWork will do wants the latest forecast and what would revise it. A private equity analyst wants that plus whether to invest and what the exit looks like. A PE partner wants management\u2019s plans, how much to discount them, the multiple, and the value they can add themselves. Same company, three trees, because the decision behind the question is different.' }
+    ]
+  };
+  ipsBank = {
+    i1: [
+      { t: 'mcq', k: 'Verification', p: 'Work that is cheap to produce and expensive to verify falls into which cell?', o: ['The slop trap', 'The goldmine, where machines should be pointed', 'Hard work that should be split or kept human', 'Trivial work that can simply be skipped'], a: 0, why: 'The slop trap is seductive precisely because the output looks finished. A plausible market sizing or a confident industry summary costs nothing to generate and a great deal to check \u2014 and until someone checks, it is indistinguishable from real work.' },
+      { t: 'mcq', k: 'Verification', p: 'Where should generated work be pointed with least hesitation?', o: ['Low cost to produce and low cost to verify, at low stakes', 'High cost to produce, where the saving is largest of all', 'High cost to verify, since a human would struggle equally there', 'Anywhere the output can be reviewed by a second machine'], a: 0, why: 'Cheap to make and cheap to check, with little riding on it. The saving from automating expensive-to-produce work is tempting, but if it is also expensive to verify you have bought speed and sold reliability.' },
+      { t: 'tf', k: 'True or false', p: 'The four things that stay human are framing the problem, finding the real facts, controlling the output and owning the decision.', a: true, why: 'True. Each one is a judgment about what is worth doing or whether something is good enough, and none of them is a generation task. Note that three of the four sit at the start and end of the work \u2014 the middle is where machines help most.' },
+      { t: 'mcq', k: 'Method', p: 'On the instinctive-against-structured comparison, what does instinctive produce?', o: ['A satisfactory method with no alternatives considered', 'A comprehensive method reached more quickly', 'An optimal solution when the analyst is experienced', 'The same solution, arrived at with less documentation'], a: 0, why: 'Closed mind, satisfactory method, no alternatives, flawed solution. Worth holding alongside the caveat: an experienced operator with a good hypothesis often beats a beginner building a full tree \u2014 the method is the default when you lack that experience, and the way you build it.' },
+      { t: 'mcq', k: 'Seven steps', p: 'Which step produces \u201cone wedge, not ten\u201d?', o: ['Prioritise', 'Structure', 'Synthesise', 'Define'], a: 0, why: 'Structure produces the full tree; prioritising picks the two or three branches that move the answer and abandons the rest deliberately. Synthesis comes later and produces one thesis from the evidence gathered.' },
+      { t: 'tf', k: 'True or false', p: 'A polished deck built on thorough desk research beats a rough deck built on five real conversations.', a: false, why: 'False, and it is the whole point of the evidence criterion. Desk research is exactly the material that is now cheap to generate, so it no longer distinguishes anyone. Direct quotes from real operators, and disconfirming evidence you went looking for and reported, cannot be produced without doing the work.' }
+    ],
+    i2: [
+      { t: 'mcq', k: 'Define', p: '\u201cGuest satisfaction should get to 4.5 out of 5.0.\u201d Which element of the SMART frame is this?', o: ['Success', 'Context', 'Scope', 'Constraints'], a: 0, why: 'It states what counts as solved. \u201cSatisfaction declined to 3.7\u201d would be context, \u201conly the lobby elevators\u201d scope, and \u201cno downtime during summer\u201d a constraint. Four sentences that sound alike and do four different jobs.' },
+      { t: 'mcq', k: 'Define', p: 'A hotel reports a slow elevator. Why does the definition matter more than the analysis here?', o: ['Slow elevator and annoying wait lead to different budgets entirely', 'Elevator speed cannot be measured reliably without instrumentation', 'Guests rarely report the problem that is actually bothering them', 'The engineering answer is the same under either framing'], a: 0, why: 'A slow elevator invites a new elevator or an upgrade. An annoying wait invites mirrors and music. Same building, same complaint, two problems \u2014 and the second is very much cheaper. Defining is where most of the value is won or lost.' },
+      { t: 'mcq', k: 'MECE', p: 'What does MECE require?', o: ['Branches that do not overlap and together cover everything', 'Branches of roughly equal size and importance', 'A maximum of three branches at any level of the tree', 'Branches that can each be tested with available data'], a: 0, why: 'Mutually exclusive and collectively exhaustive. Overlap double-counts and makes the tree misleading; a gap is usually where the answer was hiding. Neither balance nor testability is part of the definition, though both are good practice.' },
+      { t: 'mcq', k: 'Trees', p: 'When is a hypothesis tree the better choice?', o: ['When experience gives you a narrow, testable answer already', 'When the problem is unfamiliar and needs to be explored openly', 'When the client has asked for a comprehensive study', 'When the evidence base is too thin to support a conclusion'], a: 0, why: 'Hypothesis trees are fast and easy to sell, and prone to bias \u2014 they only pay when the hypothesis is good. With no hypothesis, the issue tree is the default: rigorous and open-minded, at the cost of time.' },
+      { t: 'tf', k: 'True or false', p: '\u201cCan we enter the Brazilian market?\u201d is well-worded as a branch of an issue tree.', a: false, why: 'False. Can, Does and Is are closed \u2014 they invite yes or no and the branch stops there. What, How and Why are open and keep the tree growing. \u201cHow could we enter the Brazilian market?\u201d asks for the same thing and yields sub-branches.' },
+      { t: 'mcq', k: 'Structure', p: 'Household finances can be cut into recurring and one-off income, or into legal and illegal, or essential and luxury. What does that show?', o: ['Several cuts can be MECE, and each hides what the others reveal', 'Only one of those cuts can be genuinely MECE at a time', 'Financial problems should always be structured by cash flow timing', 'The correct cut is whichever produces the most branches'], a: 0, why: 'A way of seeing is also a way of not seeing. Each cut is complete and non-overlapping, and each makes a different part of the problem visible \u2014 which is why it is worth building more than one tree before committing, and why reaching for a familiar framework before defining the problem is dangerous.' },
+      { t: 'mcq', k: 'Prioritise', p: 'Why do an equity analyst, a PE analyst and a PE partner build different trees about the same company?', o: ['The decision behind the question is different in each case', 'They have access to different amounts of financial information', 'Seniority determines how many branches a tree should carry', 'Equity analysts are restricted from modelling value creation'], a: 0, why: 'The analyst wants a forecast and what would revise it. The PE analyst wants that plus whether to invest and how to exit. The partner wants management\u2019s plans, how far to discount them, the multiple, and the value they could add themselves. The tree serves the decision, so a different decision is a different tree.' }
+    ]
+  };
   faGrading = [
     { k: 'Class participation', v: '10%' },
     { k: 'Group case work', v: '30%' },
@@ -2457,6 +2572,7 @@ class Component extends DCLogic {
 
   data(c) {
     if (c === 'mkt') return { sessions: this.mktSessions, built: this.mktBuilt, lessons: this.mktLessons, bank: this.mktBank, exercises: this.mktExercises, gens: [], todo: this.mktTodo, grading: this.mktGrading, contacts: this.mktContacts, formulas: this.mktFormulas, terms: this.mktTerms };
+    if (c === 'ips') return { sessions: this.ipsSessions, built: this.ipsBuilt, lessons: this.ipsLessons, bank: this.ipsBank, exercises: [], gens: [], todo: this.ipsTodo, grading: this.ipsGrading, contacts: [], formulas: [], terms: this.ipsTerms };
     if (c === 'fa') return { sessions: this.faSessions, built: {}, lessons: {}, bank: this.faBank, exercises: [], gens: [], todo: this.faTodo, grading: this.faGrading, contacts: this.faContacts, formulas: [], terms: this.faTerms };
     return { sessions: this.daSessions, built: this.daBuilt, lessons: this.daLessons, bank: this.daBank, exercises: this.daExercises, gens: this.daGens, todo: this.daTodo, grading: this.daGrading, contacts: this.daContacts, formulas: this.daFormulas, terms: this.daTerms };
   }
@@ -2865,7 +2981,7 @@ class Component extends DCLogic {
     // Every list, including the assignments that belong to no course -- careers,
     // the community challenge, clubs, immigration. Work that is finished and past
     // stays here, struck through, though it has left the to-do lists.
-    const lists = ['da', 'mkt', 'fa'].map(k => [k, this.data(k).todo || []]);
+    const lists = ['da', 'mkt', 'fa', 'ips'].map(k => [k, this.data(k).todo || []]);
     lists.push(['other', this.otherTodo || []]);
     lists.forEach(pair => {
       pair[1].forEach(t => {
@@ -2918,7 +3034,7 @@ class Component extends DCLogic {
     };
 
     if (!ck) {
-      v.courseCards = ['da', 'mkt', 'fa'].map(k => {
+      v.courseCards = ['da', 'mkt', 'fa', 'ips'].map(k => {
         const c = this.courses[k];
         const d = this.data(k);
         const nQ = Object.keys(d.bank).reduce((n, s) => n + (d.bank[s] || []).length, 0);
@@ -2933,7 +3049,7 @@ class Component extends DCLogic {
         };
       });
       let all = [];
-      ['da', 'mkt', 'fa'].forEach(k => { all = all.concat(this.todoRows(k)); });
+      ['da', 'mkt', 'fa', 'ips'].forEach(k => { all = all.concat(this.todoRows(k)); });
 
       // Thirty-odd deadlines at once is not a to-do list, it is a syllabus. Show
       // the week by default and let the month be asked for. Undated rows
@@ -2994,7 +3110,7 @@ class Component extends DCLogic {
       v.otherCount = String(otherAll.length);
       v.otherEmpty = otherAll.length === 0;
 
-      v.resumeCards = ['da', 'mkt', 'fa'].map(k => {
+      v.resumeCards = ['da', 'mkt', 'fa', 'ips'].map(k => {
         // Financial Accounting lives in accounting.html and keeps its own progress
         // under fa-trainer-v1. Same origin, so it can be read from here.
         if (k === 'fa') {
