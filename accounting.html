@@ -5447,9 +5447,9 @@ class Component extends DCLogic {
       },
       {
         key: 'ex-netflix', isCase: true, title: 'Netflix: in search of cash flow',
-        sub: 'Eleven steps on why a profitable company burned cash for six years',
+        sub: 'Questions 3 to 6, every part, in the order the assignment asks them',
         ses: 'Session 07 \u00b7 Statement of Cash Flows',
-        brief: '\u201cWe believe we no longer have a need to raise external financing for our day-to-day operations.\u201d Netflix management said that on 20 January 2021, and on 28 January the company reported its first year of positive operating cash flow since 2014. The share price rose 12%.\n\nFor years the pattern had been the opposite. Netflix reported rising net income \u2014 1.2 billion in 2018, 1.9 billion in 2019 \u2014 while operating cash flow ran to minus 2.7 billion and minus 2.9 billion. Critics asked whether the profits were real. Management raised its prices, and kept borrowing.\n\nThe explanation is a single accounting choice about where content spending goes. Netflix classifies payments for content \u2014 additions to content assets and the movements in the related liabilities \u2014 inside operating activities, not investing. Its earlier DVD library, by contrast, was bought through investing, exactly as Blockbuster did not do. The choice moves billions between two subtotals without touching the bank balance.\n\nThe case runs through the 2020 statements, back to the 2011 DVD accounting alongside Blockbuster\u2019s, and out to the question of whether the 2020 turn was a business reaching maturity or a pandemic that stopped film crews from working. All figures in thousands of U.S. dollars unless stated.',
+        brief: '\u201cWe believe we no longer have a need to raise external financing for our day-to-day operations.\u201d Netflix management said that on 20 January 2021, and on 28 January the company reported its first year of positive operating cash flow since 2014. The share price rose 12%.\n\nFor years the pattern had been the opposite. Netflix reported rising net income \u2014 1.2 billion in 2018, 1.9 billion in 2019 \u2014 while operating cash flow ran to minus 2.7 billion and minus 2.9 billion. Critics asked whether the profits were real. Management raised its prices, and kept borrowing.\n\nThe explanation is a single accounting choice about where content spending goes. Netflix classifies payments for content \u2014 additions to content assets and the movements in the related liabilities \u2014 inside operating activities rather than investing, so the money spent on content lands in the same subtotal as the subscriptions that fund it.\n\nThe assignment asks for all parts of questions 3 to 6 only, and that is exactly what this runs through, in order: marketing expenses, streaming content, the gap between profit and cash in 2019, and whether the 2020 turn is repeatable. Questions 1 and 2 are not part of the submission. All figures in thousands of U.S. dollars unless stated.',
         tables: [
           { title: 'Exhibit 2 \u2014 consolidated statements of operations', note: 'In thousands. Deductions in brackets.', cols: ['2020', '2019', '2018'], rows: [
             ['Revenues', '24,996,056', '20,156,447', '15,794,341', 'k'],
@@ -5513,131 +5513,122 @@ class Component extends DCLogic {
             ['Total produced content, net', '11,636,343', '9,801,215', 'k'],
             ['Content assets, net', '25,383,950', '24,504,567', 'k']
           ] },
-          { title: 'Exhibit 13 \u2014 the accounting policy, in Netflix\u2019s words', note: 'Payment terms for certain content licences and the production of content require more upfront cash payments relative to the amortization expense. Payments for content, including additions to content assets and the changes in related liabilities, are classified within net cash provided by (used in) operating activities. For licensed content the Company capitalizes the fee per title; for produced content it capitalizes production, development, direct costs and production overhead. Amortization runs through cost of revenues over the shorter of the contractual window, the estimated period of use, or ten years, on an accelerated basis. On average, over 90% of a content asset is expected to be amortized within four years of first availability.', cols: [], rows: [] },
-          { title: 'Exhibit 7 \u2014 Netflix 2011 cash flow statement, DVD-era extract', note: 'In thousands.', cols: ['2011', '2010'], rows: [
-            ['Net income', '226,126', '160,853'],
-            ['Additions to streaming content library (operating)', '(2,320,732)', '(406,210)'],
-            ['Amortization of streaming content library (operating)', '699,128', '158,100'],
-            ['Amortization of DVD content library (operating)', '96,744', '142,496', 'k'],
-            ['Net cash provided by operating activities', '317,712', '276,401', 'k'],
-            ['Acquisition of DVD content library (investing)', '(85,154)', '(123,901)', 'k'],
-            ['Net cash used in investing activities', '(265,814)', '(116,081)', 'k']
-          ] },
-          { title: 'Exhibit 10 \u2014 Blockbuster 2010 cash flow statement extract', note: 'In millions. Fiscal year ended 3 January 2010.', cols: ['FY2009', 'FY2008'], rows: [
-            ['Net income (loss)', '(558.2)', '(374.1)'],
-            ['Rental library purchases (operating)', '(500.2)', '(610.5)', 'k'],
-            ['Rental library amortization (operating)', '519.8', '681.8', 'k'],
-            ['Net cash flow provided by operating activities', '29.3', '51.0', 'k'],
-            ['Capital expenditures (investing)', '(32.3)', '(118.1)'],
-            ['Net cash flow used in investing activities', '(74.9)', '(116.5)']
-          ] }
+          { title: 'Exhibit 13 \u2014 the accounting policy, in Netflix\u2019s words', note: 'Payment terms for certain content licences and the production of content require more upfront cash payments relative to the amortization expense. Payments for content, including additions to content assets and the changes in related liabilities, are classified within net cash provided by (used in) operating activities. For licensed content the Company capitalizes the fee per title; for produced content it capitalizes production, development, direct costs and production overhead. Amortization runs through cost of revenues over the shorter of the contractual window, the estimated period of use, or ten years, on an accelerated basis. On average, over 90% of a content asset is expected to be amortized within four years of first availability.', cols: [], rows: [] }
         ],
+        accounts: ['Cash', 'Marketing expense', 'Content assets, net', 'Cost of revenues (amortization of content assets)', 'Accounts payable', 'Deferred revenue', 'Prepaid expenses', 'Property and equipment, net'],
         steps: [
-          { t: 'fill', p: 'Step 1. Question 1(a) and 1(b). Find the single largest consumer of cash in 2019, and work out who paid for it.',
-            look: 'Exhibit 3, the 2019 column.',
+          { t: 'entry', p: 'Question 3(a). Record the cash outflow of $1,000 on a marketing campaign.',
+            rows: [{ s: 'Dr', a: 'Marketing expense', v: 1000 }, { s: 'Cr', a: 'Cash', v: 1000 }],
+            e: 'Marketing is expensed as incurred, so the debit goes straight to the income statement and nothing lands on the balance sheet. Two lines, and the whole of the next question is about why there is no third.' },
+          { t: 'pick', p: 'Question 3(b). Management is convinced marketing creates future economic benefit. Why is it still not an asset? Mark each statement true or false.',
+            h: 'Go back to what an asset has to satisfy: a resource the company controls, expected to bring future benefit, at a cost that can be measured.\n\nMarketing fails on the middle of those three. Ask yourself which specific thing you would be putting on the balance sheet, and for how long.\n\nOne of these statements is the reason people usually give and is wrong on the facts — check what IFRS does with advertising before you mark it.',
             rows: [
-            { l: 'Largest single outflow in 2019', a: 13916683, tol: 2000, w: 'Additions to content assets. Nothing else on the statement is within an order of magnitude \u2014 purchases of property and equipment were 253,035.' },
-            { l: 'Net cash used in operating activities, 2019', a: -2887322, tol: 2000, w: 'Negative, in a year when Netflix reported net income of 1,866,916.' },
-            { l: 'Proceeds from issuance of debt, 2019', a: 4469306, tol: 2000, w: 'Where the money came from. Netflix borrowed to fund the shortfall.' },
-            { l: 'Net cash provided by financing activities, 2019', a: 4505662, tol: 2000, w: 'Debt plus a small share issue. Financing exceeded the operating deficit, which is how cash still rose 1,231,745 over the year.' },
-            { l: 'Long-term debt at 31 December 2019', a: 14759260, tol: 3000, w: 'Against total equity of 7,582,157 \u2014 nearly twice the shareholders\u2019 stake.' }
-          ], e: 'This is the shape of the whole case. Subscribers paid 20.2 billion, Netflix spent 13.9 billion on content, and the difference went out faster than it came in. The gap was funded by bondholders, year after year, and the balance sheet shows the accumulation.\n\nWhich is precisely why management\u2019s January 2021 sentence mattered so much to the share price. It was not a claim about profit. It was a claim about no longer needing the bond market.' },
-          { t: 'pick', p: 'Step 2. Question 1(c). Why is depreciation and amortization of property, equipment and intangibles added back?',
-            rows: [
-              { l: 'It is a cash cost of the year that belongs in the investing section rather than in operating', a: false },
-              { l: 'It is a non-cash expense \u2014 the cash left when the asset was bought', a: true },
-              { l: 'It reverses an error in the income statement', a: false },
-              { l: 'It represents cash set aside to replace the assets', a: false }
+              { l: 'The benefit cannot be attributed to an identifiable asset', a: true, w: 'This is the reason. There is no item you could name, control and amortise.' },
+              { l: 'The period over which the benefit arrives cannot be estimated', a: true, w: 'Some subscribers join next week, some in three years, some would have joined anyway. No amortisation basis exists.' },
+              { l: 'It is expensed only because U.S. GAAP applies to Netflix', a: false, w: 'IFRS expenses advertising too, under IAS 38. This is not a jurisdiction difference, and saying so is the most common wrong answer here.' },
+              { l: 'Netflix cannot control whether a viewer who saw an advertisement subscribes', a: true, w: 'Control is part of the definition of an asset, and Netflix has none over the viewer.' },
+              { l: 'The amount spent cannot be measured reliably', a: false, w: 'The spend is perfectly measurable — $2,228,362 thousand in 2020. It is the benefit that cannot be measured, not the cost.' }
             ],
-            e: 'The cash left the business when the equipment was bought, and it appeared then under investing as purchases of property and equipment. Depreciation is the accounting spread of that past payment across the years of use. Since the cash flow statement starts from net income and is trying to get back to cash, every non-cash charge has to come back out.\n\nThe fourth option is the common misconception, and it is worth killing. Depreciation sets nothing aside. There is no fund, no reserve, no money anywhere. A company can depreciate assets for a decade and have nothing at the end of it with which to replace them.' },
-          { t: 'pick', p: 'Step 3. Question 1(d). And why is deferred revenue added back?',
+            e: 'An asset requires a resource the entity controls, future benefit expected to flow from it, and a cost that can be measured. Marketing passes the third and fails the first two, so it is expensed as incurred under both IFRS and U.S. GAAP.\n\nThe consequence is a systematic bias: companies that build value through advertising look asset-poor and unprofitable during their growth years, while companies that build it through capitalisable production look asset-rich. Netflix does both, which is what makes question 4(e) worth answering.' },
+          { t: 'pick', p: 'Question 3(c). What does the $1,000 do to cash flow from operating activities?',
             rows: [
-              { l: 'It is revenue Netflix expects to earn from existing subscribers but has not yet billed them for', a: false },
-              { l: 'It is a receivable that has not been collected', a: false },
-              { l: 'Subscribers paid in advance, so cash came in without revenue being recognised', a: true },
-              { l: 'It corrects for subscribers who cancelled mid-month', a: false }
+              { l: 'It reduces operating cash flow by $1,000', a: true, w: 'Marketing is an operating cash cost, so the outflow reduces operating cash flow dollar for dollar.' },
+              { l: 'It reduces operating cash flow by less than $1,000, net of tax', a: false, w: 'The cash flow statement records the cash that moved. Tax effects appear on their own lines, not netted into each expense.' },
+              { l: 'It has no effect, because the expense is added back as non-cash', a: false, w: 'There is nothing to add back — the cash genuinely left. Add-backs exist for charges that never involved cash.' },
+              { l: 'It reduces investing cash flow rather than operating cash flow', a: false, w: 'Investing covers the acquisition of long-lived assets. Marketing creates no asset, which is exactly what question 3(b) established.' }
             ],
-            e: 'Netflix charges monthly in advance. The cash arrives on the first of the month; the revenue is earned over the month that follows. Between the two moments Netflix holds cash it has not yet earned, and the obligation to provide a month of service is a liability \u2014 deferred revenue of 1,117,992 at the end of 2020.\n\nSo cash exceeds revenue by the increase in the balance, 193,247 in 2020, and the reconciliation adds it back. Note that this liability is one of the most comfortable on any balance sheet: it is settled by delivering a service that costs almost nothing at the margin, not by paying anyone.\n\nAnd it is a growth signal. Deferred revenue rises when the subscriber base grows or prices rise, and a fall would be an early warning that arrives before the revenue line shows it.' },
-          { t: 'pick', p: 'Step 4. Question 1(e). Accounts payable adds 96,063 in 2019 and subtracts 41,605 in 2020. What changed?',
+            e: 'Net income falls by 1,000 and no add-back offsets it, so operating cash flow falls by the same 1,000. Worth contrasting with content spending in question 4: that also reduces operating cash flow, but it creates an asset on the way out, and the charge to profit arrives in later years through amortisation.' },
+          { t: 'pick', p: 'Question 3(d). In which specific line of the cash flow statement does that $1,000 appear?',
             rows: [
-              { l: 'Netflix negotiated materially worse payment terms with its content suppliers during the year', a: false },
-              { l: 'Content production stopped during the pandemic, so there was less to owe', a: true },
-              { l: 'Netflix switched from accrual to cash accounting for payables', a: false },
-              { l: 'The 2019 figure was restated', a: false }
+              { l: 'None — it sits inside net income and needs no reconciling line', a: true, w: 'It is already in the 2,761,395 of net income at the top, as part of the 2,228,362 marketing expense. The indirect method only lists what has to be adjusted.' },
+              { l: 'Amortization of content assets', a: false, w: 'That line carries content, not marketing, and it is an add-back for a non-cash charge.' },
+              { l: 'Other non-cash items', a: false, w: 'Marketing is cash. That line exists for charges that never moved money.' },
+              { l: 'Changes in operating assets and liabilities', a: false, w: 'Only if it were accrued and unpaid. A cash outflow of 1,000 paid in the period moves no working capital balance.' }
             ],
-            e: 'A rising payables balance is a source of cash: the company has received goods or services it has not yet paid for. A falling balance is a use of cash. In 2019 Netflix was commissioning at full speed and its payables grew with the activity. In 2020 productions shut down worldwide, spending fell \u2014 content additions dropped from 13.9 billion to 11.8 billion \u2014 and the payables balance fell with it, from 674,347 to 656,183.\n\nThe sign flip is not a working capital decision. It is what a production halt looks like when it reaches the balance sheet. Hold on to that, because it is the crux of the last question in this case.' },
-          { t: 'fill', p: 'Step 5. Question 5. Reconcile 2019: net income of 1,866,916 against operating cash flow of minus 2,887,322. Where does the gap come from?',
-            h: 'A gap of 4.75 billion is not made of many small things. Look for the two or three lines big enough to explain it on their own.\n\nContent is the only candidate. Netflix pays cash for content when it commissions or licenses it, and charges it to profit through amortisation over the years that follow. When the spending is growing, the payment always runs ahead of the charge.\n\nSo measure the distance between what left the bank and what reached the income statement, then check what is left over.',
-            calc: 'Content gap = additions to content assets \u2212 amortization of content assets',
-            given: [
-              { l: 'Additions to content assets, 2019', v: '13,916,683', s: 'Cash out' },
-              { l: 'Amortization of content assets, 2019', v: '9,216,247', s: 'Charged to cost of revenues' },
-              { l: 'Change in content liabilities, 2019', v: '(694,011)', s: 'Netflix also paid down what it owed on content' }
-            ], rows: [
-            { l: 'The gap between net income and operating cash flow', a: 4754238, tol: 3000, w: '1,866,916 \u2212 (\u22122,887,322) = 4,754,238.' },
-            { l: 'Content spending in excess of content amortization', a: 4700436, tol: 3000, w: '13,916,683 \u2212 9,216,247 = 4,700,436 \u2014 98.9% of the gap, from one pair of lines.' },
-            { l: 'Content spending as a multiple of amortization (times)', a: 1.51, tol: 0.04, w: '13,916,683 / 9,216,247 = 1.51. Netflix was paying for content half as fast again as it was charging it to profit.' },
-            { l: 'Cost of revenues, 2019', a: 12440213, tol: 3000, w: 'Of which 9,216,247, about 74%, is content amortization \u2014 the largest single expense in the company.' }
-          ], e: 'The profits were real and the cash burn was real, and there is no contradiction between them. Amortisation reflects content commissioned in earlier, smaller years, while the cash reflects what Netflix is commissioning now.\n\nAs long as spending grows faster than the amortisation of past spending, the gap persists no matter how profitable the company is. It closes when growth in spending slows and the amortisation of prior years finally catches up. Every subscription business that builds its own inventory of assets \u2014 studios, pharmaceutical pipelines, software \u2014 has some version of this, and the cash flow statement is where you see it.' },
-          { t: 'fill', p: 'Step 6. Question 4(a) to (d). Look at what all that spending bought.',
-            look: 'Exhibits 4 and 14.',
-            rows: [
-            { l: 'Largest asset on the 2020 balance sheet', a: 25383950, tol: 3000, w: 'Content assets, net.' },
-            { l: 'That asset as a percentage of total assets (%)', a: 64.6, tol: 0.8, w: '25,383,950 / 39,280,359 = 64.6%. Property and equipment is 960,183, about 2.4%.' },
-            { l: 'Produced content, net, 2020', a: 11636343, tol: 3000, w: 'Content Netflix commissioned itself: 5,809,681 released, 4,827,455 in production, 999,207 in development.' },
-            { l: 'Produced content as a percentage of content assets (%)', a: 45.8, tol: 0.8, w: '11,636,343 / 25,383,950 = 45.8%, up from 40.0% a year earlier \u2014 the shift from licensing other studios\u2019 shows to making its own, visible in one ratio.' },
-            { l: 'Cash spent on content assets in 2019', a: 13916683, tol: 3000, w: 'The same figure from step 1, now recognisable as an investment in an asset rather than an expense.' },
-            { l: 'Annual amortization of a 1,000 content asset on four-year straight line', a: 250, tol: 1, w: '1,000 / 4 = 250. Netflix does not use straight line \u2014 it amortises on an accelerated basis, expecting over 90% within four years, because viewing is front-loaded.' }
-          ], e: 'The asset is intangible, and awkwardly so. A film has no physical substance; what Netflix owns is a bundle of rights, and it capitalises the cost of production including overhead. Whether that cost has anything to do with the value is the open question \u2014 a show nobody watches sits at cost until Netflix decides otherwise, and Exhibit 13 says the company reviews content in aggregate rather than title by title, because the business is sold as a subscription and not by the film.\n\nWhich means no single flop can ever trigger an impairment. That is defensible \u2014 it matches how the revenue is earned \u2014 and it removes the mechanism by which a reader would find out that individual bets went wrong.' },
-          { t: 'pick', p: 'Step 7. Question 4(e). Marketing spending also creates future benefit \u2014 brand, subscribers. Why is content capitalised and marketing expensed?',
-            rows: [
-              { l: 'Marketing benefits cannot be reliably measured or attributed to an identifiable asset', a: true },
-              { l: 'Marketing is smaller, so materiality permits expensing it', a: false },
-              { l: 'Content is legally owned by Netflix, and only things a company legally owns can be recognised as assets', a: false },
-              { l: 'Marketing benefits accrue to the industry rather than to Netflix', a: false }
-            ],
-            e: 'The definition of an asset requires a resource controlled by the entity from which future economic benefits are expected to flow, and the cost must be measurable. Content passes: an identified title exists, Netflix controls the rights, the production cost is known, and the viewing pattern gives an amortisation basis.\n\nA television campaign fails on identifiability. Some subscribers who joined in that month would have joined anyway, some who saw the advertisement will join in three years, and there is no way to attribute a benefit to the spend or to say when it stops. So accounting takes the conservative route and expenses it as incurred.\n\nThe consequence is a systematic bias worth carrying around. Companies that build value through advertising and research look asset-poor and unprofitable in their growth years, while companies that build it through capitalisable production look asset-rich. The economics can be identical.\n\nThe third option is worth naming as a near-miss: control is the test, not legal title \u2014 a leased asset is on the balance sheet without ownership. Netflix does own most of these rights, but that is not what settles it.' },
-          { t: 'fill', p: 'Step 8. Question 3(e). Marketing spending itself, absolute and relative.',
+            e: 'This is the logic of the indirect method, and it catches people out. The statement starts from net income and then lists only the corrections — non-cash charges to add back, non-operating gains to remove, working capital movements. An expense paid in cash in the same period needs no correction at all, so it is invisible as a line while being fully reflected in the total.' },
+          { t: 'fill', p: 'Question 3(e). Marketing spending itself, in absolute and relative terms.',
             calc: 'Marketing as a percentage of revenue',
+            look: 'Exhibit 2, the income statement.',
             rows: [
-            { l: 'Marketing expense, 2019', a: 2652462, tol: 2000, w: '' },
-            { l: 'Marketing expense, 2020', a: 2228362, tol: 2000, w: 'Down 424,100 in absolute terms \u2014 in a year when revenue rose 24%.' },
-            { l: 'Marketing as a percentage of revenue, 2019 (%)', a: 13.2, tol: 0.3, w: '2,652,462 / 20,156,447 = 13.2%.' },
-            { l: 'Marketing as a percentage of revenue, 2020 (%)', a: 8.9, tol: 0.3, w: '2,228,362 / 24,996,056 = 8.9%. The relative fall is far steeper than the absolute one.' },
-            { l: 'Marketing as a percentage of revenue, 2018 (%)', a: 15.0, tol: 0.3, w: '2,369,469 / 15,794,341 = 15.0%. The three-year trend is 15.0%, 13.2%, 8.9%.' }
-          ], e: 'Two readings, and the honest answer is that 2020 does not settle between them.\n\nThe optimistic one: Netflix has reached the scale where the brand sells itself, word of mouth does the work that advertising used to, and marketing can fall as a share of revenue indefinitely. The sceptical one: lockdowns delivered subscribers for free, so paid acquisition was simply unnecessary for a year, and the ratio will revert once people leave their homes.\n\nA cut in a discretionary expense always flatters current profit and may cost future revenue, and no reader outside the company can tell from a single year which of the two is happening. Which is exactly why marketing being expensed rather than capitalised matters: the entire effect lands in one year\u2019s income statement, with nothing carried forward to make it visible.' },
-          { t: 'fill', p: 'Step 9. Question 2. Now the DVD era, where Netflix and Blockbuster made opposite classification choices on the same kind of asset.',
-            h: 'Both companies bought discs, rented them out, and amortised the cost. The economics are as close to identical as two companies get.\n\nThe difference is one line\u2019s placement. Find where each company put the purchase of its library, note that both put the amortisation back in operating, and then ask what happens to operating cash flow when the outflow sits in one section and the add-back in another.\n\nThen move Netflix\u2019s purchase into operating, as Blockbuster had it, and see what happens to the number analysts quote.',
-            look: 'Exhibits 7 and 10.',
-            given: [
-              { l: 'Netflix 2011: acquisition of DVD content library', v: '(85,154) in investing', s: 'Exhibit 7' },
-              { l: 'Netflix 2011: amortization of DVD content library', v: '96,744 added back in operating', s: 'Exhibit 7' },
-              { l: 'Blockbuster FY2009: rental library purchases', v: '(500.2) in operating', s: 'Exhibit 10' }
-            ], rows: [
-            { l: 'Netflix reported operating cash flow, 2011', a: 317712, tol: 300, w: 'Flattered: the amortisation is added back in operating while the purchase never passed through it.' },
-            { l: 'Netflix operating cash flow on Blockbuster\u2019s treatment', a: 232558, tol: 400, w: '317,712 \u2212 85,154 = 232,558, a fall of 27%.' },
-            { l: 'Netflix investing cash flow on Blockbuster\u2019s treatment', a: -180660, tol: 400, w: '(265,814) + 85,154 = (180,660). Investing improves by exactly what operating loses.' },
-            { l: 'Net change in cash under the two treatments', a: 0, w: 'Zero. Not one dollar moves; only the subtotals do.' },
-            { l: 'Blockbuster\u2019s operating cash flow, FY2009 ($ millions)', a: 29.3, tol: 0.4, w: 'Barely positive, on a net loss of 558.2. Its purchases of 500.2 and amortisation of 519.8 both sat in operating, so they largely cancelled \u2014 an honest presentation of a business standing still.' }
-          ], e: 'Which treatment is right? The case for investing: a DVD library lasts years, it is a long-lived asset, and buying long-lived assets is what investing means. The case for operating: renting discs is the business, and a cost you must incur every year to stay in business is operating by any economic test.\n\nBlockbuster\u2019s presentation is the more informative one. Purchases and amortisation sit side by side, and a reader sees immediately that the company was spending roughly what it was charging \u2014 running to stand still. Netflix\u2019s split put the outflow where analysts rarely look and left the add-back where they always do.\n\nThe irony is that Netflix now does the opposite. Streaming content payments run through operating, which is why operating cash flow was minus 2.9 billion in 2019. Same company, same kind of asset, opposite choice \u2014 and the second choice is the conservative one.' },
-          { t: 'fill', p: 'Step 10. Question 6, first part. Measure the 2020 turn and find what caused it.',
-            calc: 'Swing = 2020 operating cash flow \u2212 2019 operating cash flow',
+            { l: 'Marketing expense, FY2019 ($ thousands)', a: 2652462, tol: 2000, w: '' },
+            { l: 'Marketing expense, FY2020 ($ thousands)', a: 2228362, tol: 2000, w: '' },
+            { l: 'The fall, FY2019 to FY2020 ($ thousands)', a: 424100, tol: 2000, w: '2,652,462 − 2,228,362 = 424,100, a fall of 16.0%.' },
+            { l: 'Marketing as a percentage of revenue, FY2019 (%)', a: 13.2, tol: 0.3, w: '2,652,462 / 20,156,447 = 13.2%.' },
+            { l: 'Marketing as a percentage of revenue, FY2020 (%)', a: 8.9, tol: 0.3, w: '2,228,362 / 24,996,056 = 8.9%. The relative fall is far steeper than the absolute one, because revenue rose 24% while spending fell.' }
+          ], e: 'Down in absolute terms in a year when revenue grew 24%, and down by a third relative to revenue. Is the trend justified? Two defensible readings, and one year cannot settle between them.\n\nThe case for yes: lockdowns delivered subscribers without paid acquisition, production and promotional events were cancelled, and a brand at Netflix’s scale increasingly sells itself. The case for caution: marketing is discretionary, cutting it always flatters current profit, and the cost lands in future revenue nobody can see yet. Because marketing is expensed rather than capitalised, the whole effect hits one year’s income statement with nothing carried forward to make it visible — which is question 3(b) coming back to bite.\n\nFor the write-up, say which reading you take and name the evidence that would change your mind.' },
+          { t: 'fill', p: 'Question 4(a). Netflix’s largest asset, its size, and how much of it Netflix made itself.',
+            look: 'Exhibit 4 for the balance sheet, Exhibit 14 for the split.',
             rows: [
-            { l: 'Swing in operating cash flow, 2019 to 2020', a: 5314399, tol: 3000, w: '2,427,077 \u2212 (\u22122,887,322) = 5,314,399.' },
-            { l: 'Fall in additions to content assets', a: 2137399, tol: 3000, w: '13,916,683 \u2212 11,779,284 = 2,137,399. The first fall in the company\u2019s history, and not a decision.' },
-            { l: 'Rise in amortization of content assets', a: 1590665, tol: 3000, w: '10,806,912 \u2212 9,216,247 = 1,590,665. Prior years\u2019 spending arriving in the income statement.' },
-            { l: 'Those two together, as a percentage of the swing (%)', a: 70.1, tol: 1.5, w: '(2,137,399 + 1,590,665) / 5,314,399 = 70%. The rest is higher net income and working capital.' },
-            { l: 'Rise in net income', a: 894479, tol: 2000, w: '2,761,395 \u2212 1,866,916 = 894,479 \u2014 real, and a sixth of the swing.' },
-            { l: 'Free cash flow, 2020 (operating less purchases of property and equipment)', a: 1929154, tol: 3000, w: '2,427,077 \u2212 497,923 = 1,929,154. Positive for the first time.' }
-          ], e: 'Content spending fell for one reason: film and television production stopped almost everywhere for much of 2020. Netflix did not choose to spend less. Meanwhile amortisation kept rising, because it reflects the enormous commissioning of 2018 and 2019, and subscribers arrived in record numbers with nothing else to do.\n\nEvery one of those effects pushed cash flow the same way, and two of the three were temporary.' },
-          { t: 'pick', p: 'Step 11. Question 6, second part. Is Netflix in a virtuous loop?',
+            { l: 'Content assets, net, at 31 December 2020 ($ thousands)', a: 25383950, tol: 3000, w: 'The largest asset by a distance — property and equipment is 960,183.' },
+            { l: 'Content assets as a percentage of total assets (%)', a: 64.6, tol: 0.8, w: '25,383,950 / 39,280,359 = 64.6%.' },
+            { l: 'Produced content, net — the part Netflix made itself ($ thousands)', a: 11636343, tol: 3000, w: 'Released less amortisation 5,809,681, in production 4,827,455, in development and pre-production 999,207.' },
+            { l: 'Licensed content, net ($ thousands)', a: 13747607, tol: 3000, w: 'Still the larger half, but falling — it was 14,703,352 a year earlier, while produced content rose from 9,801,215.' },
+            { l: 'Produced content as a percentage of content assets (%)', a: 45.8, tol: 0.8, w: '11,636,343 / 25,383,950 = 45.8%, up from 40.0% in 2019 — the shift from licensing other studios’ shows to commissioning its own, in one ratio.' }
+          ], e: 'Nearly two thirds of the balance sheet is content, and nearly half of that is content Netflix commissioned rather than licensed. The question asks how much was intentionally produced because that is the half Netflix controls — and the half that makes the capitalisation argument in 4(e) work.' },
+          { t: 'pick', p: 'Question 4(b). Is this a tangible or an intangible asset? Mark each statement.',
             rows: [
-              { l: 'Yes \u2014 positive cash flow proves the model works and that no further borrowing will be needed', a: false },
-              { l: 'Partly \u2014 the structural mechanism is real, but 2020 is not the year that proves it', a: true },
-              { l: 'No \u2014 the improvement is entirely an artefact of the pandemic', a: false },
-              { l: 'The question cannot be answered from financial statements', a: false }
+              { l: 'Intangible — what Netflix owns is a bundle of rights', a: true, w: 'Copyrights, distribution rights and licence contracts. No physical substance.' },
+              { l: 'Tangible, because films exist as physical master copies', a: false, w: 'The master is incidental. The value is the right to exploit the work, not the medium it sits on.' },
+              { l: 'Licensed content is intangible but produced content is tangible', a: false, w: 'Both are intangible. Producing it yourself changes who owns the rights, not what kind of asset they are.' },
+              { l: 'It is amortised rather than depreciated, which fits an intangible', a: true, w: 'The cash flow statement calls it amortization of content assets — the word used for intangibles.' }
             ],
-            e: 'The structural argument is sound. Content spending cannot grow at 30% a year forever; when growth slows, the amortisation of prior years keeps rising and catches up, and the gap that consumed 4.7 billion in 2019 closes on its own arithmetic. Revenue grew 24% in 2020 while content spending fell, so the ratio moved decisively. That is the loop, and it does not depend on a pandemic.\n\nBut 2020 is a bad year to prove it with. Roughly 2.1 billion of the improvement is production that could not happen, and it will happen later \u2014 shifted, not saved. Subscriber growth was pulled forward by lockdowns, and marketing was cut in a year when marketing was barely needed. Strip the temporary effects and the underlying position is better than 2019 but not yet obviously self-funding.\n\nThe honest conclusion is the one the case title points at: the search for cash flow ended in a year that cannot be repeated, and the test is what 2021 and 2022 look like once the studios reopen. Which is the general lesson about cash flow statements \u2014 they are the hardest statement to manipulate and still the easiest to misread, because a single year tells you what happened and almost nothing about what recurs.' }
+            e: 'Intangible, and the question is worth two points because the reasoning matters more than the label. The asset is the legal right to stream a title, which is why Netflix capitalises production cost including overhead, and why Exhibit 13 says it reviews content in aggregate rather than title by title — the business is sold as a subscription, not by the film.\n\nThat last detail is worth a line in the write-up: no single flop can trigger an impairment. It is defensible, because it matches how the revenue is earned, and it removes the mechanism by which a reader would learn that individual bets went wrong.' },
+          { t: 'entry', p: 'Question 4(c), first half. Record the cash outflow of $1,000 on developing content assets.',
+            rows: [{ s: 'Dr', a: 'Content assets, net', v: 1000 }, { s: 'Cr', a: 'Cash', v: 1000 }],
+            e: 'Compare this with question 3(a). Identical cash, opposite accounting: marketing debits an expense, content debits an asset. Nothing about the two payments differs except whether the thing bought can be identified, controlled and measured.' },
+          { t: 'entry', p: 'Question 4(d), first half. Record one year of amortisation on that $1,000, assuming four-year straight line and no residual value.',
+            rows: [{ s: 'Dr', a: 'Cost of revenues (amortization of content assets)', v: 250 }, { s: 'Cr', a: 'Content assets, net', v: 250 }],
+            e: '1,000 / 4 = 250 a year. The credit reduces the asset directly rather than sitting in a separate accumulated amortisation account, which is why the balance sheet line is called content assets, net.\n\nThe question says to assume straight line, and it is worth noting in the write-up that Netflix does not use it. Exhibit 13 says amortisation runs on an accelerated basis over the shorter of the contractual window, the estimated period of use, or ten years, with over 90% of a title expected to be amortised within four years — because viewing is front-loaded.' },
+          { t: 'fill', p: 'Questions 4(c) and 4(d), second half. The real figures for FY2019.',
+            look: 'Exhibit 3, the cash flow statement, FY2019 column.',
+            rows: [
+            { l: 'Cash spent on content assets in FY2019 ($ thousands)', a: 13916683, tol: 3000, w: 'The additions to content assets line — the single largest outflow anywhere on the statement.' },
+            { l: 'Amortization of content assets reported in FY2019 ($ thousands)', a: 9216247, tol: 3000, w: 'Added back in the operating section, because it is a charge with no cash behind it.' },
+            { l: 'The gap between them ($ thousands)', a: 4700436, tol: 3000, w: '13,916,683 − 9,216,247 = 4,700,436. Hold on to this figure — question 5 is about it.' },
+            { l: 'Spending as a multiple of amortisation (times)', a: 1.51, tol: 0.04, w: 'Netflix paid for content half as fast again as it charged it to profit.' }
+          ], e: 'Amortisation reflects what was commissioned in earlier, smaller years; the cash reflects what is being commissioned now. While spending grows faster than the amortisation of past spending, the gap persists no matter how profitable the company is.' },
+          { t: 'pick', p: 'Question 4(e). Content development creates future benefit and so does marketing. How does Netflix justify capitalising one and expensing the other?',
+            h: 'This is the question the other parts have been building towards, so answer it with the tests rather than with a rule.\n\nTake the definition of an asset and run content through it: is there an identifiable thing, does Netflix control it, can the cost be measured, and is there a basis for spreading it over time? Then run marketing through the same four.\n\nContent passes all four. Marketing passes one. That is the whole argument, and the auditor will want the amortisation basis evidenced.',
+            rows: [
+              { l: 'A specific title is identifiable, and Netflix holds the rights to it', a: true, w: 'Identifiability and control — the two things marketing cannot satisfy.' },
+              { l: 'Production cost is directly traceable to that title', a: true, w: 'Production, development, direct costs and overhead, all attributable to a named work.' },
+              { l: 'Viewing patterns give an evidenced basis for amortising it', a: true, w: 'Exhibit 13: historical and estimated viewing patterns, accelerated, over 90% within four years. An auditor can test that.' },
+              { l: 'Content generates revenue and marketing does not', a: false, w: 'Marketing plainly generates revenue. The problem is that nobody can say which revenue, or when.' },
+              { l: 'ASC 926 requires production costs for films and episodic series to be capitalised as incurred', a: true, w: 'Exhibit 15 — there is a standard on point, so this is not a matter of management preference.' },
+              { l: 'Capitalising content improves reported profit, which justifies the treatment', a: false, w: 'It does improve near-term profit, and that is never a justification. If it were the reason, the auditor would reject it.' }
+            ],
+            e: 'Four tests: an identifiable item, control of it, a measurable cost, and a defensible basis for spreading that cost over time. Content passes all four and there is a standard on point in ASC 926. Marketing passes only measurability of the spend.\n\nThe honest answer to an auditor is that the difference is not about which one creates value — both do — but about which one can be tied to a specific asset and amortised on evidence. And the pressure point is worth naming: the amortisation curve rests on estimated viewing patterns, which Exhibit 13 admits require considerable management judgment. That estimate is where an auditor will push, not on whether content is an asset at all.' },
+          { t: 'fill', p: 'Question 5. Compare net income with operating cash flow for FY2019, and find what explains the difference.',
+            calc: 'Content gap = additions to content assets − amortization of content assets',
+            given: [
+              { l: 'Net income, FY2019', v: '1,866,916', s: 'Income statement' },
+              { l: 'Net cash used in operating activities, FY2019', v: '(2,887,322)', s: 'Cash flow statement' }
+            ], rows: [
+            { l: 'The gap between them ($ thousands)', a: 4754238, tol: 3000, w: '1,866,916 − (−2,887,322) = 4,754,238. Netflix reported a healthy profit and consumed 2.9 billion of cash in the same year.' },
+            { l: 'Content spending in excess of amortisation ($ thousands)', a: 4700436, tol: 3000, w: 'Your figure from the previous step.' },
+            { l: 'That excess as a percentage of the gap (%)', a: 98.9, tol: 1.0, w: '4,700,436 / 4,754,238 = 98.9%. One pair of lines explains essentially the whole difference.' },
+            { l: 'Change in content liabilities, FY2019 ($ thousands)', a: -694011, tol: 3000, w: 'Netflix also paid down what it owed on content, which widens the gap further — enter it as a negative number.' },
+            { l: 'Amortization of content as a percentage of FY2019 cost of revenues (%)', a: 74.1, tol: 1.0, w: '9,216,247 / 12,440,213 = 74%. Content amortisation is three quarters of the largest expense in the company.' }
+          ], e: 'The main cause is the gap between what Netflix pays for content and what it charges to profit for content. Both figures are real and neither is manipulation: amortisation reflects earlier, smaller commissioning years while the cash reflects this year’s.\n\nThe classification choice deserves a sentence in the write-up too. Exhibit 13 says payments for content sit inside operating activities. A company that treated content as a capital investment would show the same cash leaving under investing and report positive operating cash flow on identical economics. Netflix’s presentation is the conservative one.' },
+          { t: 'fill', p: 'Question 6, first part. Measure the 2020 turn and find what drove it.',
+            calc: 'Swing = FY2020 operating cash flow − FY2019 operating cash flow',
+            rows: [
+            { l: 'Swing in operating cash flow, FY2019 to FY2020 ($ thousands)', a: 5314399, tol: 3000, w: '2,427,077 − (−2,887,322) = 5,314,399.' },
+            { l: 'Fall in additions to content assets ($ thousands)', a: 2137399, tol: 3000, w: '13,916,683 − 11,779,284 = 2,137,399 — the first fall in the company’s history, and not a decision.' },
+            { l: 'Rise in amortization of content assets ($ thousands)', a: 1590665, tol: 3000, w: '10,806,912 − 9,216,247 = 1,590,665, as prior years’ commissioning reached the income statement.' },
+            { l: 'Those two together as a percentage of the swing (%)', a: 70.1, tol: 1.5, w: '70% of the improvement comes from the content lines alone.' },
+            { l: 'Rise in net income ($ thousands)', a: 894479, tol: 2000, w: '2,761,395 − 1,866,916 = 894,479 — real, and about a sixth of the swing.' },
+            { l: 'Free cash flow, FY2020 (operating less purchases of property and equipment, $ thousands)', a: 1929154, tol: 3000, w: '2,427,077 − 497,923 = 1,929,154, positive for the first time.' }
+          ], e: 'Content spending fell for one reason: production stopped almost everywhere for much of 2020. Netflix did not choose to spend less. Amortisation kept rising because it reflects the enormous commissioning of 2018 and 2019, and subscribers arrived in record numbers with nothing else to do. Three effects, all pushing the same way, and two of them temporary.' },
+          { t: 'pick', p: 'Question 6, second part. Is Netflix now in a virtuous loop? Mark each statement.',
+            rows: [
+              { l: 'The structural mechanism is real: as spending growth slows, amortisation catches up', a: true, w: 'This does not depend on a pandemic. It is arithmetic, and it is the strongest part of the bull case.' },
+              { l: 'Roughly 2.1 billion of the 2020 improvement is production postponed, not saved', a: true, w: 'Shifted into later years, which means it comes back.' },
+              { l: 'Positive free cash flow in 2020 proves no further borrowing will be needed', a: false, w: 'One year, and an unrepeatable one. Netflix still carried 15.8 billion of long-term debt at the end of it.' },
+              { l: 'Subscriber growth in 2020 was pulled forward by lockdowns', a: true, w: 'Which borrows from future years’ growth as well as flattering this one.' },
+              { l: 'The improvement is entirely an artefact of the pandemic', a: false, w: 'Too strong. Revenue grew 24% while content spending fell, so the ratio moved for real reasons too.' }
+            ],
+            e: 'Partly, and 2020 is the wrong year to prove it with. The mechanism is sound: content spending cannot grow at 30% a year forever, and when growth slows the amortisation of prior years keeps rising and closes the gap on its own arithmetic.\n\nBut strip out the postponed production, the pulled-forward subscribers and the marketing that was barely needed, and the underlying position is better than 2019 without being obviously self-funding. The test is what 2021 and 2022 look like once the studios reopen.\n\nFor the write-up, that is the answer: name the mechanism, show it is real, then show how much of this particular year cannot be repeated. The case is called In Search of Cash Flow, and the search ended in a year that came with an asterisk.' }
         ]
       },
     ],
