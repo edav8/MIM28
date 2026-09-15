@@ -672,8 +672,8 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
           </sc-for>
         </div>
         <div style="margin-top:10px; display:flex; gap:20px; font-size:12px; color:var(--muted); flex-wrap:wrap">
-          <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#5b9cff; display:inline-block"></span>Data Analysis</span>
-          <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#a97cf5; display:inline-block"></span>Marketing</span>
+          <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#3ea6ff; display:inline-block"></span>Data Analysis</span>
+          <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#bf7bff; display:inline-block"></span>Marketing</span>
           <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#4fbf8b; display:inline-block"></span>Financial Accounting</span>
           <span style="display:flex; align-items:center; gap:8px"><span style="width:12px; height:12px; background:#8a93a6; display:inline-block"></span>Everything else</span>
         </div>
@@ -1240,8 +1240,8 @@ class Component extends DCLogic {
 
   themes = {
     hub: '--ground:#101a17; --panel:#17251f; --line:#3a4f45; --ink:#eef3f0; --soft:#cfdbd4; --muted:#a2b3aa; --faint:#72877c; --acc:#2f9d78; --accSoft:#7fd3b4; --onAcc:#08211a; --good:#6fd6ab; --bad:#ff8b80;',
-    da: '--ground:#0b1729; --panel:#12213a; --line:#35496b; --ink:#e9eff9; --soft:#c8d4e5; --muted:#a7b6cc; --faint:#7286a3; --acc:#5b9cff; --accSoft:#a7ccff; --onAcc:#08122a; --good:#6fd6ab; --bad:#ff8b80;',
-    mkt: '--ground:#160e26; --panel:#241636; --line:#4b3570; --ink:#f2ebfc; --soft:#dbcdf0; --muted:#bcaad8; --faint:#8f7cae; --acc:#a97cf5; --accSoft:#cbb0ff; --onAcc:#170a28; --good:#7ad9b4; --bad:#ff96a0;',
+    da: '--ground:#081a33; --panel:#10274a; --line:#2f5891; --ink:#eaf2ff; --soft:#c9dcf7; --muted:#a5c1e8; --faint:#7ba2d4; --acc:#3ea6ff; --accSoft:#9fd0ff; --onAcc:#04101f; --good:#6fd6ab; --bad:#ff8b80;',
+    mkt: '--ground:#1a0f30; --panel:#2a1844; --line:#5c3f8c; --ink:#f5eeff; --soft:#e0d2f7; --muted:#c4addf; --faint:#9a86bd; --acc:#bf7bff; --accSoft:#dcc2ff; --onAcc:#1b0b32; --good:#7ad9b4; --bad:#ff96a0;',
     ips: '--ground:#1b1410; --panel:#2a201a; --line:#57433a; --ink:#f7efe8; --soft:#e2d2c5; --muted:#c0aa9b; --faint:#937c6c; --acc:#d08a4a; --accSoft:#f0bb85; --onAcc:#241609; --good:#6fd6ab; --bad:#ff8b80;',
     fa: '--ground:#0c1a13; --panel:#13251b; --line:#345043; --ink:#e9f3ec; --soft:#c7d9ce; --muted:#a3b8ab; --faint:#728a7c; --acc:#3faa6c; --accSoft:#8bd8ab; --onAcc:#06170e; --good:#6fd6ab; --bad:#ff8b80;'
   };
@@ -3086,7 +3086,7 @@ class Component extends DCLogic {
             this.setState({ todoDone: n });
             this.save({ todoDone: n });
           },
-          style: 'display:block; width:100%; text-align:left; cursor:pointer; font:inherit; margin-top:6px; padding:4px 6px; font-size:11px; line-height:1.25; text-wrap:pretty; border:0; border-left:3px solid ' + (e.course === 'mkt' ? '#a97cf5' : e.course === 'fa' ? '#4fbf8b' : e.course === 'other' ? '#8a93a6' : '#5b9cff') + '; background:var(--ground); color:' + ((td[e.id] || e.done || e.closed) ? 'var(--faint)' : 'var(--ink)') + '; text-decoration:' + ((td[e.id] || e.done || e.closed) ? 'line-through' : 'none') + ';'
+          style: 'display:block; width:100%; text-align:left; cursor:pointer; font:inherit; margin-top:6px; padding:4px 6px; font-size:11px; line-height:1.25; text-wrap:pretty; border:0; border-left:3px solid ' + (e.course === 'mkt' ? '#bf7bff' : e.course === 'fa' ? '#4fbf8b' : e.course === 'other' ? '#8a93a6' : '#3ea6ff') + '; background:var(--ground); color:' + ((td[e.id] || e.done || e.closed) ? 'var(--faint)' : 'var(--ink)') + '; text-decoration:' + ((td[e.id] || e.done || e.closed) ? 'line-through' : 'none') + ';'
         }))
       });
     }
