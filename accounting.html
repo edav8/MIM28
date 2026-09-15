@@ -1731,6 +1731,92 @@ textarea.input { min-height: 90px; resize: vertical; }
           </div>
         </sc-if>
 
+        <sc-if value="{{ isS7 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:72ch">
+            <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <p style="margin:8px 0 0; font-size:16px">The income statement says whether you made money. The cash flow statement says whether any arrived. They disagree constantly, and the whole session is about learning to read the gap rather than being alarmed by it.</p>
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <sc-raw-table class="table" style="margin-top:6px">
+              <sc-raw-tbody>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>CFO / CFI / CFF</strong></sc-raw-td><sc-raw-td>The three sections: cash from operating, investing and financing activities.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>Indirect method</strong></sc-raw-td><sc-raw-td>Building CFO by starting at net income and correcting it, rather than listing receipts and payments.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>Articulation</strong></sc-raw-td><sc-raw-td>The fact that the three statements are linked by the accounting equation, so the cash flow statement can be derived from the other two.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>Working capital</strong></sc-raw-td><sc-raw-td>Operating current assets and liabilities — receivables, inventory, prepaid, payables, unearned revenue.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>Non-cash item</strong></sc-raw-td><sc-raw-td>A charge or credit in profit that moved no money: depreciation, stock-based compensation, amortisation.</sc-raw-td></sc-raw-tr>
+              </sc-raw-tbody>
+              </sc-raw-table>
+            </div>
+
+            <h3 style="margin-top:34px">Why the statement can be derived rather than observed</h3>
+            <p>Start from the accounting equation and rearrange until cash is alone on the left. Everything that follows in this session is a consequence of these four lines.</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td>A = L + SE</sc-raw-td><sc-raw-td>the balance sheet</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Cash + non-cash assets = L + SE</sc-raw-td><sc-raw-td>split the assets in two</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Cash = &minus; non-cash assets + L + SE</sc-raw-td><sc-raw-td>isolate cash</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>&Delta;Cash = &minus;&Delta; non-cash assets + &Delta;L + &Delta;SE</strong></sc-raw-td><sc-raw-td>take changes over the period</sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">Which gives the construction logic for the operating section directly:</p>
+            <p style="margin-top:6px"><strong>CFO = NI &minus; &Delta; non-cash operating assets + &Delta; operating liabilities</strong></p>
+            <p style="margin-top:10px; font-size:15px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">That expression assumes &Delta;SE is entirely net income — no dividends, no share issues — and that net income contains no non-operating items such as disposal gains. Those assumptions are exactly what the three fixes below relax.</p>
+
+            <h3 style="margin-top:34px">The three fixes</h3>
+            <p>Net income is the starting point and it is wrong in three specific ways. The indirect method corrects each in turn.</p>
+
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Fix 1 — remove non-cash items</div>
+              <p style="margin:8px 0 0">A non-cash expense reduced profit without moving money, so add it back. A non-cash revenue did the reverse, so subtract it. Depreciation is the common one; stock-based compensation is the one people forget.</p>
+            </div>
+
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:14px">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Fix 2 — changes in working capital</div>
+              <p style="margin:8px 0 0">Profit is recognised when earned, not when paid. Working capital holds the difference, and the signs follow from which side of the balance sheet the account sits on.</p>
+              <sc-raw-table class="table" style="margin-top:10px">
+              <sc-raw-thead><sc-raw-tr><sc-raw-th></sc-raw-th><sc-raw-th>Increase</sc-raw-th><sc-raw-th>Decrease</sc-raw-th></sc-raw-tr></sc-raw-thead>
+              <sc-raw-tbody>
+                <sc-raw-tr><sc-raw-td>Non-cash operating current assets<br><span style="font-size:13px">receivables, inventory, prepaid</span></sc-raw-td><sc-raw-td>&minus;&Delta;</sc-raw-td><sc-raw-td>+&Delta;</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td>Operating current liabilities<br><span style="font-size:13px">payables, unearned revenue</span></sc-raw-td><sc-raw-td>+&Delta;</sc-raw-td><sc-raw-td>&minus;&Delta;</sc-raw-td></sc-raw-tr>
+              </sc-raw-tbody>
+              </sc-raw-table>
+              <p style="margin:10px 0 0; font-size:15px">The intuition, if the table will not stick: a rising receivable means you booked a sale and the customer has not paid, so profit ran ahead of cash. A rising payable means you took the goods and have not paid for them, so cash ran ahead of profit.</p>
+            </div>
+
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:14px">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Fix 3 — non-operating gains and losses</div>
+              <p style="margin:8px 0 0">A gain on selling a building is real profit but it is not operating, and the whole proceeds belong in investing. Subtract the gain from CFO; add back a loss. Leave it in and you double-count, because the sale already appears further down the statement.</p>
+            </div>
+
+            <h3 style="margin-top:34px">Reconciliations worth knowing</h3>
+            <p>Each of these lets you recover a missing figure from the balance sheet rather than being told it. The session's worked example:</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td>CFO 119,000 + CFI 17,000 + CFF (127,000)</sc-raw-td><sc-raw-td>= change in cash 9,000; 18,000 opening becomes 27,000</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Closing RE = opening + NI &minus; dividends</sc-raw-td><sc-raw-td>157,000 = 98,000 + 85,000 &minus; 26,000</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Closing plant = opening + acquisitions &minus; cost of disposals</sc-raw-td><sc-raw-td>360,000 = 336,000 + 60,000 &minus; 36,000</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Closing accum. depr. = opening + depreciation &minus; accum. depr. of disposals</sc-raw-td><sc-raw-td>87,000 = 84,000 + 22,000 &minus; 19,000</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Closing bonds = opening + issuances &minus; retirements</sc-raw-td><sc-raw-td>60,000 = 120,000 + 60,000 &minus; 120,000</sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The trap in that example</div>
+              <p style="margin:8px 0 0">In this illustration the plant acquisitions and the bond issuance are <strong>non-cash</strong> — an asset acquired by issuing debt directly. They move the balance sheet and never touch the cash flow statement. Reconciling the accounts and then assuming the movement was cash is the standard way to get this question wrong.</p>
+            </div>
+
+            <h3 style="margin-top:34px">Netflix, and the question the case leaves open</h3>
+            <p>Founded in 1997 as a mail-order DVD rental firm; IPO in 2002, issuing 5.5 million shares at $15; video-on-demand from 2007; the shift from rental to subscription; and its first original film, <em>Beasts of No Nation</em>, in 2015.</p>
+            <p style="margin-top:12px">On 20 January 2021, Sophie Lund-Yates of Hargreaves Lansdown wrote that rapid subscriber growth meant cash flow was on the up, external finance was apparently no longer needed to plug what had been a cash sinkhole, and that Netflix's pricing power would feed a virtuous loop.</p>
+            <p style="margin-top:12px">The session's own summary is more careful, and it is the line to carry into the exam: Netflix moved from negative to positive cash from operations <strong>only because of cuts in marketing and a fall in spending on content</strong>. Whether that is sustainable in this industry is left as a question, not a conclusion.</p>
+            <p style="margin-top:12px">The case also shows the classification boundary is not always clean. Netflix runs content payments through operating; its own DVD library once went through investing, and Blockbuster ran rental library purchases through operating. Same kind of asset, three different presentations.</p>
+
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:20px">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
+              <p style="margin:8px 0 0">Financial statement analysis: basic ratios, accounts receivable, inventory, long-lived assets, on- and off-balance-sheet debt, and investments.</p>
+            </div>
+          </div>
+        </sc-if>
+
         <sc-if value="{{ isF1 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
@@ -3394,7 +3480,7 @@ class Component extends DCLogic {
       { id: 'fa2', title: 'Practice set — the three statements', when: 'Ongoing', tag: 'Practice' }
     ];
 
-  built = { s1: 1, s2: 1, s3: 1, s4: 1, s5: 1, s6: 1, f1: 1, f2: 1, f3: 1, f4: 1, f5: 1, f6: 1, f7: 1, f8: 1, f9: 1, f10: 1 };
+  built = { s1: 1, s2: 1, s3: 1, s4: 1, s5: 1, s6: 1, s7: 1, f1: 1, f2: 1, f3: 1, f4: 1, f5: 1, f6: 1, f7: 1, f8: 1, f9: 1, f10: 1 };
 
   courseSessions(c) { return (c || this.state.course) === 'fra' ? this.fraSessions : this.sessions; }
 
@@ -3425,7 +3511,7 @@ class Component extends DCLogic {
     { key: 's4', num: '04', title: 'Earnings Quality', preview: 'How much of reported profit is real: accruals versus cash, estimates that flatter earnings, and the warning signs. The AstraZeneca case is the prep for this one.' },
     { key: 's5', num: '05', title: 'Revenue Recognition', preview: 'When a sale becomes revenue — performance obligations, long-term contracts, gross versus net.' },
     { key: 's6', num: '06', title: 'Channel Stuffing', preview: 'Pushing product into a distribution channel that cannot sell it, and what that looks like from outside. The McAfee case.' },
-    { key: 's7', num: '07', title: 'Statement of Cash Flows', preview: 'Operating, investing and financing cash flows, reconciling profit to cash, and reading free cash flow.' },
+    { key: 's7', num: '07', title: 'Statement of Cash Flows', preview: 'Articulation, the three fixes of the indirect method, the reconciliations, and the Netflix case. Operating, investing and financing cash flows, reconciling profit to cash, and reading free cash flow.' },
     { key: 's8', num: '08', title: 'Financial Statement Analysis & Accounts Receivable', preview: 'Core ratios, plus allowances for doubtful accounts and what days-sales-outstanding reveals.' },
     { key: 's9', num: '09', title: 'Inventory I', preview: 'Cost flow assumptions — FIFO, weighted average, LIFO — and their effect on profit.' },
     { key: 's10', num: '10', title: 'Inventory II & Long-Lived Assets I', preview: 'Lower of cost and net realisable value; capitalisation and depreciation of tangible assets.' },
@@ -7620,6 +7706,7 @@ class Component extends DCLogic {
       checkBlocks: mode === 'lesson' ? this.checkVals(view) : [],
       hasChecks: mode === 'lesson' && (this.checks[view] || []).length > 0,
       isS6: mode === 'lesson' && view === 's6',
+      isS7: mode === 'lesson' && view === 's7',
       isF1: mode === 'lesson' && view === 'f1',
       isF2: mode === 'lesson' && view === 'f2',
       isF3: mode === 'lesson' && view === 'f3',
