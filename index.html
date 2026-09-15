@@ -2682,6 +2682,10 @@ class Component extends DCLogic {
         // autoplayed with its soundtrack. Set on the element, where nothing
         // between here and the DOM can strip them, and before any load.
         v.muted = true;
+        // Decoration only: keep it out of the accessibility tree and out of
+        // the tab order. It already honours prefers-reduced-motion above.
+        v.setAttribute('aria-hidden', 'true');
+        v.setAttribute('tabindex', '-1');
         v.defaultMuted = true;
         v.volume = 0;
         v.loop = true;
