@@ -34,28 +34,6 @@
 <script src="support.js"></script>
 <title>MIM’28 Study Hub</title>
 
-<style id="gm-style">
-/* Softer surface language, after GregMat: rounded cards, hairline borders with a
-   little lift, pill buttons, and a typographic scale that leans on weight rather
-   than on condensed uppercase. Colours are untouched. */
-:root{
-  --radius-card: 18px;
-  --radius-inner: 12px;
-  --lift: 0 1px 2px rgba(0,0,0,.24), 0 8px 24px rgba(0,0,0,.18);
-  --display: "Plus Jakarta Sans", "Roboto", system-ui, sans-serif;
-  --font-heading: "Plus Jakarta Sans", "Roboto", system-ui, sans-serif;
-}
-body{ font-family:"Inter","Roboto",system-ui,sans-serif; font-size:16px; line-height:1.55; letter-spacing:-0.002em; }
-h1,h2,h3,h4{ font-family:var(--display); font-weight:800; letter-spacing:-0.02em; line-height:1.15; }
-/* cards, panels and any 2px-bordered box get the softer treatment */
-[style*="border:2px solid"]{ border-width:1px !important; border-radius:var(--radius-card) !important; }
-[style*="border-right:2px solid"],[style*="border-bottom:2px solid"]{ border-width:1px !important; }
-/* buttons become pills, lighter weight, roomier */
-button{ font-family:"Inter","Roboto",system-ui,sans-serif; }
-button[style*="padding"]{ border-radius:999px !important; }
-/* the uppercase micro-labels stay, but stop shouting */
-[style*="text-transform:uppercase"]{ letter-spacing:.06em; font-weight:600; }
-</style>
 </head>
 <body>
 <noscript><div style="font-family:system-ui,sans-serif;padding:28px;line-height:1.5">This trainer needs JavaScript to run.</div></noscript>
@@ -3530,4 +3508,26 @@ class Component extends DCLogic {
 </script>
 
 
+<style id="gm-style">
+/* Softer surface language, after GregMat: rounded cards, hairline borders with a
+   little lift, pill buttons, and a typographic scale that leans on weight rather
+   than on condensed uppercase. Colours are untouched. */
+:root{
+  --radius-card: 18px;
+  --radius-inner: 12px;
+  --lift: 0 1px 2px rgba(0,0,0,.24), 0 8px 24px rgba(0,0,0,.18);
+  --display: "Plus Jakarta Sans", "Roboto", system-ui, sans-serif;
+  --font-heading: "Plus Jakarta Sans", "Roboto", system-ui, sans-serif;
+}
+body{ font-family:"Inter","Roboto",system-ui,sans-serif; font-size:16px; line-height:1.55; letter-spacing:-0.002em; }
+h1,h2,h3,h4{ font-family:var(--display); font-weight:800; letter-spacing:-0.02em; line-height:1.15; }
+/* cards, panels and any 2px-bordered box get the softer treatment */
+[style*="border:2px solid"]{ border-width:1px !important; border-radius:var(--radius-card) !important; }
+[style*="border-right:2px solid"],[style*="border-bottom:2px solid"]{ border-width:1px !important; }
+/* buttons become pills, lighter weight, roomier */
+button{ font-family:"Inter","Roboto",system-ui,sans-serif; }
+button[style*="padding"]{ border-radius:999px !important; }
+/* the uppercase micro-labels stay, but stop shouting */
+[style*="text-transform:uppercase"]{ letter-spacing:.06em; font-weight:600; }
+</style>
 </body></html>
