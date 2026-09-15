@@ -5794,8 +5794,105 @@ class Component extends DCLogic {
         ]
       },
       {
-        key: 'ex-scf', title: 'Building a statement of cash flows from two balance sheets',
-        sub: 'Five steps, indirect method, tied to the change in cash',
+        key: 'ex-scf', title: 'Dair Company: preparing a statement of cash flows',
+        sub: 'Six steps, indirect method, tied to the change in cash',
+        ses: 'Session 06 \u00b7 Cash Flow Construction',
+        brief: 'Dair Company\u2019s income statement for 2023 and its balance sheets at 31 December 2023 and 2022 are in the Figures panel, with the year\u2019s additional information. Compute the change in cash, then prepare the statement of cash flows using the indirect method.\n\nFour things happened during the year that you have to handle deliberately: old equipment was sold for cash, new equipment was acquired in exchange for bonds rather than for money, bonds were retired at a loss, and a dividend was paid. Three of those four touch the statement in a way the balance sheet alone will not tell you.\n\nAll amounts in dollars.',
+        tables: [
+          { title: 'Income statement, year ended 31 December 2023', note: '', cols: ['Amount'], rows: [
+            ['Sales', '700,000', 'k'],
+            ['Cost of goods sold', '440,000'],
+            ['Wages and other operating expenses', '95,000'],
+            ['Depreciation expense', '22,000'],
+            ['Amortization expense', '7,000'],
+            ['Interest expense', '10,000'],
+            ['Income tax expense', '36,000'],
+            ['Loss on bond retirement', '5,000'],
+            ['Total expenses', '615,000'],
+            ['Net income', '85,000', 'k']
+          ] },
+          { title: 'Balance sheets at 31 December', note: '', cols: ['2023', '2022'], rows: [
+            ['Assets', '', '', 'h'],
+            ['Cash', '27,000', '18,000', 'k'],
+            ['Accounts receivable', '53,000', '48,000'],
+            ['Inventory', '103,000', '109,000'],
+            ['Prepaid expense', '12,000', '10,000'],
+            ['Plant assets', '360,000', '336,000'],
+            ['Accumulated depreciation', '(87,000)', '(84,000)'],
+            ['Intangible assets', '43,000', '50,000'],
+            ['Total assets', '511,000', '487,000', 'k'],
+            ['Liabilities and shareholders\u2019 equity', '', '', 'h'],
+            ['Accounts payable', '32,000', '26,000'],
+            ['Interest payable', '4,000', '7,000'],
+            ['Income tax payable', '6,000', '8,000'],
+            ['Bonds payable', '60,000', '120,000'],
+            ['Common stock', '252,000', '228,000'],
+            ['Retained earnings', '157,000', '98,000'],
+            ['Total liabilities and equity', '511,000', '487,000', 'k']
+          ] },
+          { title: 'Additional information for 2023', note: '', cols: [], rows: [
+            ['Old equipment costing $36,000, with $19,000 of accumulated depreciation, was sold for $17,000 cash.', ''],
+            ['New equipment worth $60,000 was acquired in exchange for $60,000 of bonds payable.', ''],
+            ['Bonds payable of $120,000 were retired for cash at a loss.', ''],
+            ['A $26,000 cash dividend was declared and paid.', ''],
+            ['Any stock issuances were for cash.', '']
+          ] }
+        ],
+        steps: [
+          { t: 'fill', p: 'Part (a). The change in cash, and the roll-forwards that will give you the figures the statement needs.',
+            h: 'Part (a) is one subtraction. Do the roll-forwards in the same step because every one of them hands you a number you will need later and cannot otherwise see.\n\nRetained earnings confirms the dividend. Accumulated depreciation confirms how much left with the equipment that was sold. The plant account tells you whether anything was bought for cash \u2014 read it together with the note about the bond exchange before you answer.',
+            calc: 'Closing = opening + additions \u2212 removals',
+            rows: [
+            { l: 'Change in cash during 2023', a: 9000, tol: 10, w: '27,000 \u2212 18,000 = an increase of 9,000. That is part (a), and it is the figure the whole statement has to reproduce.' },
+            { l: 'Net book value of the equipment sold', a: 17000, tol: 10, w: '36,000 cost \u2212 19,000 accumulated depreciation = 17,000.' },
+            { l: 'Gain or loss on that sale (enter a loss as negative)', a: 0, tol: 10, w: 'Proceeds of 17,000 against book value of 17,000 \u2014 exactly nil. Most disposals produce a gain or a loss and you look for one by reflex; here there is nothing to adjust in the operating section, and the full 17,000 is simply an investing inflow.' },
+            { l: 'Plant assets bought for cash during the year', a: 0, tol: 10, w: '336,000 + 60,000 \u2212 36,000 = 360,000, so the account is fully explained by the bond exchange and the disposal. Not one dollar of cash was spent on plant. The 60,000 acquisition is a non-cash transaction and belongs in a separate disclosure, not in the investing section.' },
+            { l: 'Cash paid to retire the bonds', a: 125000, tol: 10, w: '120,000 of book value plus the 5,000 loss = 125,000 actually handed over. The loss is the clue that the bonds were bought back above their carrying amount.' }
+          ], e: 'Four of those five numbers appear nowhere in the statements you were given. The bond roll-forward confirms the story too: 120,000 opening + 60,000 issued in the exchange \u2212 120,000 retired = 60,000 closing.' },
+          { t: 'fill', p: 'Part (b), operating activities. Start at net income and apply the three fixes.',
+            calc: 'CFO = NI + non-cash charges \u00b1 non-operating items \u00b1 working capital',
+            given: [
+              { l: 'Net income', v: '85,000', s: 'Income statement' },
+              { l: 'Depreciation and amortization', v: '22,000 and 7,000', s: 'Income statement' },
+              { l: 'Loss on bond retirement', v: '5,000', s: 'Income statement' }
+            ], rows: [
+            { l: 'Non-cash charges added back', a: 29000, tol: 20, w: '22,000 depreciation + 7,000 amortisation. Note the intangibles fell from 50,000 to 43,000, exactly the amortisation \u2014 so nothing was bought or sold there.' },
+            { l: 'Loss on bond retirement (as it affects CFO)', a: 5000, tol: 10, w: 'Added back. It reduced net income but it is a financing event, and the whole 125,000 appears under financing. Leaving it in operating would count it twice.' },
+            { l: 'Working capital movements, net effect on cash', a: 0, tol: 20, w: '\u22125,000 receivables + 6,000 inventory \u2212 2,000 prepaid + 6,000 payables \u2212 3,000 interest payable \u2212 2,000 tax payable = exactly nil. The individual lines still have to be shown; they simply cancel.' },
+            { l: 'Cash from operating activities', a: 119000, tol: 50, w: '85,000 + 29,000 + 5,000 + 0 = 119,000.' }
+          ], e: 'Two traps sit in this section and both are about what does not belong in it. The loss on bond retirement is not operating, and the disposal produced no gain at all, so there is nothing to remove for it.\n\nThe working capital lines netting to zero is a coincidence of this problem, not a shortcut \u2014 show every line, because an examiner marks the method.' },
+          { t: 'fill', p: 'Part (b), investing activities.',
+            rows: [
+            { l: 'Proceeds from the sale of equipment', a: 17000, tol: 10, w: 'The full cash received, not a gain \u2014 there was not one.' },
+            { l: 'Cash paid for new plant assets', a: 0, tol: 10, w: 'Nil. The 60,000 of equipment was paid for in bonds, so no cash moved.' },
+            { l: 'Cash from investing activities', a: 17000, tol: 10, w: 'A net inflow of 17,000 \u2014 unusual, and it is the whole point of this problem. A company that spent nothing on capacity and sold some of what it had.' }
+          ], e: 'A positive investing section is worth pausing on. Normally investing is negative because a business is building; here Dair sold equipment, bought none for cash, and financed its only acquisition with debt.' },
+          { t: 'fill', p: 'Part (b), financing activities.',
+            rows: [
+            { l: 'Cash paid to retire bonds (negative)', a: -125000, tol: 20, w: '120,000 book value + 5,000 loss.' },
+            { l: 'Proceeds from issuing common stock', a: 24000, tol: 20, w: '252,000 \u2212 228,000, and the note says any issuances were for cash.' },
+            { l: 'Dividends paid (negative)', a: -26000, tol: 20, w: 'Given, and confirmed by retained earnings: 98,000 + 85,000 \u2212 26,000 = 157,000.' },
+            { l: 'Cash from financing activities', a: -127000, tol: 50, w: '\u2212125,000 + 24,000 \u2212 26,000 = (127,000).' }
+          ], e: 'Financing dominates this year. Dair retired 120,000 of debt at a premium, raised a fifth of that back in equity, and still paid a dividend \u2014 funded almost entirely by the 119,000 its operations produced.' },
+          { t: 'fill', p: 'Tie the statement to the change in cash. If this does not agree exactly, something above is wrong.',
+            rows: [
+            { l: 'Sum of the three sections', a: 9000, tol: 20, w: '119,000 + 17,000 \u2212 127,000 = 9,000.' },
+            { l: 'Change in the cash balance from part (a)', a: 9000, tol: 10, w: '27,000 \u2212 18,000 = 9,000. They agree, so the statement is complete.' }
+          ], e: 'Every figure in the statement was derived rather than given, so this tie is the only check you have. A single sign error shows up here and nowhere else \u2014 do it before writing any commentary.' },
+          { t: 'pick', p: 'Reading the result, and the disclosure that is still missing. Mark each statement true or false.',
+            rows: [
+              { l: 'A $60,000 non-cash transaction must still be disclosed, even though it appears nowhere in the three sections', a: true, w: 'Equipment acquired by issuing bonds is a significant non-cash investing and financing transaction, and it goes in a separate note. A reader who only saw the statement would think Dair invested nothing all year.' },
+              { l: 'Operations comfortably funded the debt retirement on their own', a: false, w: '119,000 generated against 125,000 paid to bondholders, plus a 26,000 dividend. Operations covered most of it, and the 24,000 share issue plus the 17,000 of disposal proceeds closed the gap.' },
+              { l: 'The positive investing section signals a company that is not replacing its capacity with cash', a: true, w: 'It sold equipment and bought none for money. Sustainable for a year, and a warning if it repeats \u2014 though here it is softened by the 60,000 acquired through the bond exchange.' },
+              { l: 'Because working capital netted to zero, those lines can be omitted from the statement', a: false, w: 'They net to zero by coincidence. Each movement is a real change and the statement shows them individually; an examiner marks method, and omitting them looks like you never computed them.' },
+              { l: 'The loss on bond retirement reduced cash by $5,000 in the financing section', a: false, w: 'Careful. The 5,000 is not a separate cash flow \u2014 it is the difference between the 125,000 paid and the 120,000 of book value removed, and 125,000 is the single number shown.' }
+            ],
+            e: 'The pattern here is operating positive, investing positive, financing strongly negative: a company using its cash generation and some asset sales to pay down debt. That is a deleveraging year, and it reads quite differently from the growth pattern where investing is the large negative.\n\nAnd the non-cash disclosure genuinely matters. Dair acquired 60,000 of equipment and issued 60,000 of bonds without a dollar crossing the statement. Judging its investment or its borrowing from the three sections alone would miss both.' }
+        ]
+      },
+      {
+        key: 'ex-scf2', title: 'Kestrel Instruments: a second cash flow statement',
+        sub: 'The same method again, different numbers \u2014 do this one after Dair',
         ses: 'Session 06 \u00b7 Cash Flow Construction',
         brief: 'Kestrel Instruments makes calibration equipment. You have its balance sheets at the end of 2025 and 2026 and a short list of supplementary facts. Prepare the statement of cash flows for 2026 using the indirect method, then comment on the pattern.\n\nThis is the standard exam task, and it is standard because nothing is given to you directly: every figure in the statement has to be recovered from the movement in a balance sheet account plus one fact. All amounts in thousands of dollars.\n\nThe statements are in the Figures panel \u2014 open it with the button at the bottom right and it stays open while you work.',
         tables: [
