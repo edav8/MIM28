@@ -8375,9 +8375,12 @@ h1,h2,h3,h4{ font-family:var(--display); font-weight:800; letter-spacing:-0.02em
 /* cards, panels and any 2px-bordered box get the softer treatment */
 [style*="border:2px solid"]{ border-width:1px !important; border-radius:var(--radius-card) !important; }
 [style*="border-right:2px solid"],[style*="border-bottom:2px solid"]{ border-width:1px !important; }
-/* buttons become pills, lighter weight, roomier */
+/* Buttons soften, but only the small ones become pills. The course cards and
+   exercise tiles are also <button>, so a blanket pill radius turns them into
+   circles -- which it did. Radius is applied by role, not by element. */
 button{ font-family:"Inter","Roboto",system-ui,sans-serif; }
-button[style*="padding"]{ border-radius:999px !important; }
+button{ border-radius:10px; }
+[style*="border:2px solid"]{ border-radius:var(--radius-card) !important; }
 /* the uppercase micro-labels stay, but stop shouting */
 [style*="text-transform:uppercase"]{ letter-spacing:.06em; font-weight:600; }
 </style>
