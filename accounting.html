@@ -1161,6 +1161,13 @@ textarea.input { min-height: 90px; resize: vertical; }
             </ul>
             </div>
             </sc-if>
+            <h3 style="margin-top:34px">Who supplies the information, and why the rules are rigid</h3>
+            <p>Demand is only half of it. On the supply side, companies with publicly traded debt or equity use financial accounting for investor reporting and carry additional obligations imposed by governments and exchanges. Private companies use it for private financing such as bank loans, for internal management, and for potential future financing such as an IPO. All reasonably sized corporations follow accrual accounting either way.</p>
+            <p style="margin-top:12px">Regulators, exchanges and firms have collectively decided there should be a somewhat rigid set of rules that everyone follows. That rigidity is the point: it is what makes two companies comparable, and it is paid for in flexibility \u2014 a rule that fits most firms will fit some badly.</p>
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Corporate governance</div>
+              <p style="margin:8px 0 0">Management prepares its own accounts and is often paid on the result. Two structures exist to check that: a board of directors elected by shareholders to supervise management, and external auditors who give an opinion on fair presentation. Neither is a guarantee \u2014 Wirecard had both.</p>
+            </div>
           </div>
         </sc-if>
 
@@ -1636,6 +1643,30 @@ textarea.input { min-height: 90px; resize: vertical; }
             </ul>
             </div>
             </sc-if>
+            <h3 style="margin-top:34px">Three production patterns, and where revenue lands in each</h3>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td style="width:32%"><strong>Short production</strong><br><span style="font-size:13px">coffee</span></sc-raw-td><sc-raw-td>Delivering the goods and legal title to the customer defines the point of recognition.</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>Long production</strong><br><span style="font-size:13px">construction, defence contracts</span></sc-raw-td><sc-raw-td>A percentage-of-completion method, so revenue accrues as the work is done rather than at handover.</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>Bundled products</strong><br><span style="font-size:13px">a phone with a service contract</span></sc-raw-td><sc-raw-td>Estimate the value of each component and recognise each as it is delivered.</sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">Bundles are the hard case, and connected products make them harder: in a world where a car or a thermostat is upgraded over the air for years after the sale, deciding how much of the price was for the object and how much for the decade of updates is a genuine estimate. Tesla is the standing example \u2014 the vehicle, the connectivity, and the promise of future software all sit in one price.</p>
+
+            <h3 style="margin-top:34px">Breakage: revenue from what is never redeemed</h3>
+            <p>Load $100 onto a gift card when experience says $90 will be redeemed and $10 will not. That $10 is breakage, and the standard changed how it is recognised.</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-thead><sc-raw-tr><sc-raw-th>Event</sc-raw-th><sc-raw-th>Remote method<br><span style="font-size:12px">old rules</span></sc-raw-th><sc-raw-th>Proportional method<br><span style="font-size:12px">new rules</span></sc-raw-th></sc-raw-tr></sc-raw-thead>
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td>Card loaded with $100</sc-raw-td><sc-raw-td>$0</sc-raw-td><sc-raw-td>$0</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Year 1: customer redeems $50</sc-raw-td><sc-raw-td>$50</sc-raw-td><sc-raw-td>$55.56</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Year 2: customer redeems $40</sc-raw-td><sc-raw-td>$40</sc-raw-td><sc-raw-td>$44.44</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Year 5: last $10 deemed remote</sc-raw-td><sc-raw-td>$10</sc-raw-td><sc-raw-td>&mdash;</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>Total recognised</strong></sc-raw-td><sc-raw-td><strong>$100</strong></sc-raw-td><sc-raw-td><strong>$100</strong></sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">Under the proportional method each dollar redeemed releases its share of the expected breakage: 10/90, about 11 cents per dollar. Year 1 is therefore $50 + (50/90) &times; $10 = $55.56, and the liability is exhausted at the end of year 2 rather than year 5.</p>
+            <p style="margin-top:10px; font-size:15px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">Same $100 either way \u2014 only the timing moves, and it moves earlier. Starbucks and Amazon both disclosed the change in 2018, and for a business holding billions in unredeemed cards the acceleration is material. Note also that breakage is revenue here, not other income.</p>
           </div>
         </sc-if>
 
@@ -1728,6 +1759,17 @@ textarea.input { min-height: 90px; resize: vertical; }
             </ul>
             </div>
             </sc-if>
+            <h3 style="margin-top:34px">How McAfee actually did it</h3>
+            <p>Channel stuffing is the headline, but the case sets out several distinct mechanisms, and they are worth separating because each leaves a different trace.</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td style="width:30%"><strong>The buy-back subsidiary</strong></sc-raw-td><sc-raw-td>An unconsolidated entity pays the customer for unwanted inventory; the customer pays McAfee. A receivable is recharacterised as an investment, and the &ldquo;investment&rdquo; is worthless stock dressed as an asset.</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>Factoring receivables</strong></sc-raw-td><sc-raw-td>Sell the receivables to a financial institution for cash up front while guaranteeing payment \u2014 so the collection risk never actually leaves. Cash arrives early and days-sales-outstanding falls, hiding the very symptom that would have exposed the stuffing.</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>Timing sales</strong></sc-raw-td><sc-raw-td>Pulling shipments into a quarter that is falling short, which borrows from the next one.</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>Drawing on reserves</strong></sc-raw-td><sc-raw-td>Using unrelated reserve accounts to fund the cash moving out to distributors.</sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">The factoring one is the most instructive. The standard way to detect channel stuffing is receivables growing faster than sales, so a company that sells its receivables removes the detector while keeping the disease. Following the cash rather than the ratio is what eventually exposes it.</p>
           </div>
         </sc-if>
 
