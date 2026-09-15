@@ -1,0 +1,46 @@
+/* Styling for the privacy, cookies and terms pages. Deliberately plain: these
+   pages are static HTML with no JavaScript, so they work with scripts disabled
+   and make no requests beyond this stylesheet and the self-hosted fonts. */
+:root {
+  --ground: #101a17; --panel: #17251f; --line: #3a4f45;
+  --ink: #eef3f0; --soft: #cfdbd4; --muted: #a2b3aa; --faint: #72877c;
+  --acc: #2f9d78; --accSoft: #7fd3b4;
+}
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
+body {
+  margin: 0; background: var(--ground); color: var(--ink);
+  font-family: Roboto, system-ui, -apple-system, sans-serif;
+  font-size: 17px; line-height: 1.65; -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 74ch; margin: 0 auto; padding: 40px 22px 90px; }
+a { color: var(--accSoft); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accSoft); outline-offset: 3px; }
+.back { display: inline-block; margin-bottom: 30px; font-size: 13px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accSoft); text-decoration: none; }
+.back:hover { text-decoration: underline; }
+h1 { font-family: 'Roboto Condensed', Roboto, sans-serif; font-weight: 700;
+  font-size: clamp(30px, 6vw, 46px); line-height: 1.08; margin: 0 0 6px; letter-spacing: -.01em; }
+h2 { font-size: 21px; margin: 38px 0 10px; line-height: 1.25; }
+h3 { font-size: 17px; margin: 26px 0 6px; color: var(--soft); }
+.updated { color: var(--faint); font-size: 14px; margin: 0 0 30px; }
+p, li { color: var(--soft); text-wrap: pretty; }
+li { margin-bottom: 7px; }
+strong { color: var(--ink); }
+.card { border: 1px solid var(--line); background: var(--panel); padding: 18px 20px; margin: 24px 0; }
+.card p:last-child, .card ul:last-child { margin-bottom: 0; }
+.card p:first-child { margin-top: 0; }
+.kicker { font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accSoft); margin: 0 0 8px; }
+table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 15.5px; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--ink); font-weight: 700; }
+td { color: var(--soft); }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em;
+  background: var(--panel); padding: 1px 5px; border: 1px solid var(--line); }
+.todo { border-left: 4px solid #e0a93b; }
+.todo .kicker { color: #e0a93b; }
+footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+  font-size: 14px; color: var(--faint); }
+footer a { margin-right: 16px; }
+@media (max-width: 560px) { body { font-size: 16px; } .wrap { padding: 28px 16px 70px; } }
