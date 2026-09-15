@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+<!-- Fonts are served from this origin. Google Fonts would send every visitor's
+     IP address to Google, which a German court held to breach the GDPR in 2022
+     (LG Munchen I, 3 O 17493/20). Self-hosting removes the transfer entirely. -->
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<!-- React is served from this origin too, so no request reaches a CDN. The
+     runtime reads this map before it falls back to unpkg. -->
+<script>window.__resources = {
+  "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/vendor/react.production.min.js",
+  "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/vendor/react-dom.production.min.js"
+};</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MIM’28">
 <meta property="og:title" content="MIM'28 Study Hub">
@@ -616,7 +623,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
   <sc-if value="{{ isHub }}" hint-placeholder-val="{{ true }}">
     <div id="hubhero" aria-hidden="true">
       <video id="hubvid" muted loop playsinline preload="none"
-             poster="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/For%C3%AAt_et_ch%C3%A2teau_de_Fontainebleau.webm/1280px--For%C3%AAt_et_ch%C3%A2teau_de_Fontainebleau.webm.jpg"></video>
+             poster="assets/media/fontainebleau-poster.jpg"></video>
       <div id="hubscrim"></div>
     </div>
     <div style="flex:1; min-width:0; padding:56px 48px 80px; max-width:1240px; margin-inline:auto; width:100%">
@@ -2684,12 +2691,14 @@ class Component extends DCLogic {
         const thrifty = conn.saveData === true || /2g/.test(conn.effectiveType || '');
         const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (!thrifty && !still && v.canPlayType('video/webm')) {
-          const stem = 'https://upload.wikimedia.org/wikipedia/commons/transcoded/d/de/'
-            + 'For%C3%AAt_et_ch%C3%A2teau_de_Fontainebleau.webm/'
-            + 'For%C3%AAt_et_ch%C3%A2teau_de_Fontainebleau.webm';
+          // Served from this origin. Loading it from Wikimedia would disclose every
+          // visitor's IP address to a third party, which the GDPR treats as a
+          // transfer of personal data and which nothing here needs.
           const src = document.createElement('source');
           src.type = 'video/webm';
-          src.src = stem + (window.innerWidth < 800 ? '.360p.vp9.webm' : '.480p.vp9.webm');
+          src.src = window.innerWidth < 800
+            ? 'assets/media/fontainebleau-360p.webm'
+            : 'assets/media/fontainebleau-480p.webm';
           v.appendChild(src);
           // The clip opens on forest and a duck; the château runs from about 1:16
           // to 2:18. Start there and loop that window, so the background is the

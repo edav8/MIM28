@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+<!-- Fonts are served from this origin. Google Fonts would send every visitor's
+     IP address to Google, which a German court held to breach the GDPR in 2022
+     (LG Munchen I, 3 O 17493/20). Self-hosting removes the transfer entirely. -->
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<!-- React is served from this origin too, so no request reaches a CDN. The
+     runtime reads this map before it falls back to unpkg. -->
+<script>window.__resources = {
+  "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/vendor/react.production.min.js",
+  "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/vendor/react-dom.production.min.js"
+};</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MIM’28">
 <meta property="og:title" content="Financial Accounting & FRA — MIM'28">
