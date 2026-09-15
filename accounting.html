@@ -297,9 +297,9 @@ img { display: block; max-width: 100%; }
 figure { margin: 0; }
 figcaption {
   font-size: 11px; margin-top: var(--space-1);
-  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
 }
-.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+.text-muted { color: color-mix(in srgb, var(--color-text) 72%, transparent); }
 :focus { outline: none; }
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 ::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
@@ -423,7 +423,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 .table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .table th {
   text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
-  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
   padding: var(--space-2); border-bottom: 2px solid var(--color-divider);
 }
 .table td {
@@ -548,9 +548,9 @@ img { display: block; max-width: 100%; }
 figure { margin: 0; }
 figcaption {
   font-size: 11px; margin-top: var(--space-1);
-  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
 }
-.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+.text-muted { color: color-mix(in srgb, var(--color-text) 72%, transparent); }
 :focus { outline: none; }
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 ::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
@@ -674,7 +674,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 .table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .table th {
   text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
-  color: color-mix(in srgb, var(--color-text) 60%, transparent);
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
   padding: var(--space-2); border-bottom: 2px solid var(--color-divider);
 }
 .table td {
@@ -706,7 +706,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 <style>
   :root {
     --color-bg: #0f3c22;
-    --color-surface: #1a6b3c;
+    --color-surface: #14532f;
     --color-text: #f4f7f5;
     --color-divider: rgba(244, 247, 245, 0.42);
     --color-accent: #f4f7f5;
@@ -831,7 +831,7 @@ textarea.input { min-height: 90px; resize: vertical; }
       </svg>
     </div>
     <div id="courseswitch" style="display:flex; flex-direction:column; padding:14px 20px 16px; border-bottom:2px solid var(--color-divider)">
-      <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:8px">Course</div>
+      <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-bottom:8px">Course</div>
       <button type="button" sc-camel-on-click="{{ pickFa }}" style="{{ faTabStyle }}">Financial Accounting</button>
       <button type="button" sc-camel-on-click="{{ pickFra }}" style="{{ fraTabStyle }}">Financial Reporting &amp; Analysis</button>
     </div>
@@ -842,7 +842,7 @@ textarea.input { min-height: 90px; resize: vertical; }
     <button type="button" sc-camel-on-click="{{ openGloss }}" style="{{ glossStyle }}">Glossary &amp; formulas</button>
     <div id="mobilecrumb" style="display:none; flex:1 1 100%; padding:10px 16px; border-top:1px solid var(--color-divider); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700)">{{ crumb }}</div>
     <button type="button" id="navtoggle" sc-camel-on-click="{{ toggleNav }}" style="{{ navToggleStyle }}">{{ navToggleLabel }}</button>
-    <div id="seslabel" style="padding:16px 20px 8px; font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent)">Sessions</div>
+    <div id="seslabel" style="padding:16px 20px 8px; font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 72%, transparent)">Sessions</div>
     <div id="sesslist" data-open="{{ navOpen }}" style="display:flex; flex-direction:column">
       <sc-for list="{{ sessionList }}" as="s" hint-placeholder-count="6">
         <button type="button" sc-camel-on-click="{{ s.onClick }}" style="{{ s.style }}">
@@ -854,7 +854,7 @@ textarea.input { min-height: 90px; resize: vertical; }
         </button>
       </sc-for>
     </div>
-    <div id="sidenote" style="margin-top:auto; padding:16px 20px 8px; font-size:12px; color:color-mix(in srgb, var(--color-text) 60%, transparent)">
+    <div id="sidenote" style="margin-top:auto; padding:16px 20px 8px; font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">
       Built from the Session 1–3 handouts. Answers are graded against the class solutions.
     </div>
     <div id="calcdock" style="display:flex; flex-direction:column; align-items:stretch; gap:8px; padding:16px 20px; border-top:2px solid var(--color-divider); position:sticky; bottom:0; background:var(--color-bg); z-index:5">
@@ -2707,7 +2707,7 @@ textarea.input { min-height: 90px; resize: vertical; }
               <sc-for list="{{ genCards }}" as="e" hint-placeholder-count="3">
                 <button type="button" sc-camel-on-click="{{ e.onClick }}" style="{{ e.style }}">
                   <span class="tag tag-accent">Randomised</span>
-                  <span style="display:block; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:12px; color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ e.ses }}</span>
+                  <span style="display:block; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ e.ses }}</span>
                   <span style="display:block; font-family:var(--font-heading); font-weight:700; font-size:19px; margin-top:8px">{{ e.title }}</span>
                   <span style="display:block; font-size:14px; margin-top:6px; opacity:0.8">{{ e.sub }}</span>
                 </button>
@@ -2729,7 +2729,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                   <span style="display:flex; justify-content:space-between; gap:10px; align-items:baseline">
                     <span class="tag {{ e.tagClass }}">{{ e.status }}</span>
                   </span>
-                  <span style="display:block; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:12px; color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ e.ses }}</span>
+                  <span style="display:block; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ e.ses }}</span>
                   <span style="display:block; font-family:var(--font-heading); font-weight:700; font-size:19px; margin-top:8px">{{ e.title }}</span>
                   <span style="display:block; font-size:14px; margin-top:6px; opacity:0.8">{{ e.sub }}</span>
                   <span style="display:block; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:14px; color:var(--color-accent-700)">{{ e.steps }}</span>
@@ -2748,7 +2748,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ exProgress }}</div>
             <h1 style="font-size:32px; margin:6px 0 0">{{ exTitle }}</h1>
             <div style="font-size:14px; opacity:0.75; margin-top:4px">{{ exSub }}</div>
-            <div style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:8px; color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ exSes }}</div>
+            <div style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:8px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ exSes }}</div>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-start">
             <sc-if value="{{ isGenerated }}" hint-placeholder-val="{{ false }}">
@@ -2948,7 +2948,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                     </sc-for>
                   </sc-raw-tbody>
                 </sc-raw-table>
-                <p style="font-size:12px; color:color-mix(in srgb, var(--color-text) 60%, transparent); margin-top:8px">{{ b.entryHint }}</p>
+                <p style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:8px">{{ b.entryHint }}</p>
               </div>
             </sc-if>
 
@@ -2958,7 +2958,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                 <sc-if value="{{ b.canSkip }}" hint-placeholder-val="{{ false }}">
                   <button type="button" class="btn btn-ghost" sc-camel-on-click="{{ b.skip }}">{{ b.skipLabel }}</button>
                 </sc-if>
-                <span style="font-size:12px; color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ b.lockNote }}</span>
+                <span style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ b.lockNote }}</span>
               </div>
             </sc-if>
 
@@ -3108,7 +3108,7 @@ textarea.input { min-height: 90px; resize: vertical; }
         </div>
 
         <div style="margin-top:28px">
-          <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ qKind }}</div>
+          <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ qKind }}</div>
           <sc-if value="{{ hasContext }}" hint-placeholder-val="{{ true }}">
             <div class="card" style="margin:12px 0"><div class="card-body">{{ qContext }}</div></div>
           </sc-if>
@@ -3162,7 +3162,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                 <button type="button" class="btn btn-primary" sc-camel-on-click="{{ submitNum }}">Check</button>
               </sc-if>
             </div>
-            <p style="font-size:12px; color:color-mix(in srgb, var(--color-text) 60%, transparent); margin-top:8px">Negative numbers with a minus sign. Commas are fine.</p>
+            <p style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:8px">Negative numbers with a minus sign. Commas are fine.</p>
           </sc-if>
 
           <sc-if value="{{ isBlank }}" hint-placeholder-val="{{ false }}">
@@ -3177,7 +3177,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                   <button type="button" class="btn btn-primary" sc-camel-on-click="{{ submitBlank }}">Check</button>
                 </div>
               </sc-if>
-              <p style="font-size:12px; color:color-mix(in srgb, var(--color-text) 60%, transparent); margin-top:10px">Spelling and capitalisation are forgiven.</p>
+              <p style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:10px">Spelling and capitalisation are forgiven.</p>
             </div>
           </sc-if>
 
@@ -3188,7 +3188,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                   <button type="button" draggable="{{ it.draggable }}" sc-camel-on-drag-start="{{ it.onDragStart }}" sc-camel-on-click="{{ it.onClick }}" style="{{ it.style }}">{{ it.label }}</button>
                 </sc-for>
                 <sc-if value="{{ trayEmpty }}" hint-placeholder-val="{{ false }}">
-                  <span style="font-size:13px; color:color-mix(in srgb, var(--color-text) 55%, transparent)">Everything placed. Check your answer.</span>
+                  <span style="font-size:13px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">Everything placed. Check your answer.</span>
                 </sc-if>
               </div>
               <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:8px; margin-top:12px">
@@ -3204,7 +3204,7 @@ textarea.input { min-height: 90px; resize: vertical; }
               <sc-if value="{{ showCheck }}" hint-placeholder-val="{{ true }}">
                 <div style="display:flex; gap:12px; align-items:center; margin-top:16px">
                   <button type="button" class="btn btn-primary" sc-camel-on-click="{{ checkDrag }}">Check</button>
-                  <span style="font-size:12px; color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ checkHint }}</span>
+                  <span style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ checkHint }}</span>
                 </div>
               </sc-if>
             </div>
@@ -3225,7 +3225,7 @@ textarea.input { min-height: 90px; resize: vertical; }
               <sc-if value="{{ showCheck }}" hint-placeholder-val="{{ true }}">
                 <div style="display:flex; gap:12px; align-items:center; margin-top:16px">
                   <button type="button" class="btn btn-primary" sc-camel-on-click="{{ checkDrag }}">Check</button>
-                  <span style="font-size:12px; color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ checkHint }}</span>
+                  <span style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ checkHint }}</span>
                 </div>
               </sc-if>
             </div>
@@ -3305,7 +3305,7 @@ textarea.input { min-height: 90px; resize: vertical; }
           <sc-if value="{{ showNext }}" hint-placeholder-val="{{ true }}">
             <div style="margin-top:28px; display:flex; gap:12px">
               <button type="button" class="btn btn-primary" sc-camel-on-click="{{ next }}">{{ nextLabel }}</button>
-              <span style="font-size:12px; align-self:center; color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ navHintText }}</span>
+              <span style="font-size:12px; align-self:center; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ navHintText }}</span>
             </div>
           </sc-if>
           <sc-if value="{{ showSkip }}" hint-placeholder-val="{{ true }}">
@@ -3354,7 +3354,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
   </main>
 
-  <footer style="max-width:1100px; margin:0 auto; padding:26px 26px 40px; font-size:12px; color:color-mix(in srgb, var(--color-text) 55%, transparent)">
+  <footer style="max-width:1100px; margin:0 auto; padding:26px 26px 40px; font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">
     Study notes written for this site. No course handout, case document or exercise set is
     reproduced here; quotations from published sources are short and attributed.
     <span style="display:block; margin-top:10px">
@@ -6215,7 +6215,7 @@ class Component extends DCLogic {
         title: tb.title || '',
         note: tb.note || '',
         cols: cols.map(c => ({ v: c })),
-        headStyle: prose ? 'display:none' : grid + 'padding:10px 0 7px; border-bottom:1px solid var(--color-divider); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 65%, transparent)',
+        headStyle: prose ? 'display:none' : grid + 'padding:10px 0 7px; border-bottom:1px solid var(--color-divider); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 72%, transparent)',
         rows: (tb.rows || []).map(r => {
           const label = r[0];
           const vals = r.slice(1).filter(v => v !== 'k' && v !== 'h' && v !== 's');
