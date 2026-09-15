@@ -5792,6 +5792,93 @@ class Component extends DCLogic {
             e: 'Partly, and 2020 is the wrong year to prove it with. The mechanism is sound: content spending cannot grow at 30% a year forever, and when growth slows the amortisation of prior years keeps rising and closes the gap on its own arithmetic.\n\nBut strip out the postponed production, the pulled-forward subscribers and the marketing that was barely needed, and the underlying position is better than 2019 without being obviously self-funding. The test is what 2021 and 2022 look like once the studios reopen.\n\nFor the write-up, that is the answer: name the mechanism, show it is real, then show how much of this particular year cannot be repeated. The case is called In Search of Cash Flow, and the search ended in a year that came with an asterisk.' }
         ]
       },
+      {
+        key: 'ex-scf', title: 'Building a statement of cash flows from two balance sheets',
+        sub: 'Five steps, indirect method, tied to the change in cash',
+        ses: 'Session 06 \u00b7 Cash Flow Construction',
+        brief: 'Kestrel Instruments makes calibration equipment. You have its balance sheets at the end of 2025 and 2026 and a short list of supplementary facts. Prepare the statement of cash flows for 2026 using the indirect method, then comment on the pattern.\n\nThis is the standard exam task, and it is standard because nothing is given to you directly: every figure in the statement has to be recovered from the movement in a balance sheet account plus one fact. All amounts in thousands of dollars.\n\nThe statements are in the Figures panel \u2014 open it with the button at the bottom right and it stays open while you work.',
+        tables: [
+          { title: 'Balance sheets at 31 December', note: 'In thousands of dollars.', cols: ['2025', '2026'], rows: [
+            ['Assets', '', '', 'h'],
+            ['Cash', '2,100', '2,460', 'k'],
+            ['Accounts receivable', '3,900', '4,380'],
+            ['Inventories', '4,600', '4,150'],
+            ['Land', '1,800', '1,800'],
+            ['Plant and equipment, at cost', '28,400', '31,900'],
+            ['Less accumulated depreciation', '(11,200)', '(12,640)'],
+            ['Total assets', '29,600', '32,050', 'k'],
+            ['Liabilities and equity', '', '', 'h'],
+            ['Accounts payable', '2,300', '2,050'],
+            ['Taxes payable', '640', '820'],
+            ['Accrued expenses', '1,500', '1,910'],
+            ['Long-term debt', '7,000', '6,300'],
+            ['Common stock', '6,000', '6,400'],
+            ['Retained earnings', '12,160', '14,570'],
+            ['Total liabilities and equity', '29,600', '32,050', 'k']
+          ] },
+          { title: 'Supplementary information for 2026', note: '', cols: ['Amount'], rows: [
+            ['Net income', '3,010'],
+            ['Dividends declared and paid', '600'],
+            ['Depreciation expense', '1,940'],
+            ['Equipment sold \u2014 proceeds received', '900'],
+            ['Equipment sold \u2014 original cost', '1,200'],
+            ['Equipment sold \u2014 accumulated depreciation removed', '500'],
+            ['Long-term debt was repaid at book value', '\u2014']
+          ] }
+        ],
+        steps: [
+          { t: 'fill', p: 'Step 1. Before touching the statement, prove the two roll-forwards. They are what tell you the figures you have not been given.',
+            h: 'Two accounts move for reasons you can fully account for, and checking them first protects everything that follows.\n\nRetained earnings moves by profit less dividends \u2014 nothing else here. If that does not tie, you have misread a number.\n\nAccumulated depreciation rises by the year\u2019s charge and falls by whatever left with the asset that was sold. Once that ties, you can trust the depreciation figure, and you can use the same logic on the cost account to find what was bought.',
+            calc: 'Closing = opening + additions \u2212 removals',
+            rows: [
+            { l: 'Retained earnings, closing (check)', a: 14570, tol: 5, w: '12,160 + 3,010 \u2212 600 = 14,570. It ties, so the dividend figure is consistent with the balance sheet.' },
+            { l: 'Accumulated depreciation, closing (check)', a: 12640, tol: 5, w: '11,200 + 1,940 \u2212 500 = 12,640. It ties, so the 500 removed with the disposal is right.' },
+            { l: 'Plant and equipment purchased during the year', a: 4700, tol: 10, w: '31,900 = 28,400 + purchases \u2212 1,200, so purchases = 4,700. This figure appears nowhere in the data \u2014 the roll-forward is the only way to get it, and it is the largest number in the investing section.' },
+            { l: 'Net book value of the equipment sold', a: 700, tol: 5, w: '1,200 cost \u2212 500 accumulated depreciation = 700.' },
+            { l: 'Gain on the sale (enter a loss as negative)', a: 200, tol: 5, w: 'Proceeds 900 \u2212 net book value 700 = a gain of 200. Hold on to it: it has to come out of operating and the full 900 goes into investing.' }
+          ], e: 'Nothing in the statement of cash flows is handed to you. Purchases of 4,700, the gain of 200 and the book value of the disposal are all recovered from account movements plus one supplementary fact. That is the whole skill being tested.' },
+          { t: 'fill', p: 'Step 2. Build cash from operating activities. Start at net income and apply the three fixes.',
+            calc: 'CFO = NI + non-cash charges \u2212 non-operating gains \u00b1 working capital',
+            given: [
+              { l: 'Net income', v: '3,010', s: 'Supplementary information' },
+              { l: 'Depreciation', v: '1,940', s: 'Supplementary information' },
+              { l: 'Gain on sale', v: '200', s: 'Your step 1 answer' }
+            ], rows: [
+            { l: 'Change in accounts receivable (enter as it affects CFO)', a: -480, tol: 5, w: '4,380 \u2212 3,900 = +480 on the balance sheet, so \u2212480 in the statement. Customers owe more than last year: profit ran ahead of collection.' },
+            { l: 'Change in inventories (as it affects CFO)', a: 450, tol: 5, w: 'Inventory fell 4,600 \u2192 4,150, so +450. Stock was sold down rather than bought, which releases cash.' },
+            { l: 'Change in accounts payable (as it affects CFO)', a: -250, tol: 5, w: 'Payables fell 2,300 \u2192 2,050, so \u2212250. Suppliers were paid down, and that used cash.' },
+            { l: 'Change in taxes payable and accrued expenses combined (as it affects CFO)', a: 590, tol: 5, w: '+180 on taxes payable and +410 on accruals. Both are liabilities that rose, so both are sources.' },
+            { l: 'Cash from operating activities', a: 5060, tol: 15, w: '3,010 + 1,940 \u2212 200 \u2212 480 + 450 \u2212 250 + 180 + 410 = 5,060.' }
+          ], e: 'Note the gain is subtracted even though it increased profit. It is a real gain and it is not operating \u2014 the cash it relates to arrives in the investing section as the full 900 of proceeds. Leave it in and the same transaction is counted twice.' },
+          { t: 'fill', p: 'Step 3. Cash from investing activities.',
+            rows: [
+            { l: 'Proceeds from the equipment sale', a: 900, tol: 5, w: 'The whole proceeds, not the gain. The gain was only the bit above book value.' },
+            { l: 'Purchases of plant and equipment (negative)', a: -4700, tol: 10, w: 'From the roll-forward in step 1.' },
+            { l: 'Cash used in investing activities', a: -3800, tol: 15, w: '900 \u2212 4,700 = (3,800). Land did not move, so there is nothing else here.' }
+          ], e: 'Investing is where the business either builds capacity or sells it off. Spending 4,700 to replace assets while depreciation was only 1,940 says Kestrel is investing well beyond the rate at which its assets are wearing out \u2014 a company growing its capacity, not maintaining it.' },
+          { t: 'fill', p: 'Step 4. Cash from financing activities.',
+            rows: [
+            { l: 'Repayment of long-term debt (negative)', a: -700, tol: 5, w: '7,000 \u2192 6,300, repaid at book value, so a straight 700 out.' },
+            { l: 'Proceeds from issuing common stock', a: 400, tol: 5, w: '6,000 \u2192 6,400.' },
+            { l: 'Dividends paid (negative)', a: -600, tol: 5, w: 'Given, and confirmed by the retained earnings roll-forward in step 1.' },
+            { l: 'Cash used in financing activities', a: -900, tol: 10, w: '\u2212700 + 400 \u2212 600 = (900).' }
+          ], e: 'Financing is the smallest section here and it runs slightly negative: the company repaid more debt and paid more dividends than it raised in equity. It is funding itself.' },
+          { t: 'fill', p: 'Step 5. Tie the three sections to the movement in cash. If this does not agree exactly, something above is wrong.',
+            rows: [
+            { l: 'Sum of the three sections', a: 360, tol: 10, w: '5,060 \u2212 3,800 \u2212 900 = 360.' },
+            { l: 'Change in the cash balance on the balance sheet', a: 360, tol: 5, w: '2,460 \u2212 2,100 = 360. They agree, so the statement is complete.' }
+          ], e: 'This tie is not a formality \u2014 it is the only check you have. Every figure was derived, so a single sign error or a missed working capital line shows up here and nowhere else. In an exam, do this before writing the commentary.' },
+          { t: 'pick', p: 'Step 6. Comment on the pattern. Mark each statement true or false.',
+            rows: [
+              { l: 'Operations funded the investment programme without new borrowing', a: true, w: '5,060 generated against 3,800 invested, while debt was repaid and equity barely moved.' },
+              { l: 'Capital spending ran well ahead of depreciation, which suggests expansion', a: true, w: '4,700 spent against a 1,940 charge \u2014 roughly two and a half times the rate of wear.' },
+              { l: 'The fall in cash from operations is a warning sign', a: false, w: 'Cash from operations was strongly positive at 5,060. Nothing fell.' },
+              { l: 'Working capital was a net drag on cash this year', a: false, w: 'Add them: \u2212480 + 450 \u2212 250 + 180 + 410 = +310. Receivables and payables took cash out, inventory and accruals put more back.' },
+              { l: 'The company is returning cash to shareholders while still growing', a: true, w: 'A 600 dividend paid out of internally generated cash, alongside 4,700 of capital spending.' }
+            ],
+            e: 'The healthy pattern is exactly this one: operating strongly positive, investing strongly negative, financing mildly negative. The business generates more than it needs, spends it on capacity, and returns a little to shareholders and lenders.\n\nRead the same three signs in other orders and you get other stories. Operating negative with financing strongly positive is a company living on raised money \u2014 Netflix through 2019. Operating positive with investing positive is a company selling assets, which is fine once and alarming as a trend. The three subtotals are a summary of strategy, which is why the comment is worth as many marks as the arithmetic.' }
+        ]
+      },
     ],
     fra: [
       {
