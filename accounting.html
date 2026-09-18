@@ -1860,6 +1860,71 @@ textarea.input { min-height: 90px; resize: vertical; }
           </div>
         </sc-if>
 
+        <sc-if value="{{ isS8 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:72ch">
+            <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <p style="margin:8px 0 0; font-size:16px">One number answers the question an investor actually asks: for every euro tied up in this business, how much operating profit does it produce? Everything in this session is that number, taken apart.</p>
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <sc-raw-table class="table" style="margin-top:6px">
+              <sc-raw-tbody>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>NOPAT</strong></sc-raw-td><sc-raw-td>Net operating profit after tax \u2014 profit from operations as if the firm carried no debt at all.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>Invested capital</strong></sc-raw-td><sc-raw-td>The money investors have tied up. Equal to net operating assets, reached from either side of the balance sheet.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>NOPAT margin</strong></sc-raw-td><sc-raw-td>NOPAT \u00f7 revenue. How much of each euro of sales survives to the investors.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>IC turnover</strong></sc-raw-td><sc-raw-td>Revenue \u00f7 invested capital. How hard each euro of capital works.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>Cash conversion cycle</strong></sc-raw-td><sc-raw-td>Days inventory + days receivable \u2212 days payable. How long cash is out of your hands.</sc-raw-td></sc-raw-tr>
+              </sc-raw-tbody>
+              </sc-raw-table>
+            </div>
+
+            <h3 style="margin-top:34px">Invested capital, from either direction</h3>
+            <p>Session 2 derived it and this session uses it. The same pool of money can be counted by what it is used for or by who provided it, and the two must agree.</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td style="width:46%"><strong>The operations view</strong></sc-raw-td><sc-raw-td>NOA = operating assets &minus; operating liabilities</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>The financing view</strong></sc-raw-td><sc-raw-td>IC = shareholders&rsquo; equity + financial liabilities &minus; financial assets</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>And they are the same</strong></sc-raw-td><sc-raw-td>NOA = IC &mdash; the net assets used in operations, financed by the capital markets</sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">Computing it both ways is the check. If they disagree, something has been classified as operating on one side and financial on the other.</p>
+
+            <h3 style="margin-top:34px">ROIC, and the two things that move it</h3>
+            <p style="margin-top:6px"><strong>ROIC = NOPAT &divide; invested capital</strong></p>
+            <p style="margin-top:10px">Multiply top and bottom by revenue and it splits in two:</p>
+            <p style="margin-top:6px"><strong>ROIC = (NOPAT &divide; revenue) &times; (revenue &divide; invested capital) = NOPAT margin &times; IC turnover</strong></p>
+            <sc-raw-table class="table" style="margin-top:12px">
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td style="width:34%"><strong>NOPAT margin</strong></sc-raw-td><sc-raw-td>A measure of margin: pricing power, control of input costs, control of overhead.</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>IC turnover</strong></sc-raw-td><sc-raw-td>A measure of efficiency: how much revenue each euro of capital is made to produce.</sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">Revenue cancels, so the split adds no assumption \u2014 it is free. What it buys is a description of the business rather than a score, and it is why two firms can reach the same ROIC by opposite routes. That is the entire LVMH and Warnaco comparison, worked through in the practice exercise.</p>
+
+            <h3 style="margin-top:34px">The cash conversion cycle</h3>
+            <p>Turnover ratios answer how hard capital works. The cash conversion cycle answers a sharper question: between paying for goods and being paid for them, how long is your money someone else\u2019s?</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td style="width:40%">Days inventory held (DIH)</sc-raw-td><sc-raw-td>365 &times; average inventory &divide; cost of goods sold</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Days sales outstanding (DSO)</sc-raw-td><sc-raw-td>365 &times; average receivables &divide; revenue</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Days payables outstanding (DPO)</sc-raw-td><sc-raw-td>365 &times; average payables &divide; purchases</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>Cash conversion cycle</strong></sc-raw-td><sc-raw-td><strong>DIH + DSO &minus; DPO</strong></sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">DIH plus DSO is the operating cycle \u2014 buy stock, sell it, collect the cash. Subtracting DPO recognises that the supplier funded part of that wait for free. What is left is the gap you finance yourself.</p>
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The detail that trips people</div>
+              <p style="margin:8px 0 0">DPO divides by <strong>purchases</strong>, not by cost of goods sold, and purchases must be derived: COGS + closing inventory &minus; opening inventory. Using COGS instead overstates DPO whenever inventory is growing, and the error flatters the cycle.</p>
+            </div>
+            <p style="margin-top:14px">Worked on the case figures, LVMH runs a cycle of about <strong>231 days</strong> against Warnaco&rsquo;s <strong>95</strong> \u2014 roughly 136 days longer. Champagne and cognac age before they sell, and boutiques hold depth in every size, so inventory alone is 305 days against 85. LVMH collects far faster, at 27 days against 47, because it sells direct to the public rather than to department stores on terms. A long cycle is not a failure here; it is what the strategy costs, and it is why the premium has to be large enough to pay for it.</p>
+
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:22px">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
+              <p style="margin:8px 0 0">Inventory: cost flow assumptions, and what LIFO does to every ratio computed from the balance sheet.</p>
+            </div>
+          </div>
+        </sc-if>
+
+
         <sc-if value="{{ isF1 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
@@ -3523,7 +3588,7 @@ class Component extends DCLogic {
       { id: 'fa2', title: 'Practice set — the three statements', when: 'Ongoing', tag: 'Practice' }
     ];
 
-  built = { s1: 1, s2: 1, s3: 1, s4: 1, s5: 1, s6: 1, s7: 1, f1: 1, f2: 1, f3: 1, f4: 1, f5: 1, f6: 1, f7: 1, f8: 1, f9: 1, f10: 1 };
+  built = { s1: 1, s2: 1, s3: 1, s4: 1, s5: 1, s6: 1, s7: 1, s8: 1, f1: 1, f2: 1, f3: 1, f4: 1, f5: 1, f6: 1, f7: 1, f8: 1, f9: 1, f10: 1 };
 
   courseSessions(c) { return (c || this.state.course) === 'fra' ? this.fraSessions : this.sessions; }
 
@@ -3793,6 +3858,18 @@ class Component extends DCLogic {
       { t: 'num', k: 'Reconciliation', p: 'Opening accumulated depreciation 84,000, depreciation expense for the year 22,000, closing accumulated depreciation 87,000. What was the accumulated depreciation on assets disposed of?', a: 19000, tol: 50, hint: 'Closing = opening + charge for the year \u2212 accumulated depreciation removed with disposals.', e: '84,000 + 22,000 \u2212 87,000 = 19,000. Pair it with the plant roll-forward \u2014 360,000 = 336,000 + 60,000 \u2212 36,000 \u2014 and you have both the cost and the accumulated depreciation of what left, which is what you need to compute the gain or loss on disposal.' },
       { t: 'mcq', k: 'Non-cash', p: 'In the session example, plant was acquired by issuing bonds directly. Where does that appear on the cash flow statement?', o: ['Nowhere \u2014 no cash moved, so it is disclosed separately instead', 'Investing outflow and financing inflow, which net to zero', 'Operating, because the asset supports operations', 'Investing outflow only, with the bond shown next period'], a: 0, e: 'This is the trap built into the example. Both the plant and the bonds roll forward as though something happened, and nothing touched cash. Material non-cash investing and financing transactions are disclosed in a note rather than on the face of the statement. Reconciling the accounts and assuming the movement was cash is the standard way to lose the marks.' },
       { t: 'mcq', k: 'Netflix', p: 'The session concludes that Netflix moved from negative to positive cash from operations. Why?', o: ['Cuts in marketing and a fall in spending on content', 'A price rise that lifted revenue faster than costs', 'Reclassifying content payments from operating to investing', 'Collecting subscription revenue further in advance'], a: 0, e: 'That is the summary\u2019s own wording, and it ends with a question rather than a verdict: is that sustainable in this industry? Content spending fell because production stopped, not because Netflix chose it, and marketing fell in a year when subscribers arrived unprompted. Both reverse.\n\nThe case also shows the operating-versus-investing boundary is not always clean \u2014 Netflix runs content through operating, its old DVD library went through investing, and Blockbuster put rental library purchases in operating. Same kind of asset, three presentations.' }
+    ],
+    s8: [
+      { t: 'mcq', k: 'Invested capital', p: 'Invested capital can be computed two ways. What must be true of them?', o: ['They must agree, and disagreement means something was classified inconsistently', 'The financing view is always the larger of the two by the amount of net debt', 'The operations view applies to manufacturers and the financing view to retailers', 'They differ by the tax shield on the interest-bearing debt'], a: 0, e: 'Operating assets minus operating liabilities is the operations view; equity plus financial liabilities minus financial assets is the financing view. Same pool of money, counted by use and by source, so they must tie. Computing both is the check \u2014 if they differ, an item has been treated as operating on one side and financial on the other, and trade payables are the usual culprit.' },
+      { t: 'mcq', k: 'ROIC', p: 'Why does splitting ROIC into margin and turnover cost nothing in assumptions?', o: ['Revenue appears in both terms and cancels exactly', 'Both terms are computed from the same audited statements', 'The split is an approximation that holds for large firms', 'Margin and turnover are independent of each other by construction'], a: 0, e: '(NOPAT/revenue) \u00d7 (revenue/IC) = NOPAT/IC. Revenue cancels, so the identity is exact and adds nothing. What it adds is meaning: the same ROIC can come from a high margin at low turnover or the reverse, and those are different businesses. They are emphatically not independent \u2014 there is usually a trade-off between them.' },
+      { t: 'num', k: 'ROIC', p: 'NOPAT 3,438, revenue 23,659, average invested capital 27,124. What is the NOPAT margin, in percent?', a: 14.5, tol: 0.3, hint: 'NOPAT divided by revenue.', e: '3,438 / 23,659 = 14.5%. Of every euro a customer hands over, about 14.5 cents survives to the investors after operating costs and tax.' },
+      { t: 'num', k: 'ROIC', p: 'Same figures. What is invested capital turnover, in times?', a: 0.87, tol: 0.03, hint: 'Revenue divided by average invested capital.', e: '23,659 / 27,124 = 0.87. Each euro of capital produces 87 cents of sales in a year. Multiply by the 14.5% margin and ROIC is 12.7%.' },
+      { t: 'mcq', k: 'Cash cycle', p: 'Days payables outstanding divides average payables by which figure?', o: ['Purchases, derived as COGS + closing inventory \u2212 opening inventory', 'Cost of goods sold, since that is what the payables paid for', 'Revenue, to keep it comparable with days sales outstanding', 'Total operating expenses for the year'], a: 0, e: 'Payables arise from what you bought, not from what you sold, and the two differ by the change in inventory. Using COGS overstates DPO whenever inventory is growing \u2014 and overstating DPO shortens the computed cycle, so the error always flatters. It is the single most common mistake in this calculation.' },
+      { t: 'num', k: 'Cash cycle', p: 'COGS 8,092, opening inventory 5,991, closing inventory 7,510. What were purchases?', a: 9611, tol: 20, hint: 'Purchases = COGS + closing inventory \u2212 opening inventory.', e: '8,092 + 7,510 \u2212 5,991 = 9,611. Inventory grew by 1,519, so the company bought considerably more than it sold.' },
+      { t: 'num', k: 'Cash cycle', p: 'Average inventory 6,750, COGS 8,092. What is days inventory held?', a: 304.5, tol: 6, hint: '365 \u00d7 average inventory \u00f7 cost of goods sold.', e: '365 \u00d7 6,750 / 8,092 = 304.5 days \u2014 over ten months of stock. For a house ageing champagne and cognac and holding depth in every boutique, that is the business model rather than a warning.' },
+      { t: 'num', k: 'Cash cycle', p: 'DIH 304.5 days, DSO 26.6 days, DPO 99.7 days. What is the cash conversion cycle?', a: 231.4, tol: 3, hint: 'Days inventory + days receivable \u2212 days payable.', e: '304.5 + 26.6 \u2212 99.7 = 231.4 days. LVMH finances nearly eight months of the gap itself; Warnaco, on the same calculation, runs about 95 days. The difference is 136 days of working capital, and it is the direct cost of a strategy built on ageing stock and owned boutiques.' },
+      { t: 'tf', k: 'True or false', p: 'A long cash conversion cycle always indicates a poorly run business.', a: false, why: 'False. It indicates capital tied up, which is a cost, not a verdict. LVMH runs 231 days because its inventory literally has to age, and its margin is large enough to pay for the wait. The question is whether the cycle is long for a reason the strategy explains \u2014 and whether it is getting longer without one.', e: 'False. It indicates capital tied up, which is a cost, not a verdict. LVMH runs 231 days because its inventory literally has to age, and its margin is large enough to pay for the wait. The question is whether the cycle is long for a reason the strategy explains \u2014 and whether it is getting longer without one.' },
+      { t: 'mcq', k: 'Cash cycle', p: 'LVMH collects in about 27 days; Warnaco takes about 47. What explains the gap?', o: ['LVMH sells direct to the public while Warnaco sells to department stores on terms', 'LVMH factors its receivables to a bank shortly after each sale', 'Warnaco offers longer credit because its customers have weaker credit ratings', 'LVMH records revenue only once the customer has paid in full'], a: 0, e: 'A boutique customer pays at the till; a wholesale buyer pays on terms. Warnaco\u2019s 47 days is normal for selling through department stores, and the reserve of 94,739 held against those receivables shows what that exposure is worth. Channel choice drives the collection period more than credit policy does.' }
     ],
     f1: [
       { t: 'mcq', k: 'Definition', p: 'Financial accounting is best described as the process of:', o: ['Setting prices for products', 'Recording and reporting transactions', 'Preparing budgets for internal managers only', 'Computing tax owed'], a: 1, e: 'Recording, summarising, reporting and analysing financial transactions. Financial accounting reports to external users. Managerial accounting serves internal decisions and follows no external rulebook.' },
@@ -8021,6 +8098,7 @@ class Component extends DCLogic {
       hasChecks: mode === 'lesson' && (this.checks[view] || []).length > 0,
       isS6: mode === 'lesson' && view === 's6',
       isS7: mode === 'lesson' && view === 's7',
+      isS8: mode === 'lesson' && view === 's8',
       isF1: mode === 'lesson' && view === 'f1',
       isF2: mode === 'lesson' && view === 'f2',
       isF3: mode === 'lesson' && view === 'f3',
