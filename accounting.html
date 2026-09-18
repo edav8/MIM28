@@ -5053,202 +5053,97 @@ class Component extends DCLogic {
       },
       {
         key: 'ex-lvmh', isCase: true, title: 'LVMH and Warnaco: the same ROIC, two different businesses',
-        sub: 'Ten steps taking one ratio apart until the strategies show',
+        sub: 'Questions 1 to 8, worked the way the session works them',
         ses: 'Session 08 \u00b7 Return on Invested Capital',
-        brief: 'LVMH Mo\u00ebt Hennessy Louis Vuitton was formed in 1987 and runs five segments \u2014 wines and spirits, fashion and leather goods, perfumes and cosmetics, watches and jewellery, and selective retailing. The names it owns are among the most recognisable in luxury: Dom P\u00e9rignon, Christian Dior, TAG Heuer, and the two in its own title.\n\nThe Warnaco Group is narrower: design and manufacture of intimate apparel, sportswear and swimwear, largely under brands it licenses \u2014 Calvin Klein and Speedo among them. The two do not compete for the same customer, and the point of putting them side by side is not to rank them. It is to ask whether an analyst can see two different strategies in the accounting numbers.\n\nIn fiscal 2011 they delivered comparable returns on invested capital by opposite routes. Your job is to find the routes.\n\nInvested capital is the money investors have tied up in the business: IC = total assets \u2212 non-operating assets \u2212 operating liabilities, which is the same thing as equity + interest-bearing debt + non-controlling interests \u2212 non-operating assets. Operating liabilities \u2014 payables, accruals, provisions, deferred tax \u2014 are excluded because they demand no financial return; suppliers and tax authorities are not investors.\n\nUse a tax rate of 33.3% for LVMH, the French corporate rate, and 35% for Warnaco, the U.S. rate. LVMH reports in millions of euros, Warnaco in thousands of dollars; keep each company in its own units throughout and compare only ratios. The statements are in the Figures panel.',
+        brief: 'LVMH Mo\u00ebt Hennessy Louis Vuitton runs wines and spirits, fashion and leather goods, perfumes and cosmetics, watches and jewellery, and selective retailing \u2014 Dom P\u00e9rignon, Dior, TAG Heuer, Louis Vuitton. The Warnaco Group designs and manufactures intimate apparel, sportswear and swimwear, largely under licensed names including Calvin Klein and Speedo.\n\nThey do not compete. The point of putting them side by side is that in fiscal 2011 they delivered comparable returns on invested capital by opposite routes, and an analyst should be able to see both routes in the numbers.\n\nNOPAT here is built from the bottom of the income statement: net income plus the after-tax net non-operating expense. Invested capital is equity plus interest-bearing debt plus non-controlling interest, averaged over the two year-ends. Tax rates are 33.3% for LVMH and 35% for Warnaco. LVMH reports in millions of euros, Warnaco in thousands of dollars \u2014 keep each in its own units and compare only ratios.',
         tables: [
-          { title: 'LVMH \u2014 consolidated income statement', note: 'EUR millions. Deductions in brackets.', cols: ['2011', '2010', '2009'], rows: [
-            ['Revenue', '23,659', '20,320', '17,053', 'k'],
-            ['Cost of sales', '(8,092)', '(7,184)', '(6,164)'],
-            ['Gross margin', '15,567', '13,136', '10,889'],
-            ['Marketing and selling expenses', '(8,360)', '(7,098)', '(6,051)'],
-            ['General and administrative expenses', '(1,944)', '(1,717)', '(1,486)'],
-            ['Profit from recurring operations', '5,263', '4,321', '3,352'],
-            ['Other operating income and expenses', '(109)', '(152)', '(191)'],
-            ['Operating profit', '5,154', '4,169', '3,161', 'k'],
-            ['Net financial income (expense)', '(242)', '612', '(342)'],
-            ['Income taxes', '(1,453)', '(1,469)', '(849)'],
-            ['Net profit, Group share', '3,065', '3,032', '1,755']
+          { title: 'Income statement inputs, fiscal 2011', note: 'LVMH SG&A is marketing and selling (8,360) plus general and administrative (1,944).', cols: ['LVMH (\u20acm)', 'Warnaco ($000)'], rows: [
+            ['Revenue', '23,659', '2,513,388', 'k'],
+            ['Cost of goods sold', '8,092', '1,412,524'],
+            ['Selling, general and administrative', '10,304', '844,696'],
+            ['Net income', '3,465', '127,193', 'k'],
+            ['Interest income', '\u2014', '3,361'],
+            ['Interest expense', '242', '16,274'],
+            ['Tax rate', '33.3%', '35.0%']
           ] },
-          { title: 'LVMH \u2014 consolidated balance sheet, assets', note: 'EUR millions, at 31 December.', cols: ['2011', '2010', '2009'], rows: [
-            ['Brands and other intangible assets \u2014 net', '11,482', '9,104', '8,697'],
-            ['Goodwill \u2014 net', '6,957', '5,027', '4,270'],
-            ['Property, plant and equipment \u2014 net', '8,017', '6,733', '6,140'],
-            ['Investments in associates', '170', '223', '213'],
-            ['Non-current available for sale financial assets', '5,982', '3,891', '540'],
-            ['Other non-current assets', '478', '319', '750'],
-            ['Deferred tax', '716', '668', '521'],
-            ['Non-current assets', '33,802', '25,965', '21,131'],
-            ['Inventories and work in progress', '7,510', '5,991', '5,644'],
-            ['Trade accounts receivable', '1,878', '1,565', '1,455'],
-            ['Income taxes', '121', '96', '217'],
-            ['Other current assets', '1,455', '1,255', '1,213'],
-            ['Cash and cash equivalents', '2,303', '2,292', '2,446'],
-            ['Current assets', '13,267', '11,199', '10,975'],
-            ['Total assets', '47,069', '37,164', '32,106', 'k']
-          ] },
-          { title: 'LVMH \u2014 consolidated balance sheet, liabilities and equity', note: 'EUR millions, at 31 December.', cols: ['2011', '2010', '2009'], rows: [
-            ['Equity, Group share', '22,451', '17,198', '13,796'],
-            ['Minority interests', '1,061', '1,006', '989'],
-            ['Total equity', '23,512', '18,204', '14,785', 'k'],
-            ['Long term borrowings', '4,132', '3,432', '4,077'],
-            ['Provisions (non-current)', '1,400', '1,167', '990'],
-            ['Deferred tax', '3,925', '3,354', '3,117'],
-            ['Other non-current liabilities', '4,506', '3,947', '3,089'],
-            ['Non-current liabilities', '13,963', '11,900', '11,273'],
-            ['Short term borrowings', '3,134', '1,834', '1,708'],
-            ['Trade accounts payable', '2,952', '2,298', '1,911'],
-            ['Income taxes', '443', '446', '221'],
-            ['Provisions (current)', '349', '339', '334'],
-            ['Other current liabilities', '2,716', '2,143', '1,874'],
-            ['Current liabilities', '9,594', '7,060', '6,048'],
-            ['Total liabilities and equity', '47,069', '37,164', '32,106', 'k']
-          ] },
-          { title: 'Warnaco \u2014 consolidated statements of operations', note: 'USD thousands.', cols: ['FY2011', 'FY2010', 'FY2009'], rows: [
-            ['Net revenues', '2,513,388', '2,295,751', '2,019,625', 'k'],
-            ['Cost of goods sold', '1,412,446', '1,275,788', '1,155,278'],
-            ['Gross profit', '1,100,942', '1,019,963', '864,347'],
-            ['Selling, general and administrative expenses', '844,696', '758,053', '638,907'],
-            ['Amortization of intangible assets', '47,957', '11,549', '11,032'],
-            ['Pension expense', '26,744', '2,550', '20,873'],
-            ['Operating income', '181,545', '247,811', '193,535', 'k'],
-            ['Interest expense', '16,274', '14,483', '23,897'],
-            ['Provision for income taxes', '36,006', '82,107', '64,272'],
-            ['Net income attributable to Warnaco Group', '127,450', '138,581', '95,998']
-          ] },
-          { title: 'Warnaco \u2014 consolidated balance sheets', note: 'USD thousands. The prior year end is 1 January 2011.', cols: ['31 Dec 2011', '1 Jan 2011'], rows: [
-            ['Cash and cash equivalents', '232,531', '191,227'],
-            ['Accounts receivable, net', '322,976', '318,123'],
-            ['Inventories', '350,835', '310,504'],
-            ['Assets of discontinued operations', '\u2014', '125'],
-            ['Prepaid expenses and other current assets', '99,686', '100,389'],
-            ['Deferred income taxes (current)', '58,602', '58,270'],
-            ['Property, plant and equipment, net', '133,022', '129,252'],
-            ['Licenses, trademarks and other intangible assets, net', '320,880', '373,276'],
-            ['Deferred financing costs, net', '8,790', '2,540'],
-            ['Deferred income taxes (non-current)', '21,885', '11,769'],
-            ['Other assets', '58,695', '42,519'],
-            ['Goodwill', '139,948', '115,278'],
-            ['Total assets', '1,747,850', '1,653,272', 'k'],
-            ['Short-term debt', '47,513', '32,172'],
-            ['Accounts payable', '141,797', '152,714'],
-            ['Accrued liabilities', '212,655', '227,561'],
-            ['Liabilities of discontinued operations', '6,797', '18,800'],
-            ['Accrued income taxes payable', '41,762', '37,957'],
-            ['Deferred income taxes (current)', '1,476', '262'],
-            ['Long-term debt', '208,477', '\u2014'],
-            ['Deferred income taxes (non-current)', '37,000', '74,233'],
-            ['Other long-term liabilities', '137,973', '136,967'],
-            ['Redeemable non-controlling interest', '15,200', '\u2014'],
-            ['Total stockholders\u2019 equity', '897,200', '972,606', 'k']
+          { title: 'Balance sheet inputs', note: 'LVMH at 31 December; Warnaco at 31 December 2011 and 1 January 2011.', cols: ['LVMH 2011', 'LVMH 2010', 'Warnaco 2011', 'Warnaco 2010'], rows: [
+            ['Short-term debt', '3,134', '1,834', '47,513', '32,172'],
+            ['Long-term debt', '4,132', '3,432', '208,477', '\u2014'],
+            ['Redeemable non-controlling interest', '\u2014', '\u2014', '15,200', '\u2014'],
+            ['Total equity', '23,512', '18,204', '897,200', '972,606'],
+            ['Non-operating assets', '5,982', '3,891', '8,790', '2,540'],
+            ['Inventories', '7,510', '5,991', '350,835', '310,504'],
+            ['Trade receivables', '1,878', '1,565', '322,976', '318,123'],
+            ['Trade payables', '2,952', '2,298', '141,797', '152,714']
           ] }
         ],
         steps: [
-          { t: 'fill', p: 'Step 1. Question 1, first half. Sort LVMH\u2019s right-hand side into money that demands a return and money that does not, then build invested capital for both years.',
-            h: 'Every line on the right-hand side of a balance sheet is money someone provided. The question is whether that someone expects to be paid for the wait.\n\nShareholders and lenders do, so equity and borrowings are invested capital. Suppliers who let you pay in sixty days, tax authorities waiting for a deferred balance, provisions for future costs \u2014 none of them charge interest, so none of them belong.\n\nSubtract the second group from total assets and what remains is what investors actually have tied up. There is a check built in: the answer should equal equity plus borrowings.',
-            calc: 'IC = total assets \u2212 operating liabilities   (non-operating assets assumed zero for now)',
-            look: 'LVMH balance sheet, liabilities and equity.',
+          { t: 'fill', p: 'Question 1a. Compute NOPAT for both firms.',
+            h: 'Start at net income, not at operating profit. Net income is struck after the lenders have been paid, so adding the net interest back \u2014 after tax, because interest was deductible \u2014 restores what the business would have earned with no debt.\n\nInterest expense exceeds interest income at both firms, so the adjustment is added in both cases.\n\nWatch which net income figure you take: the one before deducting minority interests, since invested capital will include them.',
+            calc: 'NOPAT = net income + (interest expense \u2212 interest income) \u00d7 (1 \u2212 tax rate)',
             rows: [
-            { l: 'LVMH operating liabilities, 2011 (EUR m)', a: 16291, tol: 5, w: 'Provisions 1,400 + deferred tax 3,925 + other non-current liabilities 4,506 + trade payables 2,952 + income taxes 443 + current provisions 349 + other current liabilities 2,716 = 16,291. Borrowings are excluded: they carry interest.' },
-            { l: 'LVMH invested capital, 2011 (EUR m)', a: 30778, tol: 6, w: '47,069 \u2212 16,291 = 30,778. Check it the other way: equity 23,512 + long term borrowings 4,132 + short term borrowings 3,134 = 30,778. The two routes agree, which is the sign the sorting was done consistently.' },
-            { l: 'LVMH operating liabilities, 2010 (EUR m)', a: 13694, tol: 5, w: '1,167 + 3,354 + 3,947 + 2,298 + 446 + 339 + 2,143 = 13,694.' },
-            { l: 'LVMH invested capital, 2010 (EUR m)', a: 23470, tol: 6, w: '37,164 \u2212 13,694 = 23,470, and equity 18,204 + borrowings 5,266 gives the same.' },
-            { l: 'Average invested capital (EUR m)', a: 27124, tol: 8, w: '(30,778 + 23,470) / 2 = 27,124. An average is used because NOPAT accrues across the year while a balance sheet figure is one instant.' }
-          ], e: 'Invested capital grew 31% in a single year, from 23,470 to 30,778. Most of that is acquisition: goodwill rose 1,930 and brands 2,378, largely Bulgari. Keep it in mind \u2014 a denominator growing that fast drags the current year\u2019s return down even if nothing operational changed.' },
-          { t: 'fill', p: 'Step 2. Question 1, second half. NOPAT and ROIC for LVMH.',
-            calc: 'NOPAT = operating profit \u00d7 (1 \u2212 tax rate)     ROIC = NOPAT \u00f7 average IC',
+            { l: 'LVMH after-tax net non-operating expense (\u20acm)', a: 161, tol: 4, w: '(242 \u2212 0) \u00d7 (1 \u2212 0.333) = 161.4.' },
+            { l: 'LVMH NOPAT (\u20acm)', a: 3626, tol: 6, w: '3,465 + 161 = 3,626.' },
+            { l: 'Warnaco after-tax net non-operating expense ($000)', a: 8393, tol: 40, w: '(16,274 \u2212 3,361) \u00d7 0.65 = 12,913 \u00d7 0.65 = 8,393.' },
+            { l: 'Warnaco NOPAT ($000)', a: 135586, tol: 60, w: '127,193 + 8,393 = 135,586.' }
+          ], e: 'Do not reach for operating profit \u00d7 (1 \u2212 tax rate). It is a common shortcut and it gives a different answer \u2014 about 3,438 for LVMH rather than 3,626 \u2014 because it ignores everything between operating profit and net income, including income from associates and the tax the company actually bore.' },
+          { t: 'fill', p: 'Question 1b. Invested capital and ROIC, treating every asset as operating for now.',
+            calc: 'IC = total equity + interest-bearing debt + non-controlling interest',
+            rows: [
+            { l: 'LVMH invested capital 2011 (\u20acm)', a: 30778, tol: 8, w: '23,512 + 3,134 + 4,132 = 30,778.' },
+            { l: 'LVMH average invested capital (\u20acm)', a: 27124, tol: 10, w: '2010 is 18,204 + 1,834 + 3,432 = 23,470, so the average is 27,124.' },
+            { l: 'LVMH ROIC (%)', a: 13.4, tol: 0.3, w: '3,626 / 27,124 = 13.4%.' },
+            { l: 'Warnaco invested capital 2011 ($000)', a: 1168390, tol: 400, w: '897,200 + 47,513 + 208,477 + 15,200 = 1,168,390. The redeemable non-controlling interest counts \u2014 it is an investor claim.' },
+            { l: 'Warnaco average invested capital ($000)', a: 1086584, tol: 500, w: '2010 is 972,606 + 32,172 = 1,004,778, so the average is 1,086,584.' },
+            { l: 'Warnaco ROIC (%)', a: 12.5, tol: 0.3, w: '135,586 / 1,086,584 = 12.5%.' }
+          ], e: 'On this basis LVMH leads by less than a point \u2014 13.4% against 12.5%. Two businesses with almost nothing in common landing within a point of each other is the puzzle the rest of the case exists to explain.' },
+          { t: 'fill', p: 'Questions 2 and 3. Strip out the assets that are not used to run the business, and recompute.',
+            h: 'Look down each balance sheet and ask which assets earn an operating return. LVMH holds a large portfolio of non-current financial investments; Warnaco carries deferred financing costs, which are a cost of borrowing rather than a trading asset.\n\nOne rule governs the adjustment: whatever you take out of invested capital must also come out of NOPAT. Check whether it needs to here before you assume it does.',
             given: [
-              { l: 'Operating profit, 2011', v: '5,154', s: 'Income statement' },
-              { l: 'Tax rate', v: '33.3%', s: 'The French corporate rate, as the question directs' },
-              { l: 'Average invested capital', v: '27,124', s: 'Your step 1 answer' }
+              { l: 'LVMH non-operating assets', v: '5,982 and 3,891', s: 'Non-current financial investments' },
+              { l: 'Warnaco non-operating assets', v: '8,790 and 2,540', s: 'Deferred financing costs' }
             ], rows: [
-            { l: 'NOPAT (EUR m)', a: 3438, tol: 12, w: '5,154 \u00d7 (1 \u2212 0.333) = 3,438. Operating profit is used rather than net profit because ROIC has to measure the business, not the financing.' },
-            { l: 'ROIC (%)', a: 12.7, tol: 0.3, w: '3,438 / 27,124 = 12.7%.' }
-          ], e: 'Note what NOPAT deliberately ignores: the 242 of net financial expense and the 400 due to minority shareholders. Those describe how the business was funded and who owns it, not how well it operates. Financing decisions belong in the cost of capital, on the other side of the comparison.' },
-          { t: 'fill', p: 'Step 3. The same two calculations for Warnaco. Keep everything in thousands of dollars.',
-            h: 'Nothing new here \u2014 it is the same three sums as steps 1 and 2, on a company that presents its balance sheet in a different order.\n\nThe one thing to watch is the redeemable non-controlling interest of 15,200. It sits between liabilities and equity on the face of the statement, and it is a genuine investor claim, so it belongs in invested capital rather than among the operating liabilities.\n\nThe same cross-check applies: total assets less operating liabilities should equal equity plus that non-controlling interest plus the two debt lines.',
-            calc: 'IC = total assets \u2212 operating liabilities',
-            given: [
-              { l: 'Tax rate', v: '35%', s: 'The U.S. corporate rate, as the question directs' }
-            ], rows: [
-            { l: 'Warnaco operating liabilities, 2011 (USD k)', a: 579460, tol: 400, w: 'Payables 141,797 + accrued liabilities 212,655 + liabilities of discontinued operations 6,797 + accrued income taxes 41,762 + current deferred tax 1,476 + non-current deferred tax 37,000 + other long-term liabilities 137,973 = 579,460.' },
-            { l: 'Warnaco invested capital, 2011 (USD k)', a: 1168390, tol: 500, w: '1,747,850 \u2212 579,460 = 1,168,390. Check: equity 897,200 + redeemable non-controlling interest 15,200 + short-term debt 47,513 + long-term debt 208,477 = 1,168,390.' },
-            { l: 'Warnaco invested capital, 1 January 2011 (USD k)', a: 1004778, tol: 500, w: 'Operating liabilities 152,714 + 227,561 + 18,800 + 37,957 + 262 + 74,233 + 136,967 = 648,494, so 1,653,272 \u2212 648,494 = 1,004,778.' },
-            { l: 'Average invested capital (USD k)', a: 1086584, tol: 700, w: '(1,168,390 + 1,004,778) / 2 = 1,086,584.' },
-            { l: 'NOPAT (USD k)', a: 118004, tol: 300, w: '181,545 \u00d7 0.65 = 118,004.' },
-            { l: 'ROIC (%)', a: 10.9, tol: 0.3, w: '118,004 / 1,086,584 = 10.9%, against LVMH\u2019s 12.7%.' }
-          ], e: 'Two businesses with almost nothing in common \u2014 one sells champagne and handbags at full retail price, the other manufactures swimwear under licence \u2014 land within two points of each other. That is the puzzle the rest of the case exists to solve. A single summary ratio tells you the outcome and hides everything about how it was produced.' },
-          { t: 'pick', p: 'Step 4. Question 2 calls for judgment before arithmetic. Which LVMH asset is most clearly non-operating?',
+            { l: 'LVMH average adjusted invested capital (\u20acm)', a: 22188, tol: 25, w: '(30,778 \u2212 5,982 = 24,796) and (23,470 \u2212 3,891 = 19,579), averaging 22,188.' },
+            { l: 'LVMH adjusted ROIC (%)', a: 16.3, tol: 0.3, w: '3,626 / 22,188 = 16.3%, up from 13.4%.' },
+            { l: 'Warnaco average adjusted invested capital ($000)', a: 1080919, tol: 600, w: '(1,168,390 \u2212 8,790) and (1,004,778 \u2212 2,540), averaging 1,080,919.' },
+            { l: 'Warnaco adjusted ROIC (%)', a: 12.5, tol: 0.3, w: '135,586 / 1,080,919 = 12.5% \u2014 essentially unchanged.' }
+          ], e: 'That is question 3 answered by the contrast. LVMH gains nearly three points because a large slice of its balance sheet is a financial portfolio earning market returns rather than operating ones; consolidating the two and dividing describes neither. Warnaco barely moves because its only non-operating item is trivial.\n\nNo NOPAT adjustment is needed either side: NOPAT is built from net income with only the net interest added back, and the income these assets generate \u2014 LVMH\u2019s dividends and investment gains, Warnaco\u2019s amortised financing fees \u2014 sits below that line already.' },
+          { t: 'pick', p: 'Question 4. Before computing, place each firm on the margin-turnover grid. Mark each statement true or false.',
             rows: [
-              { l: 'Investments in associates of 170, since LVMH does not control the companies it holds them in', a: false },
-              { l: 'Deferred tax assets of 716, since they arise from tax positions rather than from trading with customers', a: false },
-              { l: 'Non-current available for sale financial assets of 5,982, up from 540 in two years', a: true },
-              { l: 'Brands of 11,482, since they were bought rather than built', a: false }
+              { l: 'LVMH should show the higher NOPAT margin', a: true, w: 'Scarcity priced at a premium, sold through its own boutiques.' },
+              { l: 'Warnaco should show the higher invested capital turnover', a: true, w: 'Licensed brands, outsourced manufacturing, very little owned.' },
+              { l: 'LVMH should show both a higher margin and higher turnover', a: false, w: 'That combination exists, but it is rare and it is not what owning vineyards and boutiques produces.' },
+              { l: 'The same ROIC can come from a high margin on slow capital or a thin margin on fast capital', a: true, w: 'Which is exactly what makes the two firms comparable on ROIC and incomparable on everything else.' }
             ],
-            e: 'The test for a non-operating asset is whether it earns an operating return. A financial portfolio that has grown from 540 to 3,891 to 5,982 in two years \u2014 the bulk of it the stake LVMH built in Herm\u00e8s \u2014 does not: it earns dividends and fair value movements, and those sit in net financial income, which NOPAT excludes.\n\nThe others fail the test. Associates of 170 are strategic partnerships, trivially small either way. Deferred tax follows the operations that created it. Brands are the operating assets \u2014 leaving them out would remove the very thing that generates the margin. Cash is the genuinely arguable one: some analysts strip all of it out, on the ground that it could be paid out tomorrow; others keep a working balance. The next step strips it, so the effect is visible.' },
-          { t: 'fill', p: 'Step 5. Question 2. Recalculate both ROICs with the non-operating assets taken out. Strip the financial portfolio and cash from LVMH, and cash from Warnaco.',
-            calc: 'IC = total assets \u2212 non-operating assets \u2212 operating liabilities',
-            given: [
-              { l: 'LVMH available for sale financial assets', v: '5,982 (2011) and 3,891 (2010)', s: 'Balance sheet' },
-              { l: 'LVMH cash', v: '2,303 (2011) and 2,292 (2010)', s: 'Balance sheet' },
-              { l: 'Warnaco cash', v: '232,531 (2011) and 191,227 (2010)', s: 'Balance sheet' }
-            ], rows: [
-            { l: 'LVMH invested capital, 2011 (EUR m)', a: 22493, tol: 8, w: '30,778 \u2212 5,982 \u2212 2,303 = 22,493.' },
-            { l: 'LVMH invested capital, 2010 (EUR m)', a: 17287, tol: 8, w: '23,470 \u2212 3,891 \u2212 2,292 = 17,287.' },
-            { l: 'LVMH ROIC on operating capital (%)', a: 17.3, tol: 0.4, w: 'Average IC (22,493 + 17,287) / 2 = 19,890, so 3,438 / 19,890 = 17.3%.' },
-            { l: 'Warnaco average invested capital (USD k)', a: 874705, tol: 700, w: '(1,168,390 \u2212 232,531 = 935,859) and (1,004,778 \u2212 191,227 = 813,551), averaging 874,705.' },
-            { l: 'Warnaco ROIC on operating capital (%)', a: 13.5, tol: 0.4, w: '118,004 / 874,705 = 13.5%.' }
-          ], e: 'Both rise, because the denominator shrank while NOPAT \u2014 which never included the income from those assets \u2014 stayed put. That consistency is the whole justification for the adjustment: exclude the income, exclude the asset that produced it.' },
-          { t: 'pick', p: 'Step 6. Question 3. LVMH gains 4.6 points from the adjustment and Warnaco 2.6. What does the size of LVMH\u2019s gap tell you?',
+            e: 'Write the prediction down before computing. The point of question 4 is that a good analyst can read the strategy off the products \u2014 Dom P\u00e9rignon and Dior against Calvin Klein underwear and Speedo \u2014 and then check whether management is delivering it.' },
+          { t: 'fill', p: 'Questions 5 and 6. Split ROIC into margin and turnover, using the adjusted invested capital.',
+            calc: 'ROIC = (NOPAT \u00f7 revenue) \u00d7 (revenue \u00f7 average invested capital)',
             rows: [
-              { l: 'LVMH is the riskier of the two, since a portfolio of financial assets that size can fall in value fast', a: false },
-              { l: 'The reported figure understates the luxury business, which is diluted by a large non-strategic portfolio', a: true },
-              { l: 'LVMH is more efficient at managing working capital', a: false },
-              { l: 'The two ROIC figures are inconsistent and one must be wrong', a: false }
-            ],
-            e: 'A gap that size means a large slice of the balance sheet is not employed in trading. LVMH is running a luxury operation that earns roughly 17% on the capital it actually uses, plus an investment portfolio of 5,982 that earns whatever markets deliver. Consolidating the two and dividing gives 12.7%, which describes neither.\n\nThe practical consequences: judge the operating business on 17.3%, value the portfolio separately at market, and treat the aggregate as an artefact. And the direction of travel matters \u2014 540 to 5,982 in two years is a strategic choice about deploying capital outside the business, one shareholders may or may not have wanted. A widening gap between the two ROIC figures is the signal to go looking for it.' },
-          { t: 'pick', p: 'Step 7. Question 4. How would you describe the two strategic positions before doing any more arithmetic?',
+            { l: 'LVMH NOPAT margin (%)', a: 15.3, tol: 0.3, w: '3,626 / 23,659 = 15.3%.' },
+            { l: 'LVMH IC turnover (times)', a: 1.07, tol: 0.04, w: '23,659 / 22,188 = 1.07.' },
+            { l: 'Warnaco NOPAT margin (%)', a: 5.4, tol: 0.2, w: '135,586 / 2,513,388 = 5.4% \u2014 about a third of LVMH\u2019s.' },
+            { l: 'Warnaco IC turnover (times)', a: 2.33, tol: 0.06, w: '2,513,388 / 1,080,919 = 2.33, more than twice LVMH\u2019s.' }
+          ], e: 'Multiply back as the check: 15.3% \u00d7 1.07 = 16.3%, and 5.4% \u00d7 2.33 = 12.5%. Both reproduce the adjusted ROICs exactly.\n\nThe prediction holds. LVMH earns nearly three times the margin and turns its capital at under half the rate; Warnaco reverses both. Neither is better \u2014 they are different answers to the same question, and each management team is delivering the model it chose.' },
+          { t: 'fill', p: 'Question 7. What drives the margin gap? Express the cost lines as a percentage of revenue.',
             rows: [
-              { l: 'Both compete mainly on price in a crowded market where the customer compares before buying', a: false },
-              { l: 'Both are asset-heavy manufacturers with broadly similar cost structures and distribution', a: false },
-              { l: 'LVMH sells scarcity at a premium; Warnaco sells volume through licensed brands', a: true },
-              { l: 'LVMH is a retailer and Warnaco a wholesaler, which is the only real difference', a: false }
-            ],
-            e: 'LVMH owns its brands outright, controls distribution through its own boutiques, and prices for exclusivity. Scarcity is the product. Warnaco designs and manufactures under licences it does not own, selling through department stores and mass channels where the buyer compares prices and the licensor takes a royalty.\n\nWrite down the prediction before you test it, because the point of the next step is to see whether the numbers confirm it. Premium pricing with a heavy asset base should show up as high margin and low turnover. Licensed volume through wholesale should show the opposite.' },
-          { t: 'fill', p: 'Step 8. Question 5. Split ROIC into the two things management can actually move.',
-            calc: 'ROIC = (NOPAT \u00f7 sales) \u00d7 (sales \u00f7 average IC) = NOPAT margin \u00d7 IC turnover',
-            given: [
-              { l: 'LVMH', v: 'NOPAT 3,438, revenue 23,659, average IC 27,124', s: 'Steps 1 and 2, non-operating assets at zero' },
-              { l: 'Warnaco', v: 'NOPAT 118,004, revenue 2,513,388, average IC 1,086,584', s: 'Step 3' }
-            ], rows: [
-            { l: 'LVMH NOPAT margin (%)', a: 14.5, tol: 0.3, w: '3,438 / 23,659 = 14.5%. Of every euro a customer hands over, 14.5 cents survives to the investors after operating costs and tax.' },
-            { l: 'LVMH IC turnover (times)', a: 0.87, tol: 0.03, w: '23,659 / 27,124 = 0.87. Each euro of invested capital produces 87 cents of sales in a year.' },
-            { l: 'Warnaco NOPAT margin (%)', a: 4.7, tol: 0.2, w: '118,004 / 2,513,388 = 4.7% \u2014 under a third of LVMH\u2019s.' },
-            { l: 'Warnaco IC turnover (times)', a: 2.31, tol: 0.06, w: '2,513,388 / 1,086,584 = 2.31, more than two and a half times LVMH\u2019s.' }
-          ], e: 'Multiply back and the identity holds: 14.5% \u00d7 0.87 = 12.7%, and 4.7% \u00d7 2.31 = 10.9%. Sales cancel, which is exactly why the decomposition is free \u2014 it adds no assumption, only a question the single ratio cannot answer.' },
-          { t: 'pick', p: 'Step 9. Question 6. Does the split match the strategies you described in step 7?',
+            { l: 'LVMH cost of goods sold (% of revenue)', a: 34.2, tol: 0.4, w: '8,092 / 23,659 = 34.2%, a gross margin of 65.8%.' },
+            { l: 'Warnaco cost of goods sold (% of revenue)', a: 56.2, tol: 0.4, w: '1,412,524 / 2,513,388 = 56.2%, a gross margin of 43.8%. Twenty-two points of difference, decided before a single selling cost.' },
+            { l: 'LVMH SG&A (% of revenue)', a: 43.6, tol: 0.4, w: '10,304 / 23,659 = 43.6% \u2014 marketing and selling of 8,360 plus general and administrative of 1,944.' },
+            { l: 'Warnaco SG&A (% of revenue)', a: 33.6, tol: 0.4, w: '844,696 / 2,513,388 = 33.6%.' },
+            { l: 'LVMH profit after SG&A (% of revenue)', a: 22.2, tol: 0.4, w: '100 \u2212 34.2 \u2212 43.6 = 22.2%.' },
+            { l: 'Warnaco profit after SG&A (% of revenue)', a: 10.2, tol: 0.4, w: '100 \u2212 56.2 \u2212 33.6 = 10.2%.' }
+          ], e: 'The gap is created at the gross margin line and then partly given back. LVMH keeps 65.8% of each euro after product cost against Warnaco\u2019s 43.8% \u2014 and then spends ten points more of revenue on running the business, because boutiques, advertising and the visible apparatus of a luxury brand are not cheap.\n\nSo the premium is not won by spending less on selling. It is won at the point of pricing, and owning the brand rather than licensing it is what makes that pricing possible.' },
+          { t: 'fill', p: 'Question 8. How long is cash tied up? Average each balance sheet item across the two year-ends.',
+            h: 'Three ratios and one subtraction, but the payables one has a trap.\n\nDays inventory and days sales use cost of goods sold and revenue respectively. Days payable uses purchases, and purchases are not given \u2014 derive them as cost of goods sold plus closing inventory less opening inventory.\n\nUsing COGS instead of purchases overstates the days you take to pay, which shortens the cycle and flatters the answer.',
+            calc: 'CCC = days inventory + days receivable \u2212 days payable',
             rows: [
-              { l: 'No \u2014 the figures contradict both descriptions, and the strategies are the other way round', a: false },
-              { l: 'Yes \u2014 margin for LVMH, turnover for Warnaco, each executing its own model', a: true },
-              { l: 'Yes for LVMH, but Warnaco should show the higher margin', a: false },
-              { l: 'The split says nothing about strategy either way', a: false }
-            ],
-            e: 'Almost exactly as predicted. LVMH earns three times Warnaco\u2019s margin and turns its capital over a third as fast. Warnaco reverses both. Neither is better; they are different answers to the same question, and each management team is delivering on the model it chose.\n\nThere is usually a trade-off between the two, which is why comparable ROIC from opposite directions is common. Firms that push margin and turnover up together \u2014 a luxury house that also turns capital twice a year \u2014 are rare and worth studying. What should worry an investor is the opposite: a company whose strategy calls for premium positioning while its numbers show thin margins and fast turnover. That is a strategy the business is not actually executing.' },
-          { t: 'fill', p: 'Step 10. Questions 7 and 8. Go one level deeper into each driver, and find where the margin gap really sits.',
-            h: 'The obvious guess is that a luxury house out-earns a swimwear licensee because it spends less on selling. Test it before you believe it.\n\nWork out each cost as a share of revenue for both companies and compare the lines one by one. Then do the same on the balance sheet, dividing revenue by each individual item to see how hard each asset is working.\n\nOne pair of lines will look almost identical across the two firms, and one pair will look nothing alike. Which is which is the finding.',
-            calc: 'Expense ratio = expense \u00f7 revenue     Item turnover = revenue \u00f7 balance sheet item',
-            rows: [
-            { l: 'LVMH cost of sales as a percentage of revenue (%)', a: 34.2, tol: 0.4, w: '8,092 / 23,659 = 34.2%, so a gross margin of 65.8%.' },
-            { l: 'Warnaco cost of goods sold as a percentage of revenue (%)', a: 56.2, tol: 0.4, w: '1,412,446 / 2,513,388 = 56.2%, a gross margin of 43.8%. Twenty-two points of the difference between these two businesses is decided before a single selling cost is incurred.' },
-            { l: 'LVMH marketing and selling as a percentage of revenue (%)', a: 35.3, tol: 0.4, w: '8,360 / 23,659 = 35.3%. Boutiques, advertising, and the visible apparatus of a luxury brand cost more than the goods themselves.' },
-            { l: 'Warnaco selling, general and administrative as a percentage of revenue (%)', a: 33.6, tol: 0.4, w: '844,696 / 2,513,388 = 33.6% \u2014 within two points of LVMH. This is the finding: the premium is not bought with a lighter selling budget.' },
-            { l: 'LVMH inventory turnover (times)', a: 3.15, tol: 0.08, w: '23,659 / 7,510 = 3.15. Champagne and cognac age for years before sale, and boutiques hold depth in every size.' },
-            { l: 'Warnaco inventory turnover (times)', a: 7.16, tol: 0.15, w: '2,513,388 / 350,835 = 7.16, more than twice as fast. Seasonal apparel that does not move gets marked down, so it is not allowed to sit.' },
-            { l: 'LVMH property, plant and equipment turnover (times)', a: 2.95, tol: 0.08, w: '23,659 / 8,017 = 2.95. LVMH owns its stores, its vineyards and its workshops.' },
-            { l: 'Warnaco property, plant and equipment turnover (times)', a: 18.9, tol: 0.4, w: '2,513,388 / 133,022 = 18.9 \u2014 more than six times LVMH\u2019s. Manufacturing is outsourced and the brands are licensed, so there is very little to own. This single line is most of the IC turnover advantage.' },
-            { l: 'LVMH receivables turnover (times)', a: 12.6, tol: 0.3, w: '23,659 / 1,878 = 12.6, about 29 days. Selling direct to the public means the customer pays at the till.' },
-            { l: 'Warnaco receivables turnover (times)', a: 7.78, tol: 0.2, w: '2,513,388 / 322,976 = 7.78, about 47 days. Department stores pay on terms, and the reserve of 94,739 against those receivables says what that exposure is worth.' }
-          ], e: 'Two conclusions, and the second is the one worth keeping.\n\nThe margin gap is a gross margin gap. LVMH spends as heavily on selling as Warnaco does \u2014 35.3% against 33.6% \u2014 so the premium is created at the point of pricing, not saved on the way to market. Owning the brand rather than licensing it is what makes that pricing possible, and it is why the brands sit on LVMH\u2019s balance sheet and not on Warnaco\u2019s.\n\nThe turnover gap is a fixed asset gap. Warnaco turns property and equipment 18.9 times against 2.95, because it owns almost nothing: no boutiques, no vineyards, no factories. It collects more slowly and holds a thinner brand base, but it needs so little capital that a 4.7% margin still returns 10.9%.\n\nWhich is the general lesson. ROIC is an outcome, and the same outcome can be assembled in opposite ways. Decomposing it costs nothing and turns a number into a description of a business \u2014 and it is the only way to notice when a company\u2019s numbers are quietly describing a different strategy from the one in its annual report.' }
+            { l: 'LVMH purchases (\u20acm)', a: 9611, tol: 20, w: '8,092 + 7,510 \u2212 5,991 = 9,611.' },
+            { l: 'LVMH days inventory held', a: 304.5, tol: 6, w: '365 \u00d7 6,750.5 / 8,092 = 304.5 days.' },
+            { l: 'LVMH days sales outstanding', a: 26.6, tol: 1.2, w: '365 \u00d7 1,721.5 / 23,659 = 26.6 days.' },
+            { l: 'LVMH days payables outstanding', a: 99.7, tol: 2.5, w: '365 \u00d7 2,625 / 9,611 = 99.7 days.' },
+            { l: 'LVMH cash conversion cycle (days)', a: 231.4, tol: 4, w: '304.5 + 26.6 \u2212 99.7 = 231.4 days.' },
+            { l: 'Warnaco cash conversion cycle (days)', a: 95.0, tol: 4, w: 'DIH 85.4 + DSO 46.6 \u2212 DPO 37.0 = 95.0 days, on purchases of 1,452,855.' }
+          ], e: 'LVMH finances 231 days against Warnaco\u2019s 95 \u2014 about 136 days longer. Inventory explains almost all of it: 305 days against 85, because champagne and cognac age before they are sold and a boutique holds depth in every size.\n\nNote the one place LVMH is faster. It collects in 27 days against 47, because it sells at the till while Warnaco sells to department stores on terms \u2014 and holds a reserve of 94,739 against those receivables.\n\nA long cycle is not a failure. It is what this strategy costs in working capital, and it is why the margin has to be large enough to pay for the wait. That is the whole case in one number: LVMH earns a premium and spends it financing time.' }
         ]
       },
       {
