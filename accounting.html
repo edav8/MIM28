@@ -1877,6 +1877,24 @@ textarea.input { min-height: 90px; resize: vertical; }
               </sc-raw-table>
             </div>
 
+            <h3 style="margin-top:34px">NOPAT, the way this course computes it</h3>
+            <p>There are two routes to net operating profit after tax and they give different numbers. This course starts at the bottom of the income statement and adds back the financing, rather than starting at operating profit and taxing it.</p>
+            <p style="margin-top:8px"><strong>NOPAT = net income + (interest expense &minus; interest income) &times; (1 &minus; tax rate)</strong></p>
+            <p style="margin-top:12px">The logic: net income is what is left after lenders have been paid, so adding the net interest back \u2014 after tax, because interest was deductible \u2014 restores the profit the business would have made with no debt at all. That is what makes ROIC comparable between a company that borrows and one that does not.</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-thead><sc-raw-tr><sc-raw-th></sc-raw-th><sc-raw-th>LVMH (&euro;m)</sc-raw-th><sc-raw-th>Warnaco ($000)</sc-raw-th></sc-raw-tr></sc-raw-thead>
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td>Net income</sc-raw-td><sc-raw-td>3,465</sc-raw-td><sc-raw-td>127,193</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Interest expense &minus; interest income</sc-raw-td><sc-raw-td>242 &minus; 0</sc-raw-td><sc-raw-td>16,274 &minus; 3,361</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Tax rate</sc-raw-td><sc-raw-td>33.3%</sc-raw-td><sc-raw-td>35.0%</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>NOPAT</strong></sc-raw-td><sc-raw-td><strong>3,626</strong></sc-raw-td><sc-raw-td><strong>135,586</strong></sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Do not confuse it with EBIT &times; (1 &minus; t)</div>
+              <p style="margin:8px 0 0">Taxing operating profit is a common shortcut and it gives a different answer \u2014 for LVMH about 3,438 rather than 3,626. It ignores everything between operating profit and net income, including income from associates and the real tax actually borne. Use the formula above.</p>
+            </div>
+
             <h3 style="margin-top:34px">Invested capital, from either direction</h3>
             <p>Session 2 derived it and this session uses it. The same pool of money can be counted by what it is used for or by who provided it, and the two must agree.</p>
             <sc-raw-table class="table" style="margin-top:10px">
@@ -1887,6 +1905,16 @@ textarea.input { min-height: 90px; resize: vertical; }
             </sc-raw-tbody>
             </sc-raw-table>
             <p style="margin-top:12px">Computing it both ways is the check. If they disagree, something has been classified as operating on one side and financial on the other.</p>
+            <p style="margin-top:12px">In the case work the financing view is the practical one: <strong>IC = total equity + interest-bearing debt + non-controlling interest</strong>, averaged across the two year-ends. Start by treating every asset as operating, get a first ROIC, and only then strip out what is genuinely not used to run the business.</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-thead><sc-raw-tr><sc-raw-th></sc-raw-th><sc-raw-th>LVMH</sc-raw-th><sc-raw-th>Warnaco</sc-raw-th></sc-raw-tr></sc-raw-thead>
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td>ROIC, all assets operating</sc-raw-td><sc-raw-td>13.4%</sc-raw-td><sc-raw-td>12.5%</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Non-operating assets removed</sc-raw-td><sc-raw-td>&euro;5,982m financial investments</sc-raw-td><sc-raw-td>$8,790k deferred financing costs</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>ROIC, adjusted</strong></sc-raw-td><sc-raw-td><strong>16.3%</strong></sc-raw-td><sc-raw-td><strong>12.5%</strong></sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">LVMH moves nearly three points and Warnaco does not move at all \u2014 that contrast is the answer to the question the case asks next. And the consistency rule matters: whatever you remove from invested capital must also come out of NOPAT. Here nothing does, because the related income sits below the line NOPAT is built from.</p>
 
             <h3 style="margin-top:34px">ROIC, and the two things that move it</h3>
             <p style="margin-top:6px"><strong>ROIC = NOPAT &divide; invested capital</strong></p>
