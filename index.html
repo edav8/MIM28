@@ -760,6 +760,9 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
       <button type="button" sc-camel-on-click="{{ goHome }}" style="{{ navHome }}">Dashboard</button>
       <button type="button" sc-camel-on-click="{{ goTodo }}" style="{{ navTodo }}">To-do &amp; assignments</button>
       <button type="button" sc-camel-on-click="{{ goPrac }}" style="{{ navPrac }}">Practice exercises</button>
+      <sc-if value="{{ hasRevise }}" hint-placeholder-val="{{ false }}">
+        <button type="button" sc-camel-on-click="{{ goRevise }}" style="{{ navRevise }}">Exam revision</button>
+      </sc-if>
       <button type="button" sc-camel-on-click="{{ goGloss }}" style="{{ navGloss }}">{{ course.glossLabel }}</button>
       <sc-if value="{{ course.hasTables }}" hint-placeholder-val="{{ false }}">
         <button type="button" sc-camel-on-click="{{ goTables }}" style="{{ navTables }}">Statistical tables</button>
@@ -787,7 +790,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
             <div style="padding:10px; font-family:var(--font-h); font-size:23px; font-weight:700; text-align:right; font-variant-numeric:tabular-nums; overflow:hidden">{{ calcDisp }}</div>
             <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1px; background:var(--line)">
               <sc-for list="{{ calcKeys }}" as="k" hint-placeholder-count="20">
-                <button type="button" sc-camel-on-click="{{ k.onClick }}" style="{{ k.style }}">{{ k.label }}</button>
+                <button type="button" sc-camel-on-click="{{ k.onClick }}" aria-label="{{ k.aria }}" title="{{ k.aria }}" style="{{ k.style }}">{{ k.label }}</button>
               </sc-for>
             </div>
           </div>
@@ -898,6 +901,46 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
               <div style="font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; flex:none">{{ g.v }}</div>
             </div>
           </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- EXAM REVISION -->
+      <sc-if value="{{ isRevise }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:40px; max-width:900px">
+          <div style="font-family:var(--font-h); font-size:36px; font-weight:800; letter-spacing:-0.03em">Exam revision</div>
+          <div style="margin-top:6px; font-size:15px; color:var(--soft)">{{ course.name }} &middot; {{ reviseExam }}</div>
+
+          <div style="margin-top:22px; border:2px solid var(--line); background:var(--panel); padding:18px 20px">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px">
+              <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accSoft)">{{ reviseCount }}</div>
+              <div style="font-family:var(--font-h); font-size:22px; font-weight:800; font-variant-numeric:tabular-nums">{{ revisePct }}</div>
+            </div>
+            <div style="margin-top:10px; height:8px; background:var(--ground); border:1px solid var(--line)">
+              <div style="{{ reviseBar }}"></div>
+            </div>
+            <p style="margin:14px 0 0; font-size:14px; color:var(--soft); text-wrap:pretty">{{ reviseNote }}</p>
+          </div>
+
+          <sc-for list="{{ reviseSecs }}" as="sec" hint-placeholder-count="3">
+            <div style="margin-top:34px; display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding-bottom:10px; border-bottom:2px solid var(--ink)">
+              <div style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase">{{ sec.t }}</div>
+              <div style="font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; flex:none">{{ sec.count }}</div>
+            </div>
+            <sc-if value="{{ sec.hasNote }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:10px 0 0; font-size:13px; color:var(--muted); text-wrap:pretty">{{ sec.note }}</p>
+            </sc-if>
+            <sc-for list="{{ sec.items }}" as="it" hint-placeholder-count="4">
+              <div style="padding:14px 0; border-bottom:1px solid var(--line); display:flex; gap:16px; align-items:flex-start">
+                <button type="button" sc-camel-on-click="{{ it.onToggle }}" aria-label="{{ it.aria }}" title="{{ it.aria }}" style="{{ it.boxStyle }}">{{ it.mark }}</button>
+                <div style="flex:1; min-width:0">
+                  <div style="{{ it.labelStyle }}">{{ it.l }}</div>
+                  <div style="font-size:12px; color:var(--muted); margin-top:2px">{{ it.n }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </sc-for>
+
+          <div style="margin-top:16px; font-size:12px; color:var(--faint)">Ticks are remembered on this device only, and they are yours &mdash; nobody else sees them.</div>
         </div>
       </sc-if>
 
@@ -1237,7 +1280,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;startCourse&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hub&quot;,&quot;da&quot;,&quot;mkt&quot;,&quot;fa&quot;],&quot;default&quot;:&quot;hub&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Start&quot;},&quot;drillOrder&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;fixed&quot;,&quot;shuffled&quot;],&quot;default&quot;:&quot;fixed&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Drills&quot;}}">
 class Component extends DCLogic {
-  state = { course: null, view: 'home', qi: 0, answers: {}, order: [], typed: '', missed: {}, done: {}, best: {}, exInp: {}, exUi: {}, exSeed: 1, calcOpen: false, calcDisp: '0', calcAcc: null, calcOp: null, calcFresh: true, tab: 'binom', tp: { n: '5' }, todoDone: {}, last: {}, dueRange: 'week', sesOpen: false };
+  state = { course: null, view: 'home', qi: 0, answers: {}, order: [], typed: '', missed: {}, done: {}, best: {}, exInp: {}, exUi: {}, exSeed: 1, calcOpen: false, calcDisp: '0', calcAcc: null, calcOp: null, calcFresh: true, tab: 'binom', tp: { n: '5' }, todoDone: {}, reviseDone: {}, last: {}, dueRange: 'week', sesOpen: false };
 
   themes = {
     hub: '--ground:#101a17; --panel:#17251f; --line:#3a4f45; --ink:#eef3f0; --soft:#cfdbd4; --muted:#a2b3aa; --faint:#72877c; --acc:#2f9d78; --accSoft:#7fd3b4; --onAcc:#08211a; --good:#6fd6ab; --bad:#ff8b80;',
@@ -2685,6 +2728,8 @@ class Component extends DCLogic {
   ];
   faContacts = [];
 
+  reviseLists = {'da': {'exam': 'Friday 9 October 2026, 09:00–12:00 CEST', 'note': 'Fifteen sessions, eleven exercise sets and the readings. The sets are where the exam questions come from, so tick a session only once you have redone its set without the solution beside you.', 'secs': [{'t': 'Session slides', 'note': '', 'items': [{'id': 'da-s01', 'l': '01 · Introduction to Uncertainty, Data, and Judgment', 'n': 'DA-Session01'}, {'id': 'da-s02', 'l': '02 · Descriptive Data Analysis', 'n': 'SS02_DA_Handout 01 Session02'}, {'id': 'da-s03', 'l': '03 · Binomial and Poisson Distributions', 'n': 'DA-Session03-Updated'}, {'id': 'da-s04', 'l': '04 · The Normal Distribution, Functions of Random Variables, and Correlation', 'n': 'SS04_DA-Session04-Updated'}, {'id': 'da-s05', 'l': '05 · Sampling and the Central Limit Theorem', 'n': 'SS05_DA_Handout01'}, {'id': 'da-s06', 'l': '06 · Estimation — Confidence Intervals', 'n': 'SS06_DA_Handout01'}, {'id': 'da-s07', 'l': '07 · Estimation: Proportions, Margin of Error, and Sampling in Practice', 'n': 'SS07_DA_Handout01'}, {'id': 'da-s08', 'l': '08 · Hypothesis Testing', 'n': 'slides on the LMS'}, {'id': 'da-s09', 'l': '09 · What is Statistical Evidence?', 'n': 'slides on the LMS'}, {'id': 'da-s10', 'l': '10 · Simple Regression & Practical Data Analysis Pipeline II', 'n': 'slides on the LMS'}, {'id': 'da-s11', 'l': '11 · Statistical Inference in Simple Regression Models', 'n': 'slides on the LMS'}, {'id': 'da-s12', 'l': '12 · Multiple Regression', 'n': 'slides on the LMS'}, {'id': 'da-s13', 'l': '13 · Multicollinearity and Model Selection', 'n': 'slides on the LMS'}, {'id': 'da-s14', 'l': '14 · Model Validation, Autocorrelations, and Outliers', 'n': 'slides on the LMS'}, {'id': 'da-s15', 'l': '15 · Applying Regression and Course Synthesis', 'n': 'slides on the LMS'}]}, {'t': 'Exercise sets', 'note': 'Eleven sets. Redo each one cold; reading a worked solution is not revision.', 'items': [{'id': 'da-set02', 'l': 'Set 02', 'n': 'solution available'}, {'id': 'da-set03', 'l': 'Set 03', 'n': 'solution available'}, {'id': 'da-set04', 'l': 'Set 04', 'n': 'solution available'}, {'id': 'da-set05', 'l': 'Set 05', 'n': 'no solution published — check your answer against the session slides'}, {'id': 'da-set06', 'l': 'Set 06', 'n': 'no solution published — check your answer against the session slides'}, {'id': 'da-set07', 'l': 'Set 07', 'n': 'no solution published — check your answer against the session slides'}, {'id': 'da-set09', 'l': 'Set 09', 'n': 'no solution published — check your answer against the session slides'}, {'id': 'da-set10', 'l': 'Set 10', 'n': 'no solution published — check your answer against the session slides'}, {'id': 'da-set11', 'l': 'Set 11', 'n': 'no solution published — check your answer against the session slides'}, {'id': 'da-set13', 'l': 'Set 13', 'n': 'no solution published — check your answer against the session slides'}, {'id': 'da-set14', 'l': 'Set 14', 'n': 'no solution published — check your answer against the session slides'}]}, {'t': 'Readings', 'note': '', 'items': [{'id': 'da-r1', 'l': 'In Plato’s Cave', 'n': 'Session 4'}, {'id': 'da-r2', 'l': 'Trampling Science in a Rush to Judgment', 'n': 'Session 9'}, {'id': 'da-r3', 'l': 'The Hemline Theory of the Dow', 'n': 'Session 10'}, {'id': 'da-r4', 'l': 'Can Math Predict a Wine?', 'n': 'Session 11'}, {'id': 'da-r5', 'l': 'Good Day Sunshine: Stock Returns and the Weather', 'n': 'Session 14'}, {'id': 'da-r6', 'l': 'Forecasting, pp. 241–262', 'n': 'Coursepack extract'}, {'id': 'da-r7', 'l': 'Forecasting, pp. 263–273', 'n': 'Coursepack extract'}, {'id': 'da-r8', 'l': 'Forecasting, pp. 274–290', 'n': 'Coursepack extract'}]}, {'t': 'Take into the exam', 'note': '', 'items': [{'id': 'da-x1', 'l': 'Statistical tables', 'n': 'Know which table answers which question before you open it'}, {'id': 'da-x2', 'l': 'Tutorial 1 presentation', 'n': 'The software walkthrough'}, {'id': 'da-x3', 'l': 'Formula sheet on this site', 'n': 'Glossary & formulas in the sidebar'}]}]}, 'mkt': {'exam': 'Thursday 8 October 2026, 14:00–17:00 CEST', 'note': 'The handouts come in pre-class and post-class versions and they are not the same deck — the post-class one carries the worked answers and the discussion. Review the post-class version where both exist.', 'secs': [{'t': 'Session handouts', 'note': '', 'items': [{'id': 'mk-s01', 'l': '01 · The Role of Marketing', 'n': 'S01_MKT_Presentation_Handout01, plus Pre_Session1_2026'}, {'id': 'mk-s02', 'l': '02–03 · Why Marketing Research?', 'n': 'S02 and S03 handouts, Pre_Class_Session2, Pre-class_S03'}, {'id': 'mk-s04', 'l': '04 · Segmentation', 'n': 'S04 handout, and the post-class version'}, {'id': 'mk-s05', 'l': '05 · Targeting', 'n': 'S05_MKT_Handout 1_Targeting, and post-class S05'}, {'id': 'mk-s06', 'l': '06 · Positioning', 'n': 'Post-class_S06'}, {'id': 'mk-s07', 'l': '07 · STP pulled together', 'n': 'Post-class_S07'}, {'id': 'mk-s08', 'l': '08 · Customer Lifetime Value', 'n': 'Post-class_S08'}, {'id': 'mk-s09', 'l': '09 · Implementing a Branding Strategy', 'n': 'Post-class_S09'}, {'id': 'mk-s10', 'l': '10 · Customer Value in Managing Channels', 'n': 'Handout on the LMS'}, {'id': 'mk-s11', 'l': '11–12 · Extracting Customer Value Through Pricing', 'n': 'Handout on the LMS'}, {'id': 'mk-s13', 'l': '13 · Driving Engagement with Communication', 'n': 'Handout on the LMS'}, {'id': 'mk-s14', 'l': '14 · Ethics in Marketing', 'n': 'Handout on the LMS'}, {'id': 'mk-s15', 'l': '15 · Course Wrap Up', 'n': 'Handout on the LMS'}]}, {'t': 'Cases', 'note': '', 'items': [{'id': 'mk-c1', 'l': 'Chase Sapphire', 'n': 'Session 8 — customer lifetime value'}, {'id': 'mk-c2', 'l': 'Michel & Augustin Cookies', 'n': 'Session 9 — branding'}]}, {'t': 'Readings', 'note': '', 'items': [{'id': 'mk-r1', 'l': 'Finding the Right Job for Your Product', 'n': 'Christensen, Anthony, Berstell and Nitterhouse · Sessions 4–7'}, {'id': 'mk-r2', 'l': 'Mimi Levin Lieber, New York Times obituary', 'n': 'Sessions 2–3'}, {'id': 'mk-r3', 'l': 'How to Make the Most of Omnichannel Retailing', 'n': 'Session 10'}, {'id': 'mk-r4', 'l': 'How to Fight a Price War', 'n': 'Sessions 11–12'}, {'id': 'mk-r5', 'l': 'Call Me Maybe', 'n': 'Session 15'}]}, {'t': 'Your own work', 'note': '', 'items': [{'id': 'mk-w1', 'l': 'Group Assignment 2 — STP for INSEAD', 'n': 'Re-read what the feedback said'}, {'id': 'mk-w2', 'l': 'Group Assignment 4 — Customer Value', 'n': ''}, {'id': 'mk-w3', 'l': 'Individual Assignment 5 — Michel & Augustin survey', 'n': ''}]}]}};
+
   data(c) {
     if (c === 'mkt') return { sessions: this.mktSessions, built: this.mktBuilt, lessons: this.mktLessons, bank: this.mktBank, exercises: this.mktExercises, gens: [], todo: this.mktTodo, grading: this.mktGrading, contacts: this.mktContacts, formulas: this.mktFormulas, terms: this.mktTerms };
     if (c === 'ips') return { sessions: this.ipsSessions, built: this.ipsBuilt, lessons: this.ipsLessons, bank: this.ipsBank, exercises: [], gens: [], todo: this.ipsTodo, grading: this.ipsGrading, contacts: [], formulas: [], terms: this.ipsTerms };
@@ -2697,7 +2742,7 @@ class Component extends DCLogic {
       const raw = window.localStorage.getItem('mim28-hub-v1');
       if (raw) {
         const s = JSON.parse(raw);
-        this.setState({ done: s.done || {}, best: s.best || {}, missed: s.missed || {}, last: s.last || {}, todoDone: s.todoDone || {} });
+        this.setState({ done: s.done || {}, best: s.best || {}, missed: s.missed || {}, last: s.last || {}, todoDone: s.todoDone || {}, reviseDone: s.reviseDone || {} });
       }
     } catch (e) {}
     this.onKey = (e) => {
@@ -2781,7 +2826,7 @@ class Component extends DCLogic {
   componentWillUnmount() { window.removeEventListener('keydown', this.onKey); }
 
   save(patch) {
-    const next = Object.assign({ done: this.state.done, best: this.state.best, missed: this.state.missed, last: this.state.last, todoDone: this.state.todoDone }, patch || {});
+    const next = Object.assign({ done: this.state.done, best: this.state.best, missed: this.state.missed, last: this.state.last, todoDone: this.state.todoDone, reviseDone: this.state.reviseDone }, patch || {});
     try { window.localStorage.setItem('mim28-hub-v1', JSON.stringify(next)); } catch (e) {}
   }
 
@@ -2936,12 +2981,22 @@ class Component extends DCLogic {
     if (op === '÷') return b === 0 ? NaN : a / b;
     return b;
   }
+
+  // Floating point leaves 0.1 + 0.2 as 0.30000000000000004. Rounding at the
+  // tenth decimal removes the artefact and keeps every digit anyone needs.
+  calcTrim(v) {
+    if (!isFinite(v)) return 'Error';
+    return String(Math.round(v * 1e10) / 1e10);
+  }
   calcPress(k) {
     const s = this.state, disp = s.calcDisp;
     if (k === 'C') { this.setState({ calcDisp: '0', calcAcc: null, calcOp: null, calcFresh: true }); return; }
     if (k === '⌫') { this.setState({ calcDisp: s.calcFresh ? '0' : (disp.slice(0, -1) || '0'), calcFresh: false }); return; }
-    if (k === '√') { this.setState({ calcDisp: String(Math.sqrt(parseFloat(disp))), calcFresh: true }); return; }
-    if (k === 'x²') { const v = parseFloat(disp); this.setState({ calcDisp: String(v * v), calcFresh: true }); return; }
+    if (k === '√') { this.setState({ calcDisp: this.calcTrim(Math.sqrt(parseFloat(disp))), calcFresh: true }); return; }
+    if (k === 'x²') { const v = parseFloat(disp); this.setState({ calcDisp: this.calcTrim(v * v), calcFresh: true }); return; }
+    // A decimal probability read off a table is nearly always wanted as a
+    // percent, and doing it by hand is where a factor of ten goes missing.
+    if (k === '% of 1') { const v = parseFloat(disp); if (!isFinite(v)) return; this.setState({ calcDisp: this.calcTrim(v * 100), calcFresh: true }); return; }
     if (k === '+' || k === '−' || k === '×' || k === '÷') {
       const cur = parseFloat(disp);
       const acc = s.calcAcc === null ? cur : this.calcApply(s.calcOp, s.calcAcc, cur);
@@ -2951,7 +3006,7 @@ class Component extends DCLogic {
     if (k === '=') {
       if (s.calcOp === null) return;
       const out = this.calcApply(s.calcOp, s.calcAcc, parseFloat(disp));
-      this.setState({ calcDisp: String(Math.round(out * 1e10) / 1e10), calcAcc: null, calcOp: null, calcFresh: true });
+      this.setState({ calcDisp: this.calcTrim(out), calcAcc: null, calcOp: null, calcFresh: true });
       return;
     }
     if (k === '.') { if (disp.indexOf('.') >= 0 && !s.calcFresh) return; this.setState({ calcDisp: (s.calcFresh ? '0' : disp) + '.', calcFresh: false }); return; }
@@ -3091,6 +3146,46 @@ class Component extends DCLogic {
     });
   }
 
+  // The revision checklist. Separate from todoDone on purpose: ticking a
+  // document as revised is not the same act as closing an assignment, and a
+  // revised box should survive the assignment leaving the to-do list.
+  reviseFor(courseKey) { return this.reviseLists[courseKey] || null; }
+
+  reviseRows(courseKey) {
+    const plan = this.reviseFor(courseKey);
+    if (!plan) return [];
+    const rd = this.state.reviseDone || {};
+    return plan.secs.map(sec => {
+      const items = sec.items.map(it => {
+        const on = !!rd[it.id];
+        return {
+          l: it.l, n: it.n,
+          aria: (on ? 'Mark as not yet revised: ' : 'Mark as revised: ') + it.l,
+          mark: on ? '\u2713' : '',
+          labelStyle: 'font-size:15px; font-weight:600; text-wrap:pretty; color:' + (on ? 'var(--faint)' : 'var(--ink)') + '; text-decoration:' + (on ? 'line-through' : 'none') + ';',
+          boxStyle: 'flex:none; width:22px; height:22px; padding:0; cursor:pointer; border:2px solid ' + (on ? 'var(--good)' : 'var(--acc)') + '; background:' + (on ? 'var(--good)' : 'transparent') + '; color:var(--onAcc); font-size:13px; font-weight:800; line-height:1; border-radius:0;',
+          onToggle: () => {
+            const n = Object.assign({}, this.state.reviseDone || {});
+            if (n[it.id]) delete n[it.id]; else n[it.id] = true;
+            this.setState({ reviseDone: n });
+            this.save({ reviseDone: n });
+          }
+        };
+      });
+      const done = sec.items.filter(it => rd[it.id]).length;
+      return { t: sec.t, note: sec.note, hasNote: !!sec.note, count: done + ' / ' + sec.items.length, items: items };
+    });
+  }
+
+  reviseTotals(courseKey) {
+    const plan = this.reviseFor(courseKey);
+    if (!plan) return { done: 0, all: 0, pct: 0 };
+    const rd = this.state.reviseDone || {};
+    let all = 0, done = 0;
+    plan.secs.forEach(sec => sec.items.forEach(it => { all++; if (rd[it.id]) done++; }));
+    return { done: done, all: all, pct: all ? Math.round(done * 100 / all) : 0 };
+  }
+
   monthLabel(y, m) {
     return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][m] + ' ' + y;
   }
@@ -3147,9 +3242,11 @@ class Component extends DCLogic {
       theme: this.themes[ck || 'hub'],
       isHub: mode === 'hub', inCourse: !!ck,
       isHome: mode === 'home', isTodo: mode === 'todo', isSes: mode === 'ses', isDrill: mode === 'drill',
+      isRevise: mode === 'revise',
       isRes: mode === 'res', isPrac: mode === 'prac', isEx: mode === 'ex', isGloss: mode === 'gloss', isTables: mode === 'tables',
       goHub: () => this.setState({ course: null, view: 'home' }),
       goHome: () => this.go('home'), goTodo: () => this.go('todo'), goPrac: () => this.go('prac'),
+      goRevise: () => this.go('revise'),
       goGloss: () => this.go('gloss'), goTables: () => this.go('tables'),
       btnPrimary: this.btn('primary'), btnSecondary: this.btn('secondary'), btnGhost: this.btn('ghost'),
       btnPrimaryTop: this.btn('primary') + ' margin-top:16px;', btnGhostTop: this.btn('ghost') + ' margin-top:14px;'
@@ -3303,6 +3400,16 @@ class Component extends DCLogic {
     v.navPrac = this.navStyle(mode === 'prac' || mode === 'ex');
     v.navGloss = this.navStyle(mode === 'gloss');
     v.navTables = this.navStyle(mode === 'tables');
+    v.navRevise = this.navStyle(mode === 'revise');
+    const revisePlan = this.reviseFor(this.state.course);
+    v.hasRevise = !!revisePlan;
+    v.reviseExam = revisePlan ? revisePlan.exam : '';
+    v.reviseNote = revisePlan ? revisePlan.note : '';
+    v.reviseSecs = mode === 'revise' ? this.reviseRows(this.state.course) : [];
+    const rt = this.reviseTotals(this.state.course);
+    v.reviseCount = rt.done + ' of ' + rt.all + ' reviewed';
+    v.revisePct = String(rt.pct) + '%';
+    v.reviseBar = 'height:100%; width:' + rt.pct + '%; background:var(--acc);';
     // On a phone the sidebar sits above the lesson, and fifteen sessions of it is
     // a screenful to scroll past. The list folds there; the desktop column, where
     // it belongs beside the content, is untouched -- the CSS that hides it is
@@ -3310,7 +3417,7 @@ class Component extends DCLogic {
     v.sesOpenStr = this.state.sesOpen ? 'true' : 'false';
     v.sesCaret = this.state.sesOpen ? '\u25B4' : '\u25BE';
     v.toggleSes = () => this.setState({ sesOpen: !this.state.sesOpen });
-    v.crumb = mode === 'ses' ? course.name + ' · Session ' + ses.num : course.name + ' · ' + (mode === 'home' ? 'Dashboard' : mode === 'todo' ? 'To-do' : mode === 'prac' || mode === 'ex' ? 'Practice' : mode === 'gloss' ? 'Glossary' : mode === 'tables' ? 'Tables' : 'Drill');
+    v.crumb = mode === 'ses' ? course.name + ' · Session ' + ses.num : course.name + ' · ' + (mode === 'home' ? 'Dashboard' : mode === 'todo' ? 'To-do' : mode === 'prac' || mode === 'ex' ? 'Practice' : mode === 'gloss' ? 'Glossary' : mode === 'tables' ? 'Tables' : mode === 'revise' ? 'Exam revision' : 'Drill');
     v.progressLine = doneCount ? doneCount + ' drills completed' : 'No drills completed yet';
     v.stats = [
       { v: builtCount + ' / ' + d.sessions.length, k: 'Sessions written up' },
@@ -3324,9 +3431,12 @@ class Component extends DCLogic {
     v.calcLabel = this.state.calcOpen ? 'Hide calculator' : 'Calculator';
     v.calcBtn = this.btn('ghost') + ' width:100%;';
     v.toggleCalc = () => this.setState({ calcOpen: !this.state.calcOpen });
-    v.calcKeys = ['C', '⌫', '√', '÷', '7', '8', '9', '×', '4', '5', '6', '−', '1', '2', '3', '+', '0', '.', 'x²', '='].map(k => ({
-      label: k, onClick: () => this.calcPress(k),
-      style: 'padding:11px 0; border:none; cursor:pointer; font-size:15px; font-weight:600; background:' + (k === '=' ? 'var(--acc)' : 'var(--panel)') + '; color:' + (k === '=' ? 'var(--onAcc)' : 'var(--ink)') + ';'
+    const calcNames = { 'C': 'Clear', '⌫': 'Delete the last digit', '√': 'Square root', 'x²': 'Square', '÷': 'Divide', '×': 'Multiply', '−': 'Subtract', '+': 'Add', '=': 'Equals', '.': 'Decimal point', '% of 1': 'Convert a decimal to a percent — multiplies by 100' };
+    v.calcKeys = ['C', '⌫', '√', '÷', '7', '8', '9', '×', '4', '5', '6', '−', '1', '2', '3', '+', '0', '.', 'x²', '=', '% of 1'].map(k => ({
+      label: k === '% of 1' ? '0.05 → 5%' : k,
+      aria: calcNames[k] || k,
+      onClick: () => this.calcPress(k),
+      style: 'padding:11px 0; border:none; cursor:pointer; font-size:' + (k === '% of 1' ? '13px' : '15px') + '; font-weight:600; background:' + (k === '=' ? 'var(--acc)' : 'var(--panel)') + '; color:' + (k === '=' ? 'var(--onAcc)' : 'var(--ink)') + ';' + (k === '% of 1' ? ' grid-column:1 / -1;' : '')
     }));
 
     v.sessionList = d.sessions.map(s => ({

@@ -840,6 +840,7 @@ textarea.input { min-height: 90px; resize: vertical; }
     <button type="button" sc-camel-on-click="{{ goHub }}" style="{{ hubStyle }}">{{ hubLabel }}</button>
     <button type="button" sc-camel-on-click="{{ openTodo }}" style="{{ todoStyle }}">To-do &amp; assignments</button>
             <button type="button" sc-camel-on-click="{{ openPractice }}" style="{{ practiceStyle }}">Practice exercises</button>
+    <button type="button" sc-camel-on-click="{{ openRevise }}" style="{{ reviseStyle }}">Exam revision</button>
     <button type="button" sc-camel-on-click="{{ openGloss }}" style="{{ glossStyle }}">Glossary &amp; formulas</button>
     <div id="mobilecrumb" style="display:none; flex:1 1 100%; padding:10px 16px; border-top:1px solid var(--color-divider); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700)">{{ crumb }}</div>
     <button type="button" id="navtoggle" sc-camel-on-click="{{ toggleNav }}" style="{{ navToggleStyle }}">{{ navToggleLabel }}</button>
@@ -873,7 +874,7 @@ textarea.input { min-height: 90px; resize: vertical; }
         </sc-if>
           <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1px; padding:1px; background:var(--color-divider)">
             <sc-for list="{{ calcKeys }}" as="k" hint-placeholder-count="20">
-              <button type="button" sc-camel-on-click="{{ k.onClick }}" style="{{ k.style }}">{{ k.label }}</button>
+              <button type="button" sc-camel-on-click="{{ k.onClick }}" aria-label="{{ k.aria }}" title="{{ k.aria }}" style="{{ k.style }}">{{ k.label }}</button>
             </sc-for>
           </div>
         </div>
@@ -3046,6 +3047,46 @@ textarea.input { min-height: 90px; resize: vertical; }
             </div>
           </sc-if>
 
+  <sc-if value="{{ showRevise }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Before the exam</div>
+              <h1 style="font-size:38px; margin:8px 0 12px">Exam revision</h1>
+              <p style="max-width:64ch; font-size:16px">Financial Accounting &middot; {{ reviseExam }}</p>
+
+              <div style="border:2px solid var(--color-divider); background:var(--color-surface); padding:18px 20px; margin-top:18px; max-width:64ch">
+                <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px">
+                  <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ reviseCount }}</div>
+                  <div style="font-size:22px; font-weight:800; font-variant-numeric:tabular-nums">{{ revisePct }}</div>
+                </div>
+                <div style="margin-top:10px; height:8px; background:var(--color-bg); border:1px solid var(--color-divider)">
+                  <div style="{{ reviseBar }}"></div>
+                </div>
+                <p style="margin:14px 0 0; font-size:14px">{{ reviseNote }}</p>
+              </div>
+
+              <sc-for list="{{ reviseSecs }}" as="sec" hint-placeholder-count="3">
+                <div style="margin-top:32px; display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding-bottom:8px; border-bottom:2px solid var(--color-text)">
+                  <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase">{{ sec.t }}</div>
+                  <div style="font-size:12px; opacity:0.7; font-variant-numeric:tabular-nums; flex:none">{{ sec.count }}</div>
+                </div>
+                <sc-if value="{{ sec.hasNote }}" hint-placeholder-val="{{ false }}">
+                  <p style="margin:10px 0 0; font-size:13px; opacity:0.75; max-width:64ch">{{ sec.note }}</p>
+                </sc-if>
+                <sc-for list="{{ sec.items }}" as="it" hint-placeholder-count="4">
+                  <div style="padding:14px 0; border-bottom:1px solid var(--color-divider); display:flex; gap:14px; align-items:flex-start; max-width:64ch">
+                    <button type="button" sc-camel-on-click="{{ it.onToggle }}" aria-label="{{ it.aria }}" title="{{ it.aria }}" style="{{ it.boxStyle }}">{{ it.mark }}</button>
+                    <div style="flex:1; min-width:0">
+                      <div style="{{ it.labelStyle }}">{{ it.l }}</div>
+                      <div style="font-size:12px; opacity:0.7; margin-top:2px">{{ it.n }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </sc-for>
+
+              <p style="margin-top:18px; font-size:12px; opacity:0.7">Ticks are remembered in this browser only, and they are yours &mdash; nobody else sees them.</p>
+            </div>
+          </sc-if>
+
           <sc-if value="{{ showGloss }}" hint-placeholder-val="{{ false }}">
     <div>
       <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Reference</div>
@@ -3760,7 +3801,12 @@ textarea.input { min-height: 90px; resize: vertical; }
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;defaultLevel&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;beg&quot;,&quot;std&quot;],&quot;default&quot;:&quot;beg&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Lessons&quot;},&quot;revealMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;immediate&quot;,&quot;end&quot;],&quot;default&quot;:&quot;immediate&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Drill behaviour&quot;},&quot;drillSize&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:12,&quot;min&quot;:4,&quot;max&quot;:24,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Drill behaviour&quot;},&quot;reviewAll&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Drill behaviour&quot;}}">
 class Component extends DCLogic {
-  state = { view: 'home', course: 'fa', level: null, qi: 0, answers: {}, numInput: '', order: null, best: {}, todoDone: {}, loaded: false };
+  // The exam revision checklist. Separate from todoDone: ticking a document as
+  // revised is a different act from closing an assignment, and it has to
+  // survive the assignment dropping off the to-do list.
+  reviseLists = {'fa': {'exam': 'Thursday 8 October 2026, 10:00–11:30 CEST', 'note': 'Ninety minutes, the shortest of the three papers. Most sessions have two decks — the slides handed out before class and a comprehensive version afterwards with the answers filled in. Revise from the comprehensive one.', 'secs': [{'t': 'Session handouts', 'note': '', 'items': [{'id': 'fa-s01', 'l': '01 · Introduction to Financial Statements', 'n': 'Handouts 1 and 2 (comprehensive)'}, {'id': 'fa-s02', 'l': '02 · Balance Sheet', 'n': 'Handouts 1 and 2'}, {'id': 'fa-s03', 'l': '03 · Income Statement', 'n': 'Handouts 1 and 2'}, {'id': 'fa-s04', 'l': '04 · Earnings Quality', 'n': 'Handouts 1 and 2'}, {'id': 'fa-s05', 'l': '05 · Revenue Recognition', 'n': 'Handouts 1 and 2'}, {'id': 'fa-s06', 'l': '06 · Channel Stuffing', 'n': 'Handouts 1 and 2'}, {'id': 'fa-s07', 'l': '07 · Statement of Cash Flows', 'n': 'Handout 1'}, {'id': 'fa-s08', 'l': '08 · Financial Statement Analysis', 'n': 'Handouts 1 and 2 — ROIC, margin and turnover, the cash cycle'}, {'id': 'fa-s09', 'l': '09 · Accounts Receivable & Inventory I', 'n': 'Handout 1'}, {'id': 'fa-s10', 'l': '10 · Inventory II & Long-Lived Assets I', 'n': 'Handout on the LMS'}, {'id': 'fa-s11', 'l': '11 · Long-Lived Assets II & Financial Liabilities', 'n': 'Handout on the LMS'}, {'id': 'fa-s12', 'l': '12 · Provisional Liabilities', 'n': 'Handout on the LMS'}, {'id': 'fa-s13', 'l': '13 · Investments I', 'n': 'Handout on the LMS'}, {'id': 'fa-s14', 'l': '14 · Investments II', 'n': 'Handout on the LMS'}, {'id': 'fa-s15', 'l': '15 · Course Review', 'n': 'Handout on the LMS'}]}, {'t': 'Cases', 'note': '', 'items': [{'id': 'fa-c01', 'l': 'TSMC', 'n': 'Session 1 — and the NOPAT/ROIC build in session 8'}, {'id': 'fa-c04', 'l': 'AstraZeneca', 'n': 'Session 4 — earnings quality'}, {'id': 'fa-c05', 'l': 'Rolls-Royce', 'n': 'Session 5 — revenue recognition'}, {'id': 'fa-c06', 'l': 'McAfee', 'n': 'Session 6 — channel stuffing'}, {'id': 'fa-c07', 'l': 'Netflix', 'n': 'Session 7 — cash flow'}, {'id': 'fa-c08', 'l': 'LVMH–Warnaco', 'n': 'Session 8 — ROIC two ways'}, {'id': 'fa-c10', 'l': 'Deere–CNH', 'n': 'Session 10 — LIFO against FIFO'}, {'id': 'fa-c11', 'l': 'Maersk', 'n': 'Session 11 — IFRS 16 leases'}, {'id': 'fa-c12', 'l': 'BP', 'n': 'Session 12 — provisions'}, {'id': 'fa-c14', 'l': 'AB InBev', 'n': 'Session 14 — consolidation'}]}, {'t': 'Textbook chapters and problems', 'note': '', 'items': [{'id': 'fa-t1', 'l': 'Chapter 1', 'n': 'Session 1'}, {'id': 'fa-t2', 'l': 'Chapter 2', 'n': 'Session 2'}, {'id': 'fa-t3', 'l': 'Problem 2.1 PetroLim and case 2.1 JanMar Fabrics', 'n': 'Session 3'}, {'id': 'fa-t4', 'l': 'Problems 4.1 Suite Novotel and 4.3 Subway', 'n': 'Session 5'}, {'id': 'fa-t5', 'l': 'Case 5.2 Monahan Manufacturing', 'n': 'Session 6'}, {'id': 'fa-t6', 'l': 'Case 9.1 Tamar Chemicals', 'n': 'Session 9'}, {'id': 'fa-t7', 'l': 'Problem 9.1 Enterprise Renaud', 'n': 'Session 9'}]}, {'t': 'Reference sheets', 'note': '', 'items': [{'id': 'fa-x1', 'l': 'Ratios — definitions', 'n': 'The one-page list from session 8'}, {'id': 'fa-x2', 'l': 'The Essentials presentation', 'n': 'Session 1'}, {'id': 'fa-x3', 'l': 'Essentials — cash flow statements', 'n': 'Session 6'}, {'id': 'fa-x4', 'l': 'Why the Traditional Way of Measuring…', 'n': 'Session 2'}]}, {'t': 'Practice on this site', 'note': '', 'items': [{'id': 'fa-p1', 'l': 'Exam practice: the paper in miniature', 'n': 'In Practice exercises on the trainer'}, {'id': 'fa-p2', 'l': 'Dair Company and Kestrel Instruments cash flow statements', 'n': 'Two full statements, built from scratch'}, {'id': 'fa-p3', 'l': 'Every session drill at 80% or better', 'n': ''}]}]}};
+
+  state = { view: 'home', course: 'fa', level: null, qi: 0, answers: {}, numInput: '', order: null, best: {}, todoDone: {}, reviseDone: {}, loaded: false };
 
   todo = [
       { id: 'acc-fa-quiz-01-practice-quiz-week-1-optional-do-not-turn-in', title: 'FA_Quiz_01_Practice Quiz Week 1_OPTIONAL_Do Not Turn In', when: 'Due Fri 04 Sep at 08:30', tag: 'Closed', due: '2026-09-04', time: '08:30', closed: true },
@@ -6932,13 +6978,21 @@ class Component extends DCLogic {
     return b;
   }
 
+  // Floating point leaves 0.1 + 0.2 as 0.30000000000000004. Rounding at the
+  // tenth decimal removes the artefact and keeps every digit anyone needs.
+  calcTrim(v) {
+    if (!isFinite(v)) return 'Error';
+    return String(Math.round(v * 1e10) / 1e10);
+  }
+
   calcPress(k) {
     const s = this.state;
     const disp = s.calcDisp === undefined ? '0' : s.calcDisp;
     if (k === 'C') { this.setState({ calcDisp: '0', calcAcc: null, calcOp: null, calcFresh: true }); return; }
     if (k === '⌫') { const d = s.calcFresh ? '0' : disp.slice(0, -1) || '0'; this.setState({ calcDisp: d, calcFresh: false }); return; }
     if (k === '±') { this.setState({ calcDisp: disp.charAt(0) === '-' ? disp.slice(1) : '-' + disp }); return; }
-    if (k === '%') { this.setState({ calcDisp: String(parseFloat(disp) / 100), calcFresh: true }); return; }
+    if (k === '%') { this.setState({ calcDisp: this.calcTrim(parseFloat(disp) / 100), calcFresh: true }); return; }
+    if (k === '% of 1') { const v = parseFloat(disp); if (!isFinite(v)) return; this.setState({ calcDisp: this.calcTrim(v * 100), calcFresh: true }); return; }
     if (k === '+' || k === '−' || k === '×' || k === '÷') {
       const cur = parseFloat(disp) || 0;
       const acc = s.calcOp && s.calcAcc !== null && s.calcAcc !== undefined && !s.calcFresh ? this.calcApply(s.calcOp, s.calcAcc, cur) : cur;
@@ -6948,7 +7002,7 @@ class Component extends DCLogic {
     if (k === '=') {
       if (s.calcOp === null || s.calcOp === undefined || s.calcAcc === null || s.calcAcc === undefined) return;
       const out = this.calcApply(s.calcOp, s.calcAcc, parseFloat(disp) || 0);
-      this.setState({ calcDisp: isNaN(out) ? 'Error' : String(Math.round(out * 1e6) / 1e6), calcAcc: null, calcOp: null, calcFresh: true });
+      this.setState({ calcDisp: isNaN(out) ? 'Error' : this.calcTrim(out), calcAcc: null, calcOp: null, calcFresh: true });
       return;
     }
     if (k === '.') { if (disp.indexOf('.') >= 0 && !s.calcFresh) return; this.setState({ calcDisp: s.calcFresh ? '0.' : disp + '.', calcFresh: false }); return; }
@@ -7005,14 +7059,46 @@ class Component extends DCLogic {
     window.addEventListener('keydown', this.onChoiceKey);
     try {
       const raw = localStorage.getItem('fa-trainer-v1');
-      if (raw) { const d = JSON.parse(raw); this.setState({ best: d.best || {}, exDone: d.exDone || {}, todoDone: d.todoDone || {}, missed: d.missed || {}, last: d.last || null, view: d.view || 'home', course: d.course || 'fa', level: d.level || null, loaded: true }); return; }
+      if (raw) { const d = JSON.parse(raw); this.setState({ best: d.best || {}, exDone: d.exDone || {}, todoDone: d.todoDone || {}, reviseDone: d.reviseDone || {}, missed: d.missed || {}, last: d.last || null, view: d.view || 'home', course: d.course || 'fa', level: d.level || null, loaded: true }); return; }
     } catch (e) {}
     this.setState({ loaded: true });
   }
 
   save(patch) {
-    const next = Object.assign({ best: this.state.best, exDone: this.state.exDone || {}, missed: this.state.missed || {}, todoDone: this.state.todoDone || {}, last: this.state.last || null, view: this.state.view, course: this.state.course, level: this.state.level }, patch || {});
+    const next = Object.assign({ best: this.state.best, exDone: this.state.exDone || {}, missed: this.state.missed || {}, todoDone: this.state.todoDone || {}, reviseDone: this.state.reviseDone || {}, last: this.state.last || null, view: this.state.view, course: this.state.course, level: this.state.level }, patch || {});
     try { localStorage.setItem('fa-trainer-v1', JSON.stringify(next)); } catch (e) {}
+  }
+
+  reviseRows() {
+    const plan = this.reviseLists.fa;
+    const rd = this.state.reviseDone || {};
+    return plan.secs.map(sec => ({
+      t: sec.t, note: sec.note, hasNote: !!sec.note,
+      count: sec.items.filter(it => rd[it.id]).length + ' / ' + sec.items.length,
+      items: sec.items.map(it => {
+        const on = !!rd[it.id];
+        return {
+          l: it.l, n: it.n,
+          aria: (on ? 'Mark as not yet revised: ' : 'Mark as revised: ') + it.l,
+          mark: on ? '\u2713' : '',
+          labelStyle: 'font-size:15px; font-weight:600; text-wrap:pretty; opacity:' + (on ? '0.55' : '1') + '; text-decoration:' + (on ? 'line-through' : 'none') + ';',
+          boxStyle: 'flex:none; width:22px; height:22px; padding:0; cursor:pointer; border:2px solid var(--color-accent-700); background:' + (on ? 'var(--color-accent-700)' : 'transparent') + '; color:var(--color-bg); font-size:13px; font-weight:800; line-height:1;',
+          onToggle: () => {
+            const n = Object.assign({}, this.state.reviseDone || {});
+            if (n[it.id]) delete n[it.id]; else n[it.id] = true;
+            this.setState({ reviseDone: n });
+            this.save({ reviseDone: n });
+          }
+        };
+      })
+    }));
+  }
+
+  reviseTotals() {
+    const rd = this.state.reviseDone || {};
+    let all = 0, done = 0;
+    this.reviseLists.fa.secs.forEach(sec => sec.items.forEach(it => { all++; if (rd[it.id]) done++; }));
+    return { done: done, all: all, pct: all ? Math.round(done * 100 / all) : 0 };
   }
 
   mode() {
@@ -7022,6 +7108,7 @@ class Component extends DCLogic {
     if (v === 'prac') return 'prac';
     if (v === 'gloss') return 'gloss';
     if (v === 'todo') return 'todo';
+    if (v === 'revise') return 'revise';
     if (v.indexOf('ex:') === 0) return 'ex';
     if (v.indexOf('quiz:') === 0) return 'quiz';
     if (v.indexOf('res:') === 0) return 'res';
@@ -8276,10 +8363,11 @@ class Component extends DCLogic {
           this.setState({ inp: inp2, seen: seen2 });
         }
       },
-      calcKeys: ['C', '⌫', '%', '÷', '7', '8', '9', '×', '4', '5', '6', '−', '1', '2', '3', '+', '±', '0', '.', '='].map(k => ({
-        label: k,
+      calcKeys: ['C', '⌫', '%', '÷', '7', '8', '9', '×', '4', '5', '6', '−', '1', '2', '3', '+', '±', '0', '.', '=', '% of 1'].map(k => ({
+        label: k === '% of 1' ? '0.05 → 5%' : k,
+        aria: k === '% of 1' ? 'Convert a decimal to a percent — multiplies by 100' : (k === '%' ? 'Convert a percent to a decimal — divides by 100' : k),
         onClick: () => this.calcPress(k),
-        style: 'appearance:none; -webkit-appearance:none; font:inherit; font-size:15px; font-variant-numeric:tabular-nums; padding:12px 0; cursor:pointer; border:1px solid var(--color-divider); background:' + (k === '=' ? 'var(--color-accent)' : /[0-9.]/.test(k) ? 'var(--color-bg)' : 'var(--color-surface)') + '; color:' + (k === '=' ? 'var(--color-bg)' : 'var(--color-text)')
+        style: 'appearance:none; -webkit-appearance:none; font:inherit; font-size:' + (k === '% of 1' ? '13px' : '15px') + '; font-variant-numeric:tabular-nums; padding:12px 0; cursor:pointer; border:1px solid var(--color-divider); background:' + (k === '=' ? 'var(--color-accent)' : /^[0-9.]$/.test(k) ? 'var(--color-bg)' : 'var(--color-surface)') + '; color:' + (k === '=' ? 'var(--color-bg)' : 'var(--color-text)') + (k === '% of 1' ? '; grid-column:1 / -1' : '')
       })),
       showHome: mode === 'home',
       showHub: mode === 'hub',
@@ -8292,8 +8380,17 @@ class Component extends DCLogic {
       glossStyle: navBtn(mode === 'gloss', false),
       showGloss: mode === 'gloss',
       openTodo: () => this.goto('todo'),
+      openRevise: () => this.goto('revise'),
       todoStyle: navBtn(mode === 'todo', false),
       showTodo: mode === 'todo',
+      showRevise: mode === 'revise',
+      reviseStyle: navBtn(mode === 'revise', false),
+      reviseSecs: mode === 'revise' ? this.reviseRows() : [],
+      reviseExam: this.reviseLists.fa.exam,
+      reviseNote: this.reviseLists.fa.note,
+      reviseCount: this.reviseTotals().done + ' of ' + this.reviseTotals().all + ' reviewed',
+      revisePct: this.reviseTotals().pct + '%',
+      reviseBar: 'height:100%; width:' + this.reviseTotals().pct + '%; background:var(--color-accent-700);',
       todoEmpty: !(this.todo || []).filter(t => !t.closed).length,
       todoRows: (this.todo || []).filter(t => !t.closed).map(t => {
         const done = !!(this.state.todoDone || {})[t.id];
