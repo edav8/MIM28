@@ -884,7 +884,7 @@ textarea.input { min-height: 90px; resize: vertical; }
     </div>
   </aside>
 
-  <main id="main" style="flex:1; min-width:0; padding:36px 44px 80px; max-width:1240px">
+  <main id="main" style="flex:1; min-width:0; padding:36px 44px 80px; max-width:none; width:100%">
 
     <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
       <div>
@@ -3336,7 +3336,7 @@ textarea.input { min-height: 90px; resize: vertical; }
     </sc-if>
 
     <sc-if value="{{ showEx }}" hint-placeholder-val="{{ false }}">
-      <div style="max-width:78ch">
+      <div style="{{ exWrapStyle }}">
         <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; border-bottom:2px solid var(--color-divider); padding-bottom:14px">
           <div>
             <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ exProgress }}</div>
@@ -10133,6 +10133,9 @@ class Component extends DCLogic {
         : 'The figures from the course material, so your answer matches the class solution. Switch to endless practice for the same problem with new numbers every run.';
       vals.pickFixed = () => { if (isGen && fixedFor) this.openEx(fixedFor.key); };
       vals.pickEndless = () => { if (!isGen && genFor) this.openGen(genFor.key); };
+      // A mock paper needs the whole window for its twelve-column grid; a
+      // teaching exercise reads better at a normal measure.
+      vals.exWrapStyle = (ex.isMock || ex.freeNav) ? 'max-width:none; width:100%' : 'max-width:min(78ch, 100%)';
       vals.exTitle = ex.title;
       vals.exSub = ex.sub || '';
       vals.exSes = ex.ses || '';
@@ -10658,6 +10661,41 @@ button{ border-radius:10px; }
     document.addEventListener('pointerup', up);
     e.preventDefault();
   }
+  /* Arrow keys walk the balance-sheet grid like a spreadsheet. Up and down
+     always move a row; left and right only move when the caret is already at
+     the end of the cell, so typing inside a figure still behaves normally. */
+  function gridOf(el) {
+    var g = el.parentElement;
+    while (g && getComputedStyle(g).display !== 'grid') g = g.parentElement;
+    return (g && g.querySelectorAll('input').length > 8) ? g : null;
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    var el = e.target;
+    if (!el || el.tagName !== 'INPUT' || (el.type && el.type !== 'text')) return;
+    var g = gridOf(el);
+    if (!g) return;
+    var inputs = Array.prototype.slice.call(g.querySelectorAll('input'));
+    var i = inputs.indexOf(el);
+    if (i < 0) return;
+    var cols = getComputedStyle(g).gridTemplateColumns.split(' ').length - 1;
+    if (cols < 2) return;
+    var at0 = el.selectionStart === 0 && el.selectionEnd === 0;
+    var atEnd = el.selectionStart === el.value.length && el.selectionEnd === el.value.length;
+    var j = -1;
+    if (e.key === 'ArrowDown') j = i + cols;
+    else if (e.key === 'ArrowUp') j = i - cols;
+    else if (e.key === 'ArrowRight' && atEnd) j = i + 1;
+    else if (e.key === 'ArrowLeft' && at0) j = i - 1;
+    if (j < 0 || j >= inputs.length) return;
+    e.preventDefault();
+    var t = inputs[j];
+    t.focus();
+    try { t.setSelectionRange(t.value.length, t.value.length); } catch (err) {}
+    if (t.scrollIntoViewIfNeeded) t.scrollIntoViewIfNeeded();
+    else t.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  });
+
   document.addEventListener('pointerdown', function (e) {
     if (!e.target.closest) return;
     if (e.target.closest('#figresize')) { startDrag(e, 'size'); return; }
