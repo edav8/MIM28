@@ -3477,6 +3477,27 @@ textarea.input { min-height: 90px; resize: vertical; }
               </sc-raw-table>
             </sc-if>
 
+            <sc-if value="{{ b.isChoice }}" hint-placeholder-val="{{ false }}">
+              <div style="border-top:2px solid var(--color-text)">
+                <sc-for list="{{ b.choiceQs }}" as="q" hint-placeholder-count="6">
+                  <div style="padding:18px 0; border-bottom:1px solid var(--color-divider)">
+                    <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap">
+                      <span style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700); font-weight:700">{{ q.num }}</span>
+                      <span style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ q.marks }}</span>
+                      <span style="margin-left:auto; font-size:15px; font-weight:700; color:{{ q.markColor }}">{{ q.mark }}</span>
+                    </div>
+                    <div style="font-size:16px; line-height:1.55; margin:8px 0 4px; text-wrap:pretty">{{ q.prompt }}</div>
+                    <sc-for list="{{ q.options }}" as="o" hint-placeholder-count="4">
+                      <button type="button" sc-camel-on-click="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}</button>
+                    </sc-for>
+                    <sc-if value="{{ q.showWhy }}" hint-placeholder-val="{{ false }}">
+                      <p style="margin:10px 0 0; font-size:14px; line-height:1.6; opacity:0.85; text-wrap:pretty">{{ q.why }}</p>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
             <sc-if value="{{ b.isPick }}" hint-placeholder-val="{{ false }}">
               <div style="border-top:2px solid var(--color-text)">
                 <sc-for list="{{ b.pickRows }}" as="r" hint-placeholder-count="4">
@@ -7480,8 +7501,9 @@ class Component extends DCLogic {
     const inp = Object.assign({}, this.state.inp || {});
     if (step.t === 'fill') step.rows.forEach((r, i) => { inp[si + ':' + i] = String(r.a); });
     if (step.t === 'pick') step.rows.forEach((r, i) => { inp[si + ':' + i] = r.a ? 'T' : 'F'; });
+    if (step.t === 'choice') step.qs.forEach((q, i) => { inp[si + ':' + i] = String(q.a); });
     if (step.t === 'entry') step.rows.forEach((r, i) => { inp[si + ':' + i + ':s'] = r.s; inp[si + ':' + i + ':a'] = r.a; inp[si + ':' + i + ':v'] = String(r.v); });
-    resBy[si] = { ok: true, skipped: true, marks: (step.rows || []).map(() => true) };
+    resBy[si] = { ok: true, skipped: true, marks: (step.rows || step.qs || []).map(() => true) };
     this.setState({ resBy: resBy, exFirst: first, inp: inp });
   }
 
@@ -7491,6 +7513,12 @@ class Component extends DCLogic {
     const marks = [];
     if (step.t === 'note') {
       ok = true;
+    } else if (step.t === 'choice') {
+      step.qs.forEach((q, i) => {
+        const good = inp[si + ':' + i] === String(q.a);
+        marks.push(good);
+        if (!good) ok = false;
+      });
     } else if (step.t === 'pick') {
       step.rows.forEach((r, i) => {
         const v = inp[si + ':' + i];
@@ -8985,6 +9013,7 @@ class Component extends DCLogic {
           isEntry: step.t === 'entry',
           isNote: step.t === 'note',
           isPick: step.t === 'pick',
+          isChoice: step.t === 'choice',
           hasLook: !!step.look,
           look: step.look || '',
           hasCalc: !!step.calc,
@@ -9004,7 +9033,7 @@ class Component extends DCLogic {
           verdict: res ? (res.skipped ? 'Skipped — here are the answers' : step.t === 'note' ? 'Answer' : okStep ? 'All correct' : 'Some lines are off — the right figures are shown beside them') : '',
           verdictColor: okStep ? green : 'var(--color-text)',
           explain: res ? (step.e || '') : '',
-          lockNote: okStep ? '' : (step.t === 'note' ? 'Think it through first, then compare.' : step.t === 'pick' ? 'Mark every statement true or false. All of them have to be right.' : 'Get every line right to unlock the next step.'),
+          lockNote: okStep ? '' : (step.t === 'note' ? 'Think it through first, then compare.' : step.t === 'choice' ? 'Answer every question. All of them have to be right to move on.' : step.t === 'pick' ? 'Mark every statement true or false. All of them have to be right.' : 'Get every line right to unlock the next step.'),
           hasWhys: !!(res && (step.t === 'fill' || step.t === 'pick') && step.rows.some(r => r.w)),
           whysTitle: step.t === 'pick' ? 'Why each statement is true or false' : 'Why each figure is what it is',
           whys: res && step.t === 'fill' ? step.rows.filter(r => r.w).map(r => ({ label: r.l, value: this.fmt(r.a), why: r.w }))
@@ -9023,6 +9052,35 @@ class Component extends DCLogic {
         b.hasHintBtn = b.hintItems.length > 0;
         if (step.t === 'note') {
           b.rows = [];
+        } else if (step.t === 'choice') {
+          b.rows = [];
+          b.choiceQs = step.qs.map((q, qi) => {
+            const key = k + ':' + qi;
+            const picked = inp[key];
+            const right = !!res && picked === String(q.a);
+            return {
+              num: q.n || String(qi + 1),
+              prompt: q.q,
+              marks: q.m ? q.m + (q.m === 1 ? ' point' : ' points') : '',
+              options: q.o.map((label, oi) => {
+                const on = picked === String(oi);
+                const isAnswer = !!res && oi === q.a;
+                const wrongPick = !!res && on && oi !== q.a;
+                return {
+                  label: String.fromCharCode(97 + oi) + ')  ' + label,
+                  onClick: () => this.setInp(key, String(oi)),
+                  style: 'display:block; width:100%; text-align:left; padding:10px 13px; margin-top:6px; cursor:pointer; font:inherit; font-size:15px; line-height:1.5;'
+                    + ' border:2px solid ' + (isAnswer ? green : wrongPick ? err : on ? 'var(--color-text)' : 'var(--color-divider)') + ';'
+                    + ' background:' + (on && !res ? 'var(--color-text)' : 'transparent') + ';'
+                    + ' color:' + (on && !res ? 'var(--color-bg)' : 'var(--color-text)') + ';'
+                };
+              }),
+              mark: res ? (right ? '\u2713' : '\u2715') : '',
+              markColor: right ? green : err,
+              why: q.w || '',
+              showWhy: !!res && !!q.w
+            };
+          });
         } else if (step.t === 'pick') {
           b.rows = [];
           b.pickRows = step.rows.map((r, i) => {
