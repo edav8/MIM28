@@ -8916,33 +8916,15 @@ class Component extends DCLogic {
       ] },
       { heading: 'Profit, cash and who checks the numbers', items: [
         { t: 'tf', p: 'A company can report a healthy profit and still run out of money.', a: true, e: 'Deliver goods in December, get paid in February: profit in December, empty till. Businesses fail for want of cash, not profit.' },
-        { t: 'pick', p: 'A clean audit opinion tells you that:', rows: [
-              { l: 'The business is financially healthy', a: false },
-              { l: 'The statements are fairly presented under the rules', a: true },
-              { l: 'The share price is fair', a: false },
-              { l: 'Management is trustworthy', a: false }
-            ],
-            e: 'A company can be audited, compliant and heading for bankruptcy at once. Wirecard is the cautionary version.' },
-        { t: 'pick', p: 'Two honest companies in identical situations report different profits. The most likely reason is:', rows: [
-              { l: 'One of them made an error', a: false },
-              { l: 'They chose different estimates', a: true },
-              { l: 'They use different currencies', a: false },
-              { l: 'One of them is not audited', a: false }
-            ],
-            e: 'They chose different estimates, such as how long an asset will last. The rules require estimates, and estimates are judgements. Always ask what management had to assume.' }
+        { t: 'mcq', p: 'A clean audit opinion tells you that:', o: ['The business is financially healthy', 'The statements are fairly presented under the rules', 'The share price is fair', 'Management is trustworthy'], a: 1, e: 'A company can be audited, compliant and heading for bankruptcy at once. Wirecard is the cautionary version.' },
+        { t: 'mcq', p: 'Two honest companies in identical situations report different profits. The most likely reason is:', o: ['One of them made an error', 'They chose different estimates', 'They use different currencies', 'One of them is not audited'], a: 1, e: 'They chose different estimates, such as how long an asset will last. The rules require estimates, and estimates are judgements. Always ask what management had to assume.' }
       ] }
     ],
     s2: [
       { heading: 'The equation', items: [
         { t: 'blank', p: 'Complete the accounting equation.', before: 'Assets = Liabilities +', after: '.', a: 'equity', alt: ['shareholders equity', 'owners equity'], e: 'Equity is the residual — whatever is left for owners once creditors are satisfied.' },
         { t: 'tf', p: 'A balance sheet can fail to balance if the company had a bad year.', a: false, e: 'It cannot. Every asset was paid for by a lender or an owner, so the two sides are the same money counted twice.' },
-        { t: 'pick', p: 'You put in 500, borrow 300, buy a van for 600 and keep the rest in the bank. Total assets are:', rows: [
-              { l: '500', a: false },
-              { l: '600', a: false },
-              { l: '800', a: true },
-              { l: '1,100', a: false }
-            ],
-            e: 'A van of 600 plus 200 of cash. Funded by 300 of debt and 500 of equity.' }
+        { t: 'mcq', p: 'You put in 500, borrow 300, buy a van for 600 and keep the rest in the bank. Total assets are:', o: ['500', '600', '800', '1,100'], a: 2, e: 'A van of 600 plus 200 of cash. Funded by 300 of debt and 500 of equity.' }
       ] },
       { heading: 'What gets on the list', items: [
         { t: 'match', p: 'Match each item to how it is treated.', pairs: [
@@ -8965,13 +8947,7 @@ class Component extends DCLogic {
         { t: 'tf', p: 'Under accrual accounting, revenue is recorded when the cash arrives.', a: false, e: 'It is recorded when goods or services are delivered. Cash timing is a separate question.' }
       ] },
       { heading: 'Profit and what is not a cost', items: [
-        { t: 'pick', p: 'You sell 100 of drinks costing 40, pay 20 of wages, then hand 10 to the owners. Profit is:', rows: [
-              { l: '30', a: false },
-              { l: '40', a: true },
-              { l: '50', a: false },
-              { l: '60', a: false }
-            ],
-            e: 'Revenue 100 less costs 60 gives 40. The 10 is a dividend — a distribution of profit already made, not a cost of trading.' },
+        { t: 'mcq', p: 'You sell 100 of drinks costing 40, pay 20 of wages, then hand 10 to the owners. Profit is:', o: ['30', '40', '50', '60'], a: 1, e: 'Revenue 100 less costs 60 gives 40. The 10 is a dividend — a distribution of profit already made, not a cost of trading.' },
         { t: 'tf', p: 'Dividends reduce reported profit.', a: false, e: 'They reduce cash and equity. Profit is untouched, and dividends never appear on the income statement.' },
         { t: 'blank', p: 'Complete the sentence.', before: 'Revenue minus cost of sales gives', after: ' profit.', a: 'gross', e: 'The markup on product above direct input costs.' }
       ] }
@@ -8985,13 +8961,7 @@ class Component extends DCLogic {
           { term: 'Accrued expense', d: 'Expense first, cash later' }
         ], e: 'Two questions define the grid: revenue or expense, and did cash move before or after.' },
         { t: 'tf', p: 'Cash moves when an adjusting entry is recorded.', a: false, e: 'Never. Cash moved earlier or will move later; the adjustment puts the amount in the right period.' },
-        { t: 'pick', p: 'A client pays 240 on 1 January for two years of magazines. Revenue recognised by 31 March is:', rows: [
-              { l: '0', a: false },
-              { l: '30', a: true },
-              { l: '120', a: false },
-              { l: '240', a: false }
-            ],
-            e: '240 over 24 months is 10 a month; three months delivered. The other 210 stays as a liability.' }
+        { t: 'mcq', p: 'A client pays 240 on 1 January for two years of magazines. Revenue recognised by 31 March is:', o: ['0', '30', '120', '240'], a: 1, e: '240 over 24 months is 10 a month; three months delivered. The other 210 stays as a liability.' }
       ] },
       { heading: 'Earnings quality', items: [
         { t: 'blank', p: 'Complete the sentence.', before: 'How well reported profit describes performance that will repeat is called earnings', after: '.', a: 'quality', e: 'Two problems sit inside it: which items are in the number, and how they were measured.' },
@@ -9007,13 +8977,7 @@ class Component extends DCLogic {
       { heading: 'The two old policies', items: [
         { t: 'tf', p: 'Under the pre-2018 policy, an engine costing £50m sold for £40m produced a £10m loss.', a: false, e: 'It produced break-even. Revenue was grossed up to the £50m cost and the £10m excess over cash became an intangible.' },
         { t: 'blank', p: 'Complete the sentence.', before: 'Selling the engine cheaply to make money on servicing is called the razor and', after: ' model.', a: 'razor blades', alt: ['blades', 'blade'], e: 'Long-term service contracts make up roughly half of Rolls-Royce revenue.' },
-        { t: 'pick', p: 'Before 2018, service revenue was recognised in proportion to:', rows: [
-              { l: 'Overhauls completed', a: false },
-              { l: 'Cash received', a: false },
-              { l: 'Flying hours', a: true },
-              { l: 'Engines delivered', a: false }
-            ],
-            e: 'Flying hours of the fleet under contract. The obligation was to keep the fleet operational, and the Directors took fleet operation as the best measure of that.' }
+        { t: 'mcq', p: 'Before 2018, service revenue was recognised in proportion to:', o: ['Overhauls completed', 'Cash received', 'Flying hours', 'Engines delivered'], a: 2, e: 'Flying hours of the fleet under contract. The obligation was to keep the fleet operational, and the Directors took fleet operation as the best measure of that.' }
       ] },
       { heading: 'What IFRS 15 does', items: [
         { t: 'match', p: 'Match each treatment to the rule that produces it.', pairs: [
@@ -9022,26 +8986,14 @@ class Component extends DCLogic {
           { term: 'Service revenue spread over flying hours', d: 'Pre-2018 policy' },
           { term: 'Service revenue recognised at each overhaul', d: 'IFRS 15' }
         ], e: 'The old pair pulls profit forward; IFRS 15 waits for the work in both cases.' },
-        { t: 'pick', p: 'A ten-year contract has £100m revenue and £50m costs, with equal overhauls in years 4 and 8. Under IFRS 15, cumulative profit at the end of year 3 is:', rows: [
-              { l: '£0m', a: true },
-              { l: '£15m', a: false },
-              { l: '£25m', a: false },
-              { l: '£50m', a: false }
-            ],
-            e: 'Nothing, against £15m under the old policy. Total profit is £50m either way — only the timing moves.' },
+        { t: 'mcq', p: 'A ten-year contract has £100m revenue and £50m costs, with equal overhauls in years 4 and 8. Under IFRS 15, cumulative profit at the end of year 3 is:', o: ['£0m', '£15m', '£25m', '£50m'], a: 0, e: 'Nothing, against £15m under the old policy. Total profit is £50m either way — only the timing moves.' },
         { t: 'tf', p: 'IFRS 15 changes the amount of cash Rolls-Royce receives.', a: false, e: 'Same contracts, same amounts, same dates. The FT is explicit that there is no effect on the fundamentals or cash flow.' }
       ] }
     ],
     s6: [
       { heading: 'What channel stuffing is', items: [
         { t: 'tf', p: 'Every form of channel stuffing breaks the accounting rules.', a: false, e: 'Execution runs from benign discounts to conduct plainly outside GAAP. Over 40% of CFOs said they would offer buying incentives, within GAAP.' },
-        { t: 'pick', p: 'What ends a stuffing strategy?', rows: [
-              { l: 'The auditor refuses to sign', a: false },
-              { l: 'The distributor stops buying', a: true },
-              { l: 'Regulators intervene', a: false },
-              { l: 'Sales plateau at the inflated level', a: false }
-            ],
-            e: 'The distributor stops buying because its inventory is too high. And the decline persists while the excess drains out. McAfee’s sales fell 31% and stayed down.' },
+        { t: 'mcq', p: 'What ends a stuffing strategy?', o: ['The auditor refuses to sign', 'The distributor stops buying', 'Regulators intervene', 'Sales plateau at the inflated level'], a: 1, e: 'The distributor stops buying because its inventory is too high. And the decline persists while the excess drains out. McAfee’s sales fell 31% and stayed down.' },
         { t: 'blank', p: 'Complete the sentence.', before: 'Receivables expressed as days of sales are called days sales', after: '.', a: 'outstanding', e: 'McAfee’s went 45 days, 71, then 116 across 1997 to 1999.' }
       ] },
       { heading: 'Reading it from outside', items: [
@@ -9051,13 +9003,7 @@ class Component extends DCLogic {
           { term: 'The allowance moving the wrong way', d: '10.5% of gross receivables in 1996, down to 4.3% in 1998' },
           { term: 'Cash diverging from income', d: 'Operating cash flow fell from $90.7m to $52.5m while sales rose 62%' }
         ], e: 'All four visible in the published statements before any announcement.' },
-        { t: 'pick', p: 'McAfee funded the strategy in 1998 mainly through:', rows: [
-              { l: 'Retained profits', a: false },
-              { l: 'Convertibles and options', a: true },
-              { l: 'Asset sales', a: false },
-              { l: 'Government grants', a: false }
-            ],
-            e: 'Convertible debt and employee stock option exercises. $337.6m of convertible debt plus $151.1m of option exercises and $43.5m of tax benefits — essentially the whole $533m financing inflow.' },
+        { t: 'mcq', p: 'McAfee funded the strategy in 1998 mainly through:', o: ['Retained profits', 'Convertibles and options', 'Asset sales', 'Government grants'], a: 1, e: 'Convertible debt and employee stock option exercises. $337.6m of convertible debt plus $151.1m of option exercises and $43.5m of tax benefits — essentially the whole $533m financing inflow.' },
         { t: 'tf', p: 'Ratio analysis would have detected the Ingram Micro quarter-end timing scheme.', a: false, e: 'Ratios detect the consequences of stuffing, not its mechanisms. That one only surfaced in the SEC complaint.' }
       ] }
     ]
@@ -10813,6 +10759,16 @@ button{ border-radius:10px; }
   filter:drop-shadow(0 18px 40px rgba(0,0,0,.6)) drop-shadow(0 0 26px rgba(255,150,40,.45))}
 #celebrate .banner{font-family:var(--font-heading,inherit); font-weight:800; letter-spacing:-.01em;
   font-size:clamp(26px,4.4vw,52px); color:#fff6d8; text-shadow:0 3px 0 rgba(150,50,0,.55), 0 0 30px rgba(255,150,40,.8)}
+#celebrate .face{position:relative; display:inline-block}
+#celebrate .lid{position:absolute; border-radius:50% 50% 45% 45%; transform-origin:50% 0%;
+  transform:scaleY(0); opacity:0; pointer-events:none;
+  box-shadow:inset 0 -1px 2px rgba(0,0,0,.35)}
+#celebrate.winking .lid{animation:wink 2.1s ease-in-out .7s 2 both}
+@keyframes wink{0%{transform:scaleY(0); opacity:0}
+  6%{transform:scaleY(1); opacity:1}
+  22%{transform:scaleY(1); opacity:1}
+  30%{transform:scaleY(0); opacity:0}
+  100%{transform:scaleY(0); opacity:0}}
 #celebrate .sub{font-size:15px; letter-spacing:.09em; text-transform:uppercase; color:#ffe6ab; opacity:.92}
 @media (prefers-reduced-motion:reduce){
   #celebrate .fire i,#celebrate .ember,#celebrate .who{animation:none}}
@@ -10856,11 +10812,28 @@ button{ border-radius:10px; }
       '<div class="who"><div class="banner">' + correct + ' out of ' + total + '</div>' +
       '<div class="sub">Full marks</div></div>';
     if (have.photo) {
+      var wrap = document.createElement('div');
+      wrap.className = 'face';
       var face = document.createElement('img');
       face.id = 'celebrate-face';
       face.alt = '';
       face.setAttribute('src', PHOTO);
-      el.querySelector('.who').insertBefore(face, el.querySelector('.banner'));
+      wrap.appendChild(face);
+      // With no second frame, a lid drawn over one eye does the winking. EYE
+      // holds where that eye sits as a percentage of the image, and the skin
+      // tone is sampled from the photograph itself rather than guessed.
+      if (!have.wink && window.__winkEye) {
+        var lid = document.createElement('div');
+        lid.className = 'lid';
+        var q = window.__winkEye;
+        lid.style.left = q.x + '%';
+        lid.style.top = q.y + '%';
+        lid.style.width = q.w + '%';
+        lid.style.height = q.h + '%';
+        lid.style.background = q.skin;
+        wrap.appendChild(lid);
+      }
+      el.querySelector('.who').insertBefore(wrap, el.querySelector('.banner'));
     }
     return el;
   }
@@ -10875,6 +10848,8 @@ button{ border-radius:10px; }
       var face = node.querySelector('#celebrate-face');
       var seq = [[700, WINK], [980, PHOTO], [1700, WINK], [1980, PHOTO]];
       seq.forEach(function (st) { setTimeout(function () { if (face) face.src = st[1]; }, st[0]); });
+    } else if (have.photo && window.__winkEye) {
+      node.classList.add('winking');
     }
     timer = setTimeout(function () {
       if (!node) return;
