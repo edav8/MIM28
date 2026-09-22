@@ -3190,6 +3190,28 @@ textarea.input { min-height: 90px; resize: vertical; }
             </div>
           </sc-if>
 
+  <sc-if value="{{ showMocks }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Under exam conditions</div>
+              <h1 style="font-size:38px; margin:8px 0 12px">Mock exams</h1>
+              <p style="max-width:64ch; font-size:16px">Five full papers on the shape of the real one: 90 minutes, 100 points, twelve multiple-choice questions worth 30, three short problems worth 45, and a mini case worth 25. Every figure is worked, and every answer explains itself once you have committed to it.</p>
+              <div style="border:2px solid var(--color-divider); background:var(--color-surface); padding:16px 18px; margin-top:18px; max-width:64ch">
+                <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">How to use them</div>
+                <p style="margin:8px 0 0; font-size:15px">Sit one with a clock and a plain calculator and no notes, and only then open the answers. Doing a paper with the solutions beside you tells you the material looks familiar, which is not the thing being tested.</p>
+              </div>
+              <div style="margin-top:26px; border-top:2px solid var(--color-text)">
+                <sc-for list="{{ mockPapers }}" as="m" hint-placeholder-count="5">
+                  <button type="button" sc-camel-on-click="{{ m.onClick }}" style="display:block; width:100%; text-align:left; padding:18px 4px; cursor:pointer; border:none; border-bottom:1px solid var(--color-divider); background:transparent; color:var(--color-text); font:inherit">
+                    <span style="display:block; font-family:var(--font-heading); font-weight:700; font-size:19px; line-height:1.25">{{ m.title }}</span>
+                    <span style="display:block; font-size:14px; margin-top:4px">{{ m.sub }}</span>
+                    <span style="display:block; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:8px; color:{{ m.metaColor }}">{{ m.meta }}</span>
+                  </button>
+                </sc-for>
+              </div>
+              <p style="margin-top:20px; font-size:13px; opacity:0.75; max-width:64ch">Papers written for this site. Company names are invented and the figures are stylised for examination practice \u2014 they are not any real company's published accounts, and no course document is reproduced.</p>
+            </div>
+          </sc-if>
+
   <sc-if value="{{ showRevise }}" hint-placeholder-val="{{ false }}">
             <div>
               <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Before the exam</div>
@@ -9767,7 +9789,9 @@ class Component extends DCLogic {
         style: 'appearance:none; -webkit-appearance:none; text-align:left; font:inherit; width:100%; cursor:pointer; padding:20px; background:var(--color-surface); color:var(--color-text); border:1px solid var(--color-divider); border-left:3px solid var(--color-accent)'
       }));
       const sesOrder = (e) => { const m = /(\d+)/.exec(e.ses || ''); return m ? parseInt(m[1], 10) : 99; };
-      vals.exCards = (this.exercises[this.state.course] || []).slice()
+      // Mock papers have their own tab; listing them here as well would bury
+      // the twenty short exercises under five hour-and-a-half ones.
+      vals.exCards = (this.exercises[this.state.course] || []).filter(x => !x.isMock).slice()
         .sort((a, b2) => sesOrder(a) - sesOrder(b2))
         .map(ex => ({
         title: ex.title, sub: ex.sub, ses: ex.ses || '',
