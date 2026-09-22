@@ -9289,6 +9289,9 @@ class Component extends DCLogic {
       if (!best[key] || best[key].pct < pct) best[key] = { pct: pct, correct: correct, total: qs.length };
       this.setState({ view: 'res:' + key, best: best });
       this.save({ best: best, view: 'home' });
+      // Full marks earns a celebration. Defined at the end of the document so
+      // it is plain DOM work rather than anything the runtime has to render.
+      if (pct === 100 && window.__celebrate) window.__celebrate(correct, qs.length);
     } else {
       this.setState({ qi: this.state.qi + 1, numInput: '', blankInput: '', place: {}, seq: null, sel: null });
     }
@@ -10782,6 +10785,103 @@ button{ border-radius:10px; }
     geo.w = Math.min(geo.w, window.innerWidth - 16);
     apply(el);
   });
+})();
+</script>
+
+<style id="celebrate-style">
+#celebrate{position:fixed; inset:0; z-index:200; display:flex; align-items:flex-end; justify-content:center;
+  pointer-events:none; opacity:0; transition:opacity .35s ease}
+#celebrate.on{opacity:1}
+#celebrate .veil{position:absolute; inset:0; background:radial-gradient(120% 90% at 50% 100%, rgba(255,120,0,.34), rgba(0,0,0,.55) 62%)}
+#celebrate .fire{position:absolute; left:0; right:0; bottom:-40px; height:52vh; filter:blur(14px); opacity:.95}
+#celebrate .fire i{position:absolute; bottom:0; display:block; border-radius:50% 50% 42% 42%;
+  background:radial-gradient(60% 70% at 50% 85%, #fff3b0 0%, #ffd24a 22%, #ff9b21 48%, #f4601a 70%, rgba(200,40,0,0) 78%);
+  animation:flick 1.15s ease-in-out infinite; transform-origin:50% 100%}
+@keyframes flick{0%,100%{transform:scaleY(1) scaleX(1) translateY(0)}
+  28%{transform:scaleY(1.24) scaleX(.9) translateY(-12px)}
+  54%{transform:scaleY(.88) scaleX(1.08) translateY(4px)}
+  76%{transform:scaleY(1.14) scaleX(.95) translateY(-6px)}}
+#celebrate .ember{position:absolute; bottom:8vh; width:7px; height:7px; border-radius:50%;
+  background:#ffd166; box-shadow:0 0 12px 3px rgba(255,160,40,.85); animation:rise 3.4s linear infinite}
+@keyframes rise{0%{transform:translateY(0) scale(1); opacity:0}
+  12%{opacity:1} 100%{transform:translateY(-78vh) scale(.25); opacity:0}}
+#celebrate .who{position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:14px;
+  margin-bottom:2vh; animation:pop .7s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes pop{from{transform:translateY(90px) scale(.86) rotate(-3deg); opacity:0}
+  to{transform:translateY(0) scale(1) rotate(0); opacity:1}}
+#celebrate img{height:min(46vh,380px); width:auto; display:block;
+  filter:drop-shadow(0 18px 40px rgba(0,0,0,.6)) drop-shadow(0 0 26px rgba(255,150,40,.45))}
+#celebrate .banner{font-family:var(--font-heading,inherit); font-weight:800; letter-spacing:-.01em;
+  font-size:clamp(26px,4.4vw,52px); color:#fff6d8; text-shadow:0 3px 0 rgba(150,50,0,.55), 0 0 30px rgba(255,150,40,.8)}
+#celebrate .sub{font-size:15px; letter-spacing:.09em; text-transform:uppercase; color:#ffe6ab; opacity:.92}
+@media (prefers-reduced-motion:reduce){
+  #celebrate .fire i,#celebrate .ember,#celebrate .who{animation:none}}
+</style>
+<script>
+/* Full marks on a drill: flames, and the owner of the site appearing to
+   approve. The photograph is optional — drop assets/celebrate.png in and it
+   is used; add assets/celebrate-wink.png as a second frame and the two
+   alternate, which is what actually makes a wink read as a wink. With no
+   images at all the fire and the banner still run. */
+(function () {
+  var PHOTO = 'assets/celebrate.png', WINK = 'assets/celebrate-wink.png';
+  var have = {}, node = null, timer = null;
+  function probe(src) {
+    return new Promise(function (ok) {
+      var im = new Image();
+      im.onload = function () { ok(true); };
+      im.onerror = function () { ok(false); };
+      im.src = src;
+    });
+  }
+  Promise.all([probe(PHOTO), probe(WINK)]).then(function (r) { have.photo = r[0]; have.wink = r[1]; });
+
+  function build(correct, total) {
+    var el = document.createElement('div');
+    el.id = 'celebrate';
+    var fire = '<div class="fire">';
+    for (var i = 0; i < 9; i++) {
+      var w = 16 + Math.random() * 26, left = (i / 9) * 100 + (Math.random() * 6 - 3);
+      fire += '<i style="left:' + left.toFixed(1) + '%; width:' + w.toFixed(0) + 'vw; height:' +
+        (26 + Math.random() * 22).toFixed(0) + 'vh; animation-delay:' + (-Math.random() * 1.2).toFixed(2) +
+        's; animation-duration:' + (0.9 + Math.random() * 0.7).toFixed(2) + 's"></i>';
+    }
+    fire += '</div>';
+    var embers = '';
+    for (var j = 0; j < 14; j++) {
+      embers += '<span class="ember" style="left:' + (5 + Math.random() * 90).toFixed(1) + '%; animation-delay:' +
+        (Math.random() * 3.4).toFixed(2) + 's; animation-duration:' + (2.6 + Math.random() * 1.8).toFixed(2) + 's"></span>';
+    }
+    el.innerHTML = '<div class="veil"></div>' + fire + embers +
+      '<div class="who"><div class="banner">' + correct + ' out of ' + total + '</div>' +
+      '<div class="sub">Full marks</div></div>';
+    if (have.photo) {
+      var face = document.createElement('img');
+      face.id = 'celebrate-face';
+      face.alt = '';
+      face.setAttribute('src', PHOTO);
+      el.querySelector('.who').insertBefore(face, el.querySelector('.banner'));
+    }
+    return el;
+  }
+
+  window.__celebrate = function (correct, total) {
+    if (node) { node.remove(); clearTimeout(timer); }
+    node = build(correct, total);
+    document.body.appendChild(node);
+    requestAnimationFrame(function () { node.classList.add('on'); });
+    // The wink: two frames, swapped. One photograph cannot wink on its own.
+    if (have.photo && have.wink) {
+      var face = node.querySelector('#celebrate-face');
+      var seq = [[700, WINK], [980, PHOTO], [1700, WINK], [1980, PHOTO]];
+      seq.forEach(function (st) { setTimeout(function () { if (face) face.src = st[1]; }, st[0]); });
+    }
+    timer = setTimeout(function () {
+      if (!node) return;
+      node.classList.remove('on');
+      setTimeout(function () { if (node) { node.remove(); node = null; } }, 400);
+    }, 4600);
+  };
 })();
 </script>
 </body></html>
