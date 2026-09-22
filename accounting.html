@@ -884,7 +884,7 @@ textarea.input { min-height: 90px; resize: vertical; }
     </div>
   </aside>
 
-  <main id="main" style="flex:1; min-width:0; padding:36px 44px 80px; max-width:960px">
+  <main id="main" style="flex:1; min-width:0; padding:36px 44px 80px; max-width:1240px">
 
     <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
       <div>
@@ -3502,7 +3502,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
             <sc-if value="{{ b.isGrid }}" hint-placeholder-val="{{ false }}">
               <div>
-                <div style="overflow-x:auto; padding-bottom:6px">
+                <div style="overflow-x:auto; overflow-y:visible; padding-bottom:10px; margin:0 -4px; -webkit-overflow-scrolling:touch">
                   <div style="{{ b.gridStyle }}">
                     <div style="font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 62%, transparent); align-self:end">&euro; 000</div>
                     <sc-for list="{{ b.gridCols }}" as="c" hint-placeholder-count="12">
@@ -10244,7 +10244,7 @@ class Component extends DCLogic {
           b.gridCols = (step.cols || []).map(c => ({ v: c }));
           b.gridHint = step.hint || 'Leave a cell blank where the account did not move. All amounts in thousands; use a minus sign rather than brackets.';
           const colCount = (step.cols || []).length;
-          b.gridStyle = 'display:grid; grid-template-columns:62px repeat(' + colCount + ', minmax(78px, 1fr)); gap:4px; min-width:' + (62 + colCount * 82) + 'px';
+          b.gridStyle = 'display:grid; grid-template-columns:70px repeat(' + colCount + ', minmax(72px, 1fr)); gap:3px; min-width:' + (70 + colCount * 75) + 'px';
           b.gridRows = step.rows.map((r, i) => ({
             l: r.l,
             labelStyle: 'font-size:12.5px; font-variant-numeric:tabular-nums; align-self:center; color:' + (r.fixed ? 'color-mix(in srgb, var(--color-text) 55%, transparent)' : 'var(--color-text)'),
@@ -10610,34 +10610,44 @@ button{ border-radius:10px; }
 </style>
 
 <script>
-/* The figures drawer can be dragged by its header. The runtime rebuilds the
-   drawer on every render, so the position is held here and re-applied whenever
-   the element reappears. Pointer events cover mouse, pen and touch alike. */
+/* The figures drawer can be dragged by its header and resized from the corner
+   grip. The runtime rebuilds the drawer on every render, so the geometry is
+   held here and re-applied whenever the element reappears. Text scales with
+   the panel: a narrow panel gets smaller type and tighter rows so a twelve
+   column statement still fits, a wide one gets comfortable reading size. */
 (function () {
-  var pos = null;
+  var geo = null;                                  // {x, y, w, h}
   function drawer() { return document.getElementById('figdrawer'); }
   function apply(el) {
-    if (!pos || !el) return;
-    el.style.left = pos.x + 'px';
-    el.style.top = pos.y + 'px';
+    if (!geo || !el) return;
+    el.style.left = geo.x + 'px';
+    el.style.top = geo.y + 'px';
     el.style.right = 'auto';
     el.style.bottom = 'auto';
-    el.style.maxHeight = Math.max(160, window.innerHeight - pos.y - 20) + 'px';
-    if (pos.w) el.style.width = pos.w + 'px';
+    el.style.width = geo.w + 'px';
+    el.style.height = geo.h + 'px';
+    el.style.maxHeight = 'none';
+    // 13px at 420 wide up to 17px at 1100 wide, clamped
+    var f = Math.max(12.5, Math.min(17, 12.5 + (geo.w - 420) * (4.5 / 680)));
+    el.style.fontSize = f.toFixed(2) + 'px';
+    el.style.setProperty('--fig-scale', (f / 15).toFixed(3));
   }
-  document.addEventListener('pointerdown', function (e) {
-    var handle = e.target.closest && e.target.closest('#fighandle');
-    if (!handle) return;
-    if (e.target.closest('button')) return;           // the Close button still closes
+  function startDrag(e, mode) {
     var el = drawer();
     if (!el) return;
     var r = el.getBoundingClientRect();
-    var dx = e.clientX - r.left, dy = e.clientY - r.top;
-    pos = { x: r.left, y: r.top, w: r.width };
+    geo = { x: r.left, y: r.top, w: r.width, h: r.height };
+    var ox = e.clientX, oy = e.clientY;
+    var base = { x: r.left, y: r.top, w: r.width, h: r.height };
     apply(el);
     function move(ev) {
-      pos.x = Math.min(Math.max(8 - r.width + 120, ev.clientX - dx), window.innerWidth - 120);
-      pos.y = Math.min(Math.max(0, ev.clientY - dy), window.innerHeight - 60);
+      if (mode === 'move') {
+        geo.x = Math.min(Math.max(120 - base.w, base.x + ev.clientX - ox), window.innerWidth - 120);
+        geo.y = Math.min(Math.max(0, base.y + ev.clientY - oy), window.innerHeight - 60);
+      } else {
+        geo.w = Math.max(320, Math.min(base.w + ev.clientX - ox, window.innerWidth - geo.x - 8));
+        geo.h = Math.max(200, Math.min(base.h + ev.clientY - oy, window.innerHeight - geo.y - 8));
+      }
       apply(drawer());
     }
     function up() {
@@ -10647,10 +10657,23 @@ button{ border-radius:10px; }
     document.addEventListener('pointermove', move);
     document.addEventListener('pointerup', up);
     e.preventDefault();
+  }
+  document.addEventListener('pointerdown', function (e) {
+    if (!e.target.closest) return;
+    if (e.target.closest('#figresize')) { startDrag(e, 'size'); return; }
+    var handle = e.target.closest('#fighandle');
+    if (handle && !e.target.closest('button')) startDrag(e, 'move');
   });
   new MutationObserver(function () { apply(drawer()); })
     .observe(document.documentElement, { childList: true, subtree: true });
-  window.addEventListener('resize', function () { apply(drawer()); });
+  window.addEventListener('resize', function () {
+    var el = drawer();
+    if (!geo || !el) return;
+    geo.x = Math.min(geo.x, window.innerWidth - 120);
+    geo.y = Math.min(geo.y, window.innerHeight - 60);
+    geo.w = Math.min(geo.w, window.innerWidth - 16);
+    apply(el);
+  });
 })();
 </script>
 </body></html>
