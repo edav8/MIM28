@@ -3723,11 +3723,12 @@ textarea.input { min-height: 90px; resize: vertical; }
               <div id="figdrawer" style="position:fixed; right:20px; top:16px; bottom:76px; width:min(880px, 94vw); z-index:65; background:var(--color-surface); border:2px solid var(--color-text); box-shadow:var(--shadow-lg); overflow:auto">
                 <div id="fighandle" style="cursor:move; user-select:none; -webkit-user-select:none; position:sticky; top:0; background:var(--color-surface); border-bottom:2px solid var(--color-divider); padding:14px 18px; display:flex; justify-content:space-between; align-items:baseline; gap:16px">
                   <div>
-                    <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The figures \u00b7 drag to move</div>
+                    <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The figures · drag to move · resize from the corner</div>
                     <div style="font-family:var(--font-heading); font-weight:700; font-size:17px; margin-top:4px">{{ figTitle }}</div>
                   </div>
                   <button type="button" class="btn btn-secondary" sc-camel-on-click="{{ toggleFig }}">Close</button>
                 </div>
+                <div id="figresize" title="Drag to resize" style="position:absolute; right:0; bottom:0; width:22px; height:22px; cursor:nwse-resize; z-index:3; background:linear-gradient(135deg, transparent 50%, var(--color-accent-700) 50%); opacity:0.65"></div>
                 <sc-for list="{{ sheets }}" as="sh" hint-placeholder-count="2">
                   <div style="padding:18px 18px 6px; border-bottom:2px solid var(--color-divider)">
                     <div style="font-family:var(--font-heading); font-weight:700; font-size:16px">{{ sh.title }}</div>
@@ -10140,7 +10141,8 @@ class Component extends DCLogic {
       // every statement in the paper at once. Untagged tables always show.
       let curStep = 0;
       for (let k = 0; k < ex.steps.length; k++) { curStep = k; if (!(resBy[k] && resBy[k].ok)) break; }
-      const shownTables = (ex.tables || []).filter(tb => !tb.at || tb.at.indexOf(curStep) >= 0);
+      const shownTables = (ex.isMock || ex.freeNav) ? (ex.tables || [])
+        : (ex.tables || []).filter(tb => !tb.at || tb.at.indexOf(curStep) >= 0);
       vals.exTables = this.tableVals(shownTables);
       vals.hasExTables = vals.exTables.length > 0 && !ex.factsInDrawer;
       vals.briefSegs = this.segVals(ex.brief || '');
@@ -10169,10 +10171,14 @@ class Component extends DCLogic {
         ? 'Clean run — every step correct on the first check.'
         : 'The steps you had to re-check are the ones worth repeating.';
 
+      // A mock paper is a paper: every question is open from the start and you
+      // work them in whatever order you like. The teaching exercises still
+      // unlock one step at a time, because there the order is the lesson.
+      const freeNav = !!(ex.isMock || ex.freeNav);
       const visible = [];
       for (let k = 0; k < ex.steps.length; k++) {
         visible.push(k);
-        if (!(resBy[k] && resBy[k].ok)) break;
+        if (!freeNav && !(resBy[k] && resBy[k].ok)) break;
       }
 
       vals.blocks = visible.map(k => {
@@ -10193,6 +10199,8 @@ class Component extends DCLogic {
           isChoice: step.t === 'choice',
           isBuild: step.t === 'build',
           isGrid: step.t === 'grid',
+          figs: this.tableVals((ex.tables || []).filter(tb => tb.at && tb.at.indexOf(k) >= 0)),
+          hasFigs: (ex.tables || []).some(tb => tb.at && tb.at.indexOf(k) >= 0),
           hasLook: !!step.look,
           look: step.look || '',
           hasCalc: !!step.calc,
@@ -10212,7 +10220,7 @@ class Component extends DCLogic {
           verdict: res ? (res.skipped ? 'Skipped — here are the answers' : step.t === 'note' ? 'Answer' : okStep ? 'All correct' : 'Some lines are off — the right figures are shown beside them') : '',
           verdictColor: okStep ? green : 'var(--color-text)',
           explain: res ? (step.e || '') : '',
-          lockNote: okStep ? '' : (step.t === 'note' ? 'Think it through first, then compare.' : step.t === 'grid' ? 'Every row has to be right. A blank cell counts as no movement.' : step.t === 'build' ? 'Pick the line and enter the figure on every row. Not every account offered belongs here.' : step.t === 'choice' ? 'Answer every question. All of them have to be right to move on.' : step.t === 'pick' ? 'Mark every statement true or false. All of them have to be right.' : 'Get every line right to unlock the next step.'),
+          lockNote: (okStep || freeNav) ? '' : (step.t === 'note' ? 'Think it through first, then compare.' : step.t === 'grid' ? 'Every row has to be right. A blank cell counts as no movement.' : step.t === 'build' ? 'Pick the line and enter the figure on every row. Not every account offered belongs here.' : step.t === 'choice' ? 'Answer every question. All of them have to be right to move on.' : step.t === 'pick' ? 'Mark every statement true or false. All of them have to be right.' : 'Get every line right to unlock the next step.'),
           hasWhys: !!(res && (step.t === 'fill' || step.t === 'pick' || step.t === 'build') && step.rows.some(r => r.w)),
           whysTitle: step.t === 'pick' ? 'Why each statement is true or false' : 'Why each figure is what it is',
           whys: res && step.t === 'build' ? step.rows.filter(r => r.w).map(r => ({ label: r.a, value: this.fmt(r.v), why: r.w }))
