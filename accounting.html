@@ -2120,6 +2120,136 @@ textarea.input { min-height: 90px; resize: vertical; }
           </div>
         </sc-if>
 
+        <sc-if value="{{ isS10 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:72ch">
+            <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <p style="margin:8px 0 0; font-size:16px">Two halves. First, finishing inventory: how to undo the distortion LIFO puts on a balance sheet, and what happens when stock is worth less than it cost. Then the largest number on most balance sheets — the buildings and machines — and the three decisions behind it: what goes on the balance sheet at all, how fast it comes off, and what happens when it is sold.</p>
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <sc-raw-table class="table" style="margin-top:6px">
+              <sc-raw-tbody>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>LIFO reserve</strong></sc-raw-td><sc-raw-td>The gap between what inventory would be worth under FIFO and what LIFO carries it at. Disclosed in the notes, and the key to comparing across the two.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>LIFO liquidation</strong></sc-raw-td><sc-raw-td>Selling into old, cheap cost layers because stock was allowed to run down. Cuts COGS and inflates profit for reasons that have nothing to do with trading.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>Capitalise</strong></sc-raw-td><sc-raw-td>Put a cost on the balance sheet as an asset rather than through the income statement now.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>Salvage value</strong></sc-raw-td><sc-raw-td>What the asset is expected to fetch at the end of its useful life. Depreciation never takes book value below it.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>Net book value</strong></sc-raw-td><sc-raw-td>Gross cost minus accumulated depreciation. Not a market value, and not trying to be one.</sc-raw-td></sc-raw-tr>
+              </sc-raw-tbody>
+              </sc-raw-table>
+            </div>
+
+            <h3 style="margin-top:34px">The LIFO reserve, and why the notes carry it</h3>
+            <p>Session 9 left a problem. A firm on LIFO reports lower closing inventory and higher cost of goods sold than the identical firm on FIFO, so every ratio built from either figure is incomparable across the two. The rules answer it by requiring a LIFO firm to disclose what its inventory <em>would</em> have been under FIFO. The difference has a name:</p>
+            <p style="margin-top:8px"><strong>LIFO reserve = inventory at FIFO &minus; inventory at LIFO</strong></p>
+            <p style="margin-top:12px">On the session 9 example — 20 units at $4, then 30 at $5 and 30 at $6, with 50 sold — closing inventory was 180 under FIFO and 130 under LIFO, so the reserve is <strong>50</strong>. That 50 is the accumulated amount of cost that LIFO has pushed through the income statement and FIFO has left on the balance sheet.</p>
+            <p style="margin-top:12px">Two conversions follow, and they are all you need to put two firms on the same basis:</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td style="width:40%"><strong>Inventory, restated to FIFO</strong></sc-raw-td><sc-raw-td>LIFO inventory + LIFO reserve</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>COGS, restated to FIFO</strong></sc-raw-td><sc-raw-td>LIFO COGS &minus; the change in the reserve during the year</sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">Note which one uses the balance and which uses the change. The reserve is a cumulative figure, so it restates a balance sheet item; only the movement in it belongs to this year&rsquo;s income statement. That is the Deere and CNH case in one sentence, and it is the exercise this session is built around.</p>
+
+            <h3 style="margin-top:34px">What LIFO is actually buying</h3>
+            <p>In the United States the <strong>LIFO conformity rule</strong> applies: a firm that uses LIFO for tax must also use it for financial reporting. It is one of the few places where tax law reaches into published accounts, and it explains why American firms accept worse-looking statements. With prices rising, LIFO reports higher COGS, so lower taxable profit, so less tax paid — in cash, now.</p>
+            <p style="margin-top:12px">The reserve quantifies the whole trade:</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td style="width:52%">After-tax income effect for the year</sc-raw-td><sc-raw-td>&Delta; LIFO reserve &times; (1 &minus; tax rate)</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Cash flow effect for the year</sc-raw-td><sc-raw-td>&Delta; LIFO reserve &times; tax rate</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Cumulative effect on retained earnings</sc-raw-td><sc-raw-td>LIFO reserve &times; (1 &minus; tax rate)</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Cumulative cash saved</sc-raw-td><sc-raw-td>LIFO reserve &times; tax rate</sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">Read the pattern: the reserve splits between profit the firm gave up and tax it never paid, in the proportions (1 &minus; t) and t. Reported profit is lower by the first; the bank balance is higher by the second. Which of those two a manager cares about is a real question, and the answer in the United States has usually been the cash.</p>
+
+            <h3 style="margin-top:34px">The quirk: LIFO liquidation</h3>
+            <p>A firm holds 30 units in three cost layers of ten, laid down at $30, $40 and $50. An urgent order for 25 units arrives on 30 December. The market price today is $60 and purchasing expects it to fall to $40 in January, so they want to wait and let stock run down. The manager wants to buy now and hold the level.</p>
+            <p style="margin-top:12px">Under LIFO, letting the level fall means selling into the old layers. Twenty-five units come out at $50, $40 and $30 instead of at today&rsquo;s $60 — so cost of goods sold is far lower, gross profit jumps, and the tax bill jumps with it. Nothing about the business improved. Buying at $60 keeps the newest, dearest cost in COGS, which is the whole point of being on LIFO.</p>
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Why an analyst cares</div>
+              <p style="margin:8px 0 0">A profit rise caused by liquidating old layers is not repeatable and not operating. US filers must disclose its effect, and a margin that improved for this reason should be stripped out before any trend is drawn. It also runs the other way as an incentive: a manager short of profit can hit a target by simply not restocking in December.</p>
+            </div>
+
+            <h3 style="margin-top:34px">When inventory is worth less than it cost</h3>
+            <p>Inventory is carried at the lower of cost and market value. The asymmetry is the point.</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td style="width:34%"><strong>Value rises</strong></sc-raw-td><sc-raw-td>Nothing happens. Neither IFRS nor US GAAP permits a write-up; the gain waits until the goods are sold.</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>Value falls</strong></sc-raw-td><sc-raw-td>Write it down at once to the lower value. That is an impairment: inventory down, profit down, usually through COGS.</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>Value recovers</strong></sc-raw-td><sc-raw-td>IFRS allows the write-down to be reversed, but only up to original cost. US GAAP does not allow reversal at all.</sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">That last row is a genuine difference in reported profit between two firms whose goods did exactly the same thing, and it is the sort of detail an exam question is built on. It also creates a temptation: an aggressive write-down in a bad year makes next year&rsquo;s COGS lower and next year&rsquo;s margin better, which under IFRS can then be reversed on top.</p>
+
+            <h3 style="margin-top:34px">Long-lived assets: what gets on the balance sheet</h3>
+            <p>The test is the session 2 definition of an asset — a future economic benefit that is <strong>probable</strong>, <strong>owned or controlled</strong>, and <strong>measurable</strong>. Cash that buys one of those is capitalised; cash that does not is an expense now.</p>
+            <p style="margin-top:12px">Intangibles are where the definition bites. Patents, trademarks, customer lists, domain names and goodwill can be recognised <strong>only if they were bought from someone else</strong>. Build the same thing yourself and it is an expense, with two exceptions: software development under both regimes, and development costs after technical feasibility is established under IFRS.</p>
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The clearest illustration in the course</div>
+              <p style="margin:8px 0 0">A football club&rsquo;s academy graduate and a player bought from a rival can be equally good. The graduate appears on the balance sheet at <strong>zero</strong>, because the cost of developing him was expensed year by year as coaching. The signing appears at what was paid for him — in the 2018 illustration, &euro;117 million. Same asset to the business, opposite accounting, and the difference is entirely whether a transaction took place.</p>
+            </div>
+            <p style="margin-top:14px">This is the mirror image of the point from session 1 about market value exceeding book value. The most valuable things most firms own — the brand, the trained workforce, the customer relationships — were built rather than bought, so they are not there.</p>
+
+            <h3 style="margin-top:34px">What the asset costs</h3>
+            <p>Acquisition cost is every cost required to get the asset in place and ready to use: the invoice, transport, installation labour, and fees such as zoning and inspection. For something the firm builds itself, all construction costs are capitalised — <strong>including the interest on money borrowed to fund the build</strong>, for the construction period only.</p>
+            <p style="margin-top:12px">That interest rule catches people out, because interest is otherwise an expense. During construction it is treated as part of what the asset cost, and it stops the day the asset is ready.</p>
+            <p style="margin-top:12px">A worked instance: a club building a stadium spends 1.2m on materials and 1.6m on architects and labourers, accrues interest of 10% on a 1.5m construction loan, and pays 65,000 in zoning and inspection fees. All four are capitalised, so construction in progress rises by <strong>3,015,000</strong> and nothing touches profit. Interest is 150,000 of that, and it is on the balance sheet rather than in the income statement purely because there is a building attached to it.</p>
+
+            <h3 style="margin-top:34px">Getting it off again: three methods</h3>
+            <p>Depreciation spreads the cost across the periods the asset earns revenue in. It is an allocation, not a valuation — net book value is not what the thing is worth, and it is not trying to be. The same mechanic applied to a finite-life intangible is called amortisation. Indefinite-life intangibles, goodwill among them, are not amortised at all; they are tested for impairment instead.</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td style="width:34%"><strong>Straight line</strong></sc-raw-td><sc-raw-td>(cost &minus; salvage) &divide; useful life</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>Units of production</strong></sc-raw-td><sc-raw-td>units used &times; rate, where rate = (cost &minus; salvage) &divide; total expected units</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td><strong>Declining balance</strong></sc-raw-td><sc-raw-td>(net book value &minus; salvage) &divide; useful life &times; the declining rate, typically 1.5 or 2</sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Use the declining-balance formula above</div>
+              <p style="margin:8px 0 0">Textbooks usually write declining balance as net book value &times; rate &divide; life, ignoring salvage until the end. This course subtracts salvage inside the calculation every year. The two give different annual numbers, so use the one on the slides. Under either, depreciation stops once book value reaches salvage value.</p>
+            </div>
+            <p style="margin-top:14px">On one asset — cost 60,000, salvage 10,000, four years, 5,000 hours of expected service, and a declining rate of 2 — the three methods produce three different paths to the same destination:</p>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-thead><sc-raw-tr><sc-raw-th>Net book value at</sc-raw-th><sc-raw-th>Straight line</sc-raw-th><sc-raw-th>Units of production</sc-raw-th><sc-raw-th>Declining balance</sc-raw-th></sc-raw-tr></sc-raw-thead>
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td>Purchase</sc-raw-td><sc-raw-td>60,000</sc-raw-td><sc-raw-td>60,000</sc-raw-td><sc-raw-td>60,000</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>End of year 1</sc-raw-td><sc-raw-td>47,500</sc-raw-td><sc-raw-td>52,000</sc-raw-td><sc-raw-td>35,000</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>End of year 2</sc-raw-td><sc-raw-td>35,000</sc-raw-td><sc-raw-td>46,000</sc-raw-td><sc-raw-td>22,500</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>End of year 3</sc-raw-td><sc-raw-td>22,500</sc-raw-td><sc-raw-td>14,000</sc-raw-td><sc-raw-td>16,250</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>End of year 4</sc-raw-td><sc-raw-td>10,000</sc-raw-td><sc-raw-td>10,000</sc-raw-td><sc-raw-td>10,000</sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">All three take 50,000 off over four years, because all three are allocating the same cost less the same salvage. Only the shape differs. Units of production tracks the 800, 600, 3,200 and 400 hours actually used, so it is flat in the quiet years and steep in the busy one; declining balance front-loads regardless. Choose the one that matches how the asset is consumed — and when comparing two firms, remember that a difference in reported profit may be nothing more than a difference in this choice.</p>
+
+            <h3 style="margin-top:34px">Spending on an asset you already own</h3>
+            <p>The rule is short: if the spending <strong>improves</strong> the asset, capitalise it; if it merely keeps it working, expense it. Routine maintenance and repairs are expenses. Something that extends the useful life or raises the asset&rsquo;s capacity gets added to the carrying amount and depreciated over the life that now remains.</p>
+            <p style="margin-top:12px">On equipment costing 100,000 with a five-year life and no salvage, depreciating 20,000 a year: a 15,000 repair after year 1 is an expense and changes nothing else. A 30,000 improvement after year 2 that extends the life by three years does change things. Book value is 60,000, the improvement lifts it to 90,000, and the remaining life becomes the three years left plus the three added — so depreciation from year 3 is 90,000 &divide; 6 = <strong>15,000</strong> a year.</p>
+            <p style="margin-top:12px">The line between the two is a judgement, and it is a soft one. Capitalising something that should have been expensed lifts this year&rsquo;s profit and spreads the cost over years to come. It is one of the oldest ways to flatter earnings, which is why the ratio of capital expenditure to depreciation is worth watching.</p>
+
+            <h3 style="margin-top:34px">Selling it</h3>
+            <p style="margin-top:6px"><strong>Gain or loss = proceeds &minus; net book value</strong></p>
+            <p style="margin-top:12px">Both the gross cost and the accumulated depreciation come off the balance sheet together, cash comes in, and the difference hits profit. A player carried at a gross 75,000 with 40,412 of accumulated amortisation has a book value of 34,588; sold for 65,389, that is a gain of <strong>30,801</strong>.</p>
+            <p style="margin-top:12px">The gain is not a measure of a good sale. It is a measure of how wrong the depreciation estimate turned out to be — a large gain says the asset was written down faster than it actually lost value. And it is why the cash flow statement removes gains from operating activities and puts the whole proceeds in investing: the profit line and the cash line describe the same event in different currencies.</p>
+
+            <h3 style="margin-top:34px">Four ratios for the asset base</h3>
+            <sc-raw-table class="table" style="margin-top:10px">
+            <sc-raw-tbody>
+              <sc-raw-tr><sc-raw-td style="width:40%">Fixed asset turnover = sales &divide; average fixed assets</sc-raw-td><sc-raw-td>How much revenue each euro of plant produces.</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Asset replacement ratio = capital expenditure &divide; depreciation</sc-raw-td><sc-raw-td>Above 1, the firm is building capacity; below 1 for long, it is running its assets down.</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Depreciable life = ending gross PPE &divide; depreciation expense</sc-raw-td><sc-raw-td>The implied useful life. Compare it with a competitor holding similar assets.</sc-raw-td></sc-raw-tr>
+              <sc-raw-tr><sc-raw-td>Age of assets = accumulated depreciation &divide; depreciation expense</sc-raw-td><sc-raw-td>Roughly how many years into their lives the assets are, and therefore how soon a large capital spend is coming.</sc-raw-td></sc-raw-tr>
+            </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:12px">The last two are the interesting pair. Depreciable life exposes an assumption the firm chose: a competitor depreciating identical machines over fifteen years while you use ten is reporting higher profit for no operational reason. Age of assets then says how much of that life has already been used — an old asset base with a replacement ratio below 1 is a capital expenditure programme that has not been announced yet.</p>
+
+            <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:22px">
+              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
+              <p style="margin:8px 0 0">Long-lived assets II: impairment of fixed assets and goodwill, then financial liabilities — loans, bonds, and what sits on the balance sheet against them.</p>
+            </div>
+          </div>
+        </sc-if>
+
         <sc-if value="{{ isF1 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
@@ -3828,7 +3958,7 @@ class Component extends DCLogic {
       { id: 'fa2', title: 'Practice set — the three statements', when: 'Ongoing', tag: 'Practice' }
     ];
 
-  built = { s1: 1, s2: 1, s3: 1, s4: 1, s5: 1, s6: 1, s7: 1, s8: 1, s9: 1, f1: 1, f2: 1, f3: 1, f4: 1, f5: 1, f6: 1, f7: 1, f8: 1, f9: 1, f10: 1 };
+  built = { s1: 1, s2: 1, s3: 1, s4: 1, s5: 1, s6: 1, s7: 1, s8: 1, s9: 1, s10: 1, f1: 1, f2: 1, f3: 1, f4: 1, f5: 1, f6: 1, f7: 1, f8: 1, f9: 1, f10: 1 };
 
   courseSessions(c) { return (c || this.state.course) === 'fra' ? this.fraSessions : this.sessions; }
 
@@ -3862,7 +3992,7 @@ class Component extends DCLogic {
     { key: 's7', num: '07', title: 'Statement of Cash Flows', preview: 'Articulation, the three fixes of the indirect method, the reconciliations, and the Netflix case. Operating, investing and financing cash flows, reconciling profit to cash, and reading free cash flow.' },
     { key: 's8', num: '08', title: 'Financial Statement Analysis', preview: 'NOPAT, invested capital and ROIC — split into margin and turnover — plus the cash conversion cycle. The LVMH and Warnaco case.' },
     { key: 's9', num: '09', title: 'Accounts Receivable & Inventory I', preview: 'The allowance for doubtful accounts, write-offs and what they do — and do not do — to profit; then inventory and the cost flow assumptions.' },
-    { key: 's10', num: '10', title: 'Inventory II & Long-Lived Assets I', preview: 'Lower of cost and net realisable value; capitalisation and depreciation of tangible assets.' },
+    { key: 's10', num: '10', title: 'Inventory II & Long-Lived Assets I', preview: 'The LIFO reserve and LIFO liquidation, inventory write-downs, then what gets capitalised and the three ways it comes off again.' },
     { key: 's11', num: '11', title: 'Long-Lived Assets II & Financial Liabilities', preview: 'Impairment, disposals, intangibles and goodwill; loans and bonds on the balance sheet.' },
     { key: 's12', num: '12', title: 'Provisional Liabilities', preview: 'Provisions, contingencies and warranty estimates — recognition versus disclosure.' },
     { key: 's13', num: '13', title: 'Investments I', preview: 'Passive stakes, significant influence and control, and how each is accounted for.' },
@@ -4132,6 +4262,33 @@ class Component extends DCLogic {
       { t: 'tf', k: 'True or false', p: 'The choice of cost flow assumption changes the total cost of goods available for sale.', a: false, why: 'False. Goods available for sale is beginning inventory plus purchases, and neither depends on the assumption. All the choice does is split that fixed pot between cost of goods sold and closing inventory — which is why the three columns all sum to 410.' },
       { t: 'mcq', k: 'Cost flow', p: 'Prices are rising. Compared with FIFO, a LIFO firm reports:', o: [ 'The same COGS but a different balance sheet', 'Higher COGS, lower profit, higher closing inventory and a lower turnover ratio', 'Lower COGS, higher profit and higher closing inventory','Higher COGS, lower profit, lower closing inventory and a higher inventory turnover ratio'], a: 3, e: 'LIFO charges the newest, dearest costs to COGS and leaves the oldest, cheapest on the balance sheet. Turnover is COGS over average inventory, so the numerator rises while the denominator falls — the ratio improves on identical operations. That is the trap the Deere case is built on.' },
       { t: 'mcq', k: 'Cost flow', p: 'Which cost flow assumption is prohibited under IFRS?', o: ['LIFO', 'FIFO', 'Weighted average', 'Specific identification'], a: 0, e: 'LIFO. It is allowed in the United States, largely for tax reasons, and banned under IFRS because closing inventory can end up carried at decades-old prices. Comparing a US manufacturer with a European one on any inventory-based ratio therefore needs an adjustment first.' }
+    ],
+    s10: [
+      { t: 'num', k: 'LIFO reserve', p: 'Closing inventory is 130 under LIFO and 180 under FIFO. What is the LIFO reserve?', a: 50, tol: 1, hint: 'FIFO inventory minus LIFO inventory.', e: '180 − 130 = 50. It is the cumulative amount of cost LIFO has pushed through the income statement that FIFO would still be carrying on the balance sheet.' },
+      { t: 'mcq', k: 'LIFO reserve', p: 'To restate a LIFO firm’s cost of goods sold onto a FIFO basis, you:', o: ['Add the closing LIFO reserve to COGS', 'Subtract the change in the LIFO reserve from COGS', 'Subtract the closing LIFO reserve from COGS', 'Leave COGS alone and adjust inventory only'], a: 1, e: 'The reserve is cumulative, so its balance restates a balance sheet item and only its movement belongs to this year. Inventory takes the balance; COGS takes the change.' },
+      { t: 'num', k: 'LIFO reserve', p: 'A firm reports LIFO inventory of 22,000 and a LIFO reserve of 11,000. What would inventory be under FIFO?', a: 33000, tol: 50, hint: 'LIFO inventory plus the reserve.', e: '22,000 + 11,000 = 33,000. Without the disclosure you would be comparing a balance sheet carrying old, cheap costs against one carrying current ones.' },
+      { t: 'num', k: 'LIFO reserve', p: 'The LIFO reserve rose by 11,000 this year and the tax rate is 40%. By how much is after-tax income lower under LIFO than it would have been under FIFO?', a: 6600, tol: 50, hint: 'Change in the reserve × (1 − tax rate).', e: '11,000 × 0.6 = 6,600. The other 4,400 is tax the firm did not pay — the reserve splits between profit given up and cash kept, in the proportions (1 − t) and t.' },
+      { t: 'num', k: 'LIFO reserve', p: 'Same figures: reserve up 11,000, tax rate 40%. What is the cash flow effect of being on LIFO this year?', a: 4400, tol: 50, hint: 'Change in the reserve × tax rate.', e: '11,000 × 0.4 = 4,400 of tax saved. This is the entire reason American firms accept the worse-looking statements: the saving is real and it is in cash.' },
+      { t: 'mcq', k: 'LIFO', p: 'What does the LIFO conformity rule require?', o: ['A US firm using LIFO for tax must also use LIFO in its published accounts', 'A firm using LIFO must disclose what FIFO inventory would have been', 'All firms in the same industry must use the same cost flow assumption', 'A firm may not switch between LIFO and FIFO more than once a decade'], a: 0, e: 'It is one of the few places US tax law reaches into financial reporting. The firm cannot take the tax saving and still show the flattering FIFO profit — it has to live with the lower reported number.' },
+      { t: 'mcq', k: 'LIFO liquidation', p: 'A LIFO firm lets inventory run down at year end and sells into cost layers laid down years ago. What happens to reported profit?', o: ['It rises, because old layers carry low costs and COGS falls', 'It falls, because old inventory has to be written down first', 'Nothing changes, since cost flow is only an assumption', 'It rises, but only if prices have been falling'], a: 0, e: 'Profit rises for a reason that has nothing to do with trading well, and the tax bill rises with it. US filers must disclose the effect, and it should be stripped out before any margin trend is read.' },
+      { t: 'mcq', k: 'LIFO liquidation', p: 'Prices are rising and a LIFO firm is short of profit in December. What is the accounting temptation?', o: ['Delay restocking, so sales dip into cheap old layers and margin improves', 'Buy heavily in December, so the newest costs enter inventory', 'Switch to FIFO for the final quarter', 'Write down the oldest layers to current market value'], a: 0, e: 'Doing nothing is the manipulation here. Simply not replacing stock pulls old cheap costs into COGS and lifts reported margin, which is why a fall in inventory at a LIFO firm deserves a second look.' },
+      { t: 'mcq', k: 'Write-downs', p: 'Inventory that cost 1,000 can now only be sold for 700. What happens?', o: ['Write it down to 700 now, reducing profit by 300', 'Leave it at 1,000 until it is sold, then record the loss', 'Write it down to 700 only if the fall is expected to be permanent', 'Disclose it in the notes without changing the balance sheet'], a: 0, e: 'Lower of cost and market. The loss is recognised as soon as it is known, usually through cost of goods sold. The reverse is not symmetric: a rise in value is never recorded until the goods sell.' },
+      { t: 'mcq', k: 'Write-downs', p: 'Inventory written down last year has recovered its value. What may the firm do?', o: ['Reverse the write-down up to original cost under IFRS, but not at all under US GAAP', 'Reverse it in full under both regimes', 'Reverse it up to original cost under US GAAP, but not under IFRS', 'Reverse it above original cost if there is market evidence'], a: 0, e: 'IFRS permits reversal, capped at what the goods originally cost; US GAAP forbids it. Two firms whose goods did exactly the same thing therefore report different profit, which is the kind of gap exam questions are built on.' },
+      { t: 'mcq', k: 'Capitalise', p: 'A firm builds its own brand over twenty years of advertising. A rival buys an identical brand for 117 million. What appears on each balance sheet?', o: ['Nothing for the first firm; 117 million for the second', '117 million for both, by analogy', 'Nothing for either, since brands are not measurable', 'An amount for the first based on cumulative advertising spend'], a: 0, e: 'Internally generated intangibles are expensed as incurred; purchased ones are capitalised at what was paid. Same asset to the business, opposite accounting, and the only difference is whether a transaction took place.' },
+      { t: 'mcq', k: 'Capitalise', p: 'Which internally generated intangible can still be capitalised?', o: ['Software development costs', 'An internally built customer list', 'A trademark the firm registered itself', 'Goodwill the firm believes it has created'], a: 0, e: 'Software development is the exception under both regimes, and IFRS additionally allows development costs once technical feasibility is established. Everything else built in-house is an expense.' },
+      { t: 'num', k: 'Acquisition cost', p: 'A firm building a stadium spends 1,200,000 on materials, 1,600,000 on architects and labourers, accrues interest of 10% on a 1,500,000 construction loan, and pays 65,000 in zoning and inspection fees. How much is capitalised?', a: 3015000, tol: 2000, hint: 'Everything needed to get the asset ready for use — including the construction interest.', e: '1,200,000 + 1,600,000 + 150,000 + 65,000 = 3,015,000. Nothing touches profit. The 150,000 of interest sits on the balance sheet rather than in the income statement purely because there is a building attached to it.' },
+      { t: 'tf', k: 'True or false', p: 'Interest on money borrowed to construct an asset is always an expense of the period.', a: false, why: 'False. During the construction period it is capitalised as part of the asset’s cost. It goes back to being an expense the day the asset is ready for use.' },
+      { t: 'num', k: 'Depreciation', p: 'An asset costs 60,000, has a salvage value of 10,000 and a four-year life. What is straight-line depreciation for year 1?', a: 12500, tol: 50, hint: '(cost − salvage) ÷ useful life.', e: '(60,000 − 10,000) / 4 = 12,500, leaving a net book value of 47,500. Salvage is subtracted first: you never depreciate what you expect to get back.' },
+      { t: 'num', k: 'Depreciation', p: 'Same asset — 60,000 cost, 10,000 salvage — expected to give 5,000 hours of service, of which 800 are used in year 1. What is year 1 depreciation on a units-of-production basis?', a: 8000, tol: 50, hint: 'Rate = (cost − salvage) ÷ total units, then multiply by units used.', e: 'Rate = 50,000 / 5,000 = 10 per hour; 800 × 10 = 8,000, so net book value is 52,000. The charge follows use, so it is small in a quiet year and large in a busy one.' },
+      { t: 'num', k: 'Depreciation', p: 'Same asset, declining balance with a rate of 2, using this course’s formula. What is year 1 depreciation?', a: 25000, tol: 100, hint: '(net book value − salvage) ÷ useful life × the declining rate.', e: '(60,000 − 10,000) / 4 × 2 = 25,000, so net book value drops to 35,000 in the first year alone. Note this course subtracts salvage inside the calculation every year; many textbooks do not, and give a different answer.' },
+      { t: 'tf', k: 'True or false', p: 'Over an asset’s whole life, the choice of depreciation method changes the total amount expensed.', a: false, why: 'False. All three methods allocate cost minus salvage — here 50,000 — and all three end at the same net book value. Only the shape of the charge over time differs, and therefore which years look profitable.' },
+      { t: 'mcq', k: 'Depreciation', p: 'Net book value is:', o: ['An allocation of cost that makes no claim about market value', 'The amount the asset would fetch if sold today', 'The cost of replacing the asset with a new one', 'The present value of the cash the asset will generate'], a: 0, e: 'Depreciation is allocation, not valuation. An asset can be fully depreciated and still working, or newly bought and already worth less than it cost.' },
+      { t: 'num', k: 'Improvements', p: 'Equipment cost 100,000, five-year life, no salvage, straight line. After two years a 30,000 improvement extends the life by three years. What is depreciation in year 3?', a: 15000, tol: 100, hint: 'Add the improvement to net book value, then spread over the life that now remains.', e: 'Book value after two years is 60,000; plus 30,000 gives 90,000. Remaining life is the 3 years left plus 3 added = 6 years, so 90,000 / 6 = 15,000.' },
+      { t: 'mcq', k: 'Improvements', p: 'What distinguishes a repair from an improvement?', o: ['An improvement extends the life or raises capacity; a repair only keeps the asset working', 'An improvement costs more than 10% of the asset’s value', 'A repair is done by a third party and an improvement in-house', 'An improvement is physical and a repair can be either'], a: 0, e: 'Improvements are capitalised and depreciated over the remaining life; repairs are expensed now. The line is a judgement, and capitalising what should have been expensed is one of the oldest ways to flatter profit.' },
+      { t: 'num', k: 'Disposals', p: 'An asset has a gross cost of 75,000 and accumulated depreciation of 40,412. It is sold for 65,389. What is the gain or loss?', a: 30801, tol: 50, hint: 'Proceeds minus net book value.', e: 'Book value is 75,000 − 40,412 = 34,588, so the gain is 65,389 − 34,588 = 30,801. Both the gross cost and the accumulated depreciation leave the balance sheet together.' },
+      { t: 'mcq', k: 'Disposals', p: 'A large gain on the sale of an asset mainly tells you that:', o: ['Depreciation had written the asset down faster than it actually lost value', 'The asset was sold above its replacement cost', 'The buyer overpaid', 'The firm is short of cash'], a: 0, e: 'The gain is the error in the original estimate, revealed. It is also why the cash flow statement subtracts the gain from operating and puts the whole proceeds in investing — one event, two currencies.' },
+      { t: 'mcq', k: 'Ratios', p: 'Two firms own identical machines. One reports a depreciable life of fifteen years, the other ten. What follows?', o: ['The fifteen-year firm reports higher profit for no operational reason', 'The fifteen-year firm has newer assets', 'The ten-year firm is investing more heavily', 'Nothing — the ratio is not comparable across firms'], a: 0, e: 'Ending gross PPE divided by depreciation expense exposes an assumption the firm chose. A longer assumed life spreads the same cost more thinly and lifts reported profit, with nothing different happening in the factory.' },
+      { t: 'mcq', k: 'Ratios', p: 'A firm has an old asset base and a capital expenditure to depreciation ratio below 1 for several years. What does that suggest?', o: ['It is consuming capacity faster than it replaces it, so a large capital spend is coming', 'It has become more efficient at using its assets', 'It is growing and will need financing for expansion', 'Its assets must be impaired'], a: 0, e: 'Age of assets says how far through their lives they are; the replacement ratio says whether they are being renewed. Old plus under-replaced is a capital expenditure programme that has not been announced yet.' }
     ],
     f1: [
       { t: 'mcq', k: 'Definition', p: 'Financial accounting is best described as the process of:', o: ['Setting prices for products', 'Recording and reporting transactions', 'Preparing budgets for internal managers only', 'Computing tax owed'], a: 1, e: 'Recording, summarising, reporting and analysing financial transactions. Financial accounting reports to external users. Managerial accounting serves internal decisions and follows no external rulebook.' },
@@ -8470,6 +8627,7 @@ class Component extends DCLogic {
       isS7: mode === 'lesson' && view === 's7',
       isS8: mode === 'lesson' && view === 's8',
       isS9: mode === 'lesson' && view === 's9',
+      isS10: mode === 'lesson' && view === 's10',
       isF1: mode === 'lesson' && view === 'f1',
       isF2: mode === 'lesson' && view === 'f2',
       isF3: mode === 'lesson' && view === 'f3',
