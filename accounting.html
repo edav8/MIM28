@@ -10753,8 +10753,10 @@ button{ border-radius:10px; }
   12%{opacity:1} 100%{transform:translateY(-78vh) scale(.25); opacity:0}}
 #celebrate .who{position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:14px;
   margin-bottom:2vh;
-  animation:spinIn .95s cubic-bezier(.16,1.05,.3,1) both,
-            spinOut .8s cubic-bezier(.55,-0.25,.85,.4) 3.15s both}
+  /* backwards / forwards, not both: `both` makes spinOut fill its 0% frame
+     during its own delay, which silently cancelled the whole spin in. */
+  animation:spinIn .95s cubic-bezier(.16,1.05,.3,1) backwards,
+            spinOut .8s cubic-bezier(.55,-0.25,.85,.4) 3.15s forwards}
 @keyframes spinIn{0%{transform:translateY(150px) scale(.1) rotate(-720deg); opacity:0}
   45%{opacity:1}
   100%{transform:translateY(0) scale(1) rotate(0); opacity:1}}
