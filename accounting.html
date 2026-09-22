@@ -3149,6 +3149,18 @@ textarea.input { min-height: 90px; resize: vertical; }
             </sc-for>
           </div>
         </sc-if>
+
+        <sc-if value="{{ hasSesExList }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:72ch; margin-top:36px; border-top:2px solid var(--color-text); padding-top:18px">
+            <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Practice for this session</div>
+            <sc-for list="{{ sesExList }}" as="x" hint-placeholder-count="2">
+              <button type="button" sc-camel-on-click="{{ x.onClick }}" style="display:block; width:100%; text-align:left; margin-top:12px; padding:16px 18px; cursor:pointer; border:2px solid var(--color-divider); background:var(--color-surface); color:var(--color-text); font:inherit">
+                <span style="display:block; font-family:var(--font-heading); font-weight:700; font-size:17px; line-height:1.3">{{ x.title }}</span>
+                <span style="display:block; font-size:13px; margin-top:4px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ x.sub }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
       </div>
     </sc-if>
 
@@ -6662,6 +6674,60 @@ class Component extends DCLogic {
         ]
       },
       {
+        key: 'ex-articulate', title: 'The three statements, joined up',
+        sub: 'Four links that must hold, every year, in every set of accounts',
+        ses: 'Session 01 · Introduction to Financial Statements',
+        brief: 'Vesper Instruments has just closed its year. You are given a handful of figures and asked to produce the ones nobody printed.\n\nThe statements are not three independent reports. They share numbers, and those shared numbers have to agree — which means that given almost any subset you can rebuild the rest. That is the whole idea behind this session, and it is the mechanic every later session leans on.\n\nAll amounts in thousands of euros.',
+        tables: [
+          { title: 'What you are given', note: 'In thousands of euros.', cols: ['Amount'], rows: [
+            ['Cash at the start of the year', '1,240'],
+            ['Cash at the end of the year', '1,905'],
+            ['Retained earnings at the start of the year', '6,300'],
+            ['Retained earnings at the end of the year', '7,450'],
+            ['Revenue', '18,600'],
+            ['Total expenses', '17,150'],
+            ['Total assets at the end of the year', '14,200'],
+            ['Total liabilities at the end of the year', '8,900']
+          ] }
+        ],
+        steps: [
+          { t: 'fill', p: 'Step 1. The income statement. It covers the year, not a moment in it.',
+            calc: 'Net income = revenue − expenses',
+            rows: [
+            { l: 'Net income for the year', a: 1450, tol: 5, w: '18,600 − 17,150 = 1,450.' }
+          ], e: 'One subtraction, and it is the number that travels furthest. It will appear again in retained earnings on the balance sheet and at the top of the cash flow statement, which is what the next two steps are about.' },
+          { t: 'fill', p: 'Step 2. Retained earnings. Profit that was not paid out stays in the business.',
+            calc: 'Closing retained earnings = opening + net income − dividends',
+            given: [
+              { l: 'Opening retained earnings', v: '6,300', s: 'Given' },
+              { l: 'Closing retained earnings', v: '7,450', s: 'Given' },
+              { l: 'Net income', v: '1,450', s: 'Your step 1 answer' }
+            ], rows: [
+            { l: 'Dividends paid during the year', a: 300, tol: 5, w: '6,300 + 1,450 − dividends = 7,450, so dividends = 300.' }
+          ], e: 'The dividend was never given to you and it is not a line on any of the three statements you were handed. It falls out of the roll-forward, and this is the first instance of a move you will make over and over: two balances and one flow give you the missing flow.' },
+          { t: 'fill', p: 'Step 3. The cash flow statement. Its bottom line is not a matter of opinion.',
+            rows: [
+            { l: 'Net increase in cash for the year', a: 665, tol: 5, w: '1,905 − 1,240 = 665. The three sections of the cash flow statement must add to exactly this.' },
+            { l: 'Net income, for comparison', a: 1450, tol: 5, w: 'From step 1. Profit of 1,450 against a cash rise of 665 — they are not the same thing and are not meant to be.' }
+          ], e: 'Profit and cash differ by 785 here, and neither figure is wrong. Revenue is recognised when earned rather than when collected, expenses when incurred rather than when paid, and capital spending never touches the income statement at all. The gap between the two is what sessions 3 and 7 are about; for now, notice only that the cash line is the one that cannot be argued with.' },
+          { t: 'fill', p: 'Step 4. The balance sheet, and the equation it is named after.',
+            calc: 'Assets = liabilities + shareholders’ equity',
+            rows: [
+            { l: 'Total shareholders’ equity at year end', a: 5300, tol: 10, w: '14,200 − 8,900 = 5,300. Equity is the residual: what is left for the owners once the lenders are satisfied.' },
+            { l: 'Contributed capital and other equity, other than retained earnings', a: -2150, tol: 10, w: '5,300 total equity − 7,450 of retained earnings = −2,150. A negative figure, and a real one: treasury shares, accumulated losses on translation or hedges all sit here.' }
+          ], e: 'The second line is deliberately uncomfortable. Retained earnings exceeding total equity is common in firms that have bought back their own shares, and it is a reminder that equity is a residual, not a pot of money. Nothing about the arithmetic changes: assets still equal liabilities plus equity, exactly, always.' },
+          { t: 'pick', p: 'Step 5. What the links mean. Mark each statement true or false.',
+            rows: [
+              { l: 'Net income appears on the balance sheet as well as the income statement', a: true, w: 'Through retained earnings. It is also the starting line of the operating section of the cash flow statement.' },
+              { l: 'The balance sheet describes a period; the income statement describes a moment', a: false, w: 'The other way round. The balance sheet is a photograph at one date; the income statement and cash flow statement cover a span.' },
+              { l: 'A dividend reduces profit for the year', a: false, w: 'It is a distribution of profit, not an expense. It reduces retained earnings and cash, and never appears on the income statement.' },
+              { l: 'A company can report a healthy profit and still run out of cash', a: true, w: 'Vesper made 1,450 and its cash rose by only 665. Push receivables and inventory hard enough, or spend enough on capital, and the cash figure goes negative while profit stays positive.' },
+              { l: 'Given the balance sheets at two dates, you can always recover every cash flow exactly', a: false, w: 'You can recover a great deal — that is the technique in session 7 — but not everything. Non-cash transactions and items netted within one line do not show up in the movement.' }
+            ],
+            e: 'Four links, worth memorising because everything later depends on them: net income flows into retained earnings; the change in cash equals the sum of the three cash flow sections; assets equal liabilities plus equity; and dividends move cash and retained earnings without touching profit.\n\nWhen a set of statements does not tie, one of four things is true — you have made an arithmetic error, you have missed a transaction, something non-cash happened, or somebody is lying. In an exam it is nearly always the first.' }
+        ]
+      },
+      {
         key: 'ex-mock', title: 'Exam practice: the paper in miniature',
         sub: 'Eight steps across every topic the mock final examines',
         ses: 'Revision \u00b7 Mock final exam',
@@ -8574,7 +8640,18 @@ class Component extends DCLogic {
     const mode = this.mode();
     const view = this.state.view;
     const cur = this.allSessions().find(s => s.key === view) || this.courseSessions()[0];
-    const sesEx = (this.exercises[this.state.course] || []).find(e => (e.ses || '').indexOf('Session ' + cur.num + ' ') === 0 || (e.ses || '').indexOf(cur.num + ' \u00b7') === 0);
+    // An exercise names its session in `ses`, and one exercise can belong to two
+    // of them ("Sessions 03 & 08"), so match every number in the prefix rather
+    // than only the string it starts with. This used to be a .find(), which is
+    // why sessions carrying three exercises advertised one.
+    const sesExAll = (this.exercises[this.state.course] || []).filter(e => {
+      const label = e.ses || '';
+      if (label.indexOf('Session') !== 0 && label.indexOf(cur.num + ' \u00b7') !== 0) return false;
+      const head = label.split('\u00b7')[0];
+      const nums = head.match(/\d+/g) || [];
+      return nums.indexOf(cur.num) >= 0 || nums.indexOf(String(parseInt(cur.num, 10))) >= 0;
+    });
+    const sesEx = sesExAll[0];
     const built = this.built;
     const accent = 'var(--color-accent)';
     const ok = 'var(--color-accent-700)';
@@ -8771,6 +8848,12 @@ class Component extends DCLogic {
       isF10: mode === 'lesson' && view === 'f10',
       isUpcoming: mode === 'lesson' && !built[view],
       hasSesEx: !!sesEx,
+      hasSesExList: sesExAll.length > 0,
+      sesExList: sesExAll.map(e => ({
+        title: e.title,
+        sub: (e.sub ? e.sub + ' \u00b7 ' : '') + e.steps.length + ' steps',
+        onClick: () => this.openEx(e.key)
+      })),
       sesExTitle: sesEx ? 'Open the ' + (sesEx.title.split(':')[0]) + ' exercise' : '',
       sesExNote: sesEx ? 'The practice exercise for this session is already built: ' + sesEx.title + ' — ' + sesEx.steps.length + ' steps, with the statement extracts it needs included.' : '',
       openSesEx: () => { if (sesEx) this.openEx(sesEx.key); },
