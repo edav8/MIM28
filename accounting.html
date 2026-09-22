@@ -6531,6 +6531,134 @@ class Component extends DCLogic {
         ]
       },
       {
+        key: 'ex-grissini', title: 'Grissini Games: the cost flow question with prices falling',
+        sub: 'The class exercise — everything you learned about LIFO, the other way up',
+        ses: 'Session 09 · Inventory I',
+        brief: 'Grissini Games began the year with 200 units of inventory costing €15 each. During the year it bought 100 units at €12 each and then 200 units at €10 each. After the last purchase it sold 350 units at €25 each.\n\nCompute cost of goods sold and ending inventory under FIFO and under LIFO, then say which method reports the higher gross profit and which balance sheet is closer to what the goods would cost today.\n\nRead the purchase prices before you start. Every rule of thumb about LIFO and FIFO assumes prices are rising. Here they are falling, and the conclusions invert.',
+        steps: [
+          { t: 'fill', p: 'Step 1. Count the units and the money before choosing a method.',
+            calc: 'Goods available for sale = opening + purchases',
+            rows: [
+            { l: 'Units available for sale', a: 500, tol: 0, w: '200 opening + 100 + 200 purchased = 500 units.' },
+            { l: 'Cost of goods available for sale', a: 6200, tol: 5, w: '200 × 15 + 100 × 12 + 200 × 10 = 3,000 + 1,200 + 2,000 = €6,200.' },
+            { l: 'Units in ending inventory', a: 150, tol: 0, w: '500 available − 350 sold = 150 units.' }
+          ], e: 'The same 6,200 gets split between the income statement and the balance sheet whichever method is used. Fixing the pot first means you can always check your two answers by adding them back to it.' },
+          { t: 'fill', p: 'Step 2. FIFO — the earliest costs leave first.',
+            rows: [
+            { l: 'FIFO cost of goods sold', a: 4700, tol: 5, w: 'The 350 sold are the 200 oldest at €15, then 100 at €12, then 50 at €10: 3,000 + 1,200 + 500 = €4,700.' },
+            { l: 'FIFO ending inventory', a: 1500, tol: 5, w: 'What is left is 150 units from the newest purchase at €10 = €1,500. And 4,700 + 1,500 = 6,200.' }
+          ], e: 'With prices falling, FIFO sends the oldest and therefore the *dearest* costs to the income statement — the opposite of the rising-price case, where FIFO charges the cheapest. The method did not change; the direction of prices did.' },
+          { t: 'fill', p: 'Step 3. LIFO — the most recent costs leave first.',
+            rows: [
+            { l: 'LIFO cost of goods sold', a: 3950, tol: 5, w: 'The 350 sold are the 200 newest at €10, then 100 at €12, then 50 at €15: 2,000 + 1,200 + 750 = €3,950.' },
+            { l: 'LIFO ending inventory', a: 2250, tol: 5, w: 'What is left is 150 units from the opening layer at €15 = €2,250. Again 3,950 + 2,250 = 6,200.' }
+          ], e: 'LIFO charges the newest costs, which are now the cheapest, so its COGS is the lower of the two. If you answered this from the usual rule — LIFO means higher COGS — you have just found out what that rule actually depends on.' },
+          { t: 'fill', p: 'Step 4. Gross profit under each. Revenue is the same either way.',
+            calc: 'Gross profit = revenue − cost of goods sold',
+            given: [ { l: 'Revenue', v: '8,750', s: '350 units × €25' } ],
+            rows: [
+            { l: 'FIFO gross profit', a: 4050, tol: 10, w: '8,750 − 4,700 = €4,050.' },
+            { l: 'LIFO gross profit', a: 4800, tol: 10, w: '8,750 − 3,950 = €4,800.' },
+            { l: 'By how much LIFO exceeds FIFO', a: 750, tol: 5, w: '4,800 − 4,050 = €750, which is exactly the difference between the two COGS figures.' }
+          ], e: 'LIFO reports the higher profit here. In the rising-price case it reports the lower one. The 750 gap is the same number seen twice: whatever one method leaves on the balance sheet, the other has already sent through the income statement.' },
+          { t: 'pick', p: 'Step 5. Which balance sheet is more useful, and what generalises? Mark each statement true or false.',
+            rows: [
+              { l: 'FIFO\u2019s ending inventory is closer to what the goods would cost today', a: true, w: 'FIFO leaves the newest purchases on the balance sheet — here 150 units at the current €10. LIFO leaves the oldest, stuck at €15.' },
+              { l: 'LIFO reports the higher gross profit whenever prices are falling', a: true, w: 'LIFO charges the most recent costs, and when prices fall those are the cheapest. The familiar result reverses with the price direction.' },
+              { l: 'FIFO always reports the higher gross profit', a: false, w: 'Only when prices are rising. That qualifier is the whole exercise.' },
+              { l: 'The choice of method changed the cash the company took in', a: false, w: 'Revenue was 8,750 and the cash paid to suppliers was 3,200 either way. Only the split of a fixed cost between two statements moved — though in a country where LIFO is allowed for tax, the tax paid would differ.' },
+              { l: 'LIFO\u2019s ending inventory of 2,250 overstates what the goods are worth', a: true, w: 'It carries 150 units at €15 when the same units now cost €10 — and the lower-of-cost-and-market rule would force a write-down.' }
+            ],
+            e: 'The reliable statement is the one that makes no reference to direction: FIFO leaves recent costs on the balance sheet and old costs in COGS, and LIFO does the reverse. Everything about who reports more profit follows from that plus which way prices moved.\n\nThe last row is the bridge to session 10. LIFO inventory drifting away from current cost is exactly what the LIFO reserve measures, and it is why a LIFO firm has to disclose what FIFO would have shown.' }
+        ]
+      },
+      {
+        key: 'ex-lifores', title: 'The LIFO reserve, in income and in cash',
+        sub: 'One year, two methods, and what the difference is worth',
+        ses: 'Session 10 · Inventory II',
+        brief: 'A company makes three purchases during its first year: 6,000 units at €3, then 4,000 at €4, then 5,000 at €5, all paid in cash. It sells 8,000 units at €10 each, in cash. The tax rate is 40% and tax is paid in cash.\n\nWork out the income statement and closing inventory under both LIFO and FIFO, then the LIFO reserve and what being on LIFO is worth — in reported profit, and in money.',
+        steps: [
+          { t: 'fill', p: 'Step 1. The pot, before any method is chosen.',
+            rows: [
+            { l: 'Units available for sale', a: 15000, tol: 0, w: '6,000 + 4,000 + 5,000 = 15,000 units.' },
+            { l: 'Cost of goods available for sale', a: 59000, tol: 50, w: '18,000 + 16,000 + 25,000 = €59,000.' },
+            { l: 'Units in ending inventory', a: 7000, tol: 0, w: '15,000 − 8,000 sold = 7,000 units.' },
+            { l: 'Revenue', a: 80000, tol: 50, w: '8,000 × €10 = €80,000, the same under both methods.' }
+          ], e: 'Nothing here depends on the cost flow assumption. Everything that follows is a split of the same 59,000 between COGS and closing inventory.' },
+          { t: 'fill', p: 'Step 2. LIFO — the newest costs go to COGS.',
+            rows: [
+            { l: 'LIFO cost of goods sold', a: 37000, tol: 50, w: 'The 8,000 sold come off the top: 5,000 × €5 = 25,000, then 3,000 × €4 = 12,000. Total €37,000.' },
+            { l: 'LIFO ending inventory', a: 22000, tol: 50, w: 'What is left: 1,000 × €4 = 4,000 and 6,000 × €3 = 18,000, so €22,000. Check: 37,000 + 22,000 = 59,000.' },
+            { l: 'LIFO gross margin before tax', a: 43000, tol: 50, w: '80,000 − 37,000 = €43,000.' }
+          ], e: 'Prices are rising here, so LIFO does what it is famous for: the dearest costs go through the income statement, and the cheap opening purchases sit on the balance sheet.' },
+          { t: 'fill', p: 'Step 3. FIFO — the earliest costs go to COGS.',
+            rows: [
+            { l: 'FIFO cost of goods sold', a: 26000, tol: 50, w: 'The 8,000 sold come off the bottom: 6,000 × €3 = 18,000, then 2,000 × €4 = 8,000. Total €26,000.' },
+            { l: 'FIFO ending inventory', a: 33000, tol: 50, w: 'What is left: 2,000 × €4 = 8,000 and 5,000 × €5 = 25,000, so €33,000. Again it sums to 59,000.' },
+            { l: 'FIFO gross margin before tax', a: 54000, tol: 50, w: '80,000 − 26,000 = €54,000 — €11,000 more than LIFO reports.' }
+          ], e: 'Same company, same transactions, same cash. Eleven thousand euros of profit appear or disappear on the strength of an assumption about which units left the shelf.' },
+          { t: 'fill', p: 'Step 4. The reserve, and the two effects it measures.',
+            calc: 'LIFO reserve = FIFO inventory − LIFO inventory',
+            rows: [
+            { l: 'LIFO reserve at year end', a: 11000, tol: 50, w: '33,000 − 22,000 = €11,000. This is the first year, so the change in the reserve is also 11,000.' },
+            { l: 'After-tax income effect of LIFO', a: 6600, tol: 50, w: '11,000 × (1 − 0.4) = €6,600. Reported after-tax profit is lower by this much than it would have been on FIFO.' },
+            { l: 'Cash flow effect of LIFO', a: 4400, tol: 50, w: '11,000 × 0.4 = €4,400 of tax not paid.' }
+          ], e: 'Check the arithmetic from the other side: after-tax margin is 43,000 × 0.6 = 25,800 under LIFO and 54,000 × 0.6 = 32,400 under FIFO, a gap of 6,600. The reserve splits cleanly into profit given up, (1 − t), and cash kept, t — and the two must add back to the reserve itself.' },
+          { t: 'pick', p: 'Step 5. What to make of it. Mark each statement true or false.',
+            rows: [
+              { l: 'Being on LIFO left the company €4,400 better off in cash this year', a: true, w: 'Lower taxable profit means a smaller tax payment, and the tax rate times the change in the reserve is exactly how much smaller.' },
+              { l: 'FIFO gives the more informative balance sheet here', a: true, w: 'FIFO inventory of 33,000 is built from the two most recent purchases; LIFO\u2019s 22,000 is mostly the opening batch at €3, already out of date.' },
+              { l: 'A US firm could report the FIFO profit and still pay tax on the LIFO basis', a: false, w: 'The LIFO conformity rule forbids it. Take the tax saving and you must publish the lower profit too.' },
+              { l: 'An analyst comparing this firm with a FIFO competitor should add the reserve to inventory', a: true, w: 'That is what the disclosure is for: inventory plus the reserve puts both firms on a FIFO basis. For COGS, subtract the change in the reserve, not the balance.' },
+              { l: 'The company generated €11,000 more cash by choosing LIFO', a: false, w: 'It saved 4,400 of tax. The 11,000 is a difference in reported profit, and only the tax on it is cash.' }
+            ],
+            e: 'The trade is the thing to carry away. LIFO costs reported profit and earns cash, in proportions fixed by the tax rate, and a single disclosed number lets an outsider undo the whole thing.\n\nWhich is precisely the Deere and CNH comparison: two similar manufacturers, one American and on LIFO, one European and on FIFO, and an inventory turnover ratio that flatters the American one until you restate it.' }
+        ]
+      },
+      {
+        key: 'ex-ppe', title: 'A stadium, three cars and a transfer fee',
+        sub: 'Capitalise, depreciate three ways, improve, then sell',
+        ses: 'Session 10 · Long-Lived Assets I',
+        brief: 'Four short problems on the life of a fixed asset, in the order the life happens: what the asset costs, how the cost comes off, what a later repair or improvement does, and what happens when it is sold.\n\nThe declining-balance step uses this course\u2019s formula, which subtracts salvage value inside the calculation every year. Many textbooks do not. Use the one on the slides.',
+        steps: [
+          { t: 'fill', p: 'Step 1. Acquisition cost. A club is building a stadium. During the year it spends 1,200,000 on materials and 1,600,000 on architects and labourers, accrues interest at 10% on a 1,500,000 construction loan, and pays 65,000 in zoning and inspection fees.',
+            calc: 'Capitalise every cost needed to get the asset ready for use',
+            rows: [
+            { l: 'Construction interest for the year', a: 150000, tol: 500, w: '10% × 1,500,000 = 150,000. Capitalised because the borrowing funds a construction in progress.' },
+            { l: 'Total added to construction in progress', a: 3015000, tol: 2000, w: '1,200,000 + 1,600,000 + 150,000 + 65,000 = 3,015,000.' },
+            { l: 'Amount charged against profit this year', a: 0, tol: 0, w: 'None of it. Every one of the four costs is part of getting the stadium ready for use.' }
+          ], e: 'The interest is the line worth pausing on. Interest is normally an expense; during construction it becomes part of what the asset cost, and it reverts to being an expense the day the stadium is ready. Two identical clubs, one borrowing and one paying cash, therefore report different asset values for the same building.' },
+          { t: 'fill', p: 'Step 2. Depreciation, three ways. A car costs 60,000, has a salvage value of 10,000, a four-year life, and is expected to give 5,000 hours of service. In year 1 it is used for 800 hours. The declining rate is 2.',
+            calc: 'Straight line · units of production · declining balance',
+            rows: [
+            { l: 'Straight-line depreciation, year 1', a: 12500, tol: 50, w: '(60,000 − 10,000) / 4 = 12,500. Net book value 47,500.' },
+            { l: 'Units-of-production depreciation, year 1', a: 8000, tol: 50, w: 'Rate = 50,000 / 5,000 hours = 10 per hour; 800 × 10 = 8,000. Net book value 52,000.' },
+            { l: 'Declining-balance depreciation, year 1', a: 25000, tol: 100, w: '(60,000 − 10,000) / 4 × 2 = 25,000. Net book value 35,000 — over a third of the cost gone in the first year.' }
+          ], e: 'Three charges between 8,000 and 25,000 for the same car in the same year. Over four years all three take exactly 50,000, and all three finish at the 10,000 salvage value; only the shape differs. When two firms report different profit on identical assets, this is one of the first places to look.' },
+          { t: 'fill', p: 'Step 3. Continue the declining balance. Remember the charge is recomputed on the new book value each year, and depreciation stops at salvage value.',
+            given: [ { l: 'Net book value after year 1', v: '35,000', s: 'Your step 2 answer' } ],
+            rows: [
+            { l: 'Depreciation, year 2', a: 12500, tol: 100, w: '(35,000 − 10,000) / 4 × 2 = 12,500. Net book value 22,500.' },
+            { l: 'Depreciation, year 3', a: 6250, tol: 100, w: '(22,500 − 10,000) / 4 × 2 = 6,250. Net book value 16,250.' },
+            { l: 'Depreciation, year 4', a: 6250, tol: 100, w: 'The formula would give (16,250 − 10,000) / 4 × 2 = 3,125, but the asset must reach its 10,000 salvage value by the end of its life, so the final year takes the remaining 6,250.' }
+          ], e: 'The last row is the rule that the formula alone does not tell you: depreciation never takes book value below salvage, and the final year is a balancing figure. A declining-balance schedule that ends anywhere other than salvage value has gone wrong somewhere.' },
+          { t: 'fill', p: 'Step 4. Maintenance against improvement. Equipment costs 100,000, five-year life, no salvage, straight line. After year 1 the firm spends 15,000 on a repair. After year 2 it spends 30,000 on an improvement that extends the useful life by three years.',
+            rows: [
+            { l: 'Effect of the 15,000 repair on the balance sheet', a: 0, tol: 0, w: 'Nothing is capitalised. A repair keeps the asset working rather than improving it, so all 15,000 is an expense of that year.' },
+            { l: 'Net book value immediately after the improvement', a: 90000, tol: 100, w: 'Two years at 20,000 leaves 60,000; the 30,000 improvement is capitalised on top, giving 90,000.' },
+            { l: 'Remaining useful life, in years', a: 6, tol: 0, w: 'Three of the original five years remain, plus the three the improvement adds.' },
+            { l: 'Depreciation expense in year 3', a: 15000, tol: 100, w: '90,000 / 6 = 15,000 a year from here.' }
+          ], e: 'Two cheques, both to a contractor, treated in opposite ways — one takes 15,000 off this year\u2019s profit and the other takes nothing off it at all. The test is whether the asset was made better or merely kept working, and it is a judgement. Capitalising what should have been expensed is among the oldest ways to flatter earnings, which is why capital expenditure against depreciation is a ratio worth watching.' },
+          { t: 'fill', p: 'Step 5. Disposal. A player is carried at a gross cost of 75,000 with 40,412 of accumulated amortisation, and is sold for 65,389.',
+            calc: 'Gain or loss = proceeds − net book value',
+            rows: [
+            { l: 'Net book value at the date of sale', a: 34588, tol: 50, w: '75,000 − 40,412 = 34,588.' },
+            { l: 'Gain on the sale (a loss would be negative)', a: 30801, tol: 50, w: '65,389 − 34,588 = a gain of 30,801.' },
+            { l: 'Cash reported in investing activities', a: 65389, tol: 50, w: 'The whole proceeds, not the gain. The gain is then subtracted from operating activities so the event is not counted twice.' }
+          ], e: 'Both the gross cost and the accumulated amortisation leave the balance sheet together; what remains of the transaction is cash in and a gain in profit.\n\nAnd read the gain for what it is. It is not evidence of a shrewd sale — it is the amortisation estimate being revealed as too fast. A club that systematically books large gains on transfers is a club writing its players down quicker than the market does.' }
+        ]
+      },
+      {
         key: 'ex-mock', title: 'Exam practice: the paper in miniature',
         sub: 'Eight steps across every topic the mock final examines',
         ses: 'Revision \u00b7 Mock final exam',
