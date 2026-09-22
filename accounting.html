@@ -3208,7 +3208,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                   </button>
                 </sc-for>
               </div>
-              <p style="margin-top:20px; font-size:13px; opacity:0.75; max-width:64ch">Papers written for this site. Company names are invented and the figures are stylised for examination practice \u2014 they are not any real company's published accounts, and no course document is reproduced.</p>
+              <p style="margin-top:20px; font-size:13px; opacity:0.75; max-width:64ch">Papers written for this site. Company names are invented and the figures are stylised for examination practice — they are not any real company's published accounts, and no course document is reproduced.</p>
             </div>
           </sc-if>
 
@@ -6777,7 +6777,7 @@ class Component extends DCLogic {
         ses: 'Mock exam 1 \u00b7 100 points \u00b7 90 minutes',
         brief: 'Duration 1 hour 30 minutes. Closed book; a non-programmable calculator is allowed.\n\n100 points in three sections — Section A, twelve multiple-choice questions worth 2.5 points each (30); Section B, three short problems worth 15 each (45); Section C, a mini case worth 25.\n\nNo T-accounts and no debits and credits: use the balance sheet equation, as in class. All amounts in euros. Round percentages to one decimal place.\n\nThe statements for Section C are in the Figures panel — open it with the button at the bottom right and it stays open while you work.',
         tables: [
-          { title: 'Section B1 — Focaccia Foods, transactions for the year', note: 'The company started trading on 1 January. Some of these need a year-end adjustment; deciding which is most of the marks.', cols: ['Transaction'], rows: [
+          { at: [2, 3], title: 'Section B1 — Focaccia Foods, transactions for the year', note: 'The company started trading on 1 January. Some of these need a year-end adjustment; deciding which is most of the marks.', cols: ['Transaction'], rows: [
             ['1', 'Shareholders invest 100,000 in cash in exchange for shares'],
             ['2', 'It borrows 50,000 from a bank at 5.0% a year. The interest is payable on 1 January next year; the principal is repayable in five years'],
             ['3', 'It buys equipment for 60,000 in cash. Useful life 5 years, no residual value'],
@@ -6789,7 +6789,7 @@ class Component extends DCLogic {
             ['9', 'It pays wages of 8,000. Employees have earned a further 1,000 for the last week of December, payable in January'],
             ['10', 'It pays a dividend of 3,000 to shareholders']
           ] },
-          { title: 'Section B2 — Mojito Mobility, data for the year (€ 000)', note: 'Everything you need for the statement of cash flows.', cols: ['€ 000'], rows: [
+          { at: [4, 5], title: 'Section B2 — Mojito Mobility, data for the year (€ 000)', note: 'Everything you need for the statement of cash flows.', cols: ['€ 000'], rows: [
             ['Net income', '900'],
             ['Depreciation expense', '300'],
             ['Gain on sale of equipment (net book value 50, sold for 90 in cash)', '40'],
@@ -6804,7 +6804,7 @@ class Component extends DCLogic {
             ['Dividends paid', '250'],
             ['Cash at 1 January', '400']
           ] },
-          { title: 'Section C — Adidas, income statement (€ millions)', note: 'Figures are simplified and stylised for examination purposes; they are not the company’s published accounts.', cols: ['Year 2'], rows: [
+          { at: [9, 10, 11], title: 'Section C — Adidas, income statement (€ millions)', note: 'Figures are simplified and stylised for examination purposes; they are not the company’s published accounts.', cols: ['Year 2'], rows: [
             ['Revenue', '24,000'],
             ['Cost of sales', '(12,000)'],
             ['Gross profit', '12,000'],
@@ -6816,7 +6816,7 @@ class Component extends DCLogic {
             ['Income tax expense (25%)', '(500)'],
             ['Net income', '1,500']
           ] },
-          { title: 'Section C — Adidas, balance sheet (€ millions)', note: 'Treat cash as an operating asset, as in class; there are no financial assets. Borrowings are the only financial liability. For reference, on the same definitions ROIC in year 1 was 14.5% and ROE was 26.0%.', cols: ['Year 2', 'Year 1'], rows: [
+          { at: [9, 10, 11], title: 'Section C — Adidas, balance sheet (€ millions)', note: 'Treat cash as an operating asset, as in class; there are no financial assets. Borrowings are the only financial liability. For reference, on the same definitions ROIC in year 1 was 14.5% and ROE was 26.0%.', cols: ['Year 2', 'Year 1'], rows: [
             ['Total assets', '16,000', '15,600'],
             ['Trade payables', '3,000', '2,800'],
             ['Other operating liabilities', '2,000', '2,000'],
@@ -6957,7 +6957,7 @@ class Component extends DCLogic {
         ses: 'Mock exam 2 \u00b7 100 points \u00b7 90 minutes',
         brief: 'Duration 1 hour 30 minutes. Closed book; a non-programmable calculator is allowed.\n\n100 points in three sections — Section A, twelve multiple-choice questions worth 2.5 points each (30); Section B, three short problems worth 15 each (45); Section C, a mini case worth 25.\n\nNo T-accounts and no debits and credits: use the balance sheet equation, as in class. All amounts in euros. Round percentages to one decimal place.\n\nThe statements for Section C are in the Figures panel — open it with the button at the bottom right and it stays open while you work.',
         tables: [
-          { title: 'Section B1 — Pannacotta Press, transactions for the year', note: 'The company started trading on 1 January. Some of these need a year-end adjustment; deciding which is most of the marks.', cols: ['Transaction'], rows: [
+          { at: [2, 3], title: 'Section B1 — Pannacotta Press, transactions for the year', note: 'The company started trading on 1 January. Some of these need a year-end adjustment; deciding which is most of the marks.', cols: ['Transaction'], rows: [
             ['1', 'Shareholders invest 150,000 in cash in exchange for shares'],
             ['2', 'It borrows 80,000 from a bank at 6.0% a year. The interest is payable on 1 January next year; the principal is repayable in five years'],
             ['3', 'It buys equipment for 90,000 in cash. Useful life 6 years, no residual value'],
@@ -6969,7 +6969,7 @@ class Component extends DCLogic {
             ['9', 'It pays wages of 14,000. Employees have earned a further 2,000 for the last week of December, payable in January'],
             ['10', 'It pays a dividend of 5,000 to shareholders']
           ] },
-          { title: 'Section B2 — Spritz Systems, data for the year (€ 000)', note: 'Everything you need for the statement of cash flows.', cols: ['€ 000'], rows: [
+          { at: [4, 5], title: 'Section B2 — Spritz Systems, data for the year (€ 000)', note: 'Everything you need for the statement of cash flows.', cols: ['€ 000'], rows: [
             ['Net income', '1,450'],
             ['Depreciation expense', '520'],
             ['Gain on sale of equipment (net book value 120, sold for 200 in cash)', '80'],
@@ -6984,7 +6984,7 @@ class Component extends DCLogic {
             ['Dividends paid', '300'],
             ['Cash at 1 January', '620']
           ] },
-          { title: 'Section C — Carrefour, income statement (€ millions)', note: 'Figures are simplified and stylised for examination purposes; they are not the company’s published accounts.', cols: ['Year 2'], rows: [
+          { at: [9, 10, 11], title: 'Section C — Carrefour, income statement (€ millions)', note: 'Figures are simplified and stylised for examination purposes; they are not the company’s published accounts.', cols: ['Year 2'], rows: [
             ['Revenue', '42,000'],
             ['Cost of sales', '(33,600)'],
             ['Gross profit', '8,400'],
@@ -6996,7 +6996,7 @@ class Component extends DCLogic {
             ['Income tax expense (30%)', '(510)'],
             ['Net income', '1,190']
           ] },
-          { title: 'Section C — Carrefour, balance sheet (€ millions)', note: 'Treat cash as an operating asset, as in class; there are no financial assets. Borrowings are the only financial liability. For reference, on the same definitions ROIC in year 1 was 20.3% and ROE was 38.5%.', cols: ['Year 2', 'Year 1'], rows: [
+          { at: [9, 10, 11], title: 'Section C — Carrefour, balance sheet (€ millions)', note: 'Treat cash as an operating asset, as in class; there are no financial assets. Borrowings are the only financial liability. For reference, on the same definitions ROIC in year 1 was 20.3% and ROE was 38.5%.', cols: ['Year 2', 'Year 1'], rows: [
             ['Total assets', '14,000', '13,400'],
             ['Trade payables', '5,200', '5,000'],
             ['Other operating liabilities', '1,800', '1,700'],
@@ -7137,7 +7137,7 @@ class Component extends DCLogic {
         ses: 'Mock exam 3 \u00b7 100 points \u00b7 90 minutes',
         brief: 'Duration 1 hour 30 minutes. Closed book; a non-programmable calculator is allowed.\n\n100 points in three sections — Section A, twelve multiple-choice questions worth 2.5 points each (30); Section B, three short problems worth 15 each (45); Section C, a mini case worth 25.\n\nNo T-accounts and no debits and credits: use the balance sheet equation, as in class. All amounts in euros. Round percentages to one decimal place.\n\nThe statements for Section C are in the Figures panel — open it with the button at the bottom right and it stays open while you work.',
         tables: [
-          { title: 'Section B1 — Bruschetta Botanics, transactions for the year', note: 'The company started trading on 1 January. Some of these need a year-end adjustment; deciding which is most of the marks.', cols: ['Transaction'], rows: [
+          { at: [2, 3], title: 'Section B1 — Bruschetta Botanics, transactions for the year', note: 'The company started trading on 1 January. Some of these need a year-end adjustment; deciding which is most of the marks.', cols: ['Transaction'], rows: [
             ['1', 'Shareholders invest 200,000 in cash in exchange for shares'],
             ['2', 'It borrows 60,000 from a bank at 4.0% a year. The interest is payable on 1 January next year; the principal is repayable in five years'],
             ['3', 'It buys equipment for 75,000 in cash. Useful life 5 years, no residual value'],
@@ -7149,7 +7149,7 @@ class Component extends DCLogic {
             ['9', 'It pays wages of 16,000. Employees have earned a further 1,500 for the last week of December, payable in January'],
             ['10', 'It pays a dividend of 4,000 to shareholders']
           ] },
-          { title: 'Section B2 — Negroni Networks, data for the year (€ 000)', note: 'Everything you need for the statement of cash flows.', cols: ['€ 000'], rows: [
+          { at: [4, 5], title: 'Section B2 — Negroni Networks, data for the year (€ 000)', note: 'Everything you need for the statement of cash flows.', cols: ['€ 000'], rows: [
             ['Net income', '2,100'],
             ['Depreciation expense', '640'],
             ['Loss on sale of equipment (net book value 300, sold for 220 in cash)', '80'],
@@ -7164,7 +7164,7 @@ class Component extends DCLogic {
             ['Dividends paid', '500'],
             ['Cash at 1 January', '950']
           ] },
-          { title: 'Section C — Novartis, income statement (€ millions)', note: 'Figures are simplified and stylised for examination purposes; they are not the company’s published accounts.', cols: ['Year 2'], rows: [
+          { at: [9, 10, 11], title: 'Section C — Novartis, income statement (€ millions)', note: 'Figures are simplified and stylised for examination purposes; they are not the company’s published accounts.', cols: ['Year 2'], rows: [
             ['Revenue', '9,000'],
             ['Cost of sales', '(1,800)'],
             ['Gross profit', '7,200'],
@@ -7176,7 +7176,7 @@ class Component extends DCLogic {
             ['Income tax expense (20%)', '(450)'],
             ['Net income', '1,800']
           ] },
-          { title: 'Section C — Novartis, balance sheet (€ millions)', note: 'Treat cash as an operating asset, as in class; there are no financial assets. Borrowings are the only financial liability. For reference, on the same definitions ROIC in year 1 was 12.1% and ROE was 19.5%.', cols: ['Year 2', 'Year 1'], rows: [
+          { at: [9, 10, 11], title: 'Section C — Novartis, balance sheet (€ millions)', note: 'Treat cash as an operating asset, as in class; there are no financial assets. Borrowings are the only financial liability. For reference, on the same definitions ROIC in year 1 was 12.1% and ROE was 19.5%.', cols: ['Year 2', 'Year 1'], rows: [
             ['Total assets', '19,000', '18,200'],
             ['Trade payables', '900', '850'],
             ['Other operating liabilities', '1,600', '1,550'],
@@ -7317,7 +7317,7 @@ class Component extends DCLogic {
         ses: 'Mock exam 4 \u00b7 100 points \u00b7 90 minutes',
         brief: 'Duration 1 hour 30 minutes. Closed book; a non-programmable calculator is allowed.\n\n100 points in three sections — Section A, twelve multiple-choice questions worth 2.5 points each (30); Section B, three short problems worth 15 each (45); Section C, a mini case worth 25.\n\nNo T-accounts and no debits and credits: use the balance sheet equation, as in class. All amounts in euros. Round percentages to one decimal place.\n\nThe statements for Section C are in the Figures panel — open it with the button at the bottom right and it stays open while you work.',
         tables: [
-          { title: 'Section B1 — Ciabatta Cycles, transactions for the year', note: 'The company started trading on 1 January. Some of these need a year-end adjustment; deciding which is most of the marks.', cols: ['Transaction'], rows: [
+          { at: [2, 3], title: 'Section B1 — Ciabatta Cycles, transactions for the year', note: 'The company started trading on 1 January. Some of these need a year-end adjustment; deciding which is most of the marks.', cols: ['Transaction'], rows: [
             ['1', 'Shareholders invest 120,000 in cash in exchange for shares'],
             ['2', 'It borrows 100,000 from a bank at 7.0% a year. The interest is payable on 1 January next year; the principal is repayable in five years'],
             ['3', 'It buys equipment for 80,000 in cash. Useful life 4 years, no residual value'],
@@ -7329,7 +7329,7 @@ class Component extends DCLogic {
             ['9', 'It pays wages of 18,000. Employees have earned a further 2,500 for the last week of December, payable in January'],
             ['10', 'It pays a dividend of 6,000 to shareholders']
           ] },
-          { title: 'Section B2 — Aperol Aerospace, data for the year (€ 000)', note: 'Everything you need for the statement of cash flows.', cols: ['€ 000'], rows: [
+          { at: [4, 5], title: 'Section B2 — Aperol Aerospace, data for the year (€ 000)', note: 'Everything you need for the statement of cash flows.', cols: ['€ 000'], rows: [
             ['Net income', '640'],
             ['Depreciation expense', '410'],
             ['Gain on sale of equipment (net book value 90, sold for 150 in cash)', '60'],
@@ -7344,7 +7344,7 @@ class Component extends DCLogic {
             ['Dividends paid', '0'],
             ['Cash at 1 January', '280']
           ] },
-          { title: 'Section C — Lufthansa, income statement (€ millions)', note: 'Figures are simplified and stylised for examination purposes; they are not the company’s published accounts.', cols: ['Year 2'], rows: [
+          { at: [9, 10, 11], title: 'Section C — Lufthansa, income statement (€ millions)', note: 'Figures are simplified and stylised for examination purposes; they are not the company’s published accounts.', cols: ['Year 2'], rows: [
             ['Revenue', '15,000'],
             ['Cost of sales', '(9,000)'],
             ['Gross profit', '6,000'],
@@ -7356,7 +7356,7 @@ class Component extends DCLogic {
             ['Income tax expense (20%)', '(300)'],
             ['Net income', '1,200']
           ] },
-          { title: 'Section C — Lufthansa, balance sheet (€ millions)', note: 'Treat cash as an operating asset, as in class; there are no financial assets. Borrowings are the only financial liability. For reference, on the same definitions ROIC in year 1 was 7.9% and ROE was 13.2%.', cols: ['Year 2', 'Year 1'], rows: [
+          { at: [9, 10, 11], title: 'Section C — Lufthansa, balance sheet (€ millions)', note: 'Treat cash as an operating asset, as in class; there are no financial assets. Borrowings are the only financial liability. For reference, on the same definitions ROIC in year 1 was 7.9% and ROE was 13.2%.', cols: ['Year 2', 'Year 1'], rows: [
             ['Total assets', '28,000', '27,000'],
             ['Trade payables', '2,200', '2,100'],
             ['Other operating liabilities', '3,300', '3,200'],
@@ -7497,7 +7497,7 @@ class Component extends DCLogic {
         ses: 'Mock exam 5 \u00b7 100 points \u00b7 90 minutes',
         brief: 'Duration 1 hour 30 minutes. Closed book; a non-programmable calculator is allowed.\n\n100 points in three sections — Section A, twelve multiple-choice questions worth 2.5 points each (30); Section B, three short problems worth 15 each (45); Section C, a mini case worth 25.\n\nNo T-accounts and no debits and credits: use the balance sheet equation, as in class. All amounts in euros. Round percentages to one decimal place.\n\nThe statements for Section C are in the Figures panel — open it with the button at the bottom right and it stays open while you work.',
         tables: [
-          { title: 'Section B1 — Stracciatella Studios, transactions for the year', note: 'The company started trading on 1 January. Some of these need a year-end adjustment; deciding which is most of the marks.', cols: ['Transaction'], rows: [
+          { at: [2, 3], title: 'Section B1 — Stracciatella Studios, transactions for the year', note: 'The company started trading on 1 January. Some of these need a year-end adjustment; deciding which is most of the marks.', cols: ['Transaction'], rows: [
             ['1', 'Shareholders invest 250,000 in cash in exchange for shares'],
             ['2', 'It borrows 40,000 from a bank at 5.0% a year. The interest is payable on 1 January next year; the principal is repayable in five years'],
             ['3', 'It buys equipment for 100,000 in cash. Useful life 10 years, no residual value'],
@@ -7509,7 +7509,7 @@ class Component extends DCLogic {
             ['9', 'It pays wages of 22,000. Employees have earned a further 3,000 for the last week of December, payable in January'],
             ['10', 'It pays a dividend of 8,000 to shareholders']
           ] },
-          { title: 'Section B2 — Limoncello Labs, data for the year (€ 000)', note: 'Everything you need for the statement of cash flows.', cols: ['€ 000'], rows: [
+          { at: [4, 5], title: 'Section B2 — Limoncello Labs, data for the year (€ 000)', note: 'Everything you need for the statement of cash flows.', cols: ['€ 000'], rows: [
             ['Net income', '3,300'],
             ['Depreciation expense', '1,100'],
             ['Gain on sale of equipment (net book value 400, sold for 520 in cash)', '120'],
@@ -7524,7 +7524,7 @@ class Component extends DCLogic {
             ['Dividends paid', '900'],
             ['Cash at 1 January', '1,500']
           ] },
-          { title: 'Section C — SAP, income statement (€ millions)', note: 'Figures are simplified and stylised for examination purposes; they are not the company’s published accounts.', cols: ['Year 2'], rows: [
+          { at: [9, 10, 11], title: 'Section C — SAP, income statement (€ millions)', note: 'Figures are simplified and stylised for examination purposes; they are not the company’s published accounts.', cols: ['Year 2'], rows: [
             ['Revenue', '6,000'],
             ['Cost of sales', '(900)'],
             ['Gross profit', '5,100'],
@@ -7536,7 +7536,7 @@ class Component extends DCLogic {
             ['Income tax expense (20%)', '(230)'],
             ['Net income', '920']
           ] },
-          { title: 'Section C — SAP, balance sheet (€ millions)', note: 'Treat cash as an operating asset, as in class; there are no financial assets. Borrowings are the only financial liability. For reference, on the same definitions ROIC in year 1 was 15.5% and ROE was 20.5%.', cols: ['Year 2', 'Year 1'], rows: [
+          { at: [9, 10, 11], title: 'Section C — SAP, balance sheet (€ millions)', note: 'Treat cash as an operating asset, as in class; there are no financial assets. Borrowings are the only financial liability. For reference, on the same definitions ROIC in year 1 was 15.5% and ROE was 20.5%.', cols: ['Year 2', 'Year 1'], rows: [
             ['Total assets', '8,000', '7,400'],
             ['Trade payables', '400', '380'],
             ['Other operating liabilities', '1,100', '1,020'],
@@ -9902,7 +9902,13 @@ class Component extends DCLogic {
       vals.exTitle = ex.title;
       vals.exSub = ex.sub || '';
       vals.exSes = ex.ses || '';
-      vals.exTables = this.tableVals(ex.tables);
+      // A table may name the steps it belongs to, as `at: [2, 3]`. The figures
+      // panel then carries only what the step in front of you needs, instead of
+      // every statement in the paper at once. Untagged tables always show.
+      let curStep = 0;
+      for (let k = 0; k < ex.steps.length; k++) { curStep = k; if (!(resBy[k] && resBy[k].ok)) break; }
+      const shownTables = (ex.tables || []).filter(tb => !tb.at || tb.at.indexOf(curStep) >= 0);
+      vals.exTables = this.tableVals(shownTables);
       vals.hasExTables = vals.exTables.length > 0 && !ex.factsInDrawer;
       vals.briefSegs = this.segVals(ex.brief || '');
       vals.hasBrief = !!ex.brief;
@@ -9911,7 +9917,7 @@ class Component extends DCLogic {
       vals.newNumbers = () => { if (ex.allGen) this.openAllGen(); else if (ex.genKey) this.openGen(ex.genKey); };
       vals.exRetry = () => this.setState({ inp: {}, resBy: {}, exFirst: {}, seen: {}, hintOpenAt: null });
 
-      const sheets = this.tableVals(ex.tables);
+      const sheets = this.tableVals(shownTables);
       vals.hasSheets = sheets.length > 0;
       vals.figTitle = ex.figTitle || ex.title;
       vals.figOpen = !!this.state.figOpen;
