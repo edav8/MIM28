@@ -10752,9 +10752,14 @@ button{ border-radius:10px; }
 @keyframes rise{0%{transform:translateY(0) scale(1); opacity:0}
   12%{opacity:1} 100%{transform:translateY(-78vh) scale(.25); opacity:0}}
 #celebrate .who{position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:14px;
-  margin-bottom:2vh; animation:pop .7s cubic-bezier(.2,1.5,.4,1) both}
-@keyframes pop{from{transform:translateY(90px) scale(.86) rotate(-3deg); opacity:0}
-  to{transform:translateY(0) scale(1) rotate(0); opacity:1}}
+  margin-bottom:2vh;
+  animation:spinIn .95s cubic-bezier(.16,1.05,.3,1) both,
+            spinOut .8s cubic-bezier(.55,-0.25,.85,.4) 3.15s both}
+@keyframes spinIn{0%{transform:translateY(150px) scale(.1) rotate(-720deg); opacity:0}
+  45%{opacity:1}
+  100%{transform:translateY(0) scale(1) rotate(0); opacity:1}}
+@keyframes spinOut{0%{transform:translateY(0) scale(1) rotate(0); opacity:1}
+  100%{transform:translateY(-70px) scale(.08) rotate(560deg); opacity:0}}
 #celebrate img{height:min(46vh,380px); width:auto; display:block;
   filter:drop-shadow(0 18px 40px rgba(0,0,0,.6)) drop-shadow(0 0 26px rgba(255,150,40,.45))}
 #celebrate .banner{font-family:var(--font-heading,inherit); font-weight:800; letter-spacing:-.01em;
@@ -10763,7 +10768,7 @@ button{ border-radius:10px; }
 #celebrate .lid{position:absolute; border-radius:50% 50% 45% 45%; transform-origin:50% 0%;
   transform:scaleY(0); opacity:0; pointer-events:none;
   box-shadow:inset 0 -1px 2px rgba(0,0,0,.35)}
-#celebrate.winking .lid{animation:wink 2.1s ease-in-out .7s 2 both}
+#celebrate.winking .lid{animation:wink .9s ease-in-out .98s 2 both}
 @keyframes wink{0%{transform:scaleY(0); opacity:0}
   6%{transform:scaleY(1); opacity:1}
   22%{transform:scaleY(1); opacity:1}
@@ -10846,7 +10851,7 @@ button{ border-radius:10px; }
     // The wink: two frames, swapped. One photograph cannot wink on its own.
     if (have.photo && have.wink) {
       var face = node.querySelector('#celebrate-face');
-      var seq = [[700, WINK], [980, PHOTO], [1700, WINK], [1980, PHOTO]];
+      var seq = [[980, WINK], [1360, PHOTO], [1700, WINK], [2080, PHOTO]];
       seq.forEach(function (st) { setTimeout(function () { if (face) face.src = st[1]; }, st[0]); });
     } else if (have.photo && window.__winkEye) {
       node.classList.add('winking');
@@ -10855,7 +10860,7 @@ button{ border-radius:10px; }
       if (!node) return;
       node.classList.remove('on');
       setTimeout(function () { if (node) { node.remove(); node = null; } }, 400);
-    }, 4600);
+    }, 4150);
   };
 })();
 </script>
