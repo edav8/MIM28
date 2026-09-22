@@ -3500,6 +3500,27 @@ textarea.input { min-height: 90px; resize: vertical; }
               </sc-raw-table>
             </sc-if>
 
+            <sc-if value="{{ b.isBuild }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <div style="display:grid; grid-template-columns:28px minmax(0,1fr) 150px 74px; gap:10px; padding:0 0 7px; border-bottom:2px solid var(--color-text); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 62%, transparent)">
+                  <div></div><div>Line</div><div style="text-align:right">Amount</div><div></div>
+                </div>
+                <sc-for list="{{ b.buildRows }}" as="r" hint-placeholder-count="6">
+                  <div style="{{ r.rowStyle }}">
+                    <div style="font-size:13px; color:color-mix(in srgb, var(--color-text) 55%, transparent); font-variant-numeric:tabular-nums">{{ r.n }}</div>
+                    <sc-raw-select class="input" value="{{ r.acct }}" sc-camel-on-change="{{ r.onAcct }}" style="{{ r.selStyle }}">
+                      <sc-for list="{{ r.opts }}" as="o" hint-placeholder-count="8">
+                        <option value="{{ o.v }}">{{ o.l }}</option>
+                      </sc-for>
+                    </sc-raw-select>
+                    <input class="input" type="text" sc-camel-input-mode="decimal" value="{{ r.value }}" sc-camel-on-change="{{ r.onAmt }}" sc-camel-on-focus="{{ r.onFocus }}" sc-camel-on-blur="{{ r.onBlur }}" sc-camel-on-key-down="{{ r.onKeyDown }}" style="{{ r.style }}">
+                    <div style="font-size:13px; font-weight:700; color:{{ r.markColor }}">{{ r.mark }}<span style="display:block; font-weight:400; font-size:11px; color:color-mix(in srgb, var(--color-text) 62%, transparent)">{{ r.answer }}</span></div>
+                  </div>
+                </sc-for>
+                <p style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:10px">{{ b.buildHint }}</p>
+              </div>
+            </sc-if>
+
             <sc-if value="{{ b.isChoice }}" hint-placeholder-val="{{ false }}">
               <div style="border-top:2px solid var(--color-text)">
                 <sc-for list="{{ b.choiceQs }}" as="q" hint-placeholder-count="6">
@@ -3672,10 +3693,10 @@ textarea.input { min-height: 90px; resize: vertical; }
           <div>
             <button type="button" class="btn btn-primary" sc-camel-on-click="{{ toggleFig }}" style="position:fixed; right:20px; bottom:20px; z-index:70; box-shadow:var(--shadow-lg)">{{ figLabel }}</button>
             <sc-if value="{{ figOpen }}" hint-placeholder-val="{{ false }}">
-              <div style="position:fixed; right:20px; top:16px; bottom:76px; width:min(880px, 94vw); z-index:65; background:var(--color-surface); border:2px solid var(--color-text); box-shadow:var(--shadow-lg); overflow:auto">
-                <div style="position:sticky; top:0; background:var(--color-surface); border-bottom:2px solid var(--color-divider); padding:14px 18px; display:flex; justify-content:space-between; align-items:baseline; gap:16px">
+              <div id="figdrawer" style="position:fixed; right:20px; top:16px; bottom:76px; width:min(880px, 94vw); z-index:65; background:var(--color-surface); border:2px solid var(--color-text); box-shadow:var(--shadow-lg); overflow:auto">
+                <div id="fighandle" style="cursor:move; user-select:none; -webkit-user-select:none; position:sticky; top:0; background:var(--color-surface); border-bottom:2px solid var(--color-divider); padding:14px 18px; display:flex; justify-content:space-between; align-items:baseline; gap:16px">
                   <div>
-                    <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The figures</div>
+                    <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The figures \u00b7 drag to move</div>
                     <div style="font-family:var(--font-heading); font-weight:700; font-size:17px; margin-top:4px">{{ figTitle }}</div>
                   </div>
                   <button type="button" class="btn btn-secondary" sc-camel-on-click="{{ toggleFig }}">Close</button>
@@ -8426,6 +8447,7 @@ class Component extends DCLogic {
     if (step.t === 'fill') step.rows.forEach((r, i) => { inp[si + ':' + i] = String(r.a); });
     if (step.t === 'pick') step.rows.forEach((r, i) => { inp[si + ':' + i] = r.a ? 'T' : 'F'; });
     if (step.t === 'choice') step.qs.forEach((q, i) => { inp[si + ':' + i] = String(q.a); });
+    if (step.t === 'build') step.rows.forEach((r, i) => { inp[si + ':' + i + ':a'] = r.a; inp[si + ':' + i + ':v'] = String(r.v); });
     if (step.t === 'entry') step.rows.forEach((r, i) => { inp[si + ':' + i + ':s'] = r.s; inp[si + ':' + i + ':a'] = r.a; inp[si + ':' + i + ':v'] = String(r.v); });
     resBy[si] = { ok: true, skipped: true, marks: (step.rows || step.qs || []).map(() => true) };
     this.setState({ resBy: resBy, exFirst: first, inp: inp });
@@ -8437,6 +8459,15 @@ class Component extends DCLogic {
     const marks = [];
     if (step.t === 'note') {
       ok = true;
+    } else if (step.t === 'build') {
+      // Both halves have to be right: the line you chose and the figure on it.
+      step.rows.forEach((r, i) => {
+        const acct = inp[si + ':' + i + ':a'] || '';
+        const amt = this.parseNum(inp[si + ':' + i + ':v']);
+        const good = acct === r.a && amt !== null && Math.abs(amt - r.v) <= (r.tol === undefined ? 0.01 : r.tol);
+        marks.push(good);
+        if (!good) ok = false;
+      });
     } else if (step.t === 'choice') {
       step.qs.forEach((q, i) => {
         const good = inp[si + ':' + i] === String(q.a);
@@ -9958,6 +9989,7 @@ class Component extends DCLogic {
           isNote: step.t === 'note',
           isPick: step.t === 'pick',
           isChoice: step.t === 'choice',
+          isBuild: step.t === 'build',
           hasLook: !!step.look,
           look: step.look || '',
           hasCalc: !!step.calc,
@@ -9977,10 +10009,11 @@ class Component extends DCLogic {
           verdict: res ? (res.skipped ? 'Skipped — here are the answers' : step.t === 'note' ? 'Answer' : okStep ? 'All correct' : 'Some lines are off — the right figures are shown beside them') : '',
           verdictColor: okStep ? green : 'var(--color-text)',
           explain: res ? (step.e || '') : '',
-          lockNote: okStep ? '' : (step.t === 'note' ? 'Think it through first, then compare.' : step.t === 'choice' ? 'Answer every question. All of them have to be right to move on.' : step.t === 'pick' ? 'Mark every statement true or false. All of them have to be right.' : 'Get every line right to unlock the next step.'),
-          hasWhys: !!(res && (step.t === 'fill' || step.t === 'pick') && step.rows.some(r => r.w)),
+          lockNote: okStep ? '' : (step.t === 'note' ? 'Think it through first, then compare.' : step.t === 'build' ? 'Pick the line and enter the figure on every row. Not every account offered belongs here.' : step.t === 'choice' ? 'Answer every question. All of them have to be right to move on.' : step.t === 'pick' ? 'Mark every statement true or false. All of them have to be right.' : 'Get every line right to unlock the next step.'),
+          hasWhys: !!(res && (step.t === 'fill' || step.t === 'pick' || step.t === 'build') && step.rows.some(r => r.w)),
           whysTitle: step.t === 'pick' ? 'Why each statement is true or false' : 'Why each figure is what it is',
-          whys: res && step.t === 'fill' ? step.rows.filter(r => r.w).map(r => ({ label: r.l, value: this.fmt(r.a), why: r.w }))
+          whys: res && step.t === 'build' ? step.rows.filter(r => r.w).map(r => ({ label: r.a, value: this.fmt(r.v), why: r.w }))
+            : res && step.t === 'fill' ? step.rows.filter(r => r.w).map(r => ({ label: r.l, value: this.fmt(r.a), why: r.w }))
             : res && step.t === 'pick' ? step.rows.filter(r => r.w).map(r => ({ label: r.l, value: r.a ? 'True' : 'False', why: r.w })) : [],
           hintItems: this.hintList(step.p + ' ' + (step.brief || ex.brief || '')).slice(0, 6),
           hintPlain: this.plainHint(step, ex),
@@ -9996,6 +10029,36 @@ class Component extends DCLogic {
         b.hasHintBtn = b.hintItems.length > 0;
         if (step.t === 'note') {
           b.rows = [];
+        } else if (step.t === 'build') {
+          const opts = [{ v: '', l: 'Choose a line\u2026' }].concat((step.options || []).map(o => ({ v: o, l: o })));
+          b.buildOpts = opts;
+          b.buildHint = step.hint || 'Enter every figure as a positive number; the labels carry the signs.';
+          b.buildRows = step.rows.map((r, i) => {
+            const kb = k + ':' + i;
+            const acct = inp[kb + ':a'] || '';
+            const rawAmt = inp[kb + ':v'];
+            const amt = this.parseNum(rawAmt);
+            const filled = acct !== '' && rawAmt !== undefined && String(rawAmt).trim() !== '' && (!!res || seenMap[kb + ':v']);
+            const good = filled && acct === r.a && amt !== null && Math.abs(amt - r.v) <= (r.tol === undefined ? 0.01 : r.tol);
+            const st = !filled ? 0 : good ? 1 : -1;
+            const edge = st === 1 ? green : st === -1 ? err : 'var(--color-divider)';
+            return {
+              n: String(i + 1),
+              acct: acct, opts: opts,
+              value: rawAmt === undefined ? '' : rawAmt,
+              onAcct: (e) => this.setInp(kb + ':a', e.target.value),
+              onAmt: (e) => this.setInp(kb + ':v', e.target.value),
+              onFocus: () => { const s2 = Object.assign({}, this.state.seen || {}); delete s2[kb + ':v']; this.setState({ seen: s2, activeField: { kind: 'inp', key: kb + ':v' } }); },
+              onBlur: () => { const s2 = Object.assign({}, this.state.seen || {}); s2[kb + ':v'] = true; this.setState({ seen: s2 }); },
+              onKeyDown: (e) => { if (e.key === 'Enter') { e.preventDefault(); this.checkStep(ex, step, k); } },
+              mark: st === 1 ? '\u2713' : st === -1 ? '\u2715' : '',
+              markColor: st === 1 ? green : err,
+              answer: !!res && st !== 1 ? r.a + '  ' + this.fmt(r.v) : '',
+              style: cell(st),
+              selStyle: 'border:1px solid ' + edge + '; width:100%',
+              rowStyle: 'display:grid; grid-template-columns:28px minmax(0,1fr) 150px 74px; gap:10px; align-items:center; padding:9px 0; border-bottom:1px solid var(--color-divider); background:' + (st === 1 ? greenBg : st === -1 ? redBg : 'transparent')
+            };
+          });
         } else if (step.t === 'choice') {
           b.rows = [];
           b.choiceQs = step.qs.map((q, qi) => {
@@ -10304,4 +10367,49 @@ button{ border-radius:10px; }
 /* the uppercase micro-labels stay, but stop shouting */
 [style*="text-transform:uppercase"]{ letter-spacing:.06em; font-weight:600; }
 </style>
+
+<script>
+/* The figures drawer can be dragged by its header. The runtime rebuilds the
+   drawer on every render, so the position is held here and re-applied whenever
+   the element reappears. Pointer events cover mouse, pen and touch alike. */
+(function () {
+  var pos = null;
+  function drawer() { return document.getElementById('figdrawer'); }
+  function apply(el) {
+    if (!pos || !el) return;
+    el.style.left = pos.x + 'px';
+    el.style.top = pos.y + 'px';
+    el.style.right = 'auto';
+    el.style.bottom = 'auto';
+    el.style.maxHeight = Math.max(160, window.innerHeight - pos.y - 20) + 'px';
+    if (pos.w) el.style.width = pos.w + 'px';
+  }
+  document.addEventListener('pointerdown', function (e) {
+    var handle = e.target.closest && e.target.closest('#fighandle');
+    if (!handle) return;
+    if (e.target.closest('button')) return;           // the Close button still closes
+    var el = drawer();
+    if (!el) return;
+    var r = el.getBoundingClientRect();
+    var dx = e.clientX - r.left, dy = e.clientY - r.top;
+    pos = { x: r.left, y: r.top, w: r.width };
+    apply(el);
+    function move(ev) {
+      pos.x = Math.min(Math.max(8 - r.width + 120, ev.clientX - dx), window.innerWidth - 120);
+      pos.y = Math.min(Math.max(0, ev.clientY - dy), window.innerHeight - 60);
+      apply(drawer());
+    }
+    function up() {
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', up);
+    }
+    document.addEventListener('pointermove', move);
+    document.addEventListener('pointerup', up);
+    e.preventDefault();
+  });
+  new MutationObserver(function () { apply(drawer()); })
+    .observe(document.documentElement, { childList: true, subtree: true });
+  window.addEventListener('resize', function () { apply(drawer()); });
+})();
+</script>
 </body></html>
