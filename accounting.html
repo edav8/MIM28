@@ -386,7 +386,7 @@ textarea.input { min-height: 90px; resize: vertical; }
   display: flex; flex-direction: column; gap: var(--space-2);
   padding: var(--space-3); border-radius: var(--radius-md); background: var(--color-surface);
 }
-.card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+.card-kicker { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
 .card-title {
   font-family: var(--font-heading); font-weight: var(--font-heading-weight);
   font-size: 17px; line-height: 1.2;
@@ -637,7 +637,7 @@ textarea.input { min-height: 90px; resize: vertical; }
   display: flex; flex-direction: column; gap: var(--space-2);
   padding: var(--space-3); border-radius: var(--radius-md); background: var(--color-surface);
 }
-.card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+.card-kicker { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
 .card-title {
   font-family: var(--font-heading); font-weight: var(--font-heading-weight);
   font-size: 17px; line-height: 1.2;
@@ -953,7 +953,7 @@ textarea.input { min-height: 90px; resize: vertical; }
               <div style="font-size:12.5px; font-variant-numeric:tabular-nums; opacity:0.55">{{ r.num }}</div>
               <div>
                 <a href="#" sc-camel-on-click="{{ r.onClick }}" style="font-size:16px">{{ r.title }}</a>
-                <div style="font-size:13px; line-height:1.55; margin-top:2px; color:color-mix(in srgb, var(--color-text) 62%, transparent)">{{ r.sub }}</div>
+                <div style="font-size:13px; line-height:1.55; margin-top:2px; color:color-mix(in srgb, var(--color-text) 74%, transparent)">{{ r.sub }}</div>
               </div>
               <div style="font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:{{ r.statusColor }}">{{ r.status }}</div>
             </div>
@@ -3216,8 +3216,8 @@ textarea.input { min-height: 90px; resize: vertical; }
                 <sc-for list="{{ cb.items }}" as="q" hint-placeholder-count="3">
                   <div style="padding:18px; border-bottom:1px solid var(--color-divider)">
                     <div style="display:flex; gap:10px; align-items:baseline; flex-wrap:wrap">
-                      <span style="font-size:10.5px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700); font-weight:700">{{ q.kind }}</span>
-                      <span style="font-size:13px; line-height:1.5; color:color-mix(in srgb, var(--color-text) 62%, transparent)">{{ q.how }}</span>
+                      <span style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700); font-weight:700">{{ q.kind }}</span>
+                      <span style="font-size:13px; line-height:1.5; color:color-mix(in srgb, var(--color-text) 74%, transparent)">{{ q.how }}</span>
                     </div>
                     <div style="font-size:16px; line-height:1.55; margin:8px 0 14px; text-wrap:pretty">{{ q.prompt }}</div>
 
@@ -3629,9 +3629,9 @@ textarea.input { min-height: 90px; resize: vertical; }
               <div>
                 <div style="overflow-x:auto; overflow-y:visible; padding-bottom:10px; margin:0 -4px; -webkit-overflow-scrolling:touch">
                   <div style="{{ b.gridStyle }}">
-                    <div style="font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 62%, transparent); align-self:end">&euro; 000</div>
+                    <div style="font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 74%, transparent); align-self:end">&euro; 000</div>
                     <sc-for list="{{ b.gridCols }}" as="c" hint-placeholder-count="12">
-                      <div style="font-size:10.5px; line-height:1.25; letter-spacing:0.04em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 62%, transparent); align-self:end; text-align:right">{{ c.v }}</div>
+                      <div style="font-size:12px; line-height:1.25; letter-spacing:0.04em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 74%, transparent); align-self:end; text-align:right">{{ c.v }}</div>
                     </sc-for>
                     <sc-for list="{{ b.gridRows }}" as="r" hint-placeholder-count="12">
                       <div style="{{ r.labelStyle }}">{{ r.l }}</div>
@@ -3654,7 +3654,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
             <sc-if value="{{ b.isBuild }}" hint-placeholder-val="{{ false }}">
               <div>
-                <div style="display:grid; grid-template-columns:28px minmax(0,1fr) 150px 74px; gap:10px; padding:0 0 7px; border-bottom:2px solid var(--color-text); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 62%, transparent)">
+                <div style="display:grid; grid-template-columns:28px minmax(0,1fr) 150px 74px; gap:10px; padding:0 0 7px; border-bottom:2px solid var(--color-text); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 74%, transparent)">
                   <div></div><div>Line</div><div style="text-align:right">Amount</div><div></div>
                 </div>
                 <sc-for list="{{ b.buildRows }}" as="r" hint-placeholder-count="6">
@@ -3666,7 +3666,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                       </sc-for>
                     </sc-raw-select>
                     <input class="input" type="text" sc-camel-input-mode="decimal" value="{{ r.value }}" sc-camel-on-change="{{ r.onAmt }}" sc-camel-on-focus="{{ r.onFocus }}" sc-camel-on-blur="{{ r.onBlur }}" sc-camel-on-key-down="{{ r.onKeyDown }}" style="{{ r.style }}">
-                    <div style="font-size:13px; font-weight:700; color:{{ r.markColor }}">{{ r.mark }}<span style="display:block; font-weight:400; font-size:12px; color:color-mix(in srgb, var(--color-text) 62%, transparent)">{{ r.answer }}</span></div>
+                    <div style="font-size:13px; font-weight:700; color:{{ r.markColor }}">{{ r.mark }}<span style="display:block; font-weight:400; font-size:12px; color:color-mix(in srgb, var(--color-text) 74%, transparent)">{{ r.answer }}</span></div>
                   </div>
                 </sc-for>
                 <p style="font-size:13px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:10px">{{ b.buildHint }}</p>
@@ -10500,7 +10500,7 @@ class Component extends DCLogic {
               const kb = k + ':' + i + ':' + j;
               if (r.fixed) {
                 return { isFixed: true, isLive: false, shown: (c === null || c === undefined) ? '' : this.fmt(c),
-                  style: 'padding:7px 6px; text-align:right; font-size:13px; font-variant-numeric:tabular-nums; background:color-mix(in srgb, var(--color-text) 6%, transparent); border:1px solid var(--color-divider); color:color-mix(in srgb, var(--color-text) 62%, transparent)' };
+                  style: 'padding:7px 6px; text-align:right; font-size:13px; font-variant-numeric:tabular-nums; background:color-mix(in srgb, var(--color-text) 6%, transparent); border:1px solid var(--color-divider); color:color-mix(in srgb, var(--color-text) 74%, transparent)' };
               }
               const raw = inp[kb];
               const want = (c === null || c === undefined) ? 0 : c;

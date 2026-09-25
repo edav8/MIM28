@@ -316,7 +316,7 @@ textarea.input { min-height: 90px; resize: vertical; }
   display: flex; flex-direction: column; gap: var(--space-2);
   padding: var(--space-3); border-radius: var(--radius-md); background: var(--color-surface);
 }
-.card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+.card-kicker { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
 .card-title {
   font-family: var(--font-heading); font-weight: var(--font-heading-weight);
   font-size: 17px; line-height: 1.2;
@@ -522,7 +522,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
    40px columns. Matches what accounting.html already did. */
 #hubcalwrap { overflow-x: auto; overscroll-behavior-x: contain; }
 #hubsescaret { display: none; }          /* the fold only exists on phones */
-#hubcaltoggle { display: none; }         /* so does the calendar's */
+#hubcaltoggle { display: none !important; }   /* so does the calendar's */
 @media (max-width: 860px) { #hubsescaret { display: inline; } }
 
 /* h1/h2 now carry the hub's headings. They are styled inline where they sit,
@@ -577,7 +577,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
   #hubmain > header > div:last-child { text-align: left !important; }
   #hubcontinue { margin-top: 24px !important; padding: 16px 18px !important; gap: 18px !important; }
   #hubcontinue > sc-if > div, #hubcontinue > div + div { border-left: 0 !important; padding-left: 0 !important; }
-  #hubcaltoggle { display: inline-block; }
+  #hubcaltoggle { display: inline-block !important; }
   #hubcalbody[data-open="false"] { display: none; }
 
   /* the 40px page gutter is too much of a 375px screen */
@@ -667,7 +667,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
         </div>
         <sc-if value="{{ hasNextDue }}" hint-placeholder-val="{{ true }}">
           <div style="flex:1 1 240px; min-width:0; border-left:1px solid var(--line); padding-left:24px">
-            <h2 style="font-family:var(--font-h); font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin:0">Next deadline</h2>
+            <h2 style="font-family:var(--font-h); font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin:0">{{ nextDueHead }}</h2>
             <div style="font-size:15px; font-weight:600; margin-top:6px; text-wrap:pretty">{{ nextDueTitle }}</div>
             <div style="font-size:13px; color:var(--muted); margin-top:4px">{{ nextDueWhen }}</div>
           </div>
@@ -2809,7 +2809,7 @@ class Component extends DCLogic {
       const raw = window.localStorage.getItem('mim28-hub-v1');
       if (raw) {
         const s = JSON.parse(raw);
-        this.setState({ done: s.done || {}, best: s.best || {}, missed: s.missed || {}, last: s.last || {}, todoDone: s.todoDone || {}, reviseDone: s.reviseDone || {} });
+        this.setState({ done: s.done || {}, best: s.best || {}, missed: s.missed || {}, last: s.last || {}, lastCourse: s.lastCourse || null, todoDone: s.todoDone || {}, reviseDone: s.reviseDone || {} });
       }
     } catch (e) {}
     this.onKey = (e) => {
@@ -3461,8 +3461,17 @@ class Component extends DCLogic {
       v.continueLabel = cont.label;
       v.continueMeta = cont.meta;
       v.continueGo = cont.onClick;
-      const nextUp = shown.filter(t => t.due).sort((a, b) => String(a.due) < String(b.due) ? -1 : 1)[0];
+      // "Next deadline" showing something three weeks past is not a next
+      // deadline. Prefer the soonest one still ahead; only if everything left
+      // is behind does it show the oldest of those, and say so.
+      const dated = shown.filter(t => t.due).sort((a, b) => String(a.due) < String(b.due) ? -1 : 1);
+      const today = new Date();
+      const iso = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0')
+        + '-' + String(today.getDate()).padStart(2, '0');
+      const ahead = dated.filter(t => String(t.due) >= iso);
+      const nextUp = ahead[0] || dated[0];
       v.hasNextDue = !!nextUp;
+      v.nextDueHead = (nextUp && !ahead.length) ? 'Oldest still open' : 'Next deadline';
       v.nextDueTitle = nextUp ? nextUp.title : '';
       v.nextDueWhen = nextUp ? nextUp.when : '';
       return v;
