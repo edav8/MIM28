@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cookies Policy — MIM’28 Study Hub</title>
-<meta name="description" content="This site uses no cookies. It stores your drill progress in your own browser, where only you can read it.">
+<meta name="description" content="This site uses no cookies. Visits are counted with GoatCounter, which stores no IP address and writes nothing to your device.">
 <meta name="robots" content="index, follow">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/legal.css">
@@ -19,16 +19,18 @@
 <a class="back" href="index.html">← Back to the study hub</a>
 
 <h1>Cookies Policy</h1>
-<p class="updated">Last updated 15 September 2026</p>
+<p class="updated">Last updated 25 September 2026</p>
 
 <div class="card">
   <p class="kicker">The short version</p>
-  <p><strong>This site uses no cookies.</strong> Not necessary ones, not functional ones, not analytics ones, not advertising ones. That is also why you have not been shown a consent banner: there is nothing to consent to.</p>
+  <p><strong>This site uses no cookies.</strong> Not necessary ones, not functional ones, not analytics ones, not advertising ones. Visits <em>are</em> counted, by a service that writes nothing to your device and keeps no IP address — so there is still nothing to consent to, and still no banner.</p>
 </div>
 
 <h2>Why there is no banner</h2>
-<p>Consent banners exist because Article 5(3) of the ePrivacy Directive requires consent before storing information on a user's device — with one exception. Consent is not required where the storage is <em>strictly necessary</em> to provide a service the user has explicitly requested.</p>
-<p>This site sets no cookies at all, and the one thing it does store falls squarely inside that exception. So a banner would be theatre: it would ask permission for something that needs none, and train you to click through the ones that do.</p>
+<p>Consent banners exist because Article 5(3) of the ePrivacy Directive requires consent before <em>storing information on, or reading information from, a user's device</em> — with one exception, for storage that is strictly necessary to provide a service the user has explicitly requested.</p>
+<p>Read what that Article is actually about: storage on your device. It is not a rule about analytics as such. A banner becomes necessary when a site drops a cookie or writes an identifier into your browser, which is exactly what conventional analytics does in order to recognise you when you come back.</p>
+<p>The counting here does not do that. Nothing is written to your device when a visit is recorded — no cookie, no identifier, nothing in local storage — so Article 5(3) is never engaged. The only thing this site stores on your device is your own drill progress, which falls squarely inside the strictly-necessary exception. A banner would therefore be theatre: it would ask permission for something that needs none, and train you to click through the ones that do.</p>
+<p>There is a second and separate question: whether counting a visit processes personal data under the GDPR even when nothing is stored on your device. It does, briefly, and the <a href="privacy.html">Privacy Policy</a> sets out what is processed, the legal basis for it, and how to opt out.</p>
 
 <h2>What is stored, precisely</h2>
 <p>The trainer keeps your progress using <code>localStorage</code>, a browser feature that is related to cookies but behaves differently in the way that matters: <strong>it is never attached to network requests</strong>. A cookie is sent to a server with every page you load. <code>localStorage</code> is not sent anywhere, ever. It sits in your browser and only code running on this site's own address can read it.</p>
@@ -38,14 +40,21 @@
   <tr><td><code>mim28-hub-v1</code></td><td>Which drills you finished, best scores, ticked to-do items, last page viewed</td><td>Until you clear it</td></tr>
   <tr><td><code>fa-trainer-v1</code></td><td>The same, for the Financial Accounting trainer</td><td>Until you clear it</td></tr>
   <tr><td><code>da-trainer-v1</code></td><td>The same, for the Data Analysis trainer</td><td>Until you clear it</td></tr>
+  <tr><td><code>skipgc</code></td><td>Written <strong>only if you ask to be left out of the visit count</strong>, by loading any page with <code>#toggle-goatcounter</code> on the end of the address. It records your own opt-out and nothing else.</td><td>Until you clear it, or switch it off again</td></tr>
 </table>
 
-<p>That is the complete list. No identifier, no name, no email, no device fingerprint, no record of which pages you read or how long you spent. Nothing in it identifies you, and nothing in it leaves your device.</p>
+<p>That is the complete list. No identifier, no name, no email, no device fingerprint, and no record of which pages <em>you specifically</em> read. Nothing in it identifies you, and nothing in it leaves your device. The last row is never written unless you deliberately ask for it.</p>
 
-<h2>What is deliberately absent</h2>
+<h2>The one thing that counts visits</h2>
+<p>This site uses <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a>, an open-source analytics service, chosen because it is the least invasive option that still answers the only question worth asking: is anyone using this?</p>
+<p>The counting script is served from this site's own address, so no request reaches GoatCounter's script host. When a page loads, one small request goes to <code>mim28.goatcounter.com</code> carrying the page address, the page you arrived from, and your screen width. That is the whole payload. It writes nothing to your device and reads nothing from it.</p>
+<p>What GoatCounter does with that request, what it deliberately throws away, where its servers sit, and how to opt out in one click, are all in the <a href="privacy.html">Privacy Policy</a>.</p>
+
+<h2>What is still deliberately absent</h2>
 <ul>
-  <li><strong>No analytics.</strong> The operator of this site genuinely does not know how many people visit it, which is a fair price for not tracking anyone.</li>
-  <li><strong>No third-party requests.</strong> Fonts, JavaScript libraries and video are all served from this site's own address. Loading fonts from Google, for example, would send your IP address to Google — which a Munich court held in January 2022 to breach the GDPR. Self-hosting removes that entirely.</li>
+  <li><strong>No advertising</strong>, and no advertising identifiers. Nothing here is trying to follow you anywhere else.</li>
+  <li><strong>No cross-site tracking.</strong> GoatCounter cannot recognise you on another site, or on this one tomorrow, because it keeps nothing that could be matched back to you.</li>
+  <li><strong>No other third-party requests.</strong> Fonts, JavaScript libraries and video are all served from this site's own address. Loading fonts from Google, for example, would send your IP address to Google — which a Munich court held in January 2022 to breach the GDPR. Self-hosting removes that entirely, and the counting script is self-hosted for exactly the same reason.</li>
   <li><strong>No embeds.</strong> No YouTube player, no social widgets, no comment system, no chat widget, no maps. Each of those would reintroduce a third party and, with it, a consent requirement.</li>
 </ul>
 
@@ -58,6 +67,9 @@
   <li><strong>Any browser</strong> — a private or incognito window stores nothing beyond the session.</li>
 </ul>
 <p>If you use the site in a private window, your progress will not survive closing it. That is the trade, and it is yours to make.</p>
+
+<h2>Opting out of the visit count</h2>
+<p>Load any page on this site with <code>#toggle-goatcounter</code> on the end of the address — for example <code>edav8.github.io/MIM28/index.html#toggle-goatcounter</code>. The page confirms that counting is off in that browser, and it stays off until you repeat the step. It works by writing the <code>skipgc</code> key listed above, so clearing your site data clears the opt-out along with everything else.</p>
 
 <footer>
   <a href="index.html">Study hub</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>

@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy — MIM’28 Study Hub</title>
-<meta name="description" content="What the MIM’28 Study Hub does and does not collect. No cookies, no analytics, no third-party requests.">
+<meta name="description" content="What the MIM’28 Study Hub does and does not collect. No cookies, no advertising, and privacy-first visit counting that stores no IP address.">
 <meta name="robots" content="index, follow">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/legal.css">
@@ -19,13 +19,13 @@
 <a class="back" href="index.html">← Back to the study hub</a>
 
 <h1>Privacy Policy</h1>
-<p class="updated">Last updated 15 September 2026</p>
+<p class="updated">Last updated 25 September 2026</p>
 
 <p>This site is a personal, non-commercial study aid made by a student of the INSEAD Master in Management, class of 2028. It is not an INSEAD website and INSEAD has no involvement in it.</p>
 
 <div class="card">
   <p class="kicker">The short version</p>
-  <p>This site sets <strong>no cookies</strong>, runs <strong>no analytics</strong>, contains <strong>no advertising</strong>, has <strong>no login</strong>, and makes <strong>no requests to any third-party server</strong>. It asks you for nothing and stores nothing about you anywhere except in your own browser, where only you can read it.</p>
+  <p>This site sets <strong>no cookies</strong>, contains <strong>no advertising</strong>, has <strong>no login</strong> and asks you for nothing. It does count visits, using a service that keeps <strong>no IP address</strong>, no identifier and nothing that could be traced back to you, and that writes nothing to your device. Apart from that one request, everything the site loads comes from its own address.</p>
 </div>
 
 <h2>Who is responsible</h2>
@@ -40,32 +40,65 @@
 <p>Nothing is sent to us. There is no server that belongs to this site, no database, and no form that transmits anything. Specifically:</p>
 <ul>
   <li><strong>No cookies</strong> of any kind, first-party or third-party.</li>
-  <li><strong>No analytics or measurement</strong> — no Google Analytics, no Plausible, no Matomo, no pixels, no beacons.</li>
   <li><strong>No advertising</strong> and no advertising identifiers.</li>
   <li><strong>No accounts</strong>, no sign-up, no email collection, no contact form.</li>
-  <li><strong>No third-party requests.</strong> Fonts, the JavaScript libraries and the background video are all served from this site's own address, so no outside company is told that you visited.</li>
+  <li><strong>No Google Analytics</strong>, no Meta pixel, no advertising beacons, no session recording, no heatmaps, no cross-site tracking of any kind.</li>
+  <li><strong>No other third-party requests.</strong> Fonts, the JavaScript libraries, the counting script and the background video are all served from this site's own address, so no outside company is told that you visited.</li>
 </ul>
+<p>There is one exception to that last point, and it is the subject of the next section.</p>
+
+<h2>Counting visits</h2>
+<p>The site uses <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a> to count how many people read it. It was chosen over the usual options because of what it refuses to collect.</p>
+<p>When you load a page, one request goes to <code>mim28.goatcounter.com</code>. It carries three things:</p>
+<table>
+  <tr><th>Sent</th><th>Why</th></tr>
+  <tr><td>The address of the page you are on</td><td>So the count can say which pages are read</td></tr>
+  <tr><td>The page you arrived from, if any</td><td>So it can say whether people arrive from a link or type the address</td></tr>
+  <tr><td>Your screen width</td><td>So the layout can be judged against the devices people actually use</td></tr>
+</table>
+<p>Like any web request, it also unavoidably reveals your IP address and browser user-agent to the receiving server, because that is how the internet works. What matters is what happens to them next.</p>
+
+<h3>What GoatCounter deliberately does not keep</h3>
+<p>In GoatCounter's own words: <q>GoatCounter <em>doesn't</em> store IP addresses, the full User-Agent header, or any tracker ID.</q></p>
+<p>To count a returning visit within a session without identifying anyone, it combines the site name, your IP address and your user-agent into a random string, and holds the mapping <strong>in memory only, for at most eight hours</strong>, after which it is gone. Nothing is written to disk that could be matched to you, and nothing is written to your browser at all. The figures that survive are aggregate counts per day or hour, which GoatCounter stores in separate tables <q>with no way to link data between them</q>.</p>
+<p>The practical consequence: the operator of this site can see that a page was read forty times on Tuesday, and from roughly which countries and browsers. There is no way to see that <em>you</em> read it, no way to follow you from one page to the next, and no way to recognise you when you come back next week.</p>
+
+<h3>Where it is processed</h3>
+<p>GoatCounter's servers are at Hetzner Online GmbH <strong>in Finland and Germany</strong>, and the service is operated by Martin Tournoij from Ireland. Both are inside the European Economic Area, so this processing involves <strong>no transfer of personal data outside the EEA</strong> — which is more than can be said for the hosting, dealt with further down.</p>
+
+<h3>Why there is no consent banner for it</h3>
+<p>Two separate rules are in play, and they ask different questions.</p>
+<p><strong>The ePrivacy Directive, Article 5(3)</strong> governs storing or reading information on your device. Consent is needed for that. GoatCounter stores nothing on your device when it counts a visit — no cookie, no identifier, nothing in local storage — so the Article is not engaged, and there is nothing to ask you about. (The one thing it can write is your own opt-out flag, and only if you ask for it.)</p>
+<p><strong>The GDPR</strong> governs processing personal data. An IP address is personal data while it is in flight, so the GDPR does apply to that moment. The basis relied on is <strong>legitimate interest, Article 6(1)(f)</strong>: knowing whether a free study site is used at all is a reasonable interest, the data is discarded within hours, none of it is used to target or profile anyone, and it is not combined with anything else. GoatCounter's own position is that it <q>probably doesn't require a GDPR consent notice</q>, while being candid that the law <q>lacks case law to clarify what exactly counts as identifiable personal data</q>. That honesty is part of why it was chosen, and the caveat is repeated here rather than hidden.</p>
+<p>If you would rather not be counted at all, the next section takes one click.</p>
+
+<h3>Opting out</h3>
+<p>Load any page on this site with <code>#toggle-goatcounter</code> on the end of the address, for example <code>edav8.github.io/MIM28/index.html#toggle-goatcounter</code>. The page confirms that counting is switched off in that browser and it stays off. Browser tracking-protection lists and content blockers also block GoatCounter, and nothing on the site breaks when they do.</p>
+<p>One thing not to claim: the script does <strong>not</strong> check the Do Not Track header, because browsers have largely withdrawn it and GoatCounter no longer reads it. The opt-out above is the mechanism that actually works.</p>
 
 <h2>What is stored in your browser</h2>
 <p>The site remembers your progress so that a drill you finished stays finished. This uses your browser's <code>localStorage</code>, which is not a cookie and is never transmitted anywhere. It holds things like which drills you completed, your best scores, which to-do items you ticked, and which page you were last on.</p>
 <p>This data stays on the device you are using. It is not readable by this site's operator, by INSEAD, or by anyone else. It is not synced between your devices. Clearing your browser's site data for this address deletes it permanently, and the site keeps working — you simply start from a blank slate.</p>
 <p>Under Article 5(3) of the ePrivacy Directive, storage that is strictly necessary to provide a service the user has explicitly requested does not require consent. Remembering the progress of the trainer you are using is exactly that, which is why you are not shown a consent banner. See the <a href="cookies.html">Cookies Policy</a> for the detail.</p>
 
-<h2>The one thing outside our control: hosting</h2>
+<h2>Hosting, and the transfer that does leave the EEA</h2>
 <p>The site is hosted on GitHub Pages, a service of GitHub, Inc. (a Microsoft company). Like any web server, GitHub's servers receive and may log technical information when you request a page — typically your IP address, the time, the page requested, and your browser's user-agent string. This is standard server operation and it happens before any of this site's own code runs; we neither control it nor receive the logs.</p>
 <p>GitHub is based in the United States, so this constitutes a transfer of personal data outside the European Economic Area. GitHub relies on the EU–US Data Privacy Framework and standard contractual clauses for such transfers. GitHub's own privacy statement governs that processing and is published at <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">docs.github.com</a>.</p>
 <p>If that transfer concerns you, the practical answer is that you can read everything on this site through a VPN or Tor without any loss of function, because the site itself never looks at who you are.</p>
+<p>Worth being precise about the asymmetry. The visit counter processes your IP inside the EEA and throws it away within hours. The host receives the same IP in the United States and keeps logs under its own policy. The larger exposure is the hosting, and it was there long before any counting was added.</p>
 
 <h2>Legal basis</h2>
 <table>
   <tr><th>Processing</th><th>Basis</th></tr>
   <tr><td>Storing your progress in your own browser</td><td>Not a disclosure to us at all; under ePrivacy it is storage strictly necessary for a service you requested</td></tr>
+  <tr><td>Counting a page view (GoatCounter)</td><td>Legitimate interest in knowing whether the site is used (Art. 6(1)(f)). Nothing is stored on your device, so ePrivacy Art. 5(3) is not engaged; the IP is discarded within hours and never written to disk</td></tr>
   <tr><td>Server logs held by GitHub as host</td><td>Legitimate interest in operating and securing a website (Art. 6(1)(f)), as processed by the host under its own policy</td></tr>
 </table>
 
 <h2>Your rights</h2>
 <p>Under the GDPR you have the right of access, rectification, erasure, restriction, objection and portability, and the right to lodge a complaint with a supervisory authority — in France, the <a href="https://www.cnil.fr/" rel="noopener">CNIL</a>.</p>
-<p>In practice these rights are easy to satisfy here, because there is almost nothing to exercise them against. We hold no personal data about you, so there is nothing for us to disclose, correct, export or erase. The only data that exists is the progress in your own browser, which you can delete yourself at any time through your browser's settings, and the host's server logs, for which you would contact GitHub.</p>
+<p>In practice these rights are easy to satisfy here, because there is almost nothing to exercise them against. No personal data about you is held in any form that could be retrieved: the visit counter keeps aggregate totals only and discards everything else within hours, so there is no record of yours to disclose, correct, export or erase. What does exist is the progress in your own browser, which you can delete at any time through your browser's settings; the host's server logs, for which you would contact GitHub; and the aggregate counts, which contain nobody's personal data by the time they are written down.</p>
+<p>The right that actually bites here is the <strong>right to object</strong> to processing based on legitimate interest, under Article 21. You can exercise it yourself, immediately and without asking anyone, using the opt-out described above.</p>
 
 <h2>Children</h2>
 <p>The site is aimed at students on a postgraduate programme. It is not directed at children and collects nothing from anyone.</p>
