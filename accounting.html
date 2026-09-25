@@ -5818,6 +5818,26 @@ class Component extends DCLogic {
         ses: 'Session 11 \u00b7 Leases',
         brief: 'A.P. Moller \u2013 Maersk, founded in Denmark in 1904, runs container shipping and port terminals (Ocean), freight forwarding and supply chain management (Logistics & Services), towage and salvage (Terminals & Towage), and container and vessel manufacturing. Through 2018 and 2019 it divested its oil and drilling businesses. It leases on an enormous scale: vessels, terminals, land, warehouses, containers.\n\nUntil 2019, a lease that did not transfer substantially all the risks and rewards of ownership stayed off the balance sheet entirely. The rent went through operating costs and the future commitments sat in a note. IFRS 16 ended that. From 1 January 2019, almost every lease longer than twelve months is recognised as a right-of-use asset and a matching lease liability, measured at the present value of the future payments \u2014 in effect, treating the lease as an asset bought with a loan from the lessor.\n\nThe income statement splits accordingly. Under IFRS the right-of-use asset is depreciated, an operating cost, while interest accrues on the liability, a financial cost. Under the old rules the whole rent was a single operating expense, because there was no liability to charge interest on. (U.S. GAAP takes a third route for operating leases, adding the two components back together into one straight-line operating charge \u2014 which many practitioners regard as economically wrong.)\n\nMaersk adopted on 1 January 2019 using the modified retrospective approach, so 2018 was never restated. You have three years in the Figures panel: the 2018 report forecasting the effect, the 2019 statements showing it, and the 2020 note showing what steady state looks like. All figures in USD millions.',
         tables: [
+          { title: 'Question 1 \u2014 pro forma key figures based on IFRS 16', note: 'As published by Maersk. $ billions, restating 2018 as though the standard had already applied.', cols: ['2018', 'Adjustment', '2018 (IFRS 16)'], rows: [
+            ['Income statement', '', '', 'h'],
+            ['EBITDA', '3.8', '1.2', '5.0'],
+            ['Depreciation, amortisation and impairment, net', '(3.3)', '(1.0)', '(4.3)'],
+            ['Profit before financial items (EBIT)', '0.6', '0.2', '0.8'],
+            ['Financial items, net', '(0.4)', '(0.3)', '(0.7)'],
+            ['Profit before tax', '0.2', '(0.1)', '0.1'],
+            ['Balance sheet', '', '', 'h'],
+            ['Total assets', '56.6', '6.0', '62.6'],
+            ['Borrowings, including lease liabilities', '11.9', '6.0', '17.9'],
+            ['Net interest-bearing debt', '8.7', '6.0', '14.7'],
+            ['Invested capital', '43.2', '6.0', '49.2'],
+            ['Cash flow', '', '', 'h'],
+            ['Cash flow from operating activities', '3.2', '1.2', '4.4'],
+            ['Gross capital expenditure', '2.9', '\u2013', '2.9'],
+            ['Ratios', '', '', 'h'],
+            ['EBITDA margin', '9.8%', '', '12\u201313%'],
+            ['Return on invested capital after tax', '0.8%', '', '1.0\u20131.5%'],
+            ['Equity ratio', '59.0%', '', '53\u201354%']
+          ] },
           { title: 'Exhibit 1 \u2014 what the 2018 report told investors to expect', note: 'Unaudited pro forma amounts published in the 2018 Annual Report, restating 2018 as if IFRS 16 had applied.', cols: ['Effect on 2018'], rows: [
             ['EBITDA', 'rises approx. USD 1.2bn, from 3.8bn to 5.0bn'],
             ['EBIT', 'rises to approx. USD 0.8bn, from USD 627m'],
@@ -5893,6 +5913,17 @@ class Component extends DCLogic {
           ] }
         ],
         steps: [
+          { t: 'fill', p: 'Step 1. Question 1. Maersk published a pro forma showing what 2018 would have looked like had IFRS 16 already applied \u2014 it is the first table in the Figures panel. Fill in the restated column. All figures in $ billions.',
+            calc: 'Each line moves by its adjustment, and every adjustment traces back to the leases',
+            given: [ { l: 'Lease liabilities brought on to the balance sheet', v: '6.0', s: 'The adjustment column' } ],
+            rows: [
+            { l: 'EBITDA, restated', a: 5.0, tol: 0.07, w: '3.8 + 1.2 = 5.0. The rent that used to be an operating cost no longer is one.' },
+            { l: 'Depreciation and amortisation, restated (as a positive number)', a: 4.3, tol: 0.07, w: '3.3 + 1.0 = 4.3. The right-of-use assets have to be depreciated.' },
+            { l: 'EBIT, restated', a: 0.8, tol: 0.07, w: '0.6 + 0.2 = 0.8. EBITDA rose 1.2, depreciation rose 1.0, so only 0.2 survives to EBIT.' },
+            { l: 'Profit before tax, restated', a: 0.1, tol: 0.07, w: '0.2 \u2212 0.1 = 0.1. Interest of 0.3 more than swallows the 0.2 that reached EBIT.' },
+            { l: 'Invested capital, restated', a: 49.2, tol: 0.2, w: '43.2 + 6.0 = 49.2 \u2014 the denominator of ROIC, up 14%.' },
+            { l: 'Cash flow from operating activities, restated', a: 4.4, tol: 0.07, w: '3.2 + 1.2 = 4.4, for the reason you work out in the next step.' }
+          ], e: 'Read the two ends of that column against each other. EBITDA improves by 1.2 while profit before tax gets *worse*, from 0.2 to 0.1. Nothing about the shipping business changed on 1 January 2019 \u2014 the same vessels sailed under the same charters. Only the accounting moved.\n\nMaersk\u2019s own published ratios make it sharper. EBITDA margin goes from 9.8% to 12\u201313%, which reads like a transformation. The equity ratio falls from 59.0% to 53\u201354%. ROIC creeps from 0.8% to 1.0\u20131.5%, rising only because EBIT grew faster than the 14% added to invested capital \u2014 and it is still a return that would embarrass a savings account.' },
           { t: 'pick', p: 'Step 1. Question 1, part one. Exhibit 1 says EBITDA will rise by 1.2bn. What causes that?',
             rows: [
               { l: 'Maersk expects to sign considerably more new leases during 2019 than it did the year before', a: false },
