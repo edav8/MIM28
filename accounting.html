@@ -4231,7 +4231,7 @@ class Component extends DCLogic {
       { t: 'mcq', k: 'Users', p: 'Which pair correctly matches a capital provider to what it expects back?', o: ['Creditors expect dividends; shareholders expect interest', 'Neither expects a return — accounting is for regulators', 'Both expect a fixed coupon', 'Creditors interest, holders dividends'], a: 3, e: 'Creditors expect interest and principal; shareholders expect dividends and the value of retained earnings. The demand for financial information starts with the people who provided the cash and do not run the firm.' },
       { t: 'mcq', k: 'Reading the statement', p: 'Gross profit is:', o: [ 'Revenue net of the cost of goods','Revenue minus all operating expenses', 'Operating profit before tax', 'Net income before dividends'], a: 0, e: 'Revenue net of manufacturing costs — or, for a retailer, net of the cost of merchandise sold. It is the markup on product above direct input costs: labour, materials and manufacturing overhead including depreciation on equipment.' },
       { t: 'mcq', k: 'Reading the statement', p: 'A line sits in the non-operating section, yet arguably belongs in operations. The usual example is:', o: ['Interest expense', 'Share of associates', 'Income tax expense', 'Depreciation'], a: 1, e: 'Share of profits of associates and joint ventures. Non-operating sections are not always well defined. Equity-accounted partnerships are often strategic, so that income is frequently reclassified as operating.' },
-      { t: 'num', k: 'TSMC', p: 'TSMC’s total assets rose 13.8% in 2016 and revenue rose 12.4%. Net income rose by what percentage? (One decimal place.)', a: 9.1, tol: 0.2, e: 'Net income up 9.1%, around NT$28bn — growing, but more slowly than either assets or revenue, which is the first thing to ask about.' },
+      { t: 'num', k: 'TSMC', p: 'TSMC reported net income of about NT$306bn in 2015 and about NT$334bn in 2016. By what percentage did net income grow? (One decimal place.)', a: 9.1, tol: 0.4, e: 'About +9.1% (28 / 306). Over the same year total assets rose 13.8% and revenue 12.4% — so profit grew more slowly than either, which is the first thing worth asking about.' },
       { t: 'num', k: 'TSMC', p: 'TSMC reported PP&E of about NT$998bn out of total assets of about NT$1,886bn in 2016. What percentage of assets is that? (Nearest whole number.)', a: 53, tol: 1.5, e: 'About 53% — a capital-intensive balance sheet, which is why depreciation dominates the reconciliation from profit to operating cash flow.' },
       { t: 'tf', k: 'True or false', p: 'The balance sheet describes a single day, while the income statement describes a stretch of time.', a: true, e: 'That is why a balance sheet is headed "at 31 December" and an income statement "for the year ended 31 December".' },
       { t: 'tf', k: 'True or false', p: 'An auditor’s clean opinion means the business is financially healthy.', a: false, e: 'It means the statements are fairly presented under the rules. A company can be audited, compliant and heading for bankruptcy at the same time.' },
@@ -10019,7 +10019,7 @@ class Component extends DCLogic {
 
   buildAll() {
     const all = [];
-    this.courseSessions().filter(s => this.built[s.key]).forEach(s => (this.bank[s.key] || []).forEach(q => all.push(Object.assign({ s: s.key }, q))));
+    this.courseSessions().filter(s => this.built[s.key]).forEach(s => (this.bank[s.key] || []).forEach(q => all.push(Object.assign({ s: s.key }, this.normQ(q)))));
     return all;
   }
 
@@ -10034,7 +10034,7 @@ class Component extends DCLogic {
   missedQuestions() {
     const missed = this.state.missed || {};
     const out = [];
-    Object.keys(this.bank).forEach(k => (this.bank[k] || []).forEach(q => { if (missed[q.p]) out.push(Object.assign({ s: k }, q)); }));
+    Object.keys(this.bank).forEach(k => (this.bank[k] || []).forEach(q => { if (missed[q.p]) out.push(Object.assign({ s: k }, this.normQ(q))); }));
     return out;
   }
 
