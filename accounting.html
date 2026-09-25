@@ -301,7 +301,7 @@ a { color: var(--color-accent); text-underline-offset: 3px; }
 img { display: block; max-width: 100%; }
 figure { margin: 0; }
 figcaption {
-  font-size: 11px; margin-top: var(--space-1);
+  font-size: 12px; margin-top: var(--space-1);
   color: color-mix(in srgb, var(--color-text) 72%, transparent);
 }
 .text-muted { color: color-mix(in srgb, var(--color-text) 72%, transparent); }
@@ -342,7 +342,7 @@ figcaption {
 
 /* — forms — */
 .field > label {
-  display: block; font-size: 12px; margin-bottom: 5px;
+  display: block; font-size: 13px; margin-bottom: 5px;
   color: color-mix(in srgb, var(--color-text) 70%, transparent);
 }
 .input {
@@ -393,7 +393,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 }
 .card-body { margin: 0; font-size: 13px; opacity: 0.8; flex: 1; }
 .card-meta {
-  display: flex; align-items: center; gap: 6px; font-size: 11px;
+  display: flex; align-items: center; gap: 6px; font-size: 12px;
   color: color-mix(in srgb, var(--color-text) 50%, transparent);
 }
 .elev-sm { box-shadow: var(--shadow-sm); }
@@ -402,7 +402,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
 /* — tags — */
 .tag {
-  display: inline-flex; align-items: center; font-size: 11px;
+  display: inline-flex; align-items: center; font-size: 12px;
   letter-spacing: 0.02em; padding: 3px 10px;
   border-radius: calc(var(--radius-md) * 0.75);
 }
@@ -427,7 +427,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 /* — tables — */
 .table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .table th {
-  text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  text-align: left; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
   color: color-mix(in srgb, var(--color-text) 72%, transparent);
   padding: var(--space-2); border-bottom: 2px solid var(--color-divider);
 }
@@ -552,7 +552,7 @@ a { color: var(--color-accent); text-underline-offset: 3px; }
 img { display: block; max-width: 100%; }
 figure { margin: 0; }
 figcaption {
-  font-size: 11px; margin-top: var(--space-1);
+  font-size: 12px; margin-top: var(--space-1);
   color: color-mix(in srgb, var(--color-text) 72%, transparent);
 }
 .text-muted { color: color-mix(in srgb, var(--color-text) 72%, transparent); }
@@ -593,7 +593,7 @@ figcaption {
 
 /* — forms — */
 .field > label {
-  display: block; font-size: 12px; margin-bottom: 5px;
+  display: block; font-size: 13px; margin-bottom: 5px;
   color: color-mix(in srgb, var(--color-text) 70%, transparent);
 }
 .input {
@@ -644,7 +644,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 }
 .card-body { margin: 0; font-size: 13px; opacity: 0.8; flex: 1; }
 .card-meta {
-  display: flex; align-items: center; gap: 6px; font-size: 11px;
+  display: flex; align-items: center; gap: 6px; font-size: 12px;
   color: color-mix(in srgb, var(--color-text) 50%, transparent);
 }
 .elev-sm { box-shadow: var(--shadow-sm); }
@@ -653,7 +653,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
 /* — tags — */
 .tag {
-  display: inline-flex; align-items: center; font-size: 11px;
+  display: inline-flex; align-items: center; font-size: 12px;
   letter-spacing: 0.02em; padding: 3px 10px;
   border-radius: calc(var(--radius-md) * 0.75);
 }
@@ -678,7 +678,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 /* — tables — */
 .table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .table th {
-  text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  text-align: left; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
   color: color-mix(in srgb, var(--color-text) 72%, transparent);
   padding: var(--space-2); border-bottom: 2px solid var(--color-divider);
 }
@@ -755,19 +755,30 @@ textarea.input { min-height: 90px; resize: vertical; }
   @keyframes sal-legA { 0%, 100% { transform: rotate(-16deg); } 50% { transform: rotate(16deg); } }
   @keyframes sal-legB { 0%, 100% { transform: rotate(16deg); } 50% { transform: rotate(-16deg); } }
   #navtoggle { display: none; }
-  @media (max-width: 860px) {
+  /* Below 1000px the sidebar cannot be a sidebar: 300px of nav plus a column
+     wide enough for a balance sheet does not fit. It used to stack instead,
+     and the seven nav rows plus the session list put roughly 670px of menu
+     above the lesson. Now the whole thing folds behind one button, and only
+     the course name, the crumb and that button stay on screen. */
+  @media (max-width: 1000px) {
     #side { flex-direction: row; flex-wrap: wrap; align-items: stretch; }
     #side > div:first-child { flex: 1 1 100%; padding: 14px 16px 12px !important; }
     #courseswitch { flex: 1 1 100%; padding: 10px 16px 12px !important; }
     #courseswitch > div:first-child { display: none; }
     #courseswitch > button { flex: 1; border-top: 1px solid var(--color-divider) !important; }
     #courseswitch { flex-direction: row !important; }
-    #side > button { flex: 1 1 33%; width: auto !important; padding: 12px 10px !important; text-align: center; min-height: 46px; }
-    #navtoggle { display: block; }
-    #mobilecrumb { display: block !important; }
-    #seslabel { display: none; }
-    #sesslist { flex: 1 1 100%; max-height: 46vh; overflow-y: auto; border-bottom: 2px solid var(--color-divider); }
-    #sesslist[data-open="false"] { display: none !important; }
+    /* title, crumb, menu button; then the drawer's contents in reading order */
+    #side > a, #side > div:first-of-type { order: 0; }
+    #mobilecrumb { display: block !important; order: 1; }
+    #navtoggle { display: block; order: 2; flex: 1 1 100% !important; text-align: left !important; min-height: 50px; }
+    #courseswitch { order: 3; }
+    #side > button:not(#navtoggle) { order: 4; flex: 1 1 100%; width: auto !important; padding: 13px 16px !important; text-align: left; min-height: 48px; }
+    #seslabel { order: 5; flex: 1 1 100%; }
+    #sesslist { order: 6; flex: 1 1 100%; max-height: 46vh; overflow-y: auto; border-bottom: 2px solid var(--color-divider); }
+    #side[data-nav="false"] #courseswitch,
+    #side[data-nav="false"] > button:not(#navtoggle),
+    #side[data-nav="false"] #seslabel,
+    #side[data-nav="false"] #sesslist { display: none !important; }
     #sidenote { display: none !important; }
     #calcdock { position: fixed !important; right: 12px; bottom: 12px; width: auto; padding: 0 !important; border-top: 0 !important; background: transparent !important; align-items: flex-end; z-index: 70; }
     #calcdock > div { width: 264px; box-shadow: var(--shadow-lg); }
@@ -786,6 +797,11 @@ textarea.input { min-height: 90px; resize: vertical; }
     #main div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
     #main div[style*="flex-direction:row"], #main div[style*="display:flex; justify-content:space-between"] { flex-wrap: wrap; }
     #main svg[aria-label] { width: 110px; height: 76px; }
+    /* the floating calculator sits over the last line of the page */
+    #main { padding-bottom: 116px !important; }
+  }
+  @media (max-width: 430px) {
+    #main h1 { font-size: 26px !important; }
   }
   #main span[data-term="1"] { position: relative; }
   #main span[data-term="1"]::after {
@@ -809,12 +825,12 @@ textarea.input { min-height: 90px; resize: vertical; }
 </helmet>
 <div id="shell" style="display:flex; align-items:stretch; min-height:100vh; background:var(--color-bg); color:var(--color-text); font-family:var(--font-body); font-size:15px; line-height:1.5">
 
-  <aside id="side" style="width:300px; flex:none; border-right:2px solid var(--color-divider); display:flex; flex-direction:column; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto; background:var(--color-bg)">
-    <a href="index.html" style="display:block; padding:14px 20px; border-bottom:2px solid var(--color-divider); font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-text); text-decoration:none; border-left:none; border-right:none; border-top:none">← Study hub</a>
+  <aside id="side" role="navigation" aria-label="Trainer sections" data-nav="{{ navOpen }}" style="width:300px; flex:none; border-right:2px solid var(--color-divider); display:flex; flex-direction:column; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto; background:var(--color-bg)">
+    <a href="index.html" style="display:block; padding:14px 20px; border-bottom:2px solid var(--color-divider); font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-text); text-decoration:none; border-left:none; border-right:none; border-top:none">← Study hub</a>
     <div sc-camel-on-click="{{ goHome }}" title="Back to the home page" style="padding:20px 20px 16px; border-bottom:2px solid var(--color-divider); display:flex; align-items:flex-start; gap:12px; cursor:pointer" style-hover="background:color-mix(in srgb, var(--color-text) 5%, transparent)">
       <div style="flex:1; min-width:0">
         <div style="font-family:var(--font-heading); font-weight:700; font-size:19px; line-height:1.1; letter-spacing:-0.01em">FINANCIAL<br>ACCOUNTING</div>
-        <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700); margin-top:8px">Self-study trainer</div>
+        <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700); margin-top:8px">Self-study trainer</div>
       </div>
       <svg width="96" height="73" sc-camel-view-box="0 0 190 145" style="flex:none; margin-top:2px" aria-label="A smiling salamander">
         <path d="M132 74 C154 66 168 76 176 62 C170 84 152 90 132 84 Z" fill="#0d3a22"></path>
@@ -836,7 +852,7 @@ textarea.input { min-height: 90px; resize: vertical; }
       </svg>
     </div>
     <div id="courseswitch" style="display:flex; flex-direction:column; padding:14px 20px 16px; border-bottom:2px solid var(--color-divider)">
-      <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-bottom:8px">Course</div>
+      <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-bottom:8px">Course</div>
       <button type="button" sc-camel-on-click="{{ pickFa }}" style="{{ faTabStyle }}">Financial Accounting</button>
       <button type="button" sc-camel-on-click="{{ pickFra }}" style="{{ fraTabStyle }}">Financial Reporting &amp; Analysis</button>
     </div>
@@ -847,28 +863,28 @@ textarea.input { min-height: 90px; resize: vertical; }
     <button type="button" sc-camel-on-click="{{ openMocks }}" style="{{ mocksStyle }}">Mock exams</button>
     <button type="button" sc-camel-on-click="{{ openRevise }}" style="{{ reviseStyle }}">Exam revision</button>
     <button type="button" sc-camel-on-click="{{ openGloss }}" style="{{ glossStyle }}">Glossary &amp; formulas</button>
-    <div id="mobilecrumb" style="display:none; flex:1 1 100%; padding:10px 16px; border-top:1px solid var(--color-divider); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700)">{{ crumb }}</div>
+    <div id="mobilecrumb" style="display:none; flex:1 1 100%; padding:10px 16px; border-top:1px solid var(--color-divider); font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700)">{{ crumb }}</div>
     <button type="button" id="navtoggle" sc-camel-on-click="{{ toggleNav }}" style="{{ navToggleStyle }}">{{ navToggleLabel }}</button>
-    <div id="seslabel" style="padding:16px 20px 8px; font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 72%, transparent)">Sessions</div>
-    <div id="sesslist" data-open="{{ navOpen }}" style="display:flex; flex-direction:column">
+    <div id="seslabel" style="padding:16px 20px 8px; font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 72%, transparent)">Sessions</div>
+    <div id="sesslist" style="display:flex; flex-direction:column">
       <sc-for list="{{ sessionList }}" as="s" hint-placeholder-count="6">
         <button type="button" sc-camel-on-click="{{ s.onClick }}" style="{{ s.style }}">
           <span style="display:flex; gap:10px; align-items:baseline">
-            <span style="font-variant-numeric:tabular-nums; opacity:0.55; font-size:12px">{{ s.num }}</span>
+            <span style="font-variant-numeric:tabular-nums; opacity:0.55; font-size:13px">{{ s.num }}</span>
             <span style="flex:1">{{ s.title }}</span>
           </span>
-          <span style="display:block; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; margin-top:4px; padding-left:26px; color:{{ s.metaColor }}">{{ s.meta }}</span>
+          <span style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; margin-top:4px; padding-left:26px; color:{{ s.metaColor }}">{{ s.meta }}</span>
         </button>
       </sc-for>
     </div>
-    <div id="sidenote" style="margin-top:auto; padding:16px 20px 8px; font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">
+    <div id="sidenote" style="margin-top:auto; padding:16px 20px 8px; font-size:13px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">
       Built from the Session 1–3 handouts. Answers are graded against the class solutions.
     </div>
     <div id="calcdock" style="display:flex; flex-direction:column; align-items:stretch; gap:8px; padding:16px 20px; border-top:2px solid var(--color-divider); position:sticky; bottom:0; background:var(--color-bg); z-index:5">
       <sc-if value="{{ calcOpen }}" hint-placeholder-val="{{ false }}">
         <div style="background:var(--color-bg); border:2px solid var(--color-text)">
           <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; border-bottom:2px solid var(--color-divider)">
-            <span style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase">Calculator · type to use it</span>
+            <span style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase">Calculator · type to use it</span>
             <span style="font-size:13px; color:var(--color-accent-700); font-variant-numeric:tabular-nums">{{ calcPending }}</span>
           </div>
           <div style="padding:14px 12px; text-align:right; font-family:var(--font-heading); font-size:28px; font-variant-numeric:tabular-nums; overflow:hidden; text-overflow:ellipsis">{{ calcDisplay }}</div>
@@ -892,7 +908,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
     <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
       <div>
-        <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Self-study trainer</div>
+        <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Self-study trainer</div>
         <h1 style="font-size:46px; max-width:19ch; margin:8px 0 14px">Learn to read a company from its numbers.</h1>
         <p style="max-width:56ch; font-size:17px">Two courses. Pick one to see its sessions, cases, exercises and drills.</p>
 
@@ -906,14 +922,14 @@ textarea.input { min-height: 90px; resize: vertical; }
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2px; margin-top:32px">
 
           <button type="button" sc-camel-on-click="{{ faCol.open }}" style="{{ faCol.cardStyle }}">
-            <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ faCol.kicker }}</div>
+            <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ faCol.kicker }}</div>
             <div style="font-family:var(--font-heading); font-weight:700; font-size:30px; line-height:1.15; margin:10px 0 12px">{{ faCol.title }}</div>
             <div style="font-size:15.5px; line-height:1.65; margin-bottom:18px">{{ faCol.short }}</div>
             <div style="font-size:13px; letter-spacing:0.05em; text-transform:uppercase; font-weight:700; color:var(--color-accent-700)">{{ faCol.countLine }} →</div>
           </button>
 
           <button type="button" sc-camel-on-click="{{ fraCol.open }}" style="{{ fraCol.cardStyle }}">
-            <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ fraCol.kicker }}</div>
+            <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ fraCol.kicker }}</div>
             <div style="font-family:var(--font-heading); font-weight:700; font-size:30px; line-height:1.15; margin:10px 0 12px">{{ fraCol.title }}</div>
             <div style="font-size:15.5px; line-height:1.65; margin-bottom:18px">{{ fraCol.short }}</div>
             <div style="font-size:13px; letter-spacing:0.05em; text-transform:uppercase; font-weight:700; color:var(--color-accent-700)">{{ fraCol.countLine }} →</div>
@@ -924,7 +940,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
     <sc-if value="{{ showHub }}" hint-placeholder-val="{{ false }}">
       <div>
-        <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ hub.kicker }}</div>
+        <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ hub.kicker }}</div>
         <h1 style="font-size:42px; margin:8px 0 14px">{{ hub.title }}</h1>
         <p style="max-width:64ch; font-size:17px">{{ hub.what }}</p>
         <p style="max-width:64ch; font-size:16px"><strong>Reach for it when </strong>{{ hub.when }}</p>
@@ -939,7 +955,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                 <a href="#" sc-camel-on-click="{{ r.onClick }}" style="font-size:16px">{{ r.title }}</a>
                 <div style="font-size:13px; line-height:1.55; margin-top:2px; color:color-mix(in srgb, var(--color-text) 62%, transparent)">{{ r.sub }}</div>
               </div>
-              <div style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:{{ r.statusColor }}">{{ r.status }}</div>
+              <div style="font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:{{ r.statusColor }}">{{ r.status }}</div>
             </div>
           </sc-for>
         </div>
@@ -1017,7 +1033,7 @@ textarea.input { min-height: 90px; resize: vertical; }
       <div>
         <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; border-bottom:2px solid var(--color-divider); padding-bottom:16px">
           <div>
-            <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ curKicker }}</div>
+            <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ curKicker }}</div>
             <h1 style="font-size:38px; margin:6px 0 0">{{ curTitle }}</h1>
           </div>
           <div style="display:flex; flex-direction:column; align-items:flex-start; gap:10px">
@@ -1032,9 +1048,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isS1 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">Imagine a friend asks you to put money into their food truck. Before you hand it over you want a regular update: what the truck owns, what it owes, whether it made money last month, and where the cash went. Financial statements are that update, written in a format everyone has agreed on so you can compare one business with another.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Financial statements</strong></sc-raw-td><sc-raw-td>The company's official update about its money.</sc-raw-td></sc-raw-tr>
@@ -1172,7 +1188,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             <p>Demand is only half of it. On the supply side, companies with publicly traded debt or equity use financial accounting for investor reporting and carry additional obligations imposed by governments and exchanges. Private companies use it for private financing such as bank loans, for internal management, and for potential future financing such as an IPO. All reasonably sized corporations follow accrual accounting either way.</p>
             <p style="margin-top:12px">Regulators, exchanges and firms have collectively decided there should be a somewhat rigid set of rules that everyone follows. That rigidity is the point: it is what makes two companies comparable, and it is paid for in flexibility — a rule that fits most firms will fit some badly.</p>
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Corporate governance</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Corporate governance</div>
               <p style="margin:8px 0 0">Management prepares its own accounts and is often paid on the result. Two structures exist to check that: a board of directors elected by shareholders to supervise management, and external auditors who give an opinion on fair presentation. Neither is a guarantee — Wirecard had both.</p>
             </div>
           </div>
@@ -1181,9 +1197,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isS2 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">A balance sheet is a photograph of a company on one single day. Down the left, everything it has. Down the right, where the money for all that came from — lenders or owners. It always balances, because every euro of stuff was paid for by somebody.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Capitalise</strong></sc-raw-td><sc-raw-td>Put a cost on the list of things owned, instead of subtracting it from this year's profit.</sc-raw-td></sc-raw-tr>
@@ -1309,9 +1325,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isS3 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">Two different questions: did the business do well this month, and did cash come in this month? They are not the same. If you eat a pizza today and pay next week, the meal happened today. The income statement records things when they happen; cash follows later.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Revenue</strong></sc-raw-td><sc-raw-td>Sales the company has actually earned.</sc-raw-td></sc-raw-tr>
@@ -1452,9 +1468,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isS4 }}" hint-placeholder-val="{{ false }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">Two ideas in one session. First: at the end of a period the accountant goes back over the books and adjusts for things that happened without any cash moving — a month of insurance used up, wages owed but not yet paid. Second: once the profit number exists, ask how much of it will happen again next year. That question is earnings quality.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Adjusting entry</strong></sc-raw-td><sc-raw-td>A period-end correction for something that happened with no cash moving.</sc-raw-td></sc-raw-tr>
@@ -1563,10 +1579,10 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isS5 }}" hint-placeholder-val="{{ false }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">A company sells a jet engine at a loss and makes the money back servicing it for twenty years. When does it get to report the profit? The old answer let it book the service profit early. IFRS 15 says it has to wait until it does the work — same cash, same contracts, a very different profit line.</p>
               <p style="margin:10px 0 0; font-size:15px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">Built from the Rolls-Royce case. It will be extended when the session slides arrive.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Bundled contract</strong></sc-raw-td><sc-raw-td>One deal containing more than one thing: an engine plus years of maintenance.</sc-raw-td></sc-raw-tr>
@@ -1663,7 +1679,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             <h3 style="margin-top:34px">Breakage: revenue from what is never redeemed</h3>
             <p>Load $100 onto a gift card when experience says $90 will be redeemed and $10 will not. That $10 is breakage, and the standard changed how it is recognised.</p>
             <sc-raw-table class="table" style="margin-top:10px">
-            <sc-raw-thead><sc-raw-tr><sc-raw-th>Event</sc-raw-th><sc-raw-th>Remote method<br><span style="font-size:12px">old rules</span></sc-raw-th><sc-raw-th>Proportional method<br><span style="font-size:12px">new rules</span></sc-raw-th></sc-raw-tr></sc-raw-thead>
+            <sc-raw-thead><sc-raw-tr><sc-raw-th>Event</sc-raw-th><sc-raw-th>Remote method<br><span style="font-size:13px">old rules</span></sc-raw-th><sc-raw-th>Proportional method<br><span style="font-size:13px">new rules</span></sc-raw-th></sc-raw-tr></sc-raw-thead>
             <sc-raw-tbody>
               <sc-raw-tr><sc-raw-td>Card loaded with $100</sc-raw-td><sc-raw-td>$0</sc-raw-td><sc-raw-td>$0</sc-raw-td></sc-raw-tr>
               <sc-raw-tr><sc-raw-td>Year 1: customer redeems $50</sc-raw-td><sc-raw-td>$50</sc-raw-td><sc-raw-td>$55.56</sc-raw-td></sc-raw-tr>
@@ -1680,10 +1696,10 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isS6 }}" hint-placeholder-val="{{ false }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">Revenue is the first line of the income statement and the first line of every valuation model, which is exactly why it gets pushed. This session is about when a sale becomes revenue, and what it looks like from the outside when a company books sales the market has not actually made.</p>
               <p style="margin:10px 0 0; font-size:15px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">Built from the McAfee case. It will be extended when the session slides arrive.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Channel stuffing</strong></sc-raw-td><sc-raw-td>Pushing more product to distributors than the end market wants, and booking it as revenue.</sc-raw-td></sc-raw-tr>
@@ -1783,9 +1799,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isS7 }}" hint-placeholder-val="{{ false }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">The income statement says whether you made money. The cash flow statement says whether any arrived. They disagree constantly, and the whole session is about learning to read the gap rather than being alarmed by it.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>CFO / CFI / CFF</strong></sc-raw-td><sc-raw-td>The three sections: cash from operating, investing and financing activities.</sc-raw-td></sc-raw-tr>
@@ -1815,12 +1831,12 @@ textarea.input { min-height: 90px; resize: vertical; }
             <p>Net income is the starting point and it is wrong in three specific ways. The indirect method corrects each in turn.</p>
 
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Fix 1 — remove non-cash items</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Fix 1 — remove non-cash items</div>
               <p style="margin:8px 0 0">A non-cash expense reduced profit without moving money, so add it back. A non-cash revenue did the reverse, so subtract it. Depreciation is the common one; stock-based compensation is the one people forget.</p>
             </div>
 
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:14px">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Fix 2 — changes in working capital</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Fix 2 — changes in working capital</div>
               <p style="margin:8px 0 0">Profit is recognised when earned, not when paid. Working capital holds the difference, and the signs follow from which side of the balance sheet the account sits on.</p>
               <sc-raw-table class="table" style="margin-top:10px">
               <sc-raw-thead><sc-raw-tr><sc-raw-th></sc-raw-th><sc-raw-th>Increase</sc-raw-th><sc-raw-th>Decrease</sc-raw-th></sc-raw-tr></sc-raw-thead>
@@ -1833,7 +1849,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             </div>
 
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:14px">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Fix 3 — non-operating gains and losses</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Fix 3 — non-operating gains and losses</div>
               <p style="margin:8px 0 0">A gain on selling a building is real profit but it is not operating, and the whole proceeds belong in investing. Subtract the gain from CFO; add back a loss. Leave it in and you double-count, because the sale already appears further down the statement.</p>
             </div>
 
@@ -1849,7 +1865,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             </sc-raw-tbody>
             </sc-raw-table>
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The trap in that example</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The trap in that example</div>
               <p style="margin:8px 0 0">In this illustration the plant acquisitions and the bond issuance are <strong>non-cash</strong> — an asset acquired by issuing debt directly. They move the balance sheet and never touch the cash flow statement. Reconciling the accounts and then assuming the movement was cash is the standard way to get this question wrong.</p>
             </div>
 
@@ -1860,7 +1876,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             <p style="margin-top:12px">The case also shows the classification boundary is not always clean. Netflix runs content payments through operating; its own DVD library once went through investing, and Blockbuster ran rental library purchases through operating. Same kind of asset, three different presentations.</p>
 
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:20px">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
               <p style="margin:8px 0 0">Financial statement analysis: basic ratios, accounts receivable, inventory, long-lived assets, on- and off-balance-sheet debt, and investments.</p>
             </div>
           </div>
@@ -1869,9 +1885,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isS8 }}" hint-placeholder-val="{{ false }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">One number answers the question an investor actually asks: for every euro tied up in this business, how much operating profit does it produce? Everything in this session is that number, taken apart.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>NOPAT</strong></sc-raw-td><sc-raw-td>Net operating profit after tax — profit from operations as if the firm carried no debt at all.</sc-raw-td></sc-raw-tr>
@@ -1897,7 +1913,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             </sc-raw-tbody>
             </sc-raw-table>
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Do not confuse it with EBIT &times; (1 &minus; t)</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Do not confuse it with EBIT &times; (1 &minus; t)</div>
               <p style="margin:8px 0 0">Taxing operating profit is a common shortcut and it gives a different answer — for LVMH about 3,438 rather than 3,626. It ignores everything between operating profit and net income, including income from associates and the real tax actually borne. Use the formula above.</p>
             </div>
             <p style="margin-top:16px">The formula above is one case of a more general rule, and it is the general form that appears on the slides:</p>
@@ -1962,13 +1978,13 @@ textarea.input { min-height: 90px; resize: vertical; }
             </sc-raw-table>
             <p style="margin-top:12px">DIH plus DSO is the operating cycle — buy stock, sell it, collect the cash. Subtracting DPO recognises that the supplier funded part of that wait for free. What is left is the gap you finance yourself.</p>
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The detail that trips people</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The detail that trips people</div>
               <p style="margin:8px 0 0">DPO divides by <strong>purchases</strong>, not by cost of goods sold, and purchases must be derived: COGS + closing inventory &minus; opening inventory. Using COGS instead overstates DPO whenever inventory is growing, and the error flatters the cycle.</p>
             </div>
             <p style="margin-top:14px">Worked on the case figures, LVMH runs a cycle of about <strong>231 days</strong> against Warnaco&rsquo;s <strong>95</strong> — roughly 136 days longer. Champagne and cognac age before they sell, and boutiques hold depth in every size, so inventory alone is 305 days against 85. LVMH collects far faster, at 27 days against 47, because it sells direct to the public rather than to department stores on terms. A long cycle is not a failure here; it is what the strategy costs, and it is why the premium has to be large enough to pay for it. The benchmark makes the point: Burberry ran about 148 days in the same year and Ralph Lauren about 105, so even among branded apparel houses LVMH is an outlier, and ageing spirits are most of the reason.</p>
 
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:22px">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
               <p style="margin:8px 0 0">Inventory: cost flow assumptions, and what LIFO does to every ratio computed from the balance sheet.</p>
             </div>
           </div>
@@ -1978,9 +1994,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isS9 }}" hint-placeholder-val="{{ false }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">Two of the largest numbers on a balance sheet are guesses. Receivables are what customers promised to pay, reduced by an estimate of who never will. Inventory is a pile of goods bought at different prices, and the firm must choose which of those prices to call cost of goods sold. This session is about both estimates and who they flatter.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Gross accounts receivable</strong></sc-raw-td><sc-raw-td>The full amount customers have promised to pay. Almost never printed on the face of the balance sheet.</sc-raw-td></sc-raw-tr>
@@ -2038,7 +2054,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             <p style="margin-top:8px"><strong>Ending gross A/R = beginning gross A/R + revenue &minus; collections &minus; write-offs</strong></p>
             <p style="margin-top:12px">Everything in it is known except collections, which is how cash actually received from customers is recovered from a set of statements that never disclose it. On the figures above, with revenue of 156,890 and write-offs of 4,739: collections were 24,253 + 156,890 &minus; 4,739 &minus; 16,644 = <strong>159,760</strong>.</p>
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Keep the two roll-forwards apart</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Keep the two roll-forwards apart</div>
               <p style="margin:8px 0 0">There are two of them and they share a term. Write-offs drain the <em>allowance</em> and also reduce <em>gross receivables</em>; bad debt expense only ever touches the allowance; revenue and collections only ever touch gross receivables. Sketch both T-accounts before putting a number in either.</p>
             </div>
 
@@ -2089,7 +2105,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             <p style="margin-top:8px"><strong>Raw materials &rarr; work in process &rarr; finished goods &rarr; COGS</strong></p>
             <p style="margin-top:12px">Depreciation of the factory, the utilities, the supervisors' salaries &mdash; all of it is added to work in process and sits on the balance sheet until the goods are sold. Costs that cannot be tied to production are <strong>period costs</strong> and go straight to SG&amp;A: depreciation of the head office, executive pay, marketing.</p>
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Why the split matters</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Why the split matters</div>
               <p style="margin:8px 0 0">A cost routed into inventory is deferred until the goods sell. A cost routed into SG&amp;A hits profit immediately. Producing more than you sell therefore parks a slice of factory overhead on the balance sheet and lifts reported profit &mdash; without a single extra sale. Watch inventory growing faster than revenue.</p>
             </div>
 
@@ -2119,7 +2135,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             <p style="margin-top:12px">Three things to take from the table. The rows sum to the same 410, because the choice only allocates a fixed pot between the income statement and the balance sheet. With prices rising, LIFO charges the highest COGS and so reports the lowest gross margin and the lowest closing inventory. And because inventory turnover is COGS over average inventory, LIFO raises the numerator and cuts the denominator at once &mdash; the ratio can look twice as good on identical operations.</p>
 
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:22px">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
               <p style="margin:8px 0 0">Inventory II: lower of cost and net realisable value, the LIFO reserve and how to restate a LIFO firm onto a FIFO basis so the two can be compared. Then long-lived assets.</p>
             </div>
           </div>
@@ -2128,9 +2144,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isS10 }}" hint-placeholder-val="{{ false }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">Two halves. First, finishing inventory: how to undo the distortion LIFO puts on a balance sheet, and what happens when stock is worth less than it cost. Then the largest number on most balance sheets — the buildings and machines — and the three decisions behind it: what goes on the balance sheet at all, how fast it comes off, and what happens when it is sold.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>LIFO reserve</strong></sc-raw-td><sc-raw-td>The gap between what inventory would be worth under FIFO and what LIFO carries it at. Disclosed in the notes, and the key to comparing across the two.</sc-raw-td></sc-raw-tr>
@@ -2184,11 +2200,11 @@ textarea.input { min-height: 90px; resize: vertical; }
 </sc-raw-table>
 <p style="margin-top:12px">Waiting one month raises reported profit by <strong>450</strong>, or ninety per cent, on identical trading. The twenty-five units sold are matched against prices paid years ago, so COGS collapses and margin looks superb. That 450 is a <strong>LIFO liquidation gain</strong>, manufactured purely by the timing of a purchase order, and firms are required to disclose such gains in the notes for exactly that reason.</p>
 <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
-  <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">It happens at real scale</div>
+  <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">It happens at real scale</div>
   <p style="margin:8px 0 0">Caterpillar reported 2009 operating profit of <strong>577</strong>. Strip out the LIFO liquidation and it is <strong>277</strong> — the reported figure is more than twice the underlying one. The company said so itself on the Q4 call: <q>LIFO inventory decrement benefits in 2009 were $300 million and we&rsquo;re not forecasting additional LIFO decrement benefits in 2010.</q> A reader who took the 577 as a run rate for 2010 was building on a number management had already told them would not repeat.</p>
 </div>
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Why an analyst cares</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Why an analyst cares</div>
               <p style="margin:8px 0 0">A profit rise caused by liquidating old layers is not repeatable and not operating. US filers must disclose its effect, and a margin that improved for this reason should be stripped out before any trend is drawn. It also runs the other way as an incentive: a manager short of profit can hit a target by simply not restocking in December.</p>
             </div>
 
@@ -2207,7 +2223,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             <p>The test is the session 2 definition of an asset — a future economic benefit that is <strong>probable</strong>, <strong>owned or controlled</strong>, and <strong>measurable</strong>. Cash that buys one of those is capitalised; cash that does not is an expense now.</p>
             <p style="margin-top:12px">Intangibles are where the definition bites. Patents, trademarks, customer lists, domain names and goodwill can be recognised <strong>only if they were bought from someone else</strong>. Build the same thing yourself and it is an expense, with two exceptions: software development under both regimes, and development costs after technical feasibility is established under IFRS.</p>
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The clearest illustration in the course</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The clearest illustration in the course</div>
               <p style="margin:8px 0 0">A football club&rsquo;s academy graduate and a player bought from a rival can be equally good. The graduate appears on the balance sheet at <strong>zero</strong>, because the cost of developing him was expensed year by year as coaching. The signing appears at what was paid for him — in the 2018 illustration, &euro;117 million. Same asset to the business, opposite accounting, and the difference is entirely whether a transaction took place.</p>
             </div>
             <p style="margin-top:14px">This is the mirror image of the point from session 1 about market value exceeding book value. The most valuable things most firms own — the brand, the trained workforce, the customer relationships — were built rather than bought, so they are not there.</p>
@@ -2227,7 +2243,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             </sc-raw-tbody>
             </sc-raw-table>
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Use the declining-balance formula above</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Use the declining-balance formula above</div>
               <p style="margin:8px 0 0">Textbooks usually write declining balance as net book value &times; rate &divide; life, ignoring salvage until the end. This course subtracts salvage inside the calculation every year. The two give different annual numbers, so use the one on the slides. Under either, depreciation stops once book value reaches salvage value.</p>
             </div>
             <p style="margin-top:14px">On one asset — cost 60,000, salvage 10,000, four years, 5,000 hours of expected service, and a declining rate of 2 — the three methods produce three different paths to the same destination:</p>
@@ -2265,7 +2281,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             <p style="margin-top:12px">The last two are the interesting pair. Depreciable life exposes an assumption the firm chose: a competitor depreciating identical machines over fifteen years while you use ten is reporting higher profit for no operational reason. Age of assets then says how much of that life has already been used — an old asset base with a replacement ratio below 1 is a capital expenditure programme that has not been announced yet.</p>
 
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:22px">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
               <p style="margin:8px 0 0">Long-lived assets II: impairment of fixed assets and goodwill, then financial liabilities — loans, bonds, and what sits on the balance sheet against them.</p>
             </div>
           </div>
@@ -2274,9 +2290,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isS11 }}" hint-placeholder-val="{{ false }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">For thirty years a company could sign a twenty-year commitment to pay for an aeroplane and put neither the aeroplane nor the debt on its balance sheet. The contract was called a rental and the whole thing lived in a footnote. In 2019 that stopped. This session is about the gap between the two treatments, and what closing it did to the numbers.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Lessor and lessee</strong></sc-raw-td><sc-raw-td>The owner who gives up the use of an asset, and the firm that gets it. You are nearly always looking at the lessee.</sc-raw-td></sc-raw-tr>
@@ -2306,7 +2322,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             </sc-raw-table>
             <p style="margin-top:12px">Three things to take from that table. The cash is identical &mdash; $10,000 a year either way, and the lease decision changes nothing real. The finance lease charges <em>more</em> in year 1 and less later, because interest is largest when the liability is largest; over five years both charge $50,000. And only the finance lease puts anything on the balance sheet.</p>
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:16px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Where the expense sits matters as much as its size</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Where the expense sits matters as much as its size</div>
               <p style="margin:8px 0 0">An operating lease puts the whole 10,000 above operating profit. A finance lease puts 8,659 of depreciation above it and moves 2,165 of interest below it. So capitalising a lease <strong>raises</strong> reported operating profit and EBITDA even while it raises total expense. Any ratio built on EBITDA moves for reasons that have nothing to do with trading.</p>
             </div>
 
@@ -2354,7 +2370,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             <p style="margin-top:12px">Whether that is prudent risk-sharing or the old game in new clothing depends on the case, and both happen. It is the reason the summary of this session is not &ldquo;leases are fixed now&rdquo; but the more durable point: <strong>evaluate a firm&rsquo;s debt both on and off the balance sheet</strong>, and keep reading the notes.</p>
 
             <div style="border:2px solid var(--color-divider); padding:16px 18px; margin-top:22px">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Next session</div>
               <p style="margin:8px 0 0">Provisions and contingent liabilities: obligations whose amount or timing is uncertain, when they are recognised and when they are only disclosed. The BP case.</p>
             </div>
           </div>
@@ -2363,9 +2379,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isF1 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">A business takes money from owners and lenders, buys things with it, and tries to sell something for more than it cost. Everyone outside — a bank, an investor, a supplier — needs a periodic report on how that is going. This chapter is the tour of that report and who reads it.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Shareholder</strong></sc-raw-td><sc-raw-td>An owner. Gets whatever is left after everyone else is paid.</sc-raw-td></sc-raw-tr>
@@ -2486,9 +2502,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isF2 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">Bookkeeping is one notebook with two columns. Every event gets written twice — once in each column — so the totals always agree, and any mistake shows up as a mismatch. "Debit" just means the left column and "credit" the right one. Neither is good or bad news.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Account</strong></sc-raw-td><sc-raw-td>One line item's own running record — cash, or wages, or one supplier.</sc-raw-td></sc-raw-tr>
@@ -2608,9 +2624,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isF3 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">Suppose you are paid up front to walk a dog every day for a month. You have the cash, but you have not earned it yet — you earn it a day at a time. This chapter is about when a sale counts as a sale, and what to do about customers who are slow to pay or never pay at all.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Performance obligation</strong></sc-raw-td><sc-raw-td>A specific thing you promised the customer.</sc-raw-td></sc-raw-tr>
@@ -2682,9 +2698,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isF4 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">A shop buys the same product several times at different prices, then sells some of it. Which price does it say the sold items cost? The answer is a choice, and it changes reported profit — so the rules limit which choices you may make.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Inventory</strong></sc-raw-td><sc-raw-td>Goods bought or made, waiting to be sold.</sc-raw-td></sc-raw-tr>
@@ -2751,9 +2767,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isF5 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">You buy a van you will use for five years of deliveries. Charging the whole price against this month would make this month look terrible and the next fifty-nine look great. So the cost goes on the list of things owned, and a slice of it is charged each period. That slice is depreciation.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Capital expenditure</strong></sc-raw-td><sc-raw-td>Money spent on something long-lasting.</sc-raw-td></sc-raw-tr>
@@ -2822,9 +2838,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isF6 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">Liabilities are the company's promises. Some are certain and precise — an invoice due in thirty days. Some are estimates — the repairs you will owe under warranty. Some are maybe — a lawsuit you might lose. The rules treat those three very differently, and this chapter is where the line sits.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Accounts payable</strong></sc-raw-td><sc-raw-td>Money owed to suppliers. Usually interest-free.</sc-raw-td></sc-raw-tr>
@@ -2883,9 +2899,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isF7 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">Equity is the owners' slice of the business: the money they put in, plus the profit the company has kept rather than paid out. This chapter covers how that slice is issued, bought back and paid out — and why splitting shares changes nothing real, like cutting a pizza into more pieces.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Common stock</strong></sc-raw-td><sc-raw-td>Ordinary shares. They vote.</sc-raw-td></sc-raw-tr>
@@ -2953,9 +2969,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isF8 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">If you own a few shares in another company you are a passenger. If you own most of it, you are driving. The accounting changes with how much say you have — from simply marking your stake at market value, to reporting the other company's entire business as part of your own.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Passive stake</strong></sc-raw-td><sc-raw-td>A small holding with no influence.</sc-raw-td></sc-raw-tr>
@@ -3017,9 +3033,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isF9 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">Profit is partly a matter of judgment; cash is a fact you can check with a bank. This statement takes the year's bank movements and sorts them into three piles: money from running the business, money spent on or raised from long-term things, and money from lenders and owners.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Operating</strong></sc-raw-td><sc-raw-td>Cash from actually running the business.</sc-raw-td></sc-raw-tr>
@@ -3102,9 +3118,9 @@ textarea.input { min-height: 90px; resize: vertical; }
         <sc-if value="{{ isF10 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
               <p style="margin:8px 0 0; font-size:16px">You cannot compare a corner shop with a supermarket using raw numbers — one is a thousand times bigger. Turn everything into percentages and ratios and they become comparable. This chapter is the small set of ratios that does most of the work, and how to break them apart to see what drives them.</p>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
               <sc-raw-table class="table" style="margin-top:6px">
               <sc-raw-tbody>
                 <sc-raw-tr><sc-raw-td style="width:34%"><strong>Ratio</strong></sc-raw-td><sc-raw-td>One number divided by another to make sizes comparable.</sc-raw-td></sc-raw-tr>
@@ -3177,7 +3193,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             <div class="card"><div class="card-kicker">What it will cover</div><div class="card-body">{{ curPreview }}</div></div>
             <sc-if value="{{ hasSesEx }}" hint-placeholder-val="{{ false }}">
               <div style="margin-top:28px; border-top:2px solid var(--color-divider); padding-top:20px">
-                <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Ready now</div>
+                <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Ready now</div>
                 <p style="margin:10px 0 14px; font-size:17px">{{ sesExNote }}</p>
                 <button type="button" class="btn btn-primary" sc-camel-on-click="{{ openSesEx }}">{{ sesExTitle }}</button>
               </div>
@@ -3192,7 +3208,7 @@ textarea.input { min-height: 90px; resize: vertical; }
               <div style="margin:34px 0 0; border:2px solid var(--color-text); background:var(--color-surface)">
                 <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; padding:14px 18px; border-bottom:2px solid var(--color-divider)">
                   <div>
-                    <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Check your understanding</div>
+                    <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Check your understanding</div>
                     <div style="font-family:var(--font-heading); font-weight:700; font-size:16px; margin-top:3px">{{ cb.heading }}</div>
                   </div>
                   <div style="font-size:13px; font-variant-numeric:tabular-nums">{{ cb.tally }}</div>
@@ -3262,7 +3278,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
         <sc-if value="{{ hasSesExList }}" hint-placeholder-val="{{ false }}">
           <div style="max-width:72ch; margin-top:36px; border-top:2px solid var(--color-text); padding-top:18px">
-            <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Practice for this session</div>
+            <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Practice for this session</div>
             <sc-for list="{{ sesExList }}" as="x" hint-placeholder-count="2">
               <button type="button" sc-camel-on-click="{{ x.onClick }}" style="display:block; width:100%; text-align:left; margin-top:12px; padding:16px 18px; cursor:pointer; border:2px solid var(--color-divider); background:var(--color-surface); color:var(--color-text); font:inherit">
                 <span style="display:block; font-family:var(--font-heading); font-weight:700; font-size:17px; line-height:1.3">{{ x.title }}</span>
@@ -3278,7 +3294,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
   <sc-if value="{{ showTodo }}" hint-placeholder-val="{{ false }}">
             <div>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Deadlines</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Deadlines</div>
               <h1 style="font-size:38px; margin:8px 0 12px">To-do &amp; assignments</h1>
               <p style="max-width:64ch; font-size:16px">Every accounting deadline from the Canvas feed. Ticks are remembered in this browser.</p>
               <sc-if value="{{ todoEmpty }}" hint-placeholder-val="{{ false }}">
@@ -3290,9 +3306,9 @@ textarea.input { min-height: 90px; resize: vertical; }
                     <button type="button" sc-camel-on-click="{{ t.onToggle }}" title="Mark done" style="{{ t.boxStyle }}">{{ t.mark }}</button>
                     <div style="flex:1; min-width:0">
                       <div style="{{ t.titleStyle }}">{{ t.title }}</div>
-                      <div style="font-size:12px; opacity:0.7; margin-top:2px">{{ t.when }}</div>
+                      <div style="font-size:13px; opacity:0.7; margin-top:2px">{{ t.when }}</div>
                     </div>
-                    <div style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--color-accent-700); flex:none">{{ t.tag }}</div>
+                    <div style="font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--color-accent-700); flex:none">{{ t.tag }}</div>
                   </div>
                 </sc-for>
               </div>
@@ -3301,11 +3317,11 @@ textarea.input { min-height: 90px; resize: vertical; }
 
   <sc-if value="{{ showMocks }}" hint-placeholder-val="{{ false }}">
             <div>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Under exam conditions</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Under exam conditions</div>
               <h1 style="font-size:38px; margin:8px 0 12px">Mock exams</h1>
               <p style="max-width:64ch; font-size:16px">Five full papers on the shape of the real one: 90 minutes, 100 points, twelve multiple-choice questions worth 30, three short problems worth 45, and a mini case worth 25. Every figure is worked, and every answer explains itself once you have committed to it.</p>
               <div style="border:2px solid var(--color-divider); background:var(--color-surface); padding:16px 18px; margin-top:18px; max-width:64ch">
-                <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">How to use them</div>
+                <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">How to use them</div>
                 <p style="margin:8px 0 0; font-size:15px">Sit one with a clock and a plain calculator and no notes, and only then open the answers. Doing a paper with the solutions beside you tells you the material looks familiar, which is not the thing being tested.</p>
               </div>
               <div style="margin-top:26px; border-top:2px solid var(--color-text)">
@@ -3313,7 +3329,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                   <button type="button" sc-camel-on-click="{{ m.onClick }}" style="display:block; width:100%; text-align:left; padding:18px 4px; cursor:pointer; border:none; border-bottom:1px solid var(--color-divider); background:transparent; color:var(--color-text); font:inherit">
                     <span style="display:block; font-family:var(--font-heading); font-weight:700; font-size:19px; line-height:1.25">{{ m.title }}</span>
                     <span style="display:block; font-size:14px; margin-top:4px">{{ m.sub }}</span>
-                    <span style="display:block; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:8px; color:{{ m.metaColor }}">{{ m.meta }}</span>
+                    <span style="display:block; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-top:8px; color:{{ m.metaColor }}">{{ m.meta }}</span>
                   </button>
                 </sc-for>
               </div>
@@ -3323,13 +3339,13 @@ textarea.input { min-height: 90px; resize: vertical; }
 
   <sc-if value="{{ showRevise }}" hint-placeholder-val="{{ false }}">
             <div>
-              <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Before the exam</div>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Before the exam</div>
               <h1 style="font-size:38px; margin:8px 0 12px">Exam revision</h1>
               <p style="max-width:64ch; font-size:16px">Financial Accounting &middot; {{ reviseExam }}</p>
 
               <div style="border:2px solid var(--color-divider); background:var(--color-surface); padding:18px 20px; margin-top:18px; max-width:64ch">
                 <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px">
-                  <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ reviseCount }}</div>
+                  <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ reviseCount }}</div>
                   <div style="font-size:22px; font-weight:800; font-variant-numeric:tabular-nums">{{ revisePct }}</div>
                 </div>
                 <div style="margin-top:10px; height:8px; background:var(--color-bg); border:1px solid var(--color-divider)">
@@ -3340,8 +3356,8 @@ textarea.input { min-height: 90px; resize: vertical; }
 
               <sc-for list="{{ reviseSecs }}" as="sec" hint-placeholder-count="3">
                 <div style="margin-top:32px; display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding-bottom:8px; border-bottom:2px solid var(--color-text)">
-                  <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase">{{ sec.t }}</div>
-                  <div style="font-size:12px; opacity:0.7; font-variant-numeric:tabular-nums; flex:none">{{ sec.count }}</div>
+                  <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase">{{ sec.t }}</div>
+                  <div style="font-size:13px; opacity:0.7; font-variant-numeric:tabular-nums; flex:none">{{ sec.count }}</div>
                 </div>
                 <sc-if value="{{ sec.hasNote }}" hint-placeholder-val="{{ false }}">
                   <p style="margin:10px 0 0; font-size:13px; opacity:0.75; max-width:64ch">{{ sec.note }}</p>
@@ -3351,19 +3367,19 @@ textarea.input { min-height: 90px; resize: vertical; }
                     <button type="button" sc-camel-on-click="{{ it.onToggle }}" aria-label="{{ it.aria }}" title="{{ it.aria }}" style="{{ it.boxStyle }}">{{ it.mark }}</button>
                     <div style="flex:1; min-width:0">
                       <div style="{{ it.labelStyle }}">{{ it.l }}</div>
-                      <div style="font-size:12px; opacity:0.7; margin-top:2px">{{ it.n }}</div>
+                      <div style="font-size:13px; opacity:0.7; margin-top:2px">{{ it.n }}</div>
                     </div>
                   </div>
                 </sc-for>
               </sc-for>
 
-              <p style="margin-top:18px; font-size:12px; opacity:0.7">Ticks are remembered in this browser only, and they are yours &mdash; nobody else sees them.</p>
+              <p style="margin-top:18px; font-size:13px; opacity:0.7">Ticks are remembered in this browser only, and they are yours &mdash; nobody else sees them.</p>
             </div>
           </sc-if>
 
           <sc-if value="{{ showGloss }}" hint-placeholder-val="{{ false }}">
     <div>
-      <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Reference</div>
+      <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Reference</div>
       <h1 style="font-size:38px; margin:8px 0 12px">Glossary &amp; formulas</h1>
       <p style="max-width:64ch; font-size:16px">Every term the site explains, with its formula where it has one. Search it, or print the page as a one-sheet before an exam.</p>
       <div style="display:flex; gap:12px; align-items:flex-end; margin-top:20px; flex-wrap:wrap">
@@ -3374,7 +3390,7 @@ textarea.input { min-height: 90px; resize: vertical; }
         <button type="button" class="btn btn-secondary" sc-camel-on-click="{{ clearGloss }}">Clear</button>
         <button type="button" class="btn btn-primary" sc-camel-on-click="{{ printGloss }}">Print</button>
       </div>
-      <div style="font-size:12px; margin-top:10px; opacity:0.75">{{ glossCount }}</div>
+      <div style="font-size:13px; margin-top:10px; opacity:0.75">{{ glossCount }}</div>
       <hr class="hr">
       <div>
         <sc-for list="{{ glossRows }}" as="g" hint-placeholder-count="8">
@@ -3389,7 +3405,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
   <sc-if value="{{ showPractice }}" hint-placeholder-val="{{ false }}">
       <div>
-        <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ courseName }}</div>
+        <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ courseName }}</div>
         <h1 style="font-size:38px; margin:8px 0 12px">Practice exercises</h1>
         <p style="max-width:64ch; font-size:16px">{{ practiceIntro }}</p>
         <div style="display:flex; margin-top:20px">
@@ -3410,7 +3426,7 @@ textarea.input { min-height: 90px; resize: vertical; }
               <sc-for list="{{ genCards }}" as="e" hint-placeholder-count="3">
                 <button type="button" sc-camel-on-click="{{ e.onClick }}" style="{{ e.style }}">
                   <span class="tag tag-accent">Randomised</span>
-                  <span style="display:block; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ e.ses }}</span>
+                  <span style="display:block; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-top:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ e.ses }}</span>
                   <span style="display:block; font-family:var(--font-heading); font-weight:700; font-size:19px; margin-top:8px">{{ e.title }}</span>
                   <span style="display:block; font-size:14px; margin-top:6px; opacity:0.8">{{ e.sub }}</span>
                 </button>
@@ -3432,10 +3448,10 @@ textarea.input { min-height: 90px; resize: vertical; }
                   <span style="display:flex; justify-content:space-between; gap:10px; align-items:baseline">
                     <span class="tag {{ e.tagClass }}">{{ e.status }}</span>
                   </span>
-                  <span style="display:block; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ e.ses }}</span>
+                  <span style="display:block; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-top:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ e.ses }}</span>
                   <span style="display:block; font-family:var(--font-heading); font-weight:700; font-size:19px; margin-top:8px">{{ e.title }}</span>
                   <span style="display:block; font-size:14px; margin-top:6px; opacity:0.8">{{ e.sub }}</span>
-                  <span style="display:block; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:14px; color:var(--color-accent-700)">{{ e.steps }}</span>
+                  <span style="display:block; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-top:14px; color:var(--color-accent-700)">{{ e.steps }}</span>
                 </button>
               </sc-for>
             </div>
@@ -3448,10 +3464,10 @@ textarea.input { min-height: 90px; resize: vertical; }
       <div style="{{ exWrapStyle }}">
         <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; border-bottom:2px solid var(--color-divider); padding-bottom:14px">
           <div>
-            <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ exProgress }}</div>
+            <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ exProgress }}</div>
             <h1 style="font-size:32px; margin:6px 0 0">{{ exTitle }}</h1>
             <div style="font-size:14px; opacity:0.75; margin-top:4px">{{ exSub }}</div>
-            <div style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-top:8px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ exSes }}</div>
+            <div style="font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-top:8px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ exSes }}</div>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-start">
             <sc-if value="{{ isGenerated }}" hint-placeholder-val="{{ false }}">
@@ -3512,7 +3528,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
         <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="1">
           <div style="margin-top:34px; border-top:2px solid var(--color-divider); padding-top:20px">
-            <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ b.num }}</div>
+            <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ b.num }}</div>
             <sc-if value="{{ b.hasStepBrief }}" hint-placeholder-val="{{ false }}">
               <div class="card" style="margin-top:12px">
                 <div class="card-kicker">The facts</div>
@@ -3551,7 +3567,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
             <sc-if value="{{ b.hasLook }}" hint-placeholder-val="{{ false }}">
               <div style="margin:0 0 14px; font-size:15px; line-height:1.65">
-                <span style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Where to look — </span>{{ b.look }}
+                <span style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Where to look — </span>{{ b.look }}
               </div>
             </sc-if>
             <sc-if value="{{ b.hasCalc }}" hint-placeholder-val="{{ false }}">
@@ -3559,7 +3575,7 @@ textarea.input { min-height: 90px; resize: vertical; }
             </sc-if>
             <sc-if value="{{ b.hasGiven }}" hint-placeholder-val="{{ false }}">
               <div style="margin:0 0 20px; border:1px solid var(--color-divider); background:var(--color-surface)">
-                <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; padding:10px 16px; border-bottom:2px solid var(--color-divider)">The figures you need, and where they come from</div>
+                <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; padding:10px 16px; border-bottom:2px solid var(--color-divider)">The figures you need, and where they come from</div>
                 <sc-for list="{{ b.given }}" as="g" hint-placeholder-count="2">
                   <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:4px 24px; padding:12px 16px; border-bottom:1px solid var(--color-divider)">
                     <div>
@@ -3581,11 +3597,11 @@ textarea.input { min-height: 90px; resize: vertical; }
               <div style="margin:0 0 18px; border:1px solid var(--color-divider); border-left:3px solid var(--color-accent); padding:14px 16px; background:var(--color-surface)">
                 <sc-if value="{{ b.hasHintPlain }}" hint-placeholder-val="{{ false }}">
                   <div style="margin-bottom:14px">
-                    <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">What this step is asking</div>
+                    <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">What this step is asking</div>
                     <p style="margin:6px 0 0; font-size:15px; line-height:1.65; white-space:pre-line">{{ b.hintPlain }}</p>
                   </div>
                 </sc-if>
-                <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Words in this step, in plain English</div>
+                <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Words in this step, in plain English</div>
                 <sc-for list="{{ b.hintItems }}" as="h" hint-placeholder-count="2">
                   <div style="display:flex; gap:14px; padding:8px 0; border-bottom:1px solid var(--color-divider)">
                     <span style="width:34%; font-family:var(--font-heading); font-weight:600; font-size:14px">{{ h.term }}</span>
@@ -3632,13 +3648,13 @@ textarea.input { min-height: 90px; resize: vertical; }
                     </sc-for>
                   </div>
                 </div>
-                <p style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:10px">{{ b.gridHint }}</p>
+                <p style="font-size:13px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:10px">{{ b.gridHint }}</p>
               </div>
             </sc-if>
 
             <sc-if value="{{ b.isBuild }}" hint-placeholder-val="{{ false }}">
               <div>
-                <div style="display:grid; grid-template-columns:28px minmax(0,1fr) 150px 74px; gap:10px; padding:0 0 7px; border-bottom:2px solid var(--color-text); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 62%, transparent)">
+                <div style="display:grid; grid-template-columns:28px minmax(0,1fr) 150px 74px; gap:10px; padding:0 0 7px; border-bottom:2px solid var(--color-text); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 62%, transparent)">
                   <div></div><div>Line</div><div style="text-align:right">Amount</div><div></div>
                 </div>
                 <sc-for list="{{ b.buildRows }}" as="r" hint-placeholder-count="6">
@@ -3650,10 +3666,10 @@ textarea.input { min-height: 90px; resize: vertical; }
                       </sc-for>
                     </sc-raw-select>
                     <input class="input" type="text" sc-camel-input-mode="decimal" value="{{ r.value }}" sc-camel-on-change="{{ r.onAmt }}" sc-camel-on-focus="{{ r.onFocus }}" sc-camel-on-blur="{{ r.onBlur }}" sc-camel-on-key-down="{{ r.onKeyDown }}" style="{{ r.style }}">
-                    <div style="font-size:13px; font-weight:700; color:{{ r.markColor }}">{{ r.mark }}<span style="display:block; font-weight:400; font-size:11px; color:color-mix(in srgb, var(--color-text) 62%, transparent)">{{ r.answer }}</span></div>
+                    <div style="font-size:13px; font-weight:700; color:{{ r.markColor }}">{{ r.mark }}<span style="display:block; font-weight:400; font-size:12px; color:color-mix(in srgb, var(--color-text) 62%, transparent)">{{ r.answer }}</span></div>
                   </div>
                 </sc-for>
-                <p style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:10px">{{ b.buildHint }}</p>
+                <p style="font-size:13px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:10px">{{ b.buildHint }}</p>
               </div>
             </sc-if>
 
@@ -3662,8 +3678,8 @@ textarea.input { min-height: 90px; resize: vertical; }
                 <sc-for list="{{ b.choiceQs }}" as="q" hint-placeholder-count="6">
                   <div style="padding:18px 0; border-bottom:1px solid var(--color-divider)">
                     <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap">
-                      <span style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700); font-weight:700">{{ q.num }}</span>
-                      <span style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ q.marks }}</span>
+                      <span style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700); font-weight:700">{{ q.num }}</span>
+                      <span style="font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ q.marks }}</span>
                       <span style="margin-left:auto; font-size:15px; font-weight:700; color:{{ q.markColor }}">{{ q.mark }}</span>
                     </div>
                     <div style="font-size:16px; line-height:1.55; margin:8px 0 4px; text-wrap:pretty">{{ q.prompt }}</div>
@@ -3720,7 +3736,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                     </sc-for>
                   </sc-raw-tbody>
                 </sc-raw-table>
-                <p style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:8px">{{ b.entryHint }}</p>
+                <p style="font-size:13px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:8px">{{ b.entryHint }}</p>
               </div>
             </sc-if>
 
@@ -3730,7 +3746,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                 <sc-if value="{{ b.canSkip }}" hint-placeholder-val="{{ false }}">
                   <button type="button" class="btn btn-ghost" sc-camel-on-click="{{ b.skip }}">{{ b.skipLabel }}</button>
                 </sc-if>
-                <span style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ b.lockNote }}</span>
+                <span style="font-size:13px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ b.lockNote }}</span>
               </div>
             </sc-if>
 
@@ -3795,7 +3811,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                 </div>
                 <sc-if value="{{ b.hasWhys }}" hint-placeholder-val="{{ false }}">
                   <div style="margin-top:20px; border-top:2px solid var(--color-divider)">
-                    <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; margin-top:14px">{{ b.whysTitle }}</div>
+                    <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:14px">{{ b.whysTitle }}</div>
                     <sc-for list="{{ b.whys }}" as="w" hint-placeholder-count="3">
                       <div style="display:flex; gap:16px; padding:12px 0; border-bottom:1px solid var(--color-divider)">
                         <span style="width:34%; font-family:var(--font-heading); font-weight:600; font-size:15px; line-height:1.45">{{ w.label }}</span>
@@ -3832,7 +3848,7 @@ textarea.input { min-height: 90px; resize: vertical; }
               <div id="figdrawer" style="position:fixed; right:20px; top:16px; bottom:76px; width:min(880px, 94vw); z-index:65; background:var(--color-surface); border:2px solid var(--color-text); box-shadow:var(--shadow-lg); overflow:auto">
                 <div id="fighandle" style="cursor:move; user-select:none; -webkit-user-select:none; position:sticky; top:0; background:var(--color-surface); border-bottom:2px solid var(--color-divider); padding:14px 18px; display:flex; justify-content:space-between; align-items:baseline; gap:16px">
                   <div>
-                    <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The figures · drag to move · resize from the corner</div>
+                    <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The figures · drag to move · resize from the corner</div>
                     <div style="font-family:var(--font-heading); font-weight:700; font-size:17px; margin-top:4px">{{ figTitle }}</div>
                   </div>
                   <button type="button" class="btn btn-secondary" sc-camel-on-click="{{ toggleFig }}">Close</button>
@@ -3871,7 +3887,7 @@ textarea.input { min-height: 90px; resize: vertical; }
       <div style="max-width:74ch">
         <div style="display:flex; justify-content:space-between; align-items:baseline; border-bottom:2px solid var(--color-divider); padding-bottom:12px">
           <div>
-            <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ quizLabel }}</div>
+            <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ quizLabel }}</div>
             <h1 style="font-size:30px; margin:6px 0 0">{{ quizProgress }}</h1>
           </div>
           <button type="button" class="btn btn-secondary" sc-camel-on-click="{{ exitQuiz }}">Back to lesson</button>
@@ -3881,7 +3897,7 @@ textarea.input { min-height: 90px; resize: vertical; }
         </div>
 
         <div style="margin-top:28px">
-          <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ qKind }}</div>
+          <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ qKind }}</div>
           <sc-if value="{{ hasContext }}" hint-placeholder-val="{{ true }}">
             <div class="card" style="margin:12px 0"><div class="card-body">{{ qContext }}</div></div>
           </sc-if>
@@ -3895,12 +3911,12 @@ textarea.input { min-height: 90px; resize: vertical; }
             <div style="margin:0 0 20px; border:1px solid var(--color-divider); border-left:3px solid var(--color-accent); padding:14px 16px; background:var(--color-surface)">
               <sc-if value="{{ hasHintPlain }}" hint-placeholder-val="{{ false }}">
                 <div style="margin-bottom:14px">
-                  <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">What this question is asking</div>
+                  <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">What this question is asking</div>
                   <p style="margin:6px 0 0; font-size:15px; line-height:1.65; white-space:pre-line">{{ hintPlain }}</p>
                 </div>
               </sc-if>
               <sc-if value="{{ hasHintTerms }}" hint-placeholder-val="{{ true }}">
-                <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Words in this question, in plain English</div>
+                <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">Words in this question, in plain English</div>
               </sc-if>
               <sc-for list="{{ hintItems }}" as="h" hint-placeholder-count="2">
                 <div style="display:flex; gap:14px; padding:8px 0; border-bottom:1px solid var(--color-divider)">
@@ -3935,7 +3951,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                 <button type="button" class="btn btn-primary" sc-camel-on-click="{{ submitNum }}">Check</button>
               </sc-if>
             </div>
-            <p style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:8px">Negative numbers with a minus sign. Commas are fine.</p>
+            <p style="font-size:13px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:8px">Negative numbers with a minus sign. Commas are fine.</p>
           </sc-if>
 
           <sc-if value="{{ isBlank }}" hint-placeholder-val="{{ false }}">
@@ -3950,7 +3966,7 @@ textarea.input { min-height: 90px; resize: vertical; }
                   <button type="button" class="btn btn-primary" sc-camel-on-click="{{ submitBlank }}">Check</button>
                 </div>
               </sc-if>
-              <p style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:10px">Spelling and capitalisation are forgiven.</p>
+              <p style="font-size:13px; color:color-mix(in srgb, var(--color-text) 72%, transparent); margin-top:10px">Spelling and capitalisation are forgiven.</p>
             </div>
           </sc-if>
 
@@ -3967,7 +3983,7 @@ textarea.input { min-height: 90px; resize: vertical; }
               <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:8px; margin-top:12px">
                 <sc-for list="{{ bucketCols }}" as="c" hint-placeholder-count="3">
                   <div sc-camel-on-drag-over="{{ c.onDragOver }}" sc-camel-on-drop="{{ c.onDrop }}" sc-camel-on-click="{{ c.onClick }}" style="{{ c.style }}">
-                    <div style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:4px">{{ c.label }}</div>
+                    <div style="font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:4px">{{ c.label }}</div>
                     <sc-for list="{{ c.items }}" as="it" hint-placeholder-count="0">
                       <button type="button" draggable="{{ it.draggable }}" sc-camel-on-drag-start="{{ it.onDragStart }}" sc-camel-on-click="{{ it.onClick }}" style="{{ it.style }}">{{ it.label }}</button>
                     </sc-for>
@@ -3977,7 +3993,7 @@ textarea.input { min-height: 90px; resize: vertical; }
               <sc-if value="{{ showCheck }}" hint-placeholder-val="{{ true }}">
                 <div style="display:flex; gap:12px; align-items:center; margin-top:16px">
                   <button type="button" class="btn btn-primary" sc-camel-on-click="{{ checkDrag }}">Check</button>
-                  <span style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ checkHint }}</span>
+                  <span style="font-size:13px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ checkHint }}</span>
                 </div>
               </sc-if>
             </div>
@@ -3998,7 +4014,7 @@ textarea.input { min-height: 90px; resize: vertical; }
               <sc-if value="{{ showCheck }}" hint-placeholder-val="{{ true }}">
                 <div style="display:flex; gap:12px; align-items:center; margin-top:16px">
                   <button type="button" class="btn btn-primary" sc-camel-on-click="{{ checkDrag }}">Check</button>
-                  <span style="font-size:12px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ checkHint }}</span>
+                  <span style="font-size:13px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ checkHint }}</span>
                 </div>
               </sc-if>
             </div>
@@ -4078,7 +4094,7 @@ textarea.input { min-height: 90px; resize: vertical; }
           <sc-if value="{{ showNext }}" hint-placeholder-val="{{ true }}">
             <div style="margin-top:28px; display:flex; gap:12px">
               <button type="button" class="btn btn-primary" sc-camel-on-click="{{ next }}">{{ nextLabel }}</button>
-              <span style="font-size:12px; align-self:center; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ navHintText }}</span>
+              <span style="font-size:13px; align-self:center; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ navHintText }}</span>
             </div>
           </sc-if>
           <sc-if value="{{ showSkip }}" hint-placeholder-val="{{ true }}">
@@ -4098,7 +4114,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 
     <sc-if value="{{ showResults }}" hint-placeholder-val="{{ true }}">
       <div style="max-width:74ch">
-        <div style="font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ quizLabel }}</div>
+        <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">{{ quizLabel }}</div>
         <h1 style="font-size:44px; margin:8px 0 4px">{{ resultScore }}</h1>
         <p style="font-size:17px; max-width:52ch">{{ resultNote }}</p>
         <div style="display:flex; gap:12px; margin:20px 0 36px">
@@ -4126,7 +4142,7 @@ textarea.input { min-height: 90px; resize: vertical; }
     </sc-if>
 
     <footer style="margin-top:56px; padding-top:20px; border-top:1px solid var(--color-divider);
-      font-size:12px; line-height:1.6; color:color-mix(in srgb, var(--color-text) 72%, transparent)">
+      font-size:13px; line-height:1.6; color:color-mix(in srgb, var(--color-text) 72%, transparent)">
       Study notes written for this site. No course handout, case document or exercise set is
       reproduced here; quotations from published sources are short and attributed.
       <span style="display:block; margin-top:10px">
@@ -8807,7 +8823,7 @@ class Component extends DCLogic {
         title: tb.title || '',
         note: tb.note || '',
         cols: cols.map(c => ({ v: c })),
-        headStyle: prose ? 'display:none' : grid + 'padding:10px 0 7px; border-bottom:1px solid var(--color-divider); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 72%, transparent)',
+        headStyle: prose ? 'display:none' : grid + 'padding:10px 0 7px; border-bottom:1px solid var(--color-divider); font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 72%, transparent)',
         rows: (tb.rows || []).map(r => {
           const label = r[0];
           const vals = r.slice(1).filter(v => v !== 'k' && v !== 'h' && v !== 's');
@@ -8819,7 +8835,7 @@ class Component extends DCLogic {
           return {
             label: label,
             cells: cells,
-            labelStyle: 'line-height:' + (prose ? '1.65' : '1.4') + (isHead ? '; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700)' : ''),
+            labelStyle: 'line-height:' + (prose ? '1.65' : '1.4') + (isHead ? '; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent-700)' : ''),
             rowStyle: grid + 'padding:' + (prose ? '9px 0' : '7px 0') + '; font-size:' + (prose ? '15px' : '14.5px') + '; align-items:baseline'
               + (isHead ? '; padding:14px 0 5px' : '')
               + (isKey ? '; font-family:var(--font-heading); font-weight:700; border-top:1px solid var(--color-text)' : '')
@@ -10105,14 +10121,14 @@ class Component extends DCLogic {
     const first = this.courseSessions().find(s => built[s.key]) || this.courseSessions()[0];
     const meta = this.courseMeta[this.state.course];
     const level = this.state.level || (this.props.defaultLevel === 'std' ? 'std' : 'beg');
-    const lvlTab = (on) => 'appearance:none; -webkit-appearance:none; font:inherit; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; padding:7px 12px; cursor:pointer; border:1px solid ' + (on ? 'var(--color-text)' : 'var(--color-divider)') + '; background:' + (on ? 'var(--color-text)' : 'transparent') + '; color:' + (on ? 'var(--color-bg)' : 'var(--color-text)');
+    const lvlTab = (on) => 'appearance:none; -webkit-appearance:none; font:inherit; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; padding:7px 12px; cursor:pointer; border:1px solid ' + (on ? 'var(--color-text)' : 'var(--color-divider)') + '; background:' + (on ? 'var(--color-text)' : 'transparent') + '; color:' + (on ? 'var(--color-bg)' : 'var(--color-text)');
 
     const vals = {
       sessionList: sessionList,
       progressRows: progressRows,
       goHome: () => this.goto('home'),
       navOpen: this.state.navOpen ? 'true' : 'false',
-      navToggleLabel: this.state.navOpen ? 'Hide sessions' : 'Sessions',
+      navToggleLabel: this.state.navOpen ? 'Close menu \u25B4' : 'Menu \u25BE',
       navToggleStyle: 'appearance:none; -webkit-appearance:none; font:inherit; font-size:14px; background:' + (this.state.navOpen ? 'var(--color-text)' : 'transparent') + '; color:' + (this.state.navOpen ? 'var(--color-bg)' : 'var(--color-text)') + '; border:0; border-bottom:1px solid var(--color-divider); cursor:pointer; padding:12px 10px; width:100%',
       toggleNav: () => this.setState({ navOpen: !this.state.navOpen }),
       homeStyle: navBtn(view === 'home', false),
@@ -10230,8 +10246,8 @@ class Component extends DCLogic {
       hub: this.courseCol(this.state.course),
       goFra: () => { this.setState({ course: 'fra', view: 'home' }); this.save({ course: 'fra', view: 'home' }); },
       pickFra: () => { this.setState({ course: 'fra', view: 'hub' }); this.save({ course: 'fra', view: 'hub' }); },
-      faTabStyle: 'appearance:none; -webkit-appearance:none; font:inherit; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; text-align:left; padding:9px 10px; cursor:pointer; border:1px solid var(--color-divider); background:' + (this.state.course === 'fa' ? 'var(--color-accent)' : 'transparent') + '; color:' + (this.state.course === 'fa' ? 'var(--color-bg)' : 'var(--color-text)'),
-      fraTabStyle: 'appearance:none; -webkit-appearance:none; font:inherit; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; text-align:left; padding:9px 10px; cursor:pointer; border:1px solid var(--color-divider); border-top:0; background:' + (this.state.course === 'fra' ? 'var(--color-accent)' : 'transparent') + '; color:' + (this.state.course === 'fra' ? 'var(--color-bg)' : 'var(--color-text)'),
+      faTabStyle: 'appearance:none; -webkit-appearance:none; font:inherit; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; text-align:left; padding:9px 10px; cursor:pointer; border:1px solid var(--color-divider); background:' + (this.state.course === 'fa' ? 'var(--color-accent)' : 'transparent') + '; color:' + (this.state.course === 'fa' ? 'var(--color-bg)' : 'var(--color-text)'),
+      fraTabStyle: 'appearance:none; -webkit-appearance:none; font:inherit; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; text-align:left; padding:9px 10px; cursor:pointer; border:1px solid var(--color-divider); border-top:0; background:' + (this.state.course === 'fra' ? 'var(--color-accent)' : 'transparent') + '; color:' + (this.state.course === 'fra' ? 'var(--color-bg)' : 'var(--color-text)'),
       startFirst: () => this.goto(first.key),
       startMix: () => this.startQuizFor('mix'),
       allCount: String(total),
