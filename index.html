@@ -3193,13 +3193,29 @@ class Component extends DCLogic {
       }
       if (!this.state.calcOpen) return;
       const tag = (e.target && e.target.tagName || '').toLowerCase();
-      if (tag === 'input') return;
+      if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
       const k = e.key;
-      if (/^[0-9.]$/.test(k)) this.calcPress(k);
-      else if (k === '+' || k === '-' || k === '*' || k === '/') this.calcPress({ '+': '+', '-': '−', '*': '×', '/': '÷' }[k]);
-      else if (k === 'Enter' || k === '=') this.calcPress('=');
-      else if (k === 'Backspace') this.calcPress('⌫');
-      else if (k === 'Escape') this.calcPress('C');
+      let press = null;
+      if (/^[0-9]$/.test(k)) press = k;
+      else if (k === '.' || k === ',') press = '.';
+      else if (k === '+') press = '+';
+      else if (k === '-') press = '−';
+      else if (k === '*' || k === 'x' || k === 'X') press = '×';
+      else if (k === '/') press = '÷';
+      else if (k === '%') press = '%';
+      else if (k === 'Enter' || k === '=') press = '=';
+      else if (k === 'Backspace') press = '⌫';
+      else if (k === 'Escape') { this.setState({ calcOpen: false }); e.preventDefault(); return; }
+      else if (k === 'c' || k === 'C' || k === 'Delete') press = 'C';
+      if (press === null) return;
+      // Without this the browser also fires a click on whichever calculator key
+      // still has focus from the last press, so Enter computed the answer and
+      // then immediately overwrote it with that key. Blur it as well, so a
+      // second Enter is clean too.
+      e.preventDefault();
+      const act = document.activeElement;
+      if (act && act.tagName === 'BUTTON' && act.closest && act.closest('#hubcalc')) act.blur();
+      this.calcPress(press);
     };
     window.addEventListener('keydown', this.onKey);
 
@@ -3924,7 +3940,11 @@ class Component extends DCLogic {
     v.calcKeys = ['C', '⌫', '√', '÷', '7', '8', '9', '×', '4', '5', '6', '−', '1', '2', '3', '+', '±', '0', '.', '=', 'x²', '%', '% of 1'].map(k => ({
       label: k === '% of 1' ? '0.05 → 5%' : k === '%' ? '5% → 0.05' : k,
       aria: calcNames[k] || k,
-      onClick: () => this.calcPress(k),
+      // A mouse click leaves the key focused, and Enter then re-presses it.
+      // preventDefault in the key handler stops that, but dropping focus after
+      // a pointer click removes the question. detail > 0 means a real click, so
+      // a keyboard user who tabbed to the key keeps their place.
+      onClick: (e) => { if (e && e.detail > 0 && e.currentTarget) e.currentTarget.blur(); this.calcPress(k); },
       style: 'padding:11px 0; border:none; cursor:pointer; font-size:' + (calcWide[k] ? '12px' : '15px') + '; font-weight:600; background:' + (k === '=' ? 'var(--acc)' : 'var(--panel)') + '; color:' + (k === '=' ? 'var(--onAcc)' : 'var(--ink)') + ';' + (calcWide[k] ? ' grid-column:span ' + calcWide[k] + ';' : '')
     }));
 
