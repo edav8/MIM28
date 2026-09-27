@@ -3305,7 +3305,7 @@ class Component extends DCLogic {
       const raw = window.localStorage.getItem('mim28-hub-v1');
       if (raw) {
         const s = JSON.parse(raw);
-        this.setState({ done: s.done || {}, best: s.best || {}, missed: s.missed || {}, last: s.last || {}, lastCourse: s.lastCourse || null, todoDone: s.todoDone || {}, reviseDone: s.reviseDone || {} });
+        this.setState({ done: s.done || {}, best: s.best || {}, missed: s.missed || {}, last: s.last || {}, lastCourse: s.lastCourse || null, exWork: s.exWork || {}, todoDone: s.todoDone || {}, reviseDone: s.reviseDone || {} });
       }
     } catch (e) {}
     this.onKey = (e) => {
@@ -3405,7 +3405,7 @@ class Component extends DCLogic {
   componentWillUnmount() { window.removeEventListener('keydown', this.onKey); }
 
   save(patch) {
-    const next = Object.assign({ done: this.state.done, best: this.state.best, missed: this.state.missed, last: this.state.last, lastCourse: this.state.lastCourse, todoDone: this.state.todoDone, reviseDone: this.state.reviseDone }, patch || {});
+    const next = Object.assign({ done: this.state.done, best: this.state.best, missed: this.state.missed, last: this.state.last, lastCourse: this.state.lastCourse, exWork: this.state.exWork, todoDone: this.state.todoDone, reviseDone: this.state.reviseDone }, patch || {});
     try { window.localStorage.setItem('mim28-hub-v1', JSON.stringify(next)); } catch (e) {}
   }
 
@@ -3584,6 +3584,32 @@ class Component extends DCLogic {
     const seen = Object.assign({}, this.state.exSeen || {});
     st.rows.forEach((r, ri) => { seen[si + ':' + ri] = true; });
     this.setState({ exUi: u, exSeen: seen });
+    this.saveExWork({ exUi: u, exSeen: seen });
+  }
+
+  // Stepping out to the statistical tables and back used to wipe everything you
+  // had typed, because opening an exercise always started it empty. Work is
+  // kept per exercise and written to this browser, so leaving the page -- or
+  // closing it -- no longer costs you the answers. Only "Clear my answers"
+  // and a fresh set of generated numbers reset it.
+  openExercise(fullKey) {
+    if (this.state.exKey === fullKey) { this.setState({ exhibitTab: null }); return; }
+    const w = (this.state.exWork || {})[fullKey] || {};
+    this.setState({
+      exKey: fullKey,
+      exInp: w.inp || {}, exUi: w.ui || {}, exSeen: w.seen || {},
+      exhibitTab: null, exhibitOpen: false
+    });
+  }
+
+  saveExWork(extra) {
+    const key = this.state.exKey;
+    if (!key) return;
+    const state = Object.assign({ exInp: this.state.exInp, exUi: this.state.exUi, exSeen: this.state.exSeen }, extra || {});
+    const work = Object.assign({}, this.state.exWork || {});
+    work[key] = { inp: state.exInp || {}, ui: state.exUi || {}, seen: state.exSeen || {} };
+    this.setState({ exWork: work });
+    this.save({ exWork: work });
   }
 
   exFor(key) {
@@ -4296,7 +4322,7 @@ class Component extends DCLogic {
       coversColor: e.covers ? 'var(--accSoft)' : 'var(--faint)',
       state: this.state.done['ex:' + ck + ':' + e.key] ? 'Complete' : 'Open',
       stateColor: this.state.done['ex:' + ck + ':' + e.key] ? 'var(--good)' : 'var(--faint)',
-      onClick: () => { this.setState({ exInp: {}, exUi: {}, exSeen: {}, exhibitTab: null, exhibitOpen: false }); this.go('ex:' + e.key); }
+      onClick: () => { this.openExercise(ck + ':' + e.key); this.go('ex:' + e.key); }
     });
     v.exList = (d.exercises || []).map(mk);
     const byNum = {};
@@ -4347,7 +4373,7 @@ class Component extends DCLogic {
     v.hasGens = (d.gens || []).length > 0;
     v.genList = (d.gens || []).map(g => ({
       tag: g.tag, title: g.title, blurb: g.blurb,
-      onClick: () => { this.setState({ exSeed: Date.now() % 99991, exInp: {}, exUi: {}, exSeen: {} }); this.go('ex:' + g.key); }
+      onClick: () => { this.setState({ exSeed: Date.now() % 99991, exInp: {}, exUi: {}, exSeen: {}, exKey: ck + ':' + g.key, exhibitTab: null, exhibitOpen: false }); this.go('ex:' + g.key); }
     }));
 
     if (mode === 'ex') {
@@ -4358,7 +4384,10 @@ class Component extends DCLogic {
           tag: ex.tag, title: ex.title, stem: ex.stem,
           redrawLabel: ex.gen ? 'New numbers' : 'Clear my answers',
           onNext: () => { const dn = Object.assign({}, this.state.done); dn['ex:' + ck + ':' + key] = true; this.setState({ done: dn }); this.save({ done: dn }); this.go('prac'); },
-          onRedraw: () => this.setState({ exSeed: Date.now() % 99991, exInp: {}, exUi: {}, exSeen: {} })
+          onRedraw: () => {
+            this.setState({ exSeed: Date.now() % 99991, exInp: {}, exUi: {}, exSeen: {} });
+            this.saveExWork({ exInp: {}, exUi: {}, exSeen: {} });
+          }
         };
         // The exhibit. Problem sets are written to be worked with the course's
         // statistical tables in front of you, so the table the question needs
@@ -4427,6 +4456,7 @@ class Component extends DCLogic {
                 onBlur: () => {
                   const seen = Object.assign({}, this.state.exSeen || {}); seen[key] = true;
                   this.setState({ exSeen: seen });
+                  this.saveExWork({ exSeen: seen });
                 },
                 onKeyDown: (e) => { if (e.key === 'Enter') { e.preventDefault(); this.exCheck(ex, st, si); } }
               };
@@ -4439,6 +4469,7 @@ class Component extends DCLogic {
               const seen = Object.assign({}, this.state.exSeen || {});
               st.rows.forEach((r, ri) => { inp[si + ':' + ri] = String(r.a); seen[si + ':' + ri] = true; });
               this.setState({ exUi: u, exInp: inp, exSeen: seen });
+              this.saveExWork({ exUi: u, exInp: inp, exSeen: seen });
             }
           };
         });
