@@ -3469,6 +3469,12 @@ textarea.input { min-height: 90px; resize: vertical; }
             <div style="font-size:14px; opacity:0.75; margin-top:4px">{{ exSub }}</div>
             <div style="font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-top:8px; color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ exSes }}</div>
           </div>
+          <sc-if value="{{ isMockPaper }}" hint-placeholder-val="{{ false }}">
+            <div style="text-align:right; flex:none">
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 74%, transparent)">Marks so far</div>
+              <div style="font-family:var(--font-heading); font-weight:700; font-size:40px; line-height:1.05; font-variant-numeric:tabular-nums; color:var(--color-accent-700)">{{ mockTotal }}<span style="font-size:20px; opacity:0.7">/{{ mockOutOf }}</span></div>
+            </div>
+          </sc-if>
           <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-start">
             <sc-if value="{{ isGenerated }}" hint-placeholder-val="{{ false }}">
               <button type="button" class="btn btn-primary" sc-camel-on-click="{{ newNumbers }}">New numbers</button>
@@ -3825,6 +3831,37 @@ textarea.input { min-height: 90px; resize: vertical; }
             </sc-if>
           </div>
         </sc-for>
+
+        <sc-if value="{{ isMockPaper }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:40px; border:2px solid var(--color-text); padding:24px 26px 28px">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:20px; flex-wrap:wrap">
+              <h2 style="font-size:24px; margin:0">Mark sheet</h2>
+              <div style="font-family:var(--font-heading); font-weight:700; font-size:28px; font-variant-numeric:tabular-nums; color:var(--color-accent-700)">{{ mockTotal }} / {{ mockOutOf }}</div>
+            </div>
+            <sc-if value="{{ mockAllDone }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:10px 0 0; max-width:60ch">{{ mockVerdict }}</p>
+            </sc-if>
+            <div style="margin-top:22px; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:18px">
+              <sc-for list="{{ mockSections }}" as="sc" hint-placeholder-count="3">
+                <div>
+                  <div style="font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 74%, transparent)">{{ sc.label }}</div>
+                  <div style="font-family:var(--font-heading); font-weight:700; font-size:21px; margin-top:4px; font-variant-numeric:tabular-nums">{{ sc.score }}<span style="font-size:14px; opacity:0.65; margin-left:8px">{{ sc.pct }}</span></div>
+                  <div style="margin-top:8px; height:6px; background:var(--color-divider)"><span style="{{ sc.barStyle }}"></span></div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="margin-top:26px; border-top:2px solid var(--color-divider)">
+              <sc-for list="{{ mockRows }}" as="mr" hint-placeholder-count="14">
+                <div style="display:flex; gap:16px; align-items:baseline; padding:9px 0; border-bottom:1px solid var(--color-divider)">
+                  <span style="flex:1; min-width:0; font-size:15px; color:{{ mr.color }}">{{ mr.label }}</span>
+                  <span style="font-size:13px; color:color-mix(in srgb, var(--color-text) 74%, transparent)">{{ mr.note }}</span>
+                  <span style="width:88px; text-align:right; font-variant-numeric:tabular-nums; font-size:15px; font-weight:600; color:{{ mr.color }}">{{ mr.score }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <p style="margin:18px 0 0; max-width:66ch; font-size:14px; color:color-mix(in srgb, var(--color-text) 74%, transparent)">Marks are awarded line by line, not all-or-nothing: eight of nine correct entries on a cash flow statement earns eight ninths of the marks for that part. A skipped question shows its answers and scores zero, the same as leaving it blank in the hall.</p>
+          </div>
+        </sc-if>
 
         <sc-if value="{{ exComplete }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top:36px; border-top:2px solid var(--color-divider); padding-top:24px">
@@ -7099,7 +7136,7 @@ class Component extends DCLogic {
           ] }
         ],
         steps: [
-          { t: 'choice', p: 'Section A, questions 1 to 6. Thirty points across the section, 2.5 for each question. One answer per question.',
+          { sec: 'A', m: 15, t: 'choice', p: 'Section A, questions 1 to 6. Thirty points across the section, 2.5 for each question. One answer per question.',
             qs: [
               { n: 'A1', m: 2.5, q: 'Gelato Group buys a delivery van for €50,000. It pays €20,000 in cash and finances the rest with a bank loan. What is the immediate effect on its balance sheet?', o: [ 'Total assets do not change, because cash is exchanged for a van', 'Total assets increase by €50,000 and total liabilities increase by €50,000', 'Total assets increase by €50,000 and shareholders’ equity decreases by €20,000','Total assets increase by €30,000 and total liabilities increase by €30,000'], a: 3, w: 'The van (+50,000) replaces cash (−20,000), so assets rise by a net 30,000, and the loan adds 30,000 of liabilities. Equity is untouched — buying an asset is not an expense.' },
               { n: 'A2', m: 2.5, q: 'Focaccia Foods delivers goods on 20 December and the customer pays on 15 January. Under accrual accounting, when is revenue recognised and what is recorded on 20 December?', o: [ 'In December, when the goods are delivered; a receivable is recorded in December','In January, when the cash is received; nothing is recorded in December', 'In December, when the goods are delivered; the cash is recorded in December', 'Half in December and half in January'], a: 0, w: 'Revenue is recognised on delivery, not on payment. The firm records a receivable and revenue in December; in January the receivable is simply exchanged for cash, with no further revenue.' },
@@ -7108,7 +7145,7 @@ class Component extends DCLogic {
               { n: 'A5', m: 2.5, q: 'On 1 November, Tiramisu Tech receives €6,000 for a six-month subscription starting that day. At 31 December it reports:', o: [ 'No revenue until the subscription ends in April', 'Revenue of €6,000, because the cash has been received', 'Revenue of €4,000 and a liability of €2,000','Revenue of €2,000 and a liability of €4,000'], a: 3, w: 'Two of six months of service have been provided, so 2/6 × 6,000 = 2,000 is revenue. The other 4,000 is cash received for a service still owed — unearned revenue, a liability.' },
               { n: 'A6', m: 2.5, q: 'Cannoli Capital buys a machine for €60,000, expects to use it for five years and then sell it for €10,000. Using straight-line depreciation, what is net book value at the end of year 2?', o: [ '€40,000','€36,000', '€50,000', '€48,000'], a: 0, w: 'Annual depreciation = (60,000 − 10,000) / 5 = 10,000. After two years accumulated depreciation is 20,000, so NBV = 40,000. Depreciation allocates cost; it is not an estimate of what the machine is worth.' }
             ] },
-          { t: 'choice', p: 'Section A, questions 7 to 12.',
+          { sec: 'A', m: 15, t: 'choice', p: 'Section A, questions 7 to 12.',
             qs: [
               { n: 'A7', m: 2.5, q: 'Purchase prices at Pesto Pharma have risen all year. Compared with FIFO, LIFO would give:', o: ['A higher cost of goods sold and a higher ending inventory', 'A higher cost of goods sold and a lower ending inventory', 'A lower cost of goods sold and a higher ending inventory', 'The same cost of goods sold, because the physical goods sold are the same'], a: 1, w: 'LIFO charges the most recent and most expensive purchases to COGS, so COGS is higher and profit lower, while the old cheap costs stay in inventory. Cost flow need not match physical flow — which is exactly why the choice moves reported profit and tax.' },
               { n: 'A8', m: 2.5, q: 'Which cash flow belongs in the financing section of the statement of cash flows?', o: ['Cash paid to buy a new warehouse', 'Cash collected from customers', 'Cash received from issuing new shares', 'Cash paid to suppliers for inventory'], a: 2, w: 'Financing covers transactions with the providers of capital: borrowing, repaying and issuing shares. The warehouse is investing; collections and supplier payments are operating.' },
@@ -7117,7 +7154,7 @@ class Component extends DCLogic {
               { n: 'A11', m: 2.5, q: 'Bellini Bikes earns NOPAT of €120m on revenue of €2,000m, with average invested capital of €800m. Which is correct?', o: ['NOPAT margin 15%, IC turnover 0.4, ROIC 6%', 'NOPAT margin 6%, IC turnover 2.5, ROIC 15%', 'NOPAT margin 6%, IC turnover 0.4, ROIC 2.4%', 'NOPAT margin 15%, IC turnover 2.5, ROIC 37.5%'], a: 1, w: 'Margin = 120 / 2,000 = 6%; turnover = 2,000 / 800 = 2.5; ROIC = 120 / 800 = 15% = 6% × 2.5. A supermarket earns its return through turnover on thin margins; a luxury house through margin on slow capital.' },
               { n: 'A12', m: 2.5, q: 'Over three years Negroni Nautics’ ROE rose from 12% to 18% while its ROIC fell from 9% to 7%. The most likely explanation is:', o: ['Its operations have become more profitable', 'It is collecting cash from customers faster', 'It has financed itself with more debt relative to equity', 'It has cut selling prices to gain share'], a: 2, w: 'ROIC measures the business regardless of financing, and it fell — so operations did not improve. ROE can still rise on borrowing, because shareholders keep the spread between ROIC and the after-tax cost of debt. It reverses sharply if ROIC ever falls below that cost.' }
             ] },
-          { t: 'grid', p: 'Question B1 — Focaccia Foods (15 points). Part (a), 7 points. The grid already records transactions 1 to 4. Record transactions 5 to 10 and the year-end adjustments — one line each — then complete the balances at 31 December. The transactions are in the Figures panel.',
+          { sec: 'B', m: 7, t: 'grid', p: 'Question B1 — Focaccia Foods (15 points). Part (a), 7 points. The grid already records transactions 1 to 4. Record transactions 5 to 10 and the year-end adjustments — one line each — then complete the balances at 31 December. The transactions are in the Figures panel.',
             cols: ['Cash', 'A/R', 'Inventory', 'Prepaid rent', 'Equip. (net)', 'A/P', 'Unearned rev.', 'Wages pay.', 'Interest pay.', 'Bank loan', 'Share cap.', 'Retained earnings'],
             hint: 'Leave a cell blank where the account did not move. Amounts in euros; use a minus sign rather than brackets.',
             rows: [
@@ -7138,7 +7175,7 @@ class Component extends DCLogic {
               { l: 'Adj. int', cells: [null, null, null, null, null, null, null, null, 2500.0, null, null, -2500.0] },
               { l: '31 Dec', cells: [88000, 30000, 10000, 9000.0, 48000.0, 15000, 6000, 1000, 2500.0, 50000, 100000, 10500.0] }
             ], e: 'This is the question the whole of Section B is built on, and it is worth more than any other single part of the paper. Three of the sixteen lines are adjustments nobody asks you for by name: 3,000 of the prepaid rent has been used, the equipment has depreciated by 12,000, and 2,500 of interest has been incurred and not paid. Miss them and every figure below is wrong.\n\nThe check that costs nothing: every row must leave assets equal to liabilities plus equity, and the closing row must equal the sum of the column above it. Closing assets come to 185,000, and so do the claims on them.' },
-          { t: 'build', p: 'Question B1, part (b), 4 points. Build the income statement for the year. Choose each line from the dropdown and enter its amount — the lines are not given to you, and not every account offered belongs on an income statement.',
+          { sec: 'B', m: 4, t: 'build', p: 'Question B1, part (b), 4 points. Build the income statement for the year. Choose each line from the dropdown and enter its amount — the lines are not given to you, and not every account offered belongs on an income statement.',
             calc: 'Accrual accounting: what was earned and what was used up, not what was paid',
             hint: 'Enter every figure as a positive number; the labels carry the signs.',
             options: ['Revenue', 'Cost of goods sold', 'Gross profit', 'Wages expense', 'Rent expense', 'Depreciation expense', 'Operating profit', 'Interest expense', 'Net income', 'Dividends paid', 'Unearned revenue', 'Accounts payable', 'Prepaid rent', 'Equipment, net', 'Bank loan', 'Share capital', 'Accounts receivable'],
@@ -7153,7 +7190,7 @@ class Component extends DCLogic {
             { a: 'Interest expense', v: 2500.0, tol: 1, w: '50,000 at 5.0%. Unpaid at year end, which changes nothing — and it sits below operating profit because it is a financing cost, not an operating one.' },
             { a: 'Net income', v: 13500.0, tol: 2, w: '16,000 − 2,500 = 13,500.' }
           ], e: 'Nine lines, in that order, and the two subtotals are half the point of the statement. Gross profit separates the trade from the overhead; operating profit separates the business from the way it is financed.\n\nThe other eight accounts in the dropdown are balance sheet items or, in the case of the  3,000 dividend, a distribution of profit rather than a cost of earning it — and the customer’s 6,000 advance is a liability, not revenue, because nothing has been delivered.' },
-          { t: 'build', p: 'Question B1, part (c), 3 points. Prepare the balance sheet at 31 December: assets first, then everything claimed against them, and show that the two sides agree. The template is blank — choose every line yourself.',
+          { sec: 'B', m: 3, t: 'build', p: 'Question B1, part (c), 3 points. Prepare the balance sheet at 31 December: assets first, then everything claimed against them, and show that the two sides agree. The template is blank — choose every line yourself.',
             calc: 'Assets = liabilities + shareholders’ equity',
             hint: 'Enter every figure as a positive number. Seven of the lines offered do not belong on a balance sheet at all.',
             options: ['Cash', 'Accounts receivable', 'Inventory', 'Prepaid rent', 'Equipment, net', 'Total assets', 'Accounts payable', 'Unearned revenue', 'Wages payable', 'Interest payable', 'Bank loan', 'Share capital', 'Retained earnings', 'Total liabilities and equity', 'Revenue', 'Cost of goods sold', 'Net income', 'Dividends paid', 'Depreciation expense', 'Wages expense', 'Gross profit'],
@@ -7173,7 +7210,7 @@ class Component extends DCLogic {
             { a: 'Retained earnings', v: 10500.0, tol: 2, w: 'Net income 13,500 − dividend 3,000. The company began the year with none.' },
             { a: 'Total liabilities and equity', v: 185000.0, tol: 5, w: '15,000 + 6,000 + 1,000 + 2,500 + 50,000 + 100,000 + 10,500 = 185,000, which is exactly total assets.' }
           ], e: 'Fourteen lines, and two totals that have to be the same number. Each figure is a column total from the grid in part (a), so a disagreement here means the error is in a row above.\n\nThe three easiest to leave out are the ones that exist only because of a year-end adjustment — unearned revenue, wages payable and interest payable — and the one most often got wrong is retained earnings, which is net income less the dividend rather than net income itself.' },
-          { t: 'pick', p: 'Question B1, part (d), 1 point. The founder says: "We ended the year with 88,000 of cash having started with nothing, so the business is obviously profitable." Mark each statement true or false.',
+          { sec: 'B', m: 1, t: 'pick', p: 'Question B1, part (d), 1 point. The founder says: "We ended the year with 88,000 of cash having started with nothing, so the business is obviously profitable." Mark each statement true or false.',
             rows: [
               { l: 'The cash increase is a poor measure of the year’s performance', a: true, w: 'Most of it came from shareholders and the bank putting in 150,000 and a customer paying 6,000 for goods not yet delivered.' },
               { l: 'Net income of 13,500 is the better measure', a: true, w: 'It matches what was earned against what it cost to earn it, including equipment used up and rent and interest not yet paid.' },
@@ -7182,7 +7219,7 @@ class Component extends DCLogic {
               { l: 'A company can hold more cash at the year end and still have made a loss', a: true, w: 'Raise equity or borrow enough and cash rises whatever the trading did. The two questions are separate.' }
             ],
             e: 'One point, and it is the point of the whole question. Cash and profit answer different questions, and the founder has asked one and answered the other.' },
-          { t: 'build', p: 'Question B2 — Mojito Mobility (15 points). Part (a), 7 points. Prepare the operating section of the statement of cash flows using the indirect method, one adjustment per line. The template is blank and the data is in the Figures panel.',
+          { sec: 'B', m: 7, t: 'build', p: 'Question B2 — Mojito Mobility (15 points). Part (a), 7 points. Prepare the operating section of the statement of cash flows using the indirect method, one adjustment per line. The template is blank and the data is in the Figures panel.',
             calc: 'CFO = net income + non-cash charges − non-operating gains ± working capital',
             hint: 'Signs matter here: enter a deduction as a negative number.',
             options: ['Net income', 'Depreciation', 'Gain on sale of equipment', 'Loss on sale of equipment', 'Change in accounts receivable', 'Change in inventories', 'Change in prepaid expenses', 'Change in accounts payable', 'Change in unearned revenue', 'Cash flow from operating activities', 'Purchases of equipment', 'Proceeds from the equipment sale', 'New bank loan', 'Repayment of bank loans', 'Dividends paid', 'Cash at 1 January', 'Revenue'],
@@ -7197,7 +7234,7 @@ class Component extends DCLogic {
             { a: 'Change in unearned revenue', v: 30, tol: 1, w: 'An increase of 30, so 30. Customers paying in advance fund the business.' },
             { a: 'Cash flow from operating activities', v: 1170, tol: 2, w: 'The eight lines above add to 1,170.' }
           ], e: 'Operating cash flow of 1,170 against net income of 900. The 270 gap is depreciation, the gain adjustment and working capital — none of which is an opinion about how well the company traded.\n\nSeven of the lines offered belong in investing or financing, or are not cash flow lines at all.' },
-          { t: 'fill', p: 'Question B2, parts (b) and (c), 5 points. Prepare the investing and financing sections, then show that the three sections together explain the change in cash.',
+          { sec: 'B', m: 8, t: 'fill', p: 'Question B2, parts (b) and (c), 8 points. Prepare the investing and financing sections, then show that the three sections together explain the change in cash.',
             calc: 'The three sections must add to the movement in the cash balance',
             rows: [
             { l: 'Purchases of equipment', a: -500, tol: 1, w: 'An outflow of 500.' },
@@ -7207,7 +7244,7 @@ class Component extends DCLogic {
             { l: 'Net change in cash', a: 610, tol: 2, w: '1,170 + (410) + (150) = 610.' },
             { l: 'Cash at 31 December', a: 1010, tol: 2, w: '400 at 1 January + 610 = 1,010.' }
           ], e: 'Every figure was derived, so this tie is the only check you have. If it does not agree exactly, a sign is wrong or a working capital line is missing — do it before writing any commentary.\n\nIf, over the next few years, net income kept growing while operating cash flow fell and turned negative, the things to investigate are receivables growing faster than sales, inventory piling up, or profit resting on estimates rather than cash. Firms fail when they run out of cash, not when they report a loss.' },
-          { t: 'fill', p: 'Question B3 — parts (a) to (c), 5 points. Arancini Airlines sells on credit. Opening gross receivables 50,000 and an allowance of 2,000. During the year: credit sales 400,000, collections 390,000, write-offs 1,500. Bad debt expense is estimated at 1.0% of credit sales.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3 — parts (a) to (c), 5 points. Arancini Airlines sells on credit. Opening gross receivables 50,000 and an allowance of 2,000. During the year: credit sales 400,000, collections 390,000, write-offs 1,500. Bad debt expense is estimated at 1.0% of credit sales.',
             calc: 'Ending allowance = beginning + bad debt expense − write-offs',
             rows: [
             { l: 'Bad debt expense for the year', a: 4000.0, tol: 1, w: '1.0% × 400,000 = 4,000.' },
@@ -7215,7 +7252,7 @@ class Component extends DCLogic {
             { l: 'Gross accounts receivable at 31 December', a: 58500, tol: 5, w: '50,000 + 400,000 − 390,000 collected − 1,500 written off = 58,500.' },
             { l: 'Net receivables shown on the balance sheet', a: 54000.0, tol: 5, w: '58,500 − 4,500 = 54,000. This is the only one of the four that is actually printed.' }
           ], e: 'Writing off the 1,500 owed by bankrupt customers did not reduce net income. The expense was taken when the allowance was estimated at the time of the sale; the write-off only removes the balance from gross receivables and from the allowance together, leaving net receivables and profit untouched.' },
-          { t: 'fill', p: 'Question B3, parts (d) and (e), 5 points. Grappa Gaming held 100 units at 10 then 200 units at 12 then 100 units at 14, and sold 300 units at 20 each.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3, parts (d) and (e), 5 points. Grappa Gaming held 100 units at 10 then 200 units at 12 then 100 units at 14, and sold 300 units at 20 each.',
             calc: 'Goods available for sale split between COGS and ending inventory',
             rows: [
             { l: 'Cost of goods available for sale', a: 4800, tol: 5, w: 'The three layers add to 4,800 for 400 units; 100 units remain at the year end.' },
@@ -7227,7 +7264,7 @@ class Component extends DCLogic {
             { l: 'Gross profit under LIFO', a: 2200, tol: 10, w: 'Revenue 6,000 − 3,800 = 2,200.' },
             { l: 'By how much the higher of the two exceeds the other', a: 400, tol: 10, w: '2,600 under FIFO against 2,200 under LIFO — a difference of 400, the same number as the gap between the two COGS figures.' }
           ], e: 'Prices rose through the year, so FIFO reports the higher gross profit, by 400. With rising prices FIFO charges the oldest and cheapest costs to COGS.\n\nWhichever way prices move, the statement that always holds is this one: FIFO leaves the most recent costs on the balance sheet, so its ending inventory of 1,400 is the closer of the two to what the goods would cost today.' },
-          { t: 'fill', p: 'Question B3, part (f), 5 points. Limoncello Logistics bought a vehicle for 80,000 4 years ago, expecting to use it for 6 years and then sell it for 8,000, depreciating straight line. Today it sells the vehicle for 35,000 in cash.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3, part (f), 5 points. Limoncello Logistics bought a vehicle for 80,000 4 years ago, expecting to use it for 6 years and then sell it for 8,000, depreciating straight line. Today it sells the vehicle for 35,000 in cash.',
             calc: 'Gain or loss on disposal = proceeds − net book value',
             rows: [
             { l: 'Annual depreciation expense', a: 12000.0, tol: 5, w: '(80,000 − 8,000) / 6 = 12,000 a year.' },
@@ -7235,7 +7272,7 @@ class Component extends DCLogic {
             { l: 'Net book value just before the sale', a: 32000.0, tol: 10, w: '80,000 − 48,000 = 32,000.' },
             { l: 'Gain on the sale (enter a loss as a negative number)', a: 3000.0, tol: 10, w: '35,000 − 32,000 = 3,000.' }
           ], e: 'The gain of 3,000 appears in operating income as a gain on disposal, but it is a one-off, peripheral item that an analyst would strip out of recurring performance.\n\nAnd read it for what it is: a gain of this size means the depreciation estimate wrote the asset down faster than it actually lost value.' },
-          { t: 'fill', p: 'Question C — mini case: Adidas (25 points). Parts (a) and (b), 8 points. Adidas is a Germany-based designer and marketer of sports footwear and apparel. Production is outsourced to independent manufacturers; sales run through wholesale partners, its own stores and e-commerce. Its statements are in the Figures panel.',
+          { sec: 'C', m: 8, t: 'fill', p: 'Question C — mini case: Adidas (25 points). Parts (a) and (b), 8 points. Adidas is a Germany-based designer and marketer of sports footwear and apparel. Production is outsourced to independent manufacturers; sales run through wholesale partners, its own stores and e-commerce. Its statements are in the Figures panel.',
             calc: 'IC = equity + financial liabilities · NOPAT = operating profit × (1 − tax rate)',
             rows: [
             { l: 'Invested capital, year 1', a: 10800, tol: 2, w: 'Equity 4,800 + borrowings 6,000 = 10,800.' },
@@ -7244,7 +7281,7 @@ class Component extends DCLogic {
             { l: 'Average invested capital for year 2', a: 10900.0, tol: 2, w: '(11,000 + 10,800) / 2 = 10,900. Profit is earned across the year, so the capital it used is an average.' },
             { l: 'NOPAT for year 2', a: 1725.0, tol: 2, w: 'Operating profit 2,300 × (1 − 25.0%) = 1,725.' }
           ], e: 'Interest is left out of NOPAT deliberately. It is the cost of one particular way of financing the assets, and NOPAT measures what the operations earn regardless of whether they were funded by debt or by equity — which is what makes the return comparable between firms with different balance sheets.' },
-          { t: 'fill', p: 'Question C, parts (c) to (e), 17 points. Compute the returns and decompose them.',
+          { sec: 'C', m: 11, t: 'fill', p: 'Question C, parts (c) to (e), 11 points. Compute the returns and decompose them.',
             calc: 'ROIC = NOPAT ÷ average IC = NOPAT margin × IC turnover',
             given: [
               { l: 'NOPAT', v: '1,725', s: 'Your answer above' },
@@ -7260,7 +7297,7 @@ class Component extends DCLogic {
             { l: 'NOPAT excluding the one-off gain', a: 1500, tol: 2, w: '(2,300 − 300) × 0.75 = 1,500.' },
             { l: 'ROIC excluding the one-off gain, in percent', a: 13.8, tol: 0.3, w: 'Adjusted NOPAT = (2,300 − 300) × 0.75 = 1,500; divided by 10,900 gives 13.8%.' }
           ], e: 'Adidas earns 15.8% on capital from a margin of 7.2% and a turnover of 2.20. Set that beside a luxury fashion house, which earns about 16.0% from a margin of 25.0% on a turnover of 0.65: almost the same destination by opposite routes. It is a turnover business: thin margins, capital that works hard.\n\nROE of 30.6% sits well above ROIC of 15.8% because borrowings of 6,000 fund a large part of the 11,000 of capital, and every euro borrowed earns the operating return while costing far less. The price is risk — if ROIC ever fell below the cost of that debt, the same leverage would drive ROE below ROIC.' },
-          { t: 'pick', p: 'Question C, part (e) continued, 6 points. Management says the rise in ROE since year 1 "reflects the improved operating performance of the group". Mark each statement true or false.',
+          { sec: 'C', m: 6, t: 'pick', p: 'Question C, part (e) continued, 6 points. Management says the rise in ROE since year 1 "reflects the improved operating performance of the group". Mark each statement true or false.',
             rows: [
               { l: 'The one-off gain on disposal of a brand should be excluded when judging how the business performed', a: true, w: 'It will not recur and says nothing about how well the company trades. Excluding it takes ROIC from 15.8% to 13.8%.' },
               { l: 'Once the one-off is stripped out, operating performance was no better than in year 1', a: true, w: 'Adjusted ROIC is 13.8% against 14.5% a year earlier.' },
@@ -7325,7 +7362,7 @@ class Component extends DCLogic {
           ] }
         ],
         steps: [
-          { t: 'choice', p: 'Section A, questions 1 to 6. Thirty points across the section, 2.5 for each question. One answer per question.',
+          { sec: 'A', m: 15, t: 'choice', p: 'Section A, questions 1 to 6. Thirty points across the section, 2.5 for each question. One answer per question.',
             qs: [
               { n: 'A1', m: 2.5, q: 'Panettone Plc pays €18,000 of wages owed to staff from last month. What happens to its balance sheet?', o: [ 'Nothing changes, because the expense was already recorded', 'Assets fall €18,000 and equity falls €18,000', 'Liabilities fall €18,000 and equity rises €18,000','Assets fall €18,000 and liabilities fall €18,000'], a: 3, w: 'The expense hit profit last month when the work was done. Paying it just settles the liability: cash down, wages payable down. Equity is untouched the second time around.' },
               { n: 'A2', m: 2.5, q: 'A software firm signs a €5 million three-year contract on 20 December, with the service starting on 1 February. What does it recognise on 20 December?', o: [ 'Nothing at all','Revenue of €5 million', 'A receivable and deferred revenue of €5 million', 'Revenue of €1.67 million, being one year’s worth'], a: 0, w: 'Signing a contract is not a transaction. No goods or services have transferred and no cash has moved, so nothing goes on either statement — the contract is disclosed as a commitment at most.' },
@@ -7334,7 +7371,7 @@ class Component extends DCLogic {
               { n: 'A5', m: 2.5, q: 'Amaro Analytics capitalises €3 million of costs that should have been expensed. In the year of the error, what happens?', o: [ 'Profit is overstated and assets are understated', 'Profit is understated and assets are understated', 'Profit is unaffected; only the balance sheet is wrong','Profit is overstated and assets are overstated'], a: 3, w: 'Capitalising moves a cost off this year’s income statement and onto the balance sheet, so both profit and assets are too high. The cost returns later as depreciation — which is why the trick buys time rather than money.' },
               { n: 'A6', m: 2.5, q: 'A machine cost €90,000, has a €10,000 salvage value and an eight-year life. Under units-of-production depreciation with 40,000 expected units, and 6,000 units made in year 1, the charge is:', o: [ '€12,000','€10,000', '€13,500', '€11,250'], a: 0, w: 'Rate = (90,000 − 10,000) / 40,000 = €2 per unit; 6,000 × 2 = 12,000. The charge follows use, so it is small in a quiet year and large in a busy one.' }
             ] },
-          { t: 'choice', p: 'Section A, questions 7 to 12.',
+          { sec: 'A', m: 15, t: 'choice', p: 'Section A, questions 7 to 12.',
             qs: [
               { n: 'A7', m: 2.5, q: 'Prices have been falling all year. Compared with FIFO, LIFO gives:', o: ['The same result, since LIFO only matters when prices rise', 'A lower cost of goods sold and a higher gross profit', 'A higher cost of goods sold and a lower gross profit', 'A lower ending inventory'], a: 1, w: 'LIFO charges the most recent costs, and when prices fall those are the cheapest — so COGS is lower and profit higher. Every rule of thumb about LIFO assumes rising prices; check the direction first.' },
               { n: 'A8', m: 2.5, q: 'Where does cash paid for interest on a bank loan appear under IFRS?', o: ['Always in financing', 'Always in investing', 'In operating or financing, depending on the policy the firm adopts', 'It is a non-cash item and appears nowhere'], a: 2, w: 'IFRS allows interest paid to sit in operating or in financing, provided the choice is applied consistently and disclosed. It is one of the places where two firms can report different operating cash flow on identical facts.' },
@@ -7343,7 +7380,7 @@ class Component extends DCLogic {
               { n: 'A11', m: 2.5, q: 'Cassata Chemicals earns NOPAT of €90m on revenue of €450m with average invested capital of €1,200m. Its ROIC, margin and turnover are:', o: ['7.5%, 26.7% and 0.281', '7.5%, 20.0% and 0.375', '20.0%, 7.5% and 2.67', '26.7%, 20.0% and 1.33'], a: 1, w: 'ROIC = 90 / 1,200 = 7.5%; margin = 90 / 450 = 20%; turnover = 450 / 1,200 = 0.375. Check: 20% × 0.375 = 7.5%. A fat margin on very slow capital — the signature of a heavy-asset business.' },
               { n: 'A12', m: 2.5, q: 'Two firms have identical ROIC. One has an ROE well above its ROIC, the other an ROE below it. What distinguishes them?', o: ['The first is more profitable; the second is less efficient', 'Nothing — ROE and ROIC always move together', 'The first borrows and earns more than its debt costs; the second borrows and earns less', 'The first has more equity; the second has more assets'], a: 2, w: 'Leverage multiplies the gap between ROIC and the after-tax cost of debt, in whichever direction it runs. Borrow at 4% and earn 12% and shareholders gain; borrow at 8% and earn 6% and they lose.' }
             ] },
-          { t: 'grid', p: 'Question B1 — Pannacotta Press (15 points). Part (a), 7 points. The grid already records transactions 1 to 4. Record transactions 5 to 10 and the year-end adjustments — one line each — then complete the balances at 31 December. The transactions are in the Figures panel.',
+          { sec: 'B', m: 7, t: 'grid', p: 'Question B1 — Pannacotta Press (15 points). Part (a), 7 points. The grid already records transactions 1 to 4. Record transactions 5 to 10 and the year-end adjustments — one line each — then complete the balances at 31 December. The transactions are in the Figures panel.',
             cols: ['Cash', 'A/R', 'Inventory', 'Prepaid rent', 'Equip. (net)', 'A/P', 'Unearned rev.', 'Wages pay.', 'Interest pay.', 'Bank loan', 'Share cap.', 'Retained earnings'],
             hint: 'Leave a cell blank where the account did not move. Amounts in euros; use a minus sign rather than brackets.',
             rows: [
@@ -7364,7 +7401,7 @@ class Component extends DCLogic {
               { l: 'Adj. int', cells: [null, null, null, null, null, null, null, null, 4800.0, null, null, -4800.0] },
               { l: '31 Dec', cells: [134000, 45000, 15000, 15000.0, 75000.0, 22000, 9000, 2000, 4800.0, 80000, 150000, 16200.0] }
             ], e: 'This is the question the whole of Section B is built on, and it is worth more than any other single part of the paper. Three of the sixteen lines are adjustments nobody asks you for by name: 3,000 of the prepaid rent has been used, the equipment has depreciated by 15,000, and 4,800 of interest has been incurred and not paid. Miss them and every figure below is wrong.\n\nThe check that costs nothing: every row must leave assets equal to liabilities plus equity, and the closing row must equal the sum of the column above it. Closing assets come to 284,000, and so do the claims on them.' },
-          { t: 'build', p: 'Question B1, part (b), 4 points. Build the income statement for the year. Choose each line from the dropdown and enter its amount — the lines are not given to you, and not every account offered belongs on an income statement.',
+          { sec: 'B', m: 4, t: 'build', p: 'Question B1, part (b), 4 points. Build the income statement for the year. Choose each line from the dropdown and enter its amount — the lines are not given to you, and not every account offered belongs on an income statement.',
             calc: 'Accrual accounting: what was earned and what was used up, not what was paid',
             hint: 'Enter every figure as a positive number; the labels carry the signs.',
             options: ['Revenue', 'Cost of goods sold', 'Gross profit', 'Wages expense', 'Rent expense', 'Depreciation expense', 'Operating profit', 'Interest expense', 'Net income', 'Dividends paid', 'Unearned revenue', 'Accounts payable', 'Prepaid rent', 'Equipment, net', 'Bank loan', 'Share capital', 'Accounts receivable'],
@@ -7379,7 +7416,7 @@ class Component extends DCLogic {
             { a: 'Interest expense', v: 4800.0, tol: 1, w: '80,000 at 6.0%. Unpaid at year end, which changes nothing — and it sits below operating profit because it is a financing cost, not an operating one.' },
             { a: 'Net income', v: 21200.0, tol: 2, w: '26,000 − 4,800 = 21,200.' }
           ], e: 'Nine lines, in that order, and the two subtotals are half the point of the statement. Gross profit separates the trade from the overhead; operating profit separates the business from the way it is financed.\n\nThe other eight accounts in the dropdown are balance sheet items or, in the case of the  5,000 dividend, a distribution of profit rather than a cost of earning it — and the customer’s 9,000 advance is a liability, not revenue, because nothing has been delivered.' },
-          { t: 'build', p: 'Question B1, part (c), 3 points. Prepare the balance sheet at 31 December: assets first, then everything claimed against them, and show that the two sides agree. The template is blank — choose every line yourself.',
+          { sec: 'B', m: 3, t: 'build', p: 'Question B1, part (c), 3 points. Prepare the balance sheet at 31 December: assets first, then everything claimed against them, and show that the two sides agree. The template is blank — choose every line yourself.',
             calc: 'Assets = liabilities + shareholders’ equity',
             hint: 'Enter every figure as a positive number. Seven of the lines offered do not belong on a balance sheet at all.',
             options: ['Cash', 'Accounts receivable', 'Inventory', 'Prepaid rent', 'Equipment, net', 'Total assets', 'Accounts payable', 'Unearned revenue', 'Wages payable', 'Interest payable', 'Bank loan', 'Share capital', 'Retained earnings', 'Total liabilities and equity', 'Revenue', 'Cost of goods sold', 'Net income', 'Dividends paid', 'Depreciation expense', 'Wages expense', 'Gross profit'],
@@ -7399,7 +7436,7 @@ class Component extends DCLogic {
             { a: 'Retained earnings', v: 16200.0, tol: 2, w: 'Net income 21,200 − dividend 5,000. The company began the year with none.' },
             { a: 'Total liabilities and equity', v: 284000.0, tol: 5, w: '22,000 + 9,000 + 2,000 + 4,800 + 80,000 + 150,000 + 16,200 = 284,000, which is exactly total assets.' }
           ], e: 'Fourteen lines, and two totals that have to be the same number. Each figure is a column total from the grid in part (a), so a disagreement here means the error is in a row above.\n\nThe three easiest to leave out are the ones that exist only because of a year-end adjustment — unearned revenue, wages payable and interest payable — and the one most often got wrong is retained earnings, which is net income less the dividend rather than net income itself.' },
-          { t: 'pick', p: 'Question B1, part (d), 1 point. The founder says: "We ended the year with 134,000 of cash having started with nothing, so the business is obviously profitable." Mark each statement true or false.',
+          { sec: 'B', m: 1, t: 'pick', p: 'Question B1, part (d), 1 point. The founder says: "We ended the year with 134,000 of cash having started with nothing, so the business is obviously profitable." Mark each statement true or false.',
             rows: [
               { l: 'The cash increase is a poor measure of the year’s performance', a: true, w: 'Most of it came from shareholders and the bank putting in 230,000 and a customer paying 9,000 for goods not yet delivered.' },
               { l: 'Net income of 21,200 is the better measure', a: true, w: 'It matches what was earned against what it cost to earn it, including equipment used up and rent and interest not yet paid.' },
@@ -7408,7 +7445,7 @@ class Component extends DCLogic {
               { l: 'A company can hold more cash at the year end and still have made a loss', a: true, w: 'Raise equity or borrow enough and cash rises whatever the trading did. The two questions are separate.' }
             ],
             e: 'One point, and it is the point of the whole question. Cash and profit answer different questions, and the founder has asked one and answered the other.' },
-          { t: 'build', p: 'Question B2 — Spritz Systems (15 points). Part (a), 7 points. Prepare the operating section of the statement of cash flows using the indirect method, one adjustment per line. The template is blank and the data is in the Figures panel.',
+          { sec: 'B', m: 7, t: 'build', p: 'Question B2 — Spritz Systems (15 points). Part (a), 7 points. Prepare the operating section of the statement of cash flows using the indirect method, one adjustment per line. The template is blank and the data is in the Figures panel.',
             calc: 'CFO = net income + non-cash charges − non-operating gains ± working capital',
             hint: 'Signs matter here: enter a deduction as a negative number.',
             options: ['Net income', 'Depreciation', 'Gain on sale of equipment', 'Loss on sale of equipment', 'Change in accounts receivable', 'Change in inventories', 'Change in prepaid expenses', 'Change in accounts payable', 'Change in unearned revenue', 'Cash flow from operating activities', 'Purchases of equipment', 'Proceeds from the equipment sale', 'New bank loan', 'Repayment of bank loans', 'Dividends paid', 'Cash at 1 January', 'Revenue'],
@@ -7423,7 +7460,7 @@ class Component extends DCLogic {
             { a: 'Change in unearned revenue', v: 45, tol: 1, w: 'An increase of 45, so 45. Customers paying in advance fund the business.' },
             { a: 'Cash flow from operating activities', v: 1525, tol: 2, w: 'The eight lines above add to 1,525.' }
           ], e: 'Operating cash flow of 1,525 against net income of 1,450. The 75 gap is depreciation, the gain adjustment and working capital — none of which is an opinion about how well the company traded.\n\nSeven of the lines offered belong in investing or financing, or are not cash flow lines at all.' },
-          { t: 'fill', p: 'Question B2, parts (b) and (c), 5 points. Prepare the investing and financing sections, then show that the three sections together explain the change in cash.',
+          { sec: 'B', m: 8, t: 'fill', p: 'Question B2, parts (b) and (c), 8 points. Prepare the investing and financing sections, then show that the three sections together explain the change in cash.',
             calc: 'The three sections must add to the movement in the cash balance',
             rows: [
             { l: 'Purchases of equipment', a: -900, tol: 1, w: 'An outflow of 900.' },
@@ -7433,7 +7470,7 @@ class Component extends DCLogic {
             { l: 'Net change in cash', a: 675, tol: 2, w: '1,525 + (700) + (150) = 675.' },
             { l: 'Cash at 31 December', a: 1295, tol: 2, w: '620 at 1 January + 675 = 1,295.' }
           ], e: 'Every figure was derived, so this tie is the only check you have. If it does not agree exactly, a sign is wrong or a working capital line is missing — do it before writing any commentary.\n\nIf, over the next few years, net income kept growing while operating cash flow fell and turned negative, the things to investigate are receivables growing faster than sales, inventory piling up, or profit resting on estimates rather than cash. Firms fail when they run out of cash, not when they report a loss.' },
-          { t: 'fill', p: 'Question B3 — parts (a) to (c), 5 points. Ravioli Rail sells on credit. Opening gross receivables 72,000 and an allowance of 3,500. During the year: credit sales 520,000, collections 505,000, write-offs 2,800. Bad debt expense is estimated at 1.5% of credit sales.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3 — parts (a) to (c), 5 points. Ravioli Rail sells on credit. Opening gross receivables 72,000 and an allowance of 3,500. During the year: credit sales 520,000, collections 505,000, write-offs 2,800. Bad debt expense is estimated at 1.5% of credit sales.',
             calc: 'Ending allowance = beginning + bad debt expense − write-offs',
             rows: [
             { l: 'Bad debt expense for the year', a: 7800.0, tol: 1, w: '1.5% × 520,000 = 7,800.' },
@@ -7441,7 +7478,7 @@ class Component extends DCLogic {
             { l: 'Gross accounts receivable at 31 December', a: 84200, tol: 5, w: '72,000 + 520,000 − 505,000 collected − 2,800 written off = 84,200.' },
             { l: 'Net receivables shown on the balance sheet', a: 75700.0, tol: 5, w: '84,200 − 8,500 = 75,700. This is the only one of the four that is actually printed.' }
           ], e: 'Writing off the 2,800 owed by bankrupt customers did not reduce net income. The expense was taken when the allowance was estimated at the time of the sale; the write-off only removes the balance from gross receivables and from the allowance together, leaving net receivables and profit untouched.' },
-          { t: 'fill', p: 'Question B3, parts (d) and (e), 5 points. Cannoli Components held 150 units at 8 then 250 units at 11 then 100 units at 13, and sold 380 units at 18 each.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3, parts (d) and (e), 5 points. Cannoli Components held 150 units at 8 then 250 units at 11 then 100 units at 13, and sold 380 units at 18 each.',
             calc: 'Goods available for sale split between COGS and ending inventory',
             rows: [
             { l: 'Cost of goods available for sale', a: 5250, tol: 5, w: 'The three layers add to 5,250 for 500 units; 120 units remain at the year end.' },
@@ -7453,7 +7490,7 @@ class Component extends DCLogic {
             { l: 'Gross profit under LIFO', a: 2550, tol: 10, w: 'Revenue 6,840 − 4,290 = 2,550.' },
             { l: 'By how much the higher of the two exceeds the other', a: 560, tol: 10, w: '3,110 under FIFO against 2,550 under LIFO — a difference of 560, the same number as the gap between the two COGS figures.' }
           ], e: 'Prices rose through the year, so FIFO reports the higher gross profit, by 560. With rising prices FIFO charges the oldest and cheapest costs to COGS.\n\nWhichever way prices move, the statement that always holds is this one: FIFO leaves the most recent costs on the balance sheet, so its ending inventory of 1,520 is the closer of the two to what the goods would cost today.' },
-          { t: 'fill', p: 'Question B3, part (f), 5 points. Prosecco Plant Hire bought a vehicle for 120,000 5 years ago, expecting to use it for 8 years and then sell it for 12,000, depreciating straight line. Today it sells the vehicle for 46,000 in cash.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3, part (f), 5 points. Prosecco Plant Hire bought a vehicle for 120,000 5 years ago, expecting to use it for 8 years and then sell it for 12,000, depreciating straight line. Today it sells the vehicle for 46,000 in cash.',
             calc: 'Gain or loss on disposal = proceeds − net book value',
             rows: [
             { l: 'Annual depreciation expense', a: 13500.0, tol: 5, w: '(120,000 − 12,000) / 8 = 13,500 a year.' },
@@ -7461,7 +7498,7 @@ class Component extends DCLogic {
             { l: 'Net book value just before the sale', a: 52500.0, tol: 10, w: '120,000 − 67,500 = 52,500.' },
             { l: 'Loss on the sale (enter a loss as a negative number)', a: -6500.0, tol: 10, w: '46,000 − 52,500 = −6,500.' }
           ], e: 'The loss of 6,500 appears in operating income as a loss on disposal, but it is a one-off, peripheral item that an analyst would strip out of recurring performance.\n\nAnd read it for what it is: a loss of this size means the depreciation estimate wrote the asset down more slowly than it actually lost value.' },
-          { t: 'fill', p: 'Question C — mini case: Carrefour (25 points). Parts (a) and (b), 8 points. Carrefour is a French grocery retailer running hypermarkets, supermarkets and convenience stores, with most stock sold within weeks of arriving and suppliers paid on long terms. Its statements are in the Figures panel.',
+          { sec: 'C', m: 8, t: 'fill', p: 'Question C — mini case: Carrefour (25 points). Parts (a) and (b), 8 points. Carrefour is a French grocery retailer running hypermarkets, supermarkets and convenience stores, with most stock sold within weeks of arriving and suppliers paid on long terms. Its statements are in the Figures panel.',
             calc: 'IC = equity + financial liabilities · NOPAT = operating profit × (1 − tax rate)',
             rows: [
             { l: 'Invested capital, year 1', a: 6700, tol: 2, w: 'Equity 2,800 + borrowings 3,900 = 6,700.' },
@@ -7470,7 +7507,7 @@ class Component extends DCLogic {
             { l: 'Average invested capital for year 2', a: 6850.0, tol: 2, w: '(7,000 + 6,700) / 2 = 6,850. Profit is earned across the year, so the capital it used is an average.' },
             { l: 'NOPAT for year 2', a: 1470.0, tol: 2, w: 'Operating profit 2,100 × (1 − 30.0%) = 1,470.' }
           ], e: 'Interest is left out of NOPAT deliberately. It is the cost of one particular way of financing the assets, and NOPAT measures what the operations earn regardless of whether they were funded by debt or by equity — which is what makes the return comparable between firms with different balance sheets.' },
-          { t: 'fill', p: 'Question C, parts (c) to (e), 17 points. Compute the returns and decompose them.',
+          { sec: 'C', m: 11, t: 'fill', p: 'Question C, parts (c) to (e), 11 points. Compute the returns and decompose them.',
             calc: 'ROIC = NOPAT ÷ average IC = NOPAT margin × IC turnover',
             given: [
               { l: 'NOPAT', v: '1,470', s: 'Your answer above' },
@@ -7486,7 +7523,7 @@ class Component extends DCLogic {
             { l: 'NOPAT excluding the one-off gain', a: 1295, tol: 2, w: '(2,100 − 250) × 0.70 = 1,295.' },
             { l: 'ROIC excluding the one-off gain, in percent', a: 18.9, tol: 0.3, w: 'Adjusted NOPAT = (2,100 − 250) × 0.70 = 1,295; divided by 6,850 gives 18.9%.' }
           ], e: 'Carrefour earns 21.5% on capital from a margin of 3.5% and a turnover of 6.13. Set that beside a luxury fashion house, which earns about 16.0% from a margin of 25.0% on a turnover of 0.65: almost the same destination by opposite routes. It is a turnover business: thin margins, capital that works hard.\n\nROE of 41.0% sits well above ROIC of 21.5% because borrowings of 4,000 fund a large part of the 7,000 of capital, and every euro borrowed earns the operating return while costing far less. The price is risk — if ROIC ever fell below the cost of that debt, the same leverage would drive ROE below ROIC.' },
-          { t: 'pick', p: 'Question C, part (e) continued, 6 points. Management says the rise in ROE since year 1 "reflects the improved operating performance of the group". Mark each statement true or false.',
+          { sec: 'C', m: 6, t: 'pick', p: 'Question C, part (e) continued, 6 points. Management says the rise in ROE since year 1 "reflects the improved operating performance of the group". Mark each statement true or false.',
             rows: [
               { l: 'The one-off gain on sale of a distribution centre should be excluded when judging how the business performed', a: true, w: 'It will not recur and says nothing about how well the company trades. Excluding it takes ROIC from 21.5% to 18.9%.' },
               { l: 'Once the one-off is stripped out, operating performance was no better than in year 1', a: true, w: 'Adjusted ROIC is 18.9% against 20.3% a year earlier.' },
@@ -7551,7 +7588,7 @@ class Component extends DCLogic {
           ] }
         ],
         steps: [
-          { t: 'choice', p: 'Section A, questions 1 to 6. Thirty points across the section, 2.5 for each question. One answer per question.',
+          { sec: 'A', m: 15, t: 'choice', p: 'Section A, questions 1 to 6. Thirty points across the section, 2.5 for each question. One answer per question.',
             qs: [
               { n: 'A1', m: 2.5, q: 'Grissini Group issues shares for €400,000 cash and in the same week repays a €150,000 loan. Net effect on total assets and on equity?', o: [ 'Assets +400,000; equity +250,000', 'Assets +400,000; equity +400,000', 'Assets +250,000; equity +250,000','Assets +250,000; equity +400,000'], a: 3, w: 'Cash rises 400,000 then falls 150,000, so assets are up 250,000. The share issue adds 400,000 to equity; repaying a loan reduces a liability and never touches equity.' },
               { n: 'A2', m: 2.5, q: 'A retailer sells a gift card for €100 in November; the customer redeems it in March. When is revenue recognised?', o: [ 'In March, when the goods are handed over','In November, when the cash arrives', 'Half in each period', 'Never — gift cards are a financing transaction'], a: 0, w: 'Cash in November creates an obligation to supply goods, not revenue. The performance obligation is satisfied in March, and until then the 100 sits as a contract liability.' },
@@ -7560,7 +7597,7 @@ class Component extends DCLogic {
               { n: 'A5', m: 2.5, q: 'Under IFRS, inventory written down in 2025 recovers its value in 2026. What may the firm do?', o: [ 'Reverse it only if the same goods are still held and sold at a profit', 'Nothing; write-downs are permanent', 'Reverse it and write the inventory up to current market value','Reverse the write-down, but only up to original cost'], a: 3, w: 'IFRS permits reversal capped at what the goods originally cost. US GAAP forbids reversal entirely — a real difference in reported profit between two firms whose goods did exactly the same thing.' },
               { n: 'A6', m: 2.5, q: 'A truck costing €50,000 with a €5,000 salvage value and a five-year life is depreciated by declining balance at a rate of 2, using the formula from class. Year 1 depreciation is:', o: [ '€18,000','€20,000', '€10,000', '€9,000'], a: 0, w: '(50,000 − 5,000) / 5 × 2 = 18,000, leaving NBV of 32,000. This course subtracts salvage inside the calculation each year; many textbooks do not and give a different figure.' }
             ] },
-          { t: 'choice', p: 'Section A, questions 7 to 12.',
+          { sec: 'A', m: 15, t: 'choice', p: 'Section A, questions 7 to 12.',
             qs: [
               { n: 'A7', m: 2.5, q: 'A LIFO firm discloses a LIFO reserve that grew by €40m this year, and pays tax at 25%. The cash saved this year by being on LIFO is:', o: ['€40m', '€10m', '€30m', 'Nothing — the reserve is a book entry'], a: 1, w: 'Cash effect = change in the reserve × the tax rate = 40 × 0.25 = 10. The other 30 is reported profit given up. The reserve always splits into those two pieces.' },
               { n: 'A8', m: 2.5, q: 'Cash received from a customer who was written off as bad two years ago appears in the cash flow statement as:', o: ['Financing, as a recovery of capital', 'Operating, and as income in the income statement', 'Operating, with no effect on profit', 'Investing, since the receivable was already removed'], a: 2, w: 'The write-off is reversed and the cash collected, so operating cash rises. Nothing reaches the income statement — the original estimate was simply too pessimistic and the allowance is left larger.' },
@@ -7569,7 +7606,7 @@ class Component extends DCLogic {
               { n: 'A11', m: 2.5, q: 'Aperitivo SA reports NOPAT of €250m, revenue of €5,000m and average invested capital of €1,000m. A rival earns the same ROIC on a 10% margin. Compared with the rival, Aperitivo:', o: ['Earns more per euro of sales but sweats its capital less', 'Earns less per euro of sales but sweats its capital harder', 'Is identical in every respect', 'Cannot be compared without its ROE'], a: 1, w: 'Aperitivo: margin 5%, turnover 5.0, ROIC 25%. The rival needs a turnover of 2.5 to reach the same 25% on a 10% margin. Same return, opposite routes — which is the entire point of the decomposition.' },
               { n: 'A12', m: 2.5, q: 'A firm’s ROIC is 6% and the after-tax cost of its debt is 9%. What does borrowing more do to ROE?', o: ['Raises it, because debt is always cheaper than equity', 'Leaves it unchanged; ROE depends only on operations', 'Lowers it, because each euro borrowed earns less than it costs', 'Raises it in the short run and lowers it after the loan is repaid'], a: 2, w: 'Leverage multiplies the spread between ROIC and the cost of debt, and here the spread is negative. Borrowing at 9% to earn 6% destroys shareholder returns — the mechanism behind the Carillion pattern running in reverse.' }
             ] },
-          { t: 'grid', p: 'Question B1 — Bruschetta Botanics (15 points). Part (a), 7 points. The grid already records transactions 1 to 4. Record transactions 5 to 10 and the year-end adjustments — one line each — then complete the balances at 31 December. The transactions are in the Figures panel.',
+          { sec: 'B', m: 7, t: 'grid', p: 'Question B1 — Bruschetta Botanics (15 points). Part (a), 7 points. The grid already records transactions 1 to 4. Record transactions 5 to 10 and the year-end adjustments — one line each — then complete the balances at 31 December. The transactions are in the Figures panel.',
             cols: ['Cash', 'A/R', 'Inventory', 'Prepaid rent', 'Equip. (net)', 'A/P', 'Unearned rev.', 'Wages pay.', 'Interest pay.', 'Bank loan', 'Share cap.', 'Retained earnings'],
             hint: 'Leave a cell blank where the account did not move. Amounts in euros; use a minus sign rather than brackets.',
             rows: [
@@ -7590,7 +7627,7 @@ class Component extends DCLogic {
               { l: 'Adj. int', cells: [null, null, null, null, null, null, null, null, 2400.0, null, null, -2400.0] },
               { l: '31 Dec', cells: [173000, 40000, 12000, 12000.0, 60000.0, 20000, 7000, 1500, 2400.0, 60000, 200000, 6100.0] }
             ], e: 'This is the question the whole of Section B is built on, and it is worth more than any other single part of the paper. Three of the sixteen lines are adjustments nobody asks you for by name: 12,000 of the prepaid rent has been used, the equipment has depreciated by 15,000, and 2,400 of interest has been incurred and not paid. Miss them and every figure below is wrong.\n\nThe check that costs nothing: every row must leave assets equal to liabilities plus equity, and the closing row must equal the sum of the column above it. Closing assets come to 297,000, and so do the claims on them.' },
-          { t: 'build', p: 'Question B1, part (b), 4 points. Build the income statement for the year. Choose each line from the dropdown and enter its amount — the lines are not given to you, and not every account offered belongs on an income statement.',
+          { sec: 'B', m: 4, t: 'build', p: 'Question B1, part (b), 4 points. Build the income statement for the year. Choose each line from the dropdown and enter its amount — the lines are not given to you, and not every account offered belongs on an income statement.',
             calc: 'Accrual accounting: what was earned and what was used up, not what was paid',
             hint: 'Enter every figure as a positive number; the labels carry the signs.',
             options: ['Revenue', 'Cost of goods sold', 'Gross profit', 'Wages expense', 'Rent expense', 'Depreciation expense', 'Operating profit', 'Interest expense', 'Net income', 'Dividends paid', 'Unearned revenue', 'Accounts payable', 'Prepaid rent', 'Equipment, net', 'Bank loan', 'Share capital', 'Accounts receivable'],
@@ -7605,7 +7642,7 @@ class Component extends DCLogic {
             { a: 'Interest expense', v: 2400.0, tol: 1, w: '60,000 at 4.0%. Unpaid at year end, which changes nothing — and it sits below operating profit because it is a financing cost, not an operating one.' },
             { a: 'Net income', v: 10100.0, tol: 2, w: '12,500 − 2,400 = 10,100.' }
           ], e: 'Nine lines, in that order, and the two subtotals are half the point of the statement. Gross profit separates the trade from the overhead; operating profit separates the business from the way it is financed.\n\nThe other eight accounts in the dropdown are balance sheet items or, in the case of the  4,000 dividend, a distribution of profit rather than a cost of earning it — and the customer’s 7,000 advance is a liability, not revenue, because nothing has been delivered.' },
-          { t: 'build', p: 'Question B1, part (c), 3 points. Prepare the balance sheet at 31 December: assets first, then everything claimed against them, and show that the two sides agree. The template is blank — choose every line yourself.',
+          { sec: 'B', m: 3, t: 'build', p: 'Question B1, part (c), 3 points. Prepare the balance sheet at 31 December: assets first, then everything claimed against them, and show that the two sides agree. The template is blank — choose every line yourself.',
             calc: 'Assets = liabilities + shareholders’ equity',
             hint: 'Enter every figure as a positive number. Seven of the lines offered do not belong on a balance sheet at all.',
             options: ['Cash', 'Accounts receivable', 'Inventory', 'Prepaid rent', 'Equipment, net', 'Total assets', 'Accounts payable', 'Unearned revenue', 'Wages payable', 'Interest payable', 'Bank loan', 'Share capital', 'Retained earnings', 'Total liabilities and equity', 'Revenue', 'Cost of goods sold', 'Net income', 'Dividends paid', 'Depreciation expense', 'Wages expense', 'Gross profit'],
@@ -7625,7 +7662,7 @@ class Component extends DCLogic {
             { a: 'Retained earnings', v: 6100.0, tol: 2, w: 'Net income 10,100 − dividend 4,000. The company began the year with none.' },
             { a: 'Total liabilities and equity', v: 297000.0, tol: 5, w: '20,000 + 7,000 + 1,500 + 2,400 + 60,000 + 200,000 + 6,100 = 297,000, which is exactly total assets.' }
           ], e: 'Fourteen lines, and two totals that have to be the same number. Each figure is a column total from the grid in part (a), so a disagreement here means the error is in a row above.\n\nThe three easiest to leave out are the ones that exist only because of a year-end adjustment — unearned revenue, wages payable and interest payable — and the one most often got wrong is retained earnings, which is net income less the dividend rather than net income itself.' },
-          { t: 'pick', p: 'Question B1, part (d), 1 point. The founder says: "We ended the year with 173,000 of cash having started with nothing, so the business is obviously profitable." Mark each statement true or false.',
+          { sec: 'B', m: 1, t: 'pick', p: 'Question B1, part (d), 1 point. The founder says: "We ended the year with 173,000 of cash having started with nothing, so the business is obviously profitable." Mark each statement true or false.',
             rows: [
               { l: 'The cash increase is a poor measure of the year’s performance', a: true, w: 'Most of it came from shareholders and the bank putting in 260,000 and a customer paying 7,000 for goods not yet delivered.' },
               { l: 'Net income of 10,100 is the better measure', a: true, w: 'It matches what was earned against what it cost to earn it, including equipment used up and rent and interest not yet paid.' },
@@ -7634,7 +7671,7 @@ class Component extends DCLogic {
               { l: 'A company can hold more cash at the year end and still have made a loss', a: true, w: 'Raise equity or borrow enough and cash rises whatever the trading did. The two questions are separate.' }
             ],
             e: 'One point, and it is the point of the whole question. Cash and profit answer different questions, and the founder has asked one and answered the other.' },
-          { t: 'build', p: 'Question B2 — Negroni Networks (15 points). Part (a), 7 points. Prepare the operating section of the statement of cash flows using the indirect method, one adjustment per line. The template is blank and the data is in the Figures panel.',
+          { sec: 'B', m: 7, t: 'build', p: 'Question B2 — Negroni Networks (15 points). Part (a), 7 points. Prepare the operating section of the statement of cash flows using the indirect method, one adjustment per line. The template is blank and the data is in the Figures panel.',
             calc: 'CFO = net income + non-cash charges − non-operating gains ± working capital',
             hint: 'Signs matter here: enter a deduction as a negative number.',
             options: ['Net income', 'Depreciation', 'Gain on sale of equipment', 'Loss on sale of equipment', 'Change in accounts receivable', 'Change in inventories', 'Change in prepaid expenses', 'Change in accounts payable', 'Change in unearned revenue', 'Cash flow from operating activities', 'Purchases of equipment', 'Proceeds from the equipment sale', 'New bank loan', 'Repayment of bank loans', 'Dividends paid', 'Cash at 1 January', 'Revenue'],
@@ -7649,7 +7686,7 @@ class Component extends DCLogic {
             { a: 'Change in unearned revenue', v: -35, tol: 1, w: 'A decrease of 35, so −35. Customers paying in advance fund the business.' },
             { a: 'Cash flow from operating activities', v: 2810, tol: 2, w: 'The eight lines above add to 2,810.' }
           ], e: 'Operating cash flow of 2,810 against net income of 2,100. The 710 gap is depreciation, the loss adjustment and working capital — none of which is an opinion about how well the company traded.\n\nSeven of the lines offered belong in investing or financing, or are not cash flow lines at all.' },
-          { t: 'fill', p: 'Question B2, parts (b) and (c), 5 points. Prepare the investing and financing sections, then show that the three sections together explain the change in cash.',
+          { sec: 'B', m: 8, t: 'fill', p: 'Question B2, parts (b) and (c), 8 points. Prepare the investing and financing sections, then show that the three sections together explain the change in cash.',
             calc: 'The three sections must add to the movement in the cash balance',
             rows: [
             { l: 'Purchases of equipment', a: -1250, tol: 1, w: 'An outflow of 1,250.' },
@@ -7659,7 +7696,7 @@ class Component extends DCLogic {
             { l: 'Net change in cash', a: 880, tol: 2, w: '2,810 + (1,030) + (900) = 880.' },
             { l: 'Cash at 31 December', a: 1830, tol: 2, w: '950 at 1 January + 880 = 1,830.' }
           ], e: 'Every figure was derived, so this tie is the only check you have. If it does not agree exactly, a sign is wrong or a working capital line is missing — do it before writing any commentary.\n\nIf, over the next few years, net income kept growing while operating cash flow fell and turned negative, the things to investigate are receivables growing faster than sales, inventory piling up, or profit resting on estimates rather than cash. Firms fail when they run out of cash, not when they report a loss.' },
-          { t: 'fill', p: 'Question B3 — parts (a) to (c), 5 points. Tiramisu Telecom sells on credit. Opening gross receivables 95,000 and an allowance of 4,200. During the year: credit sales 610,000, collections 600,000, write-offs 3,600. Bad debt expense is estimated at 0.8% of credit sales.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3 — parts (a) to (c), 5 points. Tiramisu Telecom sells on credit. Opening gross receivables 95,000 and an allowance of 4,200. During the year: credit sales 610,000, collections 600,000, write-offs 3,600. Bad debt expense is estimated at 0.8% of credit sales.',
             calc: 'Ending allowance = beginning + bad debt expense − write-offs',
             rows: [
             { l: 'Bad debt expense for the year', a: 4880.0, tol: 1, w: '0.8% × 610,000 = 4,880.' },
@@ -7667,7 +7704,7 @@ class Component extends DCLogic {
             { l: 'Gross accounts receivable at 31 December', a: 101400, tol: 5, w: '95,000 + 610,000 − 600,000 collected − 3,600 written off = 101,400.' },
             { l: 'Net receivables shown on the balance sheet', a: 95920.0, tol: 5, w: '101,400 − 5,480 = 95,920. This is the only one of the four that is actually printed.' }
           ], e: 'Writing off the 3,600 owed by bankrupt customers did not reduce net income. The expense was taken when the allowance was estimated at the time of the sale; the write-off only removes the balance from gross receivables and from the allowance together, leaving net receivables and profit untouched.' },
-          { t: 'fill', p: 'Question B3, parts (d) and (e), 5 points. Panettone Parts held 200 units at 20 then 150 units at 18 then 250 units at 15, and sold 460 units at 28 each.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3, parts (d) and (e), 5 points. Panettone Parts held 200 units at 20 then 150 units at 18 then 250 units at 15, and sold 460 units at 28 each.',
             calc: 'Goods available for sale split between COGS and ending inventory',
             rows: [
             { l: 'Cost of goods available for sale', a: 10450, tol: 5, w: 'The three layers add to 10,450 for 600 units; 140 units remain at the year end.' },
@@ -7679,7 +7716,7 @@ class Component extends DCLogic {
             { l: 'Gross profit under LIFO', a: 5230, tol: 10, w: 'Revenue 12,880 − 7,650 = 5,230.' },
             { l: 'By how much the higher of the two exceeds the other', a: 700, tol: 10, w: '5,230 under LIFO against 4,530 under FIFO — a difference of 700, the same number as the gap between the two COGS figures.' }
           ], e: 'Prices fell through the year, so LIFO reports the higher gross profit, by 700. That is the reverse of the usual case, and it is entirely because prices fell: LIFO is charging the newest costs, which are now the cheapest.\n\nWhichever way prices move, the statement that always holds is this one: FIFO leaves the most recent costs on the balance sheet, so its ending inventory of 2,100 is the closer of the two to what the goods would cost today.' },
-          { t: 'fill', p: 'Question B3, part (f), 5 points. Amaretto Agriculture bought a vehicle for 45,000 3 years ago, expecting to use it for 5 years and then sell it for 5,000, depreciating straight line. Today it sells the vehicle for 18,500 in cash.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3, part (f), 5 points. Amaretto Agriculture bought a vehicle for 45,000 3 years ago, expecting to use it for 5 years and then sell it for 5,000, depreciating straight line. Today it sells the vehicle for 18,500 in cash.',
             calc: 'Gain or loss on disposal = proceeds − net book value',
             rows: [
             { l: 'Annual depreciation expense', a: 8000.0, tol: 5, w: '(45,000 − 5,000) / 5 = 8,000 a year.' },
@@ -7687,7 +7724,7 @@ class Component extends DCLogic {
             { l: 'Net book value just before the sale', a: 21000.0, tol: 10, w: '45,000 − 24,000 = 21,000.' },
             { l: 'Loss on the sale (enter a loss as a negative number)', a: -2500.0, tol: 10, w: '18,500 − 21,000 = −2,500.' }
           ], e: 'The loss of 2,500 appears in operating income as a loss on disposal, but it is a one-off, peripheral item that an analyst would strip out of recurring performance.\n\nAnd read it for what it is: a loss of this size means the depreciation estimate wrote the asset down more slowly than it actually lost value.' },
-          { t: 'fill', p: 'Question C — mini case: Novartis (25 points). Parts (a) and (b), 8 points. Novartis is a Swiss pharmaceutical group. Its costs are dominated by research and by the sales force; manufacturing is a small share of revenue, and its patents and plant tie up a great deal of capital. Its statements are in the Figures panel.',
+          { sec: 'C', m: 8, t: 'fill', p: 'Question C — mini case: Novartis (25 points). Parts (a) and (b), 8 points. Novartis is a Swiss pharmaceutical group. Its costs are dominated by research and by the sales force; manufacturing is a small share of revenue, and its patents and plant tie up a great deal of capital. Its statements are in the Figures panel.',
             calc: 'IC = equity + financial liabilities · NOPAT = operating profit × (1 − tax rate)',
             rows: [
             { l: 'Invested capital, year 1', a: 15800, tol: 2, w: 'Equity 8,500 + borrowings 7,300 = 15,800.' },
@@ -7696,7 +7733,7 @@ class Component extends DCLogic {
             { l: 'Average invested capital for year 2', a: 16150.0, tol: 2, w: '(16,500 + 15,800) / 2 = 16,150. Profit is earned across the year, so the capital it used is an average.' },
             { l: 'NOPAT for year 2', a: 2000.0, tol: 2, w: 'Operating profit 2,500 × (1 − 20.0%) = 2,000.' }
           ], e: 'Interest is left out of NOPAT deliberately. It is the cost of one particular way of financing the assets, and NOPAT measures what the operations earn regardless of whether they were funded by debt or by equity — which is what makes the return comparable between firms with different balance sheets.' },
-          { t: 'fill', p: 'Question C, parts (c) to (e), 17 points. Compute the returns and decompose them.',
+          { sec: 'C', m: 11, t: 'fill', p: 'Question C, parts (c) to (e), 11 points. Compute the returns and decompose them.',
             calc: 'ROIC = NOPAT ÷ average IC = NOPAT margin × IC turnover',
             given: [
               { l: 'NOPAT', v: '2,000', s: 'Your answer above' },
@@ -7712,7 +7749,7 @@ class Component extends DCLogic {
             { l: 'NOPAT excluding the one-off gain', a: 1840, tol: 2, w: '(2,500 − 200) × 0.80 = 1,840.' },
             { l: 'ROIC excluding the one-off gain, in percent', a: 11.4, tol: 0.3, w: 'Adjusted NOPAT = (2,500 − 200) × 0.80 = 1,840; divided by 16,150 gives 11.4%.' }
           ], e: 'Novartis earns 12.4% on capital from a margin of 22.2% and a turnover of 0.56. Set that beside a grocery retailer, which earns about 20.0% from a margin of 3.5% on a turnover of 5.80: almost the same destination by opposite routes. It is a margin business: pricing power on capital that turns slowly.\n\nROE of 20.6% sits well above ROIC of 12.4% because borrowings of 7,500 fund a large part of the 16,500 of capital, and every euro borrowed earns the operating return while costing far less. The price is risk — if ROIC ever fell below the cost of that debt, the same leverage would drive ROE below ROIC.' },
-          { t: 'pick', p: 'Question C, part (e) continued, 6 points. Management says the rise in ROE since year 1 "reflects the improved operating performance of the group". Mark each statement true or false.',
+          { sec: 'C', m: 6, t: 'pick', p: 'Question C, part (e) continued, 6 points. Management says the rise in ROE since year 1 "reflects the improved operating performance of the group". Mark each statement true or false.',
             rows: [
               { l: 'The one-off gain on sale of a mature drug portfolio should be excluded when judging how the business performed', a: true, w: 'It will not recur and says nothing about how well the company trades. Excluding it takes ROIC from 12.4% to 11.4%.' },
               { l: 'Once the one-off is stripped out, operating performance was no better than in year 1', a: true, w: 'Adjusted ROIC is 11.4% against 12.1% a year earlier.' },
@@ -7777,7 +7814,7 @@ class Component extends DCLogic {
           ] }
         ],
         steps: [
-          { t: 'choice', p: 'Section A, questions 1 to 6. Thirty points across the section, 2.5 for each question. One answer per question.',
+          { sec: 'A', m: 15, t: 'choice', p: 'Section A, questions 1 to 6. Thirty points across the section, 2.5 for each question. One answer per question.',
             qs: [
               { n: 'A1', m: 2.5, q: 'Ciabatta Ltd receives a €60,000 machine from a supplier today and will pay in 60 days. The effect today is:', o: [ 'Expenses +60,000 and liabilities +60,000', 'No entry until the cash is paid', 'Assets +60,000 and equity +60,000','Assets +60,000 and liabilities +60,000'], a: 3, w: 'Control of the machine has passed, so the asset goes on now and the obligation to pay with it. Accrual accounting records the event, not the payment — and buying an asset is never an expense.' },
               { n: 'A2', m: 2.5, q: 'Which is the clearest sign that revenue may have been recognised too early?', o: [ 'Receivables growing much faster than sales','Inventory falling faster than sales', 'Payables growing in line with purchases', 'Depreciation rising with the asset base'], a: 0, w: 'Booked sales that nobody has paid for pile up in receivables. It is the pattern behind channel stuffing at McAfee — days sales outstanding stretching while revenue looks healthy.' },
@@ -7786,7 +7823,7 @@ class Component extends DCLogic {
               { n: 'A5', m: 2.5, q: 'Under the allowance method, which event reduces net income?', o: [ 'Ageing the receivables schedule at year end', 'Writing off a specific bankrupt customer', 'Collecting a receivable previously written off','Recording the estimated bad debt expense'], a: 3, w: 'Only the estimate touches profit. The write-off reduces gross receivables and the allowance by the same amount, so net receivables and income are unchanged.' },
               { n: 'A6', m: 2.5, q: 'A firm’s depreciable life ratio — gross PPE divided by depreciation expense — is 20 years; its closest competitor’s is 12. What follows?', o: [ 'The first firm reports higher profit on identical assets','The first firm has newer assets', 'The second firm is investing more heavily', 'The second firm’s assets are impaired'], a: 0, w: 'A longer assumed life spreads the same cost more thinly, so the depreciation charge is smaller and profit higher — with nothing different happening in the factory. It is an assumption the firm chose, and the ratio exposes it.' }
             ] },
-          { t: 'choice', p: 'Section A, questions 7 to 12.',
+          { sec: 'A', m: 15, t: 'choice', p: 'Section A, questions 7 to 12.',
             qs: [
               { n: 'A7', m: 2.5, q: 'Goods available for sale cost €80,000. Under FIFO, ending inventory is €30,000. Under LIFO it is €22,000. LIFO cost of goods sold is:', o: ['€50,000', '€58,000', '€52,000', '€8,000'], a: 1, w: 'COGS = goods available − ending inventory = 80,000 − 22,000 = 58,000, against 50,000 under FIFO. The €8,000 gap is the LIFO reserve, and it is the same number on either statement.' },
               { n: 'A8', m: 2.5, q: 'Which transaction changes net income but not operating cash flow in the same period?', o: ['Paying a supplier for goods bought last month', 'Borrowing from the bank', 'Recording depreciation on the factory', 'Collecting a customer receivable'], a: 2, w: 'Depreciation reduces profit with no cash moving — the cash left when the asset was bought, and sat in investing. Paying a supplier and collecting a receivable move cash without touching profit; borrowing touches neither.' },
@@ -7795,7 +7832,7 @@ class Component extends DCLogic {
               { n: 'A11', m: 2.5, q: 'Sgroppino SpA has NOPAT of €60m, average invested capital of €750m and revenue of €1,500m. Its ROIC is:', o: ['4.0%', '8.0%', '2.0%', '12.5%'], a: 1, w: '60 / 750 = 8.0%, which splits into a 4% margin (60 / 1,500) and a turnover of 2.0 (1,500 / 750). Check: 4% × 2.0 = 8%.' },
               { n: 'A12', m: 2.5, q: 'Management says an improving ROE proves the business is performing better. ROIC has been flat. The right response is:', o: ['Agree — ROE is the shareholders’ return, so it is what matters', 'Disagree — ROE and ROIC measure the same thing', 'Disagree — flat ROIC means the operations have not improved, so the gain is financing', 'Agree, provided revenue also grew'], a: 2, w: 'ROIC strips financing out, so a flat ROIC with a rising ROE says the improvement came from borrowing, not from trading better. The gain is real for shareholders and it carries more risk with it.' }
             ] },
-          { t: 'grid', p: 'Question B1 — Ciabatta Cycles (15 points). Part (a), 7 points. The grid already records transactions 1 to 4. Record transactions 5 to 10 and the year-end adjustments — one line each — then complete the balances at 31 December. The transactions are in the Figures panel.',
+          { sec: 'B', m: 7, t: 'grid', p: 'Question B1 — Ciabatta Cycles (15 points). Part (a), 7 points. The grid already records transactions 1 to 4. Record transactions 5 to 10 and the year-end adjustments — one line each — then complete the balances at 31 December. The transactions are in the Figures panel.',
             cols: ['Cash', 'A/R', 'Inventory', 'Prepaid rent', 'Equip. (net)', 'A/P', 'Unearned rev.', 'Wages pay.', 'Interest pay.', 'Bank loan', 'Share cap.', 'Retained earnings'],
             hint: 'Leave a cell blank where the account did not move. Amounts in euros; use a minus sign rather than brackets.',
             rows: [
@@ -7816,7 +7853,7 @@ class Component extends DCLogic {
               { l: 'Adj. int', cells: [null, null, null, null, null, null, null, null, 7000.000000000001, null, null, -7000.000000000001] },
               { l: '31 Dec', cells: [134000, 50000, 18000, 10000.0, 60000.0, 25000, 8000, 2500, 7000.000000000001, 100000, 120000, 9500.0] }
             ], e: 'This is the question the whole of Section B is built on, and it is worth more than any other single part of the paper. Three of the sixteen lines are adjustments nobody asks you for by name: 5,000 of the prepaid rent has been used, the equipment has depreciated by 20,000, and 7,000 of interest has been incurred and not paid. Miss them and every figure below is wrong.\n\nThe check that costs nothing: every row must leave assets equal to liabilities plus equity, and the closing row must equal the sum of the column above it. Closing assets come to 272,000, and so do the claims on them.' },
-          { t: 'build', p: 'Question B1, part (b), 4 points. Build the income statement for the year. Choose each line from the dropdown and enter its amount — the lines are not given to you, and not every account offered belongs on an income statement.',
+          { sec: 'B', m: 4, t: 'build', p: 'Question B1, part (b), 4 points. Build the income statement for the year. Choose each line from the dropdown and enter its amount — the lines are not given to you, and not every account offered belongs on an income statement.',
             calc: 'Accrual accounting: what was earned and what was used up, not what was paid',
             hint: 'Enter every figure as a positive number; the labels carry the signs.',
             options: ['Revenue', 'Cost of goods sold', 'Gross profit', 'Wages expense', 'Rent expense', 'Depreciation expense', 'Operating profit', 'Interest expense', 'Net income', 'Dividends paid', 'Unearned revenue', 'Accounts payable', 'Prepaid rent', 'Equipment, net', 'Bank loan', 'Share capital', 'Accounts receivable'],
@@ -7831,7 +7868,7 @@ class Component extends DCLogic {
             { a: 'Interest expense', v: 7000.000000000001, tol: 1, w: '100,000 at 7.0%. Unpaid at year end, which changes nothing — and it sits below operating profit because it is a financing cost, not an operating one.' },
             { a: 'Net income', v: 15500.0, tol: 2, w: '22,500 − 7,000 = 15,500.' }
           ], e: 'Nine lines, in that order, and the two subtotals are half the point of the statement. Gross profit separates the trade from the overhead; operating profit separates the business from the way it is financed.\n\nThe other eight accounts in the dropdown are balance sheet items or, in the case of the  6,000 dividend, a distribution of profit rather than a cost of earning it — and the customer’s 8,000 advance is a liability, not revenue, because nothing has been delivered.' },
-          { t: 'build', p: 'Question B1, part (c), 3 points. Prepare the balance sheet at 31 December: assets first, then everything claimed against them, and show that the two sides agree. The template is blank — choose every line yourself.',
+          { sec: 'B', m: 3, t: 'build', p: 'Question B1, part (c), 3 points. Prepare the balance sheet at 31 December: assets first, then everything claimed against them, and show that the two sides agree. The template is blank — choose every line yourself.',
             calc: 'Assets = liabilities + shareholders’ equity',
             hint: 'Enter every figure as a positive number. Seven of the lines offered do not belong on a balance sheet at all.',
             options: ['Cash', 'Accounts receivable', 'Inventory', 'Prepaid rent', 'Equipment, net', 'Total assets', 'Accounts payable', 'Unearned revenue', 'Wages payable', 'Interest payable', 'Bank loan', 'Share capital', 'Retained earnings', 'Total liabilities and equity', 'Revenue', 'Cost of goods sold', 'Net income', 'Dividends paid', 'Depreciation expense', 'Wages expense', 'Gross profit'],
@@ -7851,7 +7888,7 @@ class Component extends DCLogic {
             { a: 'Retained earnings', v: 9500.0, tol: 2, w: 'Net income 15,500 − dividend 6,000. The company began the year with none.' },
             { a: 'Total liabilities and equity', v: 272000.0, tol: 5, w: '25,000 + 8,000 + 2,500 + 7,000 + 100,000 + 120,000 + 9,500 = 272,000, which is exactly total assets.' }
           ], e: 'Fourteen lines, and two totals that have to be the same number. Each figure is a column total from the grid in part (a), so a disagreement here means the error is in a row above.\n\nThe three easiest to leave out are the ones that exist only because of a year-end adjustment — unearned revenue, wages payable and interest payable — and the one most often got wrong is retained earnings, which is net income less the dividend rather than net income itself.' },
-          { t: 'pick', p: 'Question B1, part (d), 1 point. The founder says: "We ended the year with 134,000 of cash having started with nothing, so the business is obviously profitable." Mark each statement true or false.',
+          { sec: 'B', m: 1, t: 'pick', p: 'Question B1, part (d), 1 point. The founder says: "We ended the year with 134,000 of cash having started with nothing, so the business is obviously profitable." Mark each statement true or false.',
             rows: [
               { l: 'The cash increase is a poor measure of the year’s performance', a: true, w: 'Most of it came from shareholders and the bank putting in 220,000 and a customer paying 8,000 for goods not yet delivered.' },
               { l: 'Net income of 15,500 is the better measure', a: true, w: 'It matches what was earned against what it cost to earn it, including equipment used up and rent and interest not yet paid.' },
@@ -7860,7 +7897,7 @@ class Component extends DCLogic {
               { l: 'A company can hold more cash at the year end and still have made a loss', a: true, w: 'Raise equity or borrow enough and cash rises whatever the trading did. The two questions are separate.' }
             ],
             e: 'One point, and it is the point of the whole question. Cash and profit answer different questions, and the founder has asked one and answered the other.' },
-          { t: 'build', p: 'Question B2 — Aperol Aerospace (15 points). Part (a), 7 points. Prepare the operating section of the statement of cash flows using the indirect method, one adjustment per line. The template is blank and the data is in the Figures panel.',
+          { sec: 'B', m: 7, t: 'build', p: 'Question B2 — Aperol Aerospace (15 points). Part (a), 7 points. Prepare the operating section of the statement of cash flows using the indirect method, one adjustment per line. The template is blank and the data is in the Figures panel.',
             calc: 'CFO = net income + non-cash charges − non-operating gains ± working capital',
             hint: 'Signs matter here: enter a deduction as a negative number.',
             options: ['Net income', 'Depreciation', 'Gain on sale of equipment', 'Loss on sale of equipment', 'Change in accounts receivable', 'Change in inventories', 'Change in prepaid expenses', 'Change in accounts payable', 'Change in unearned revenue', 'Cash flow from operating activities', 'Purchases of equipment', 'Proceeds from the equipment sale', 'New bank loan', 'Repayment of bank loans', 'Dividends paid', 'Cash at 1 January', 'Revenue'],
@@ -7875,7 +7912,7 @@ class Component extends DCLogic {
             { a: 'Change in unearned revenue', v: 70, tol: 1, w: 'An increase of 70, so 70. Customers paying in advance fund the business.' },
             { a: 'Cash flow from operating activities', v: 1000, tol: 2, w: 'The eight lines above add to 1,000.' }
           ], e: 'Operating cash flow of 1,000 against net income of 640. The 360 gap is depreciation, the gain adjustment and working capital — none of which is an opinion about how well the company traded.\n\nSeven of the lines offered belong in investing or financing, or are not cash flow lines at all.' },
-          { t: 'fill', p: 'Question B2, parts (b) and (c), 5 points. Prepare the investing and financing sections, then show that the three sections together explain the change in cash.',
+          { sec: 'B', m: 8, t: 'fill', p: 'Question B2, parts (b) and (c), 8 points. Prepare the investing and financing sections, then show that the three sections together explain the change in cash.',
             calc: 'The three sections must add to the movement in the cash balance',
             rows: [
             { l: 'Purchases of equipment', a: -620, tol: 1, w: 'An outflow of 620.' },
@@ -7885,7 +7922,7 @@ class Component extends DCLogic {
             { l: 'Net change in cash', a: 880, tol: 2, w: '1,000 + (470) + (350) = 880.' },
             { l: 'Cash at 31 December', a: 1160, tol: 2, w: '280 at 1 January + 880 = 1,160.' }
           ], e: 'Every figure was derived, so this tie is the only check you have. If it does not agree exactly, a sign is wrong or a working capital line is missing — do it before writing any commentary.\n\nIf, over the next few years, net income kept growing while operating cash flow fell and turned negative, the things to investigate are receivables growing faster than sales, inventory piling up, or profit resting on estimates rather than cash. Firms fail when they run out of cash, not when they report a loss.' },
-          { t: 'fill', p: 'Question B3 — parts (a) to (c), 5 points. Gnocchi Group sells on credit. Opening gross receivables 40,000 and an allowance of 1,800. During the year: credit sales 300,000, collections 290,000, write-offs 1,200. Bad debt expense is estimated at 2.0% of credit sales.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3 — parts (a) to (c), 5 points. Gnocchi Group sells on credit. Opening gross receivables 40,000 and an allowance of 1,800. During the year: credit sales 300,000, collections 290,000, write-offs 1,200. Bad debt expense is estimated at 2.0% of credit sales.',
             calc: 'Ending allowance = beginning + bad debt expense − write-offs',
             rows: [
             { l: 'Bad debt expense for the year', a: 6000.0, tol: 1, w: '2.0% × 300,000 = 6,000.' },
@@ -7893,7 +7930,7 @@ class Component extends DCLogic {
             { l: 'Gross accounts receivable at 31 December', a: 48800, tol: 5, w: '40,000 + 300,000 − 290,000 collected − 1,200 written off = 48,800.' },
             { l: 'Net receivables shown on the balance sheet', a: 42200.0, tol: 5, w: '48,800 − 6,600 = 42,200. This is the only one of the four that is actually printed.' }
           ], e: 'Writing off the 1,200 owed by bankrupt customers did not reduce net income. The expense was taken when the allowance was estimated at the time of the sale; the write-off only removes the balance from gross receivables and from the allowance together, leaving net receivables and profit untouched.' },
-          { t: 'fill', p: 'Question B3, parts (d) and (e), 5 points. Biscotti Bearings held 80 units at 25 then 120 units at 28 then 200 units at 30, and sold 310 units at 45 each.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3, parts (d) and (e), 5 points. Biscotti Bearings held 80 units at 25 then 120 units at 28 then 200 units at 30, and sold 310 units at 45 each.',
             calc: 'Goods available for sale split between COGS and ending inventory',
             rows: [
             { l: 'Cost of goods available for sale', a: 11360, tol: 5, w: 'The three layers add to 11,360 for 400 units; 90 units remain at the year end.' },
@@ -7905,7 +7942,7 @@ class Component extends DCLogic {
             { l: 'Gross profit under LIFO', a: 4870, tol: 10, w: 'Revenue 13,950 − 9,080 = 4,870.' },
             { l: 'By how much the higher of the two exceeds the other', a: 420, tol: 10, w: '5,290 under FIFO against 4,870 under LIFO — a difference of 420, the same number as the gap between the two COGS figures.' }
           ], e: 'Prices rose through the year, so FIFO reports the higher gross profit, by 420. With rising prices FIFO charges the oldest and cheapest costs to COGS.\n\nWhichever way prices move, the statement that always holds is this one: FIFO leaves the most recent costs on the balance sheet, so its ending inventory of 2,700 is the closer of the two to what the goods would cost today.' },
-          { t: 'fill', p: 'Question B3, part (f), 5 points. Espresso Engineering bought a vehicle for 200,000 6 years ago, expecting to use it for 10 years and then sell it for 20,000, depreciating straight line. Today it sells the vehicle for 105,000 in cash.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3, part (f), 5 points. Espresso Engineering bought a vehicle for 200,000 6 years ago, expecting to use it for 10 years and then sell it for 20,000, depreciating straight line. Today it sells the vehicle for 105,000 in cash.',
             calc: 'Gain or loss on disposal = proceeds − net book value',
             rows: [
             { l: 'Annual depreciation expense', a: 18000.0, tol: 5, w: '(200,000 − 20,000) / 10 = 18,000 a year.' },
@@ -7913,7 +7950,7 @@ class Component extends DCLogic {
             { l: 'Net book value just before the sale', a: 92000.0, tol: 10, w: '200,000 − 108,000 = 92,000.' },
             { l: 'Gain on the sale (enter a loss as a negative number)', a: 13000.0, tol: 10, w: '105,000 − 92,000 = 13,000.' }
           ], e: 'The gain of 13,000 appears in operating income as a gain on disposal, but it is a one-off, peripheral item that an analyst would strip out of recurring performance.\n\nAnd read it for what it is: a gain of this size means the depreciation estimate wrote the asset down faster than it actually lost value.' },
-          { t: 'fill', p: 'Question C — mini case: Lufthansa (25 points). Parts (a) and (b), 8 points. Lufthansa is a European airline. It owns most of its fleet, leases the rest, and sells seats that customers pay for before they fly. Its statements are in the Figures panel.',
+          { sec: 'C', m: 8, t: 'fill', p: 'Question C — mini case: Lufthansa (25 points). Parts (a) and (b), 8 points. Lufthansa is a European airline. It owns most of its fleet, leases the rest, and sells seats that customers pay for before they fly. Its statements are in the Figures panel.',
             calc: 'IC = equity + financial liabilities · NOPAT = operating profit × (1 − tax rate)',
             rows: [
             { l: 'Invested capital, year 1', a: 21700, tol: 2, w: 'Equity 7,900 + borrowings 13,800 = 21,700.' },
@@ -7922,7 +7959,7 @@ class Component extends DCLogic {
             { l: 'Average invested capital for year 2', a: 22100.0, tol: 2, w: '(22,500 + 21,700) / 2 = 22,100. Profit is earned across the year, so the capital it used is an average.' },
             { l: 'NOPAT for year 2', a: 1760.0, tol: 2, w: 'Operating profit 2,200 × (1 − 20.0%) = 1,760.' }
           ], e: 'Interest is left out of NOPAT deliberately. It is the cost of one particular way of financing the assets, and NOPAT measures what the operations earn regardless of whether they were funded by debt or by equity — which is what makes the return comparable between firms with different balance sheets.' },
-          { t: 'fill', p: 'Question C, parts (c) to (e), 17 points. Compute the returns and decompose them.',
+          { sec: 'C', m: 11, t: 'fill', p: 'Question C, parts (c) to (e), 11 points. Compute the returns and decompose them.',
             calc: 'ROIC = NOPAT ÷ average IC = NOPAT margin × IC turnover',
             given: [
               { l: 'NOPAT', v: '1,760', s: 'Your answer above' },
@@ -7938,7 +7975,7 @@ class Component extends DCLogic {
             { l: 'NOPAT excluding the one-off gain', a: 1440, tol: 2, w: '(2,200 − 400) × 0.80 = 1,440.' },
             { l: 'ROIC excluding the one-off gain, in percent', a: 6.5, tol: 0.3, w: 'Adjusted NOPAT = (2,200 − 400) × 0.80 = 1,440; divided by 22,100 gives 6.5%.' }
           ], e: 'Lufthansa earns 8.0% on capital from a margin of 11.7% and a turnover of 0.68. Set that beside a sportswear group, which earns about 15.8% from a margin of 7.2% on a turnover of 2.20: almost the same destination by opposite routes. It is a margin business: pricing power on capital that turns slowly.\n\nROE of 14.6% sits well above ROIC of 8.0% because borrowings of 14,000 fund a large part of the 22,500 of capital, and every euro borrowed earns the operating return while costing far less. The price is risk — if ROIC ever fell below the cost of that debt, the same leverage would drive ROE below ROIC.' },
-          { t: 'pick', p: 'Question C, part (e) continued, 6 points. Management says the rise in ROE since year 1 "reflects the improved operating performance of the group". Mark each statement true or false.',
+          { sec: 'C', m: 6, t: 'pick', p: 'Question C, part (e) continued, 6 points. Management says the rise in ROE since year 1 "reflects the improved operating performance of the group". Mark each statement true or false.',
             rows: [
               { l: 'The one-off gain on sale-and-leaseback of aircraft should be excluded when judging how the business performed', a: true, w: 'It will not recur and says nothing about how well the company trades. Excluding it takes ROIC from 8.0% to 6.5%.' },
               { l: 'Once the one-off is stripped out, operating performance was no better than in year 1', a: true, w: 'Adjusted ROIC is 6.5% against 7.9% a year earlier.' },
@@ -8003,7 +8040,7 @@ class Component extends DCLogic {
           ] }
         ],
         steps: [
-          { t: 'choice', p: 'Section A, questions 1 to 6. Thirty points across the section, 2.5 for each question. One answer per question.',
+          { sec: 'A', m: 15, t: 'choice', p: 'Section A, questions 1 to 6. Thirty points across the section, 2.5 for each question. One answer per question.',
             qs: [
               { n: 'A1', m: 2.5, q: 'Stracciatella SA declares a €2m dividend on 28 December and pays it on 10 January. At 31 December it reports:', o: [ 'A reduction in cash of €2m', 'An expense of €2m and a liability of €2m', 'Nothing; dividends are recorded when paid','A reduction in retained earnings and a liability of €2m'], a: 3, w: 'Declaring creates an obligation, so retained earnings fall and a dividend payable appears. It is never an expense — a dividend distributes profit rather than helping to earn it.' },
               { n: 'A2', m: 2.5, q: 'A construction firm has a three-year contract and transfers control of the work progressively. Under IFRS 15 it recognises revenue:', o: [ 'Over time, as the work is performed','Entirely on signature', 'Entirely on completion', 'When each instalment of cash is received'], a: 0, w: 'Where control transfers over time, revenue follows performance rather than cash or completion. That is the Rolls-Royce question: the pattern of recognition, not the total, is what changes.' },
@@ -8012,7 +8049,7 @@ class Component extends DCLogic {
               { n: 'A5', m: 2.5, q: 'Opening allowance 5,000; bad debt expense 9,000; closing allowance 6,500. Write-offs during the year were:', o: [ '1,500', '10,500', '2,500','7,500'], a: 3, w: 'Ending = beginning + expense − write-offs, so write-offs = 5,000 + 9,000 − 6,500 = 7,500. Write-offs are almost never disclosed directly; this equation is how you recover them.' },
               { n: 'A6', m: 2.5, q: 'A firm sells a machine with a net book value of €40,000 for €25,000. The income statement and the cash flow statement show:', o: [ 'A loss of 15,000; investing inflow of 25,000','A loss of 15,000; investing inflow of 40,000', 'A loss of 40,000; operating inflow of 25,000', 'No loss; investing inflow of 25,000'], a: 0, w: 'Loss = proceeds − NBV = −15,000. The whole 25,000 of proceeds goes to investing, and the loss is added back in operating so the event is not counted twice.' }
             ] },
-          { t: 'choice', p: 'Section A, questions 7 to 12.',
+          { sec: 'A', m: 15, t: 'choice', p: 'Section A, questions 7 to 12.',
             qs: [
               { n: 'A7', m: 2.5, q: 'Which firm most likely uses LIFO?', o: ['A French luxury house', 'A US industrial manufacturer', 'A German software group', 'A UK supermarket chain'], a: 1, w: 'LIFO is prohibited under IFRS and available only in the United States, where the conformity rule ties it to a real tax saving. That is why Deere looks so different from CNH on inventory ratios.' },
               { n: 'A8', m: 2.5, q: 'Cash paid to acquire a 100% subsidiary appears in which section?', o: ['Operating', 'It is non-cash and is only disclosed', 'Investing', 'Financing'], a: 2, w: 'Buying a business is buying a bundle of long-lived assets, so it is investing — net of any cash that came with the subsidiary.' },
@@ -8021,7 +8058,7 @@ class Component extends DCLogic {
               { n: 'A11', m: 2.5, q: 'Ramazzotti Resources reports NOPAT €480m, revenue €3,000m, average invested capital €4,000m. Its margin and turnover are:', o: ['16.0% and 1.33', '16.0% and 0.75', '12.0% and 1.33', '12.0% and 0.75'], a: 1, w: 'Margin = 480 / 3,000 = 16.0%; turnover = 3,000 / 4,000 = 0.75; ROIC = 12.0%. Heavy capital, healthy margin — the mining and utilities shape.' },
               { n: 'A12', m: 2.5, q: 'Which statement about ROE and ROIC is correct?', o: ['ROE is always higher than ROIC', 'ROIC includes the cost of debt in its numerator', 'ROIC is unaffected by how the firm is financed', 'They are equal for a firm with no cash'], a: 2, w: 'That independence is the whole purpose of ROIC: NOPAT excludes financing costs and invested capital counts debt and equity alike, so two identically run firms score the same however they are funded. ROE sits above ROIC only when ROIC beats the after-tax cost of debt.' }
             ] },
-          { t: 'grid', p: 'Question B1 — Stracciatella Studios (15 points). Part (a), 7 points. The grid already records transactions 1 to 4. Record transactions 5 to 10 and the year-end adjustments — one line each — then complete the balances at 31 December. The transactions are in the Figures panel.',
+          { sec: 'B', m: 7, t: 'grid', p: 'Question B1 — Stracciatella Studios (15 points). Part (a), 7 points. The grid already records transactions 1 to 4. Record transactions 5 to 10 and the year-end adjustments — one line each — then complete the balances at 31 December. The transactions are in the Figures panel.',
             cols: ['Cash', 'A/R', 'Inventory', 'Prepaid rent', 'Equip. (net)', 'A/P', 'Unearned rev.', 'Wages pay.', 'Interest pay.', 'Bank loan', 'Share cap.', 'Retained earnings'],
             hint: 'Leave a cell blank where the account did not move. Amounts in euros; use a minus sign rather than brackets.',
             rows: [
@@ -8042,7 +8079,7 @@ class Component extends DCLogic {
               { l: 'Adj. int', cells: [null, null, null, null, null, null, null, null, 2000.0, null, null, -2000.0] },
               { l: '31 Dec', cells: [193000, 55000, 20000, 8250.0, 90000.0, 25000, 12000, 3000, 2000.0, 40000, 250000, 34250.0] }
             ], e: 'This is the question the whole of Section B is built on, and it is worth more than any other single part of the paper. Three of the sixteen lines are adjustments nobody asks you for by name: 750 of the prepaid rent has been used, the equipment has depreciated by 10,000, and 2,000 of interest has been incurred and not paid. Miss them and every figure below is wrong.\n\nThe check that costs nothing: every row must leave assets equal to liabilities plus equity, and the closing row must equal the sum of the column above it. Closing assets come to 366,250, and so do the claims on them.' },
-          { t: 'build', p: 'Question B1, part (b), 4 points. Build the income statement for the year. Choose each line from the dropdown and enter its amount — the lines are not given to you, and not every account offered belongs on an income statement.',
+          { sec: 'B', m: 4, t: 'build', p: 'Question B1, part (b), 4 points. Build the income statement for the year. Choose each line from the dropdown and enter its amount — the lines are not given to you, and not every account offered belongs on an income statement.',
             calc: 'Accrual accounting: what was earned and what was used up, not what was paid',
             hint: 'Enter every figure as a positive number; the labels carry the signs.',
             options: ['Revenue', 'Cost of goods sold', 'Gross profit', 'Wages expense', 'Rent expense', 'Depreciation expense', 'Operating profit', 'Interest expense', 'Net income', 'Dividends paid', 'Unearned revenue', 'Accounts payable', 'Prepaid rent', 'Equipment, net', 'Bank loan', 'Share capital', 'Accounts receivable'],
@@ -8057,7 +8094,7 @@ class Component extends DCLogic {
             { a: 'Interest expense', v: 2000.0, tol: 1, w: '40,000 at 5.0%. Unpaid at year end, which changes nothing — and it sits below operating profit because it is a financing cost, not an operating one.' },
             { a: 'Net income', v: 42250.0, tol: 2, w: '44,250 − 2,000 = 42,250.' }
           ], e: 'Nine lines, in that order, and the two subtotals are half the point of the statement. Gross profit separates the trade from the overhead; operating profit separates the business from the way it is financed.\n\nThe other eight accounts in the dropdown are balance sheet items or, in the case of the  8,000 dividend, a distribution of profit rather than a cost of earning it — and the customer’s 12,000 advance is a liability, not revenue, because nothing has been delivered.' },
-          { t: 'build', p: 'Question B1, part (c), 3 points. Prepare the balance sheet at 31 December: assets first, then everything claimed against them, and show that the two sides agree. The template is blank — choose every line yourself.',
+          { sec: 'B', m: 3, t: 'build', p: 'Question B1, part (c), 3 points. Prepare the balance sheet at 31 December: assets first, then everything claimed against them, and show that the two sides agree. The template is blank — choose every line yourself.',
             calc: 'Assets = liabilities + shareholders’ equity',
             hint: 'Enter every figure as a positive number. Seven of the lines offered do not belong on a balance sheet at all.',
             options: ['Cash', 'Accounts receivable', 'Inventory', 'Prepaid rent', 'Equipment, net', 'Total assets', 'Accounts payable', 'Unearned revenue', 'Wages payable', 'Interest payable', 'Bank loan', 'Share capital', 'Retained earnings', 'Total liabilities and equity', 'Revenue', 'Cost of goods sold', 'Net income', 'Dividends paid', 'Depreciation expense', 'Wages expense', 'Gross profit'],
@@ -8077,7 +8114,7 @@ class Component extends DCLogic {
             { a: 'Retained earnings', v: 34250.0, tol: 2, w: 'Net income 42,250 − dividend 8,000. The company began the year with none.' },
             { a: 'Total liabilities and equity', v: 366250.0, tol: 5, w: '25,000 + 12,000 + 3,000 + 2,000 + 40,000 + 250,000 + 34,250 = 366,250, which is exactly total assets.' }
           ], e: 'Fourteen lines, and two totals that have to be the same number. Each figure is a column total from the grid in part (a), so a disagreement here means the error is in a row above.\n\nThe three easiest to leave out are the ones that exist only because of a year-end adjustment — unearned revenue, wages payable and interest payable — and the one most often got wrong is retained earnings, which is net income less the dividend rather than net income itself.' },
-          { t: 'pick', p: 'Question B1, part (d), 1 point. The founder says: "We ended the year with 193,000 of cash having started with nothing, so the business is obviously profitable." Mark each statement true or false.',
+          { sec: 'B', m: 1, t: 'pick', p: 'Question B1, part (d), 1 point. The founder says: "We ended the year with 193,000 of cash having started with nothing, so the business is obviously profitable." Mark each statement true or false.',
             rows: [
               { l: 'The cash increase is a poor measure of the year’s performance', a: true, w: 'Most of it came from shareholders and the bank putting in 290,000 and a customer paying 12,000 for goods not yet delivered.' },
               { l: 'Net income of 42,250 is the better measure', a: true, w: 'It matches what was earned against what it cost to earn it, including equipment used up and rent and interest not yet paid.' },
@@ -8086,7 +8123,7 @@ class Component extends DCLogic {
               { l: 'A company can hold more cash at the year end and still have made a loss', a: true, w: 'Raise equity or borrow enough and cash rises whatever the trading did. The two questions are separate.' }
             ],
             e: 'One point, and it is the point of the whole question. Cash and profit answer different questions, and the founder has asked one and answered the other.' },
-          { t: 'build', p: 'Question B2 — Limoncello Labs (15 points). Part (a), 7 points. Prepare the operating section of the statement of cash flows using the indirect method, one adjustment per line. The template is blank and the data is in the Figures panel.',
+          { sec: 'B', m: 7, t: 'build', p: 'Question B2 — Limoncello Labs (15 points). Part (a), 7 points. Prepare the operating section of the statement of cash flows using the indirect method, one adjustment per line. The template is blank and the data is in the Figures panel.',
             calc: 'CFO = net income + non-cash charges − non-operating gains ± working capital',
             hint: 'Signs matter here: enter a deduction as a negative number.',
             options: ['Net income', 'Depreciation', 'Gain on sale of equipment', 'Loss on sale of equipment', 'Change in accounts receivable', 'Change in inventories', 'Change in prepaid expenses', 'Change in accounts payable', 'Change in unearned revenue', 'Cash flow from operating activities', 'Purchases of equipment', 'Proceeds from the equipment sale', 'New bank loan', 'Repayment of bank loans', 'Dividends paid', 'Cash at 1 January', 'Revenue'],
@@ -8101,7 +8138,7 @@ class Component extends DCLogic {
             { a: 'Change in unearned revenue', v: 90, tol: 1, w: 'An increase of 90, so 90. Customers paying in advance fund the business.' },
             { a: 'Cash flow from operating activities', v: 3270, tol: 2, w: 'The eight lines above add to 3,270.' }
           ], e: 'Operating cash flow of 3,270 against net income of 3,300. The 30 gap is depreciation, the gain adjustment and working capital — none of which is an opinion about how well the company traded.\n\nSeven of the lines offered belong in investing or financing, or are not cash flow lines at all.' },
-          { t: 'fill', p: 'Question B2, parts (b) and (c), 5 points. Prepare the investing and financing sections, then show that the three sections together explain the change in cash.',
+          { sec: 'B', m: 8, t: 'fill', p: 'Question B2, parts (b) and (c), 8 points. Prepare the investing and financing sections, then show that the three sections together explain the change in cash.',
             calc: 'The three sections must add to the movement in the cash balance',
             rows: [
             { l: 'Purchases of equipment', a: -2400, tol: 1, w: 'An outflow of 2,400.' },
@@ -8111,7 +8148,7 @@ class Component extends DCLogic {
             { l: 'Net change in cash', a: 890, tol: 2, w: '3,270 + (1,880) + (500) = 890.' },
             { l: 'Cash at 31 December', a: 2390, tol: 2, w: '1,500 at 1 January + 890 = 2,390.' }
           ], e: 'Every figure was derived, so this tie is the only check you have. If it does not agree exactly, a sign is wrong or a working capital line is missing — do it before writing any commentary.\n\nIf, over the next few years, net income kept growing while operating cash flow fell and turned negative, the things to investigate are receivables growing faster than sales, inventory piling up, or profit resting on estimates rather than cash. Firms fail when they run out of cash, not when they report a loss.' },
-          { t: 'fill', p: 'Question B3 — parts (a) to (c), 5 points. Risotto Retail sells on credit. Opening gross receivables 130,000 and an allowance of 6,000. During the year: credit sales 850,000, collections 830,000, write-offs 5,200. Bad debt expense is estimated at 1.2% of credit sales.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3 — parts (a) to (c), 5 points. Risotto Retail sells on credit. Opening gross receivables 130,000 and an allowance of 6,000. During the year: credit sales 850,000, collections 830,000, write-offs 5,200. Bad debt expense is estimated at 1.2% of credit sales.',
             calc: 'Ending allowance = beginning + bad debt expense − write-offs',
             rows: [
             { l: 'Bad debt expense for the year', a: 10200.0, tol: 1, w: '1.2% × 850,000 = 10,200.' },
@@ -8119,7 +8156,7 @@ class Component extends DCLogic {
             { l: 'Gross accounts receivable at 31 December', a: 144800, tol: 5, w: '130,000 + 850,000 − 830,000 collected − 5,200 written off = 144,800.' },
             { l: 'Net receivables shown on the balance sheet', a: 133800.0, tol: 5, w: '144,800 − 11,000 = 133,800. This is the only one of the four that is actually printed.' }
           ], e: 'Writing off the 5,200 owed by bankrupt customers did not reduce net income. The expense was taken when the allowance was estimated at the time of the sale; the write-off only removes the balance from gross receivables and from the allowance together, leaving net receivables and profit untouched.' },
-          { t: 'fill', p: 'Question B3, parts (d) and (e), 5 points. Focaccia Fasteners held 300 units at 6 then 400 units at 7 then 500 units at 9, and sold 950 units at 15 each.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3, parts (d) and (e), 5 points. Focaccia Fasteners held 300 units at 6 then 400 units at 7 then 500 units at 9, and sold 950 units at 15 each.',
             calc: 'Goods available for sale split between COGS and ending inventory',
             rows: [
             { l: 'Cost of goods available for sale', a: 9100, tol: 5, w: 'The three layers add to 9,100 for 1200 units; 250 units remain at the year end.' },
@@ -8131,7 +8168,7 @@ class Component extends DCLogic {
             { l: 'Gross profit under LIFO', a: 6650, tol: 10, w: 'Revenue 14,250 − 7,600 = 6,650.' },
             { l: 'By how much the higher of the two exceeds the other', a: 750, tol: 10, w: '7,400 under FIFO against 6,650 under LIFO — a difference of 750, the same number as the gap between the two COGS figures.' }
           ], e: 'Prices rose through the year, so FIFO reports the higher gross profit, by 750. With rising prices FIFO charges the oldest and cheapest costs to COGS.\n\nWhichever way prices move, the statement that always holds is this one: FIFO leaves the most recent costs on the balance sheet, so its ending inventory of 2,250 is the closer of the two to what the goods would cost today.' },
-          { t: 'fill', p: 'Question B3, part (f), 5 points. Gelato Freight bought a vehicle for 64,000 2 years ago, expecting to use it for 4 years and then sell it for 4,000, depreciating straight line. Today it sells the vehicle for 30,000 in cash.',
+          { sec: 'B', m: 5, t: 'fill', p: 'Question B3, part (f), 5 points. Gelato Freight bought a vehicle for 64,000 2 years ago, expecting to use it for 4 years and then sell it for 4,000, depreciating straight line. Today it sells the vehicle for 30,000 in cash.',
             calc: 'Gain or loss on disposal = proceeds − net book value',
             rows: [
             { l: 'Annual depreciation expense', a: 15000.0, tol: 5, w: '(64,000 − 4,000) / 4 = 15,000 a year.' },
@@ -8139,7 +8176,7 @@ class Component extends DCLogic {
             { l: 'Net book value just before the sale', a: 34000.0, tol: 10, w: '64,000 − 30,000 = 34,000.' },
             { l: 'Loss on the sale (enter a loss as a negative number)', a: -4000.0, tol: 10, w: '30,000 − 34,000 = −4,000.' }
           ], e: 'The loss of 4,000 appears in operating income as a loss on disposal, but it is a one-off, peripheral item that an analyst would strip out of recurring performance.\n\nAnd read it for what it is: a loss of this size means the depreciation estimate wrote the asset down more slowly than it actually lost value.' },
-          { t: 'fill', p: 'Question C — mini case: SAP (25 points). Parts (a) and (b), 8 points. SAP is a German enterprise software group. Its product costs almost nothing to reproduce, its customers pay annually in advance, and it owns little beyond offices and data centres. Its statements are in the Figures panel.',
+          { sec: 'C', m: 8, t: 'fill', p: 'Question C — mini case: SAP (25 points). Parts (a) and (b), 8 points. SAP is a German enterprise software group. Its product costs almost nothing to reproduce, its customers pay annually in advance, and it owns little beyond offices and data centres. Its statements are in the Figures panel.',
             calc: 'IC = equity + financial liabilities · NOPAT = operating profit × (1 − tax rate)',
             rows: [
             { l: 'Invested capital, year 1', a: 6000, tol: 2, w: 'Equity 4,000 + borrowings 2,000 = 6,000.' },
@@ -8148,7 +8185,7 @@ class Component extends DCLogic {
             { l: 'Average invested capital for year 2', a: 6250.0, tol: 2, w: '(6,500 + 6,000) / 2 = 6,250. Profit is earned across the year, so the capital it used is an average.' },
             { l: 'NOPAT for year 2', a: 1000.0, tol: 2, w: 'Operating profit 1,250 × (1 − 20.0%) = 1,000.' }
           ], e: 'Interest is left out of NOPAT deliberately. It is the cost of one particular way of financing the assets, and NOPAT measures what the operations earn regardless of whether they were funded by debt or by equity — which is what makes the return comparable between firms with different balance sheets.' },
-          { t: 'fill', p: 'Question C, parts (c) to (e), 17 points. Compute the returns and decompose them.',
+          { sec: 'C', m: 11, t: 'fill', p: 'Question C, parts (c) to (e), 11 points. Compute the returns and decompose them.',
             calc: 'ROIC = NOPAT ÷ average IC = NOPAT margin × IC turnover',
             given: [
               { l: 'NOPAT', v: '1,000', s: 'Your answer above' },
@@ -8164,7 +8201,7 @@ class Component extends DCLogic {
             { l: 'NOPAT excluding the one-off gain', a: 880, tol: 2, w: '(1,250 − 150) × 0.80 = 880.' },
             { l: 'ROIC excluding the one-off gain, in percent', a: 14.1, tol: 0.3, w: 'Adjusted NOPAT = (1,250 − 150) × 0.80 = 880; divided by 6,250 gives 14.1%.' }
           ], e: 'SAP earns 16.0% on capital from a margin of 16.7% and a turnover of 0.96. Set that beside an airline, which earns about 8.0% from a margin of 11.7% on a turnover of 0.68: almost the same destination by opposite routes. It is a margin business: pricing power on capital that turns slowly.\n\nROE of 21.6% sits well above ROIC of 16.0% because borrowings of 2,000 fund a large part of the 6,500 of capital, and every euro borrowed earns the operating return while costing far less. The price is risk — if ROIC ever fell below the cost of that debt, the same leverage would drive ROE below ROIC.' },
-          { t: 'pick', p: 'Question C, part (e) continued, 6 points. Management says the rise in ROE since year 1 "reflects the improved operating performance of the group". Mark each statement true or false.',
+          { sec: 'C', m: 6, t: 'pick', p: 'Question C, part (e) continued, 6 points. Management says the rise in ROE since year 1 "reflects the improved operating performance of the group". Mark each statement true or false.',
             rows: [
               { l: 'The one-off gain on disposal of a subsidiary should be excluded when judging how the business performed', a: true, w: 'It will not recur and says nothing about how well the company trades. Excluding it takes ROIC from 16.0% to 14.1%.' },
               { l: 'Once the one-off is stripped out, operating performance was no better than in year 1', a: true, w: 'Adjusted ROIC is 14.1% against 15.5% a year earlier.' },
@@ -8933,8 +8970,27 @@ class Component extends DCLogic {
     if (step.t === 'build') step.rows.forEach((r, i) => { inp[si + ':' + i + ':a'] = r.a; inp[si + ':' + i + ':v'] = String(r.v); });
     if (step.t === 'grid') step.rows.forEach((r, i) => { if (!r.fixed) (r.cells || []).forEach((c, j) => { inp[si + ':' + i + ':' + j] = (c === null || c === 0) ? '' : String(c); }); });
     if (step.t === 'entry') step.rows.forEach((r, i) => { inp[si + ':' + i + ':s'] = r.s; inp[si + ':' + i + ':a'] = r.a; inp[si + ':' + i + ':v'] = String(r.v); });
-    resBy[si] = { ok: true, skipped: true, marks: (step.rows || step.qs || []).map(() => true) };
+    // Revealing the answers scores nothing -- but not retrospectively. If this
+    // question had already been checked, the marks it earned then still stand.
+    const prev = resBy[si];
+    const kept = (prev && !prev.skipped) ? (prev.marks || null) : null;
+    resBy[si] = { ok: true, skipped: true, earned: kept,
+                  marks: (step.rows || step.qs || []).map(() => true) };
     this.setState({ resBy: resBy, exFirst: first, inp: inp });
+    if (ex.isMock) this.recordMock(ex, resBy);
+  }
+
+  // A paper counts as sat once every question has been attempted, however it
+  // was attempted. Keep the best mark across sittings.
+  recordMock(ex, resBy) {
+    if (!ex.steps.every((s2, k) => resBy[k])) return;
+    const g = this.mockScore(ex, resBy);
+    const done = Object.assign({}, this.state.exDone || {});
+    const prev = done[ex.key];
+    if (prev && prev.mark !== undefined && prev.mark >= g.total) return;
+    done[ex.key] = { right: g.total, total: 100, mark: g.total };
+    this.setState({ exDone: done });
+    this.save({ exDone: done });
   }
 
   checkStep(ex, step, si) {
@@ -9006,6 +9062,7 @@ class Component extends DCLogic {
     if (first[si] === undefined) first[si] = ok;
     resBy[si] = { ok: ok, marks: marks };
     this.setState({ resBy: resBy, exFirst: first });
+    if (ex.isMock) this.recordMock(ex, resBy);
     if (ok) {
       const all = ex.steps.every((s2, k2) => (k2 === si ? true : (resBy[k2] && resBy[k2].ok)));
       if (all) {
@@ -9020,6 +9077,46 @@ class Component extends DCLogic {
     }
   }
 
+
+  // Marks are awarded line by line: a step worth 8 with six of nine entries
+  // right earns 5.5, not nothing. Skipping reveals the answers, so it scores 0.
+  mockScore(ex, resBy) {
+    const secs = { A: { got: 0, max: 0 }, B: { got: 0, max: 0 }, C: { got: 0, max: 0 } };
+    let attempted = 0;
+    const perQ = (ex.steps || []).map((st, k) => {
+      const budget = st.m || 0;
+      const res = (resBy || {})[k];
+      const rows = (st.qs || st.rows || []);
+      const gradable = st.t === 'grid' ? rows.filter(r2 => !r2.fixed).length : rows.length;
+      let earned = 0;
+      const scored = res ? (res.skipped ? res.earned : res.marks) : null;
+      if (scored) {
+        const right = scored.reduce((n2, ok2) => n2 + (ok2 ? 1 : 0), 0);
+        earned = gradable > 0 ? budget * (right / gradable) : (res.ok ? budget : 0);
+        earned = Math.round(earned * 2) / 2;
+      }
+      if (res) attempted++;
+      const sec = secs[st.sec] || (secs[st.sec] = { got: 0, max: 0 });
+      sec.max += budget; sec.got += earned;
+      return { label: this.mockStepLabel(st, k), got: earned, max: budget, done: !!res,
+               skipped: !!(res && res.skipped && !res.earned) };
+    });
+    return { secs: secs, perQ: perQ, attempted: attempted,
+             total: Math.round((secs.A.got + secs.B.got + secs.C.got) * 2) / 2 };
+  }
+
+  // The mark sheet needs a name per question, and the paper already states it
+  // at the front of each step's prompt ("Question B1, part (b), 4 points.").
+  mockStepLabel(step, k) {
+    const p = String(step.p || '');
+    let m = p.match(/^Question ([A-C]\d?).{0,90}?parts? \(([a-z])\)(?:\s*(?:and|to)\s*\(([a-z])\))?/i);
+    if (m) return 'Question ' + m[1] + ' (' + m[2] + (m[3] ? '–' + m[3] : '') + ')';
+    m = p.match(/^Question ([A-C]\d?)/i);
+    if (m) return 'Question ' + m[1];
+    m = p.match(/^Section A, questions (\d+) to (\d+)/i);
+    if (m) return 'Section A, Q' + m[1] + '–' + m[2];
+    return 'Step ' + (k + 1);
+  }
 
   quizKey() { return this.state.view.split(':')[1] || 's1'; }
 
@@ -10183,11 +10280,12 @@ class Component extends DCLogic {
       showMocks: mode === 'mocks',
       mocksStyle: navBtn(mode === 'mocks', false),
       mockPapers: (this.exercises.fa || []).filter(x => x.isMock).map(x => {
-        const done = !!(this.state.exDone || {})[x.key];
+        const rec = (this.state.exDone || {})[x.key];
+        const marked = rec && rec.mark !== undefined;
         return {
           title: x.title, sub: x.sub,
-          meta: x.steps.length + ' parts \u00b7 ' + (done ? 'completed' : 'not started'),
-          metaColor: done ? 'var(--color-accent-700)' : 'color-mix(in srgb, var(--color-text) 60%, transparent)',
+          meta: x.steps.length + ' parts \u00b7 ' + (marked ? 'best mark ' + rec.mark + '/100' : (rec ? 'completed' : 'not sat')),
+          metaColor: marked ? 'var(--color-accent-700)' : 'color-mix(in srgb, var(--color-text) 60%, transparent)',
           onClick: () => this.openEx(x.key)
         };
       }),
@@ -10408,10 +10506,47 @@ class Component extends DCLogic {
       vals.toggleFig = () => this.setState({ figOpen: !this.state.figOpen });
       vals.sheets = sheets;
 
+      // A mock paper is marked, not ticked off. Every step carries its own mark
+      // budget and its section, and the marks are awarded per row rather than
+      // all-or-nothing -- eight of nine right on a cash flow statement is not a
+      // zero. Skipping a step reveals its answers, so it scores nothing.
+      if (ex.isMock) {
+        const g = this.mockScore(ex, resBy);
+        const secs = g.secs, perQ = g.perQ, total = g.total, attempted = g.attempted;
+        vals.isMockPaper = true;
+        vals.mockTotal = String(total);
+        vals.mockOutOf = '100';
+        vals.mockPct = Math.round(total) + '%';
+        vals.mockAttempted = attempted;
+        vals.mockAllDone = attempted === ex.steps.length;
+        vals.mockSections = ['A', 'B', 'C'].map(key => ({
+          label: 'Section ' + key + (key === 'A' ? ' · multiple choice' : key === 'B' ? ' · short problems' : ' · mini case'),
+          score: (Math.round(secs[key].got * 2) / 2) + ' / ' + secs[key].max,
+          pct: Math.round((secs[key].got / Math.max(1, secs[key].max)) * 100) + '%',
+          barStyle: 'display:block; height:6px; background:var(--color-accent); width:' + Math.round((secs[key].got / Math.max(1, secs[key].max)) * 100) + '%'
+        }));
+        vals.mockRows = perQ.map(r2 => ({
+          label: r2.label,
+          score: r2.done ? ((Math.round(r2.got * 2) / 2) + ' / ' + r2.max) : ('— / ' + r2.max),
+          note: r2.skipped ? 'Skipped — answers shown, no marks' : (r2.done ? '' : 'Not attempted'),
+          color: !r2.done || r2.skipped ? 'color-mix(in srgb, var(--color-text) 74%, transparent)'
+            : (r2.got >= r2.max ? 'var(--color-accent-700)' : 'var(--color-text)')
+        }));
+        vals.mockVerdict = total >= 70 ? 'A strong paper.'
+          : total >= 50 ? 'A pass, with the marks you dropped worth going back over.'
+          : 'Under half. Work the sections you lost most in before sitting another.';
+      } else {
+        vals.isMockPaper = false;
+        vals.mockSections = [];
+        vals.mockRows = [];
+      }
+
       const allDone = ex.steps.length > 0 && ex.steps.every((s2, k) => resBy[k] && resBy[k].ok);
       const doneCount = ex.steps.reduce((n, s2, k) => n + (resBy[k] && resBy[k].ok ? 1 : 0), 0);
       vals.exComplete = allDone;
-      vals.exProgress = allDone ? 'Complete' : doneCount + ' of ' + ex.steps.length + ' steps done';
+      vals.exProgress = ex.isMock
+        ? (vals.mockAttempted + ' of ' + ex.steps.length + ' questions attempted')
+        : (allDone ? 'Complete' : doneCount + ' of ' + ex.steps.length + ' steps done');
       vals.exPct = Math.round((doneCount / Math.max(1, ex.steps.length)) * 100) + '%';
       const rightFirst = Object.keys(firstTry).reduce((n, k) => n + (firstTry[k] ? 1 : 0), 0);
       vals.exScore = rightFirst + ' of ' + ex.steps.length + ' steps right first time';
