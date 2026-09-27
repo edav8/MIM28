@@ -4086,7 +4086,13 @@ class Component extends DCLogic {
     const this2 = this;
     v.exGroups = d.sessions.map(ses => {
       const n = parseInt(ses.num, 10);
-      const items = (byNum[n] || []).map(mk);
+      // In the order the course asks them, so 9.1 comes before 9.4. Anything
+      // with no course question behind it falls to the end as extra practice.
+      const items = (byNum[n] || []).slice().sort((x, y) => {
+        const a = x.covers ? parseFloat(String(x.covers).split('.')[1] || 0) : 1e6;
+        const b = y.covers ? parseFloat(String(y.covers).split('.')[1] || 0) : 1e6;
+        return a - b;
+      }).map(mk);
       const set = (this.daSets || {})[n];
       const noset = (this.daNoSet || {})[n];
       return {
