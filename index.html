@@ -2061,7 +2061,7 @@ class Component extends DCLogic {
       ] },
       { t: 'note', label: 'Why the fifth one is wrong', text: '\u03bc is a fixed number. It is either in this interval or it is not, so the only honest probability is 0 or 1 \u2014 you just do not know which. The 95% belongs to the procedure that built the interval, across the samples you might have drawn. The last statement says the same thing and is accepted because \u201cconfident\u201d has been given that technical meaning; the fifth says it in a way that misattributes the randomness to \u03bc rather than to the sample.' },
       { t: 'h', text: 'When \u03c3 is unknown, which is always' },
-      { t: 'f', text: 'SE\u0302 = s\u2099/\u221an', note: 'In large samples, replacing \u03c3 with the sample standard deviation gives a valid interval. s\u2099\u00b2 divides by n \u2212 1 because that makes it unbiased for \u03c3\u00b2 \u2014 Excel\u2019s VAR.S. Note the small print: s\u2099\u00b2 is unbiased for \u03c3\u00b2, but s\u2099 is still slightly biased for \u03c3.' },
+      { t: 'f', text: 'SE\u0302 = s\u2099/\u221an', note: 'In large samples, replacing \u03c3 with the sample standard deviation gives a valid interval. s\u2099\u00b2 divides by n \u2212 1 because that makes it unbiased for \u03c3\u00b2. Note the small print: s\u2099\u00b2 is unbiased for \u03c3\u00b2, but s\u2099 is still slightly biased for \u03c3.' },
       { t: 'note', label: 'Proportions are the same machinery', text: 'For a binary outcome the mean is a proportion, and everything follows from p\u0302 alone: the sample variance is p\u0302(1 \u2212 p\u0302) and the standard error \u221a(p\u0302(1 \u2212 p\u0302)/n). One caution the handout flags \u2014 the approximation breaks down for genuinely rare events, roughly when p \u2264 1/n.' }
     ],
     s8: [
@@ -2103,7 +2103,7 @@ class Component extends DCLogic {
       { t: 'h', text: 'Standardising' },
       { t: 'p', text: 'Every normal question becomes the same question once you standardise. Subtract the mean and divide by the standard deviation, and any normal turns into the standard normal — mean 0, standard deviation 1 — which is the only one the tables carry.' },
       { t: 'f', text: 'Z = (X − μ) / σ,   Z ~ N(0, 1)', note: 'z is a distance measured in standard deviations. z = 1.5 means “one and a half standard deviations above the mean”, whatever the original units were.' },
-      { t: 'p', text: 'Reading the table gives ℙ(Z < z). Everything else comes from symmetry and complements: ℙ(Z > z) = 1 − ℙ(Z < z), and ℙ(Z < −z) = ℙ(Z > z). In Excel, NORM.DIST(x, μ, σ, TRUE) goes from a value to a probability and NORM.INV(p, μ, σ) goes back the other way.' },
+      { t: 'p', text: 'Reading the table gives ℙ(Z < z). Everything else comes from symmetry and complements: ℙ(Z > z) = 1 − ℙ(Z < z), and ℙ(Z < −z) = ℙ(Z > z).' },
       { t: 'h', text: 'Worked: salaries' },
       { t: 'p', text: 'Starting salaries are normal with mean €160,000 and σ = €20,000. What share exceeds €190,000?' },
       { t: 'ul', items: ['Standardise: z = (190,000 − 160,000) / 20,000 = 1.5.', 'The table gives ℙ(Z < 1.5) = 0.9332.', 'So ℙ(X > 190,000) = 1 − 0.9332 = 0.0668, about one in fifteen.'] },
@@ -2185,7 +2185,6 @@ class Component extends DCLogic {
       { t: 'f', text: 'ℙ(at least one match) = 1 − (364/365) × (363/365) × ⋯ × ((365 − n + 1)/365)', note: 'Intuition fails because you count people, not pairs. With n = 99 there are n(n−1)/2 = 99 × 98 / 2 = 4,851 comparisons, not 99.' },
       { t: 'h', text: 'Reading for this session' },
       { t: 'ul', items: ['S02.1 — “The hidden traps in decision making” (Hammond, Keeney and Raiffa), the anchoring material.', 'S02.2 — Descriptive Statistics, pp. 89–97.', 'S02.3 — Hanke & Reitsch, Measures of Variability and Measures of Position, pp. 104–112, via the Doriot Library: copyright means the chapter PDFs are not on the LMS.', 'Dig deeper: “Freud, Finance and Folly” and “Doctor’s orders”.'] },
-      { t: 'note', label: 'In Excel', text: 'AVERAGE, MEDIAN, MODE for the centre; AVEDEV for mean absolute deviation; VAR.P and STDEV.P for the population variance and standard deviation used here (VAR.S and STDEV.S divide by N−1 and belong to a sample).' },
       { t: 'note', label: 'When the empirical rule fails', text: 'It assumes a roughly bell-shaped distribution. On skewed data — salaries with a few very large ones, or anything with heavy tails — two standard deviations will not hold 95%, and the rule quietly overstates how much you know.' }
     ],
     s3: [
@@ -2197,12 +2196,12 @@ class Component extends DCLogic {
       { t: 'f', text: 'ℙ(X = x) = pˣ(1 − p)¹⁻ˣ for x = 0 or 1', note: 'E[X] = p and Var[X] = p(1 − p). The parameter p is the bias of the coin.' },
       { t: 'h', text: 'The Binomial model' },
       { t: 'ul', items: ['There are n trials with two possible outcomes each.', 'Every trial has the same Bernoulli model: ℙ(success) = p.', 'All trials are independent. X = the number of successes in the n trials.'] },
-      { t: 'f', text: 'ℙ(X = x) = C(n, x) pˣ(1 − p)ⁿ⁻ˣ = n!/(x!(n − x)!) · pˣ(1 − p)ⁿ⁻ˣ', note: 'E[X] = np and Var[X] = np(1 − p). In Excel: =BINOM.DIST(x, n, p, FALSE).' },
+      { t: 'f', text: 'ℙ(X = x) = C(n, x) pˣ(1 − p)ⁿ⁻ˣ = n!/(x!(n − x)!) · pˣ(1 − p)ⁿ⁻ˣ', note: 'E[X] = np and Var[X] = np(1 − p).' },
       { t: 'p', text: 'With three fair coin flips the probabilities are 1/8, 3/8, 3/8, 1/8, giving E[X] = 1.5, Var[X] = np(1 − p) = 0.75 and SD ≈ 0.866. With four flips the numerators are the binomial coefficients 1, 4, 6, 4, 1 over 16, giving E[X] = 2.0 and Var[X] = 1.0.' },
       { t: 'note', label: 'Why the variance measures uncertainty', text: 'p(1 − p) is largest at p = 0.5. A 50% chance of rain is the most uncertain forecast there is; 0% or 100% carry almost none.' },
       { t: 'h', text: 'The Poisson model' },
       { t: 'p', text: 'Instead of n fixed trials, count the number of arrivals over indefinitely many independent trials within a fixed period: customers per day, website visits between 10pm and midnight, patients in an emergency room, goals in a football match.' },
-      { t: 'f', text: 'ℙ(X = x) = λˣe^(−λ) / x!   for x = 0, 1, 2, …', note: 'E[X] = λ and Var[X] = λ. In Excel: =POISSON.DIST(x, lambda, FALSE).' },
+      { t: 'f', text: 'ℙ(X = x) = λˣe^(−λ) / x!   for x = 0, 1, 2, …', note: 'E[X] = λ and Var[X] = λ.' },
       { t: 'p', text: 'Poisson arises as the limit of many independent Bernoulli trials with a small success rate, where λ ≈ np. The process is memoryless: the past does not affect future counts.' },
       { t: 'note', label: 'Binomial or Poisson?', text: 'Ask whether you know n. Meals served by the cafeteria in an hour, red giant stars in a volume of space, chocolate chips in a cookie — no fixed n, so Poisson. Deaths in a year among a known set of policyholders — n is known, so Binomial.' },
       { t: 'h', text: 'Data analysis in the era of AI' },
@@ -2480,14 +2479,14 @@ class Component extends DCLogic {
     { key: 's3bintab', tag: 'Session 3', title: 'Reading a binomial table', stem: 'A treatment cures 20% of the patients who receive it. Fifteen patients are treated, and the outcomes are independent. Let X be the number cured.',
       steps: [
         { q: 'Name the distribution and give its two parameters, then its mean.', rows: [ { label: 'n', a: 15, tol: 0 }, { label: 'p', a: 0.2, tol: 0.001 }, { label: 'E[X]', a: 3, tol: 0.01 } ], hint: 'A fixed number of independent trials, each a success or a failure.', sol: 'X ~ Bin(n = 15, p = 0.2), so E[X] = np = 3 patients.' },
-        { q: 'What is the probability that exactly 3 are cured?', rows: [ { label: 'P(X = 3)', a: 0.2501, tol: 0.001 } ], hint: 'C(15,3) times 0.2 cubed times 0.8 to the twelfth. =BINOM.DIST(3,15,0.2,FALSE).', sol: 'C(15,3) = 455, so P = 455 (0.008)(0.0687) = 0.2501. The single most likely count, which is no accident — it is the mean.' },
-        { q: 'What is the probability that between 1 and 5 inclusive are cured?', rows: [ { label: 'P(1 ≤ X ≤ 5)', a: 0.9038, tol: 0.002 } ], hint: 'Cumulative to 5 minus cumulative to 0. =BINOM.DIST(5,15,0.2,TRUE)-BINOM.DIST(0,15,0.2,TRUE).', sol: '0.9389 - 0.0352 = 0.9038. Nearly always between one and five.' },
+        { q: 'What is the probability that exactly 3 are cured?', rows: [ { label: 'P(X = 3)', a: 0.2501, tol: 0.001 } ], hint: 'C(15,3) times 0.2 cubed times 0.8 to the twelfth.', sol: 'C(15,3) = 455, so P = 455 (0.008)(0.0687) = 0.2501. The single most likely count, which is no accident — it is the mean.' },
+        { q: 'What is the probability that between 1 and 5 inclusive are cured?', rows: [ { label: 'P(1 ≤ X ≤ 5)', a: 0.9038, tol: 0.002 } ], hint: 'Cumulative to 5 minus cumulative to 0.', sol: '0.9389 - 0.0352 = 0.9038. Nearly always between one and five.' },
         { q: 'What is the probability that more than 6 are cured?', rows: [ { label: 'P(X > 6)', a: 0.0181, tol: 0.001 } ], hint: 'More than 6 means 7 or more: 1 minus the cumulative to 6.', sol: '1 - 0.9819 = 0.0181. Under 2% — so seeing seven cures would be real evidence the 20% figure is too low.' }
       ] },
     { key: 's3picker', tag: 'Session 3', title: 'Is the stock picker any good?', stem: 'An analyst claims she can pick winners — stocks that finish in the top 10% of the market for the year. She names fourteen stocks and four of them land in the top 10%. You are sceptical.',
       steps: [
         { q: 'State the sceptical model: what distribution describes the count of winners if she has no skill at all?', rows: [ { label: 'n', a: 14, tol: 0 }, { label: 'p', a: 0.1, tol: 0.001 }, { label: 'E[X]', a: 1.4, tol: 0.01 } ], hint: 'No skill means each pick has the same chance as a dart: the top 10%.', sol: 'X ~ Bin(14, 0.1) with E[X] = 1.4 winners. That is the benchmark her four have to beat.' },
-        { q: 'Under that model, what is the probability of getting 4 or more winners?', rows: [ { label: 'P(X ≥ 4)', a: 0.0441, tol: 0.002 } ], hint: 'One minus the cumulative probability of 3 or fewer. =1-BINOM.DIST(3,14,0.1,TRUE).', sol: '1 - 0.9559 = 0.0441. Four or more happens about 4% of the time by luck alone.' },
+        { q: 'Under that model, what is the probability of getting 4 or more winners?', rows: [ { label: 'P(X ≥ 4)', a: 0.0441, tol: 0.002 } ], hint: 'One minus the cumulative probability of 3 or fewer.', sol: '1 - 0.9559 = 0.0441. Four or more happens about 4% of the time by luck alone.' },
         { q: 'At a 5% threshold, does the evidence support her claim?', rows: [ { label: 'Reject no-skill? 1 for yes, 0 for no', a: 1, tol: 0 } ], hint: 'Compare the probability you just computed with 0.05.', sol: '0.044 < 0.05, so at the 5% level you reject the no-skill model. But note how close it is, and that one year of fourteen picks is thin evidence — this is the shape of every hypothesis test in Session 9.' }
       ] },
     { key: 's3toll', tag: 'Session 3', title: 'Splitting a Poisson rate', stem: 'A customer service line takes 240 calls over a nine-hour day. The load is steady and the calls are independent. About 30% of them are complaints.',
@@ -2518,7 +2517,7 @@ class Component extends DCLogic {
       ] },
     { key: 's3rockets', tag: 'Session 3', title: 'Nine engines out of ten', stem: 'A launch vehicle has ten engines. At least nine must fire correctly for it to reach orbit. Each engine works with probability 0.95, independently of the others.',
       steps: [
-        { q: 'What is the probability the launch succeeds?', rows: [ { label: 'P(X ≥ 9)', a: 0.9139, tol: 0.002 } ], hint: 'Add the probability of exactly 9 and exactly 10. =1-BINOM.DIST(8,10,0.95,TRUE).', sol: 'P(9) = 10(0.95⁹)(0.05) = 0.3151 and P(10) = 0.95¹⁰ = 0.5987, so 0.9139. A 95% engine gives only a 91% launch — requiring nine of ten costs you four points.' },
+        { q: 'What is the probability the launch succeeds?', rows: [ { label: 'P(X ≥ 9)', a: 0.9139, tol: 0.002 } ], hint: 'Add the probability of exactly 9 and exactly 10.', sol: 'P(9) = 10(0.95⁹)(0.05) = 0.3151 and P(10) = 0.95¹⁰ = 0.5987, so 0.9139. A 95% engine gives only a 91% launch — requiring nine of ten costs you four points.' },
         { q: 'What reliability per engine would you need to reach a 99.5% launch probability? Try 0.99.', rows: [ { label: 'P(X ≥ 9) at 0.99', a: 0.9957, tol: 0.002 } ], hint: 'Redo the same sum with p = 0.99.', sol: '0.9957 — just short of 99.5%, and it took a jump from 95% to 99% per engine to get there. Series reliability is unforgiving.' },
         { q: 'With ten engines at 0.95, what is the expected number that fire?', rows: [ { label: 'E[X]', a: 9.5, tol: 0.01 }, { label: 'SD', a: 0.689, tol: 0.01 } ], hint: 'np, and the square root of np(1 - p).', sol: 'E[X] = 9.5 with σ = √(10 × 0.95 × 0.05) = 0.689. The requirement of 9 sits well under one standard deviation below the mean, which is why failure is as likely as it is.' }
       ] },
@@ -2535,10 +2534,118 @@ class Component extends DCLogic {
         { q: 'Give the error she beats 90% of the time (the 90th percentile of her errors).', rows: [ { label: '90th percentile, %', a: 12.25, tol: 0.1 } ], hint: 'Find the z with 90% below it, then unstandardise: 2 + z(8).', sol: '2 + 1.282(8) = 12.25%. One forecast in ten is more than 12% too high.' },
         { q: 'If the bias were removed but the spread stayed, what would the chance of being within ±5% become?', rows: [ { label: 'P', a: 0.468, tol: 0.005 } ], hint: 'Same calculation with a mean of 0.', sol: 'z runs from -0.625 to +0.625, giving 0.4680. Barely better — her problem is the spread, not the bias, and fixing the bias is the easier thing to sell.' }
       ] },
+    { key: 's5se', tag: 'Session 5', title: 'How close is a sample mean to the truth?', stem: 'A careers office wants the mean starting salary of a population of consultants. The population standard deviation is known to be EUR 10,000. They will take a random sample and use the sample mean.',
+      steps: [
+        { q: 'With n = 36, give the standard error of the sample mean.', rows: [ { label: 'SE', a: 1666.67, tol: 2 } ], hint: 'Sigma over the square root of n.', sol: 'SE = 10,000/√36 = EUR 1,666.67. Note this is the spread of the estimate, not of individual salaries.' },
+        { q: 'What is the probability the sample mean lands within EUR 5,000 of the true mean?', rows: [ { label: 'z', a: 3.0, tol: 0.02 }, { label: 'P', a: 0.9973, tol: 0.002 } ], hint: 'Turn 5,000 into standard errors, then take the area between -z and +z.', sol: 'z = 5,000/1,666.67 = 3.0, so P = 0.9987 - 0.0013 = 0.9973.' },
+        { q: 'Now n = 100. Give the new standard error and the new probability.', rows: [ { label: 'SE', a: 1000, tol: 2 }, { label: 'P', a: 0.99999, tol: 0.0001 } ], hint: 'Same two steps with the larger n.', sol: 'SE = 1,000 and z = 5.0, so P is 0.99999 — effectively certain. Going from 36 to 100 shrinks the SE by 40%.' },
+        { q: 'What assumption did you need about the shape of the salary distribution?', rows: [ { label: 'n at which the CLT is usually taken to bite', a: 30, tol: 0 } ], hint: 'Think about what lets you treat the sample mean as normal.', sol: 'None, in practice: n = 36 and n = 100 both clear the usual rule of thumb of about 30, so the central limit theorem makes the sample mean approximately normal whatever the salaries look like. Salaries are right-skewed, so this matters.' }
+      ] },
+    { key: 's5indiv', tag: 'Session 5', title: 'One car versus a hundred cars', stem: 'A model is advertised at 45 miles per gallon. In truth the mileage of an individual car is normal with a mean of 40 mpg and a standard deviation of 5 mpg. A regulator test-drives 100 randomly chosen cars.',
+      steps: [
+        { q: 'What is the chance that one particular car achieves 45 mpg or better?', rows: [ { label: 'z', a: 1.0, tol: 0.01 }, { label: 'P', a: 0.1587, tol: 0.002 } ], hint: 'Standardise 45 against the individual-car mean and SD.', sol: 'z = (45 - 40)/5 = 1.0, so P = 1 - 0.8413 = 0.1587. About one car in six beats the claim.' },
+        { q: 'Give the standard error of the mean of 100 cars.', rows: [ { label: 'SE', a: 0.5, tol: 0.01 } ], hint: 'Sigma over root n, with n = 100.', sol: 'SE = 5/√100 = 0.5 mpg. Twenty times tighter than a single car.' },
+        { q: 'What is the chance the average of the 100 cars exceeds 45 mpg?', rows: [ { label: 'z', a: 10, tol: 0.05 }, { label: 'P', a: 0, tol: 0.0005 } ], hint: 'Standardise 45 against the mean of 40 with the standard error, not the SD.', sol: 'z = (45 - 40)/0.5 = 10, so P is essentially zero. The point of the exercise: one car beating the claim is unremarkable, the fleet average beating it is impossible. Confusing sigma with sigma over root n is the single most common error in this session.' }
+      ] },
+    { key: 's5clt', tag: 'Session 5', title: 'When the population is not normal', stem: 'A supplier claims the contents of a half-litre bottle follow a distribution you have never studied, with a mean of 500 ml and a standard deviation of 10 ml. An agency buys 30 bottles and weighs them.',
+      steps: [
+        { q: 'Give the mean and standard error of the average of 30 bottles.', rows: [ { label: 'Mean', a: 500, tol: 0.1 }, { label: 'SE', a: 1.826, tol: 0.01 } ], hint: 'The mean of the sample means is the population mean; the SE is sigma over root n.', sol: 'E[X̄] = 500 ml and SE = 10/√30 = 1.826 ml.' },
+        { q: 'What is the probability the average of the 30 falls between 499 and 501 ml?', rows: [ { label: 'z', a: 0.5477, tol: 0.005 }, { label: 'P', a: 0.4161, tol: 0.004 } ], hint: 'Standardise both ends with the standard error, then subtract the areas.', sol: 'z = ±1/1.826 = ±0.548, so P = 0.7081 - 0.2919 = 0.4161. Under half the time, despite the sample.' },
+        { q: 'Which assumption is doing the work here, given you were told nothing useful about the distribution?', rows: [ { label: 'n used', a: 30, tol: 0 } ], hint: 'You treated the sample mean as normal without knowing the population shape.', sol: 'The central limit theorem. n = 30 is the usual threshold, so this is a borderline case — if the underlying distribution were badly skewed you would want more bottles before trusting the normal approximation.' }
+      ] },
+    { key: 's6ci', tag: 'Session 6', title: 'A first confidence interval', stem: 'A magazine surveys 36 randomly chosen subscribers about annual income. The sample mean is EUR 75,000 and the population standard deviation is taken to be EUR 12,000.',
+      steps: [
+        { q: 'Give the best point estimate of the mean subscriber income, and the standard error.', rows: [ { label: 'Point estimate', a: 75000, tol: 10 }, { label: 'SE', a: 2000, tol: 5 } ], hint: 'The sample mean is the point estimate. SE is sigma over root n.', sol: 'The point estimate is EUR 75,000 and SE = 12,000/√36 = EUR 2,000.' },
+        { q: 'With probability 0.90, what is the maximum error in the estimate?', rows: [ { label: 'Maximum error', a: 3290, tol: 15 } ], hint: 'The z for 90% two-sided is 1.645. Multiply by the standard error.', sol: 'E = 1.645 × 2,000 = EUR 3,290. This is the margin of error, half the width of a 90% interval.' },
+        { q: 'Construct the 95% confidence interval.', rows: [ { label: 'Lower', a: 71080, tol: 30 }, { label: 'Upper', a: 78920, tol: 30 } ], hint: 'The point estimate plus and minus 1.96 standard errors.', sol: '75,000 ± 1.96(2,000) = 75,000 ± 3,920, so EUR 71,080 to EUR 78,920.' },
+        { q: 'Construct the 99% interval, and say what you paid for the extra confidence.', rows: [ { label: 'Lower', a: 69848, tol: 30 }, { label: 'Upper', a: 80152, tol: 30 } ], hint: 'Same calculation with z = 2.576.', sol: '75,000 ± 5,152, so EUR 69,848 to EUR 80,152. The interval is 31% wider. More confidence is bought with vagueness, never with accuracy.' }
+      ] },
+    { key: 's6n', tag: 'Session 6', title: 'How big a sample do you need?', stem: 'A consultancy is setting clothing sizes. From existing data the standard deviation of leg inseam length is 1.75 inches and of foot length 0.45 inches. Each population mean is to be estimated to within 0.10 inches with probability 0.99.',
+      steps: [
+        { q: 'Give the z value the 0.99 reliability requires.', rows: [ { label: 'z', a: 2.576, tol: 0.01 } ], hint: 'Two-sided, so 0.5% in each tail.', sol: 'z = 2.576.' },
+        { q: 'How many men must be measured for the inseam estimate?', rows: [ { label: 'n', a: 2033, tol: 2 } ], hint: 'n = (z sigma / E) squared, then round up.', sol: 'n = (2.576 × 1.75 / 0.10)² = 2,032.2, so 2,033 men. Always round up: rounding down misses the target.' },
+        { q: 'And for foot length?', rows: [ { label: 'n', a: 135, tol: 1 } ], hint: 'Same formula with the smaller standard deviation.', sol: 'n = (2.576 × 0.45 / 0.10)² = 134.4, so 135 men. A quarter of the spread needs a sixteenth of the sample — n depends on sigma squared.' },
+        { q: 'A sample of 2,500 gives a mean inseam of 29.6 inches. Give the 95% interval.', rows: [ { label: 'Lower', a: 29.531, tol: 0.01 }, { label: 'Upper', a: 29.669, tol: 0.01 } ], hint: 'Margin is 1.96 times 1.75 over the square root of 2,500.', sol: '29.6 ± 1.96(0.035) = 29.6 ± 0.069, so 29.531 to 29.669 inches.' }
+      ] },
+    { key: 's6range', tag: 'Session 6', title: 'A standard deviation you have to guess', stem: 'A market research firm must estimate mean weekly detergent usage per household to within 0.25 litres with probability 0.95. It knows only that almost all households (99%) use between 1 and 10 litres.',
+      steps: [
+        { q: 'Turn the range into a usable estimate of sigma.', rows: [ { label: 'Estimated σ', a: 1.747, tol: 0.03 } ], hint: 'If 99% of a bell-shaped distribution spans the range, the range covers about 5.15 standard deviations.', sol: 'σ ≈ (10 - 1)/5.152 = 1.75 litres. The cruder rule range/6 gives 1.5 and is also defensible — say which you used.' },
+        { q: 'How many households should be sampled?', rows: [ { label: 'n', a: 188, tol: 4 } ], hint: 'n = (z sigma / E) squared with z = 1.96 and E = 0.25.', sol: 'n = (1.96 × 1.747 / 0.25)² = 187.6, so 188 households.' },
+        { q: 'They sample 250 instead and observe a mean of 4.2 litres with a sample standard deviation of 1.6. Give the 95% interval.', rows: [ { label: 'Margin', a: 0.198, tol: 0.008 }, { label: 'Lower', a: 4.002, tol: 0.01 }, { label: 'Upper', a: 4.398, tol: 0.01 } ], hint: 'Sigma is now estimated from the sample, but n = 250 is large so z is fine.', sol: '1.96 × 1.6/√250 = 0.198, giving 4.002 to 4.398 litres. Strictly this is a t interval, but at df = 249 the t is 1.970 and the answer does not move.' }
+      ] },
+    { key: 's6back', tag: 'Session 6', title: 'Working backwards from a margin of error', stem: 'A newspaper reports that 46% of eligible voters approve of the president, with a margin of error of 2.2 percentage points. It does not report the sample size.',
+      steps: [
+        { q: 'What confidence level does a reported margin of error normally assume?', rows: [ { label: 'Confidence, as a percent', a: 95, tol: 0 } ], hint: 'The convention in published polling.', sol: '95%, so z = 1.96. Always worth checking — a poll that quotes 90% looks more precise than it is.' },
+        { q: 'Back out the sample size.', rows: [ { label: 'n', a: 1972, tol: 12 } ], hint: 'Rearrange E = z√(p(1−p)/n) for n, using p = 0.46.', sol: 'n = 1.96²(0.46)(0.54)/0.022² = 1,971.6, so about 1,970 voters. Typical for a national poll.' },
+        { q: 'If they had used the worst-case p instead, what n would the same margin have implied?', rows: [ { label: 'n', a: 1983, tol: 12 } ], hint: 'The worst case for p(1 − p) is p = 0.5.', sol: 'n = 1.96²(0.25)/0.022² = 1,983. Barely different — p(1 − p) is flat near 0.5, which is why pollsters use 0.5 when they have no prior estimate.' }
+      ] },
+    { key: 's6prop', tag: 'Session 6', title: 'An interval for a proportion', stem: 'A panel of 100 randomly chosen shoppers each blind-tastes brand X and brand Y. Sixty prefer brand X.',
+      steps: [
+        { q: 'Give the sample proportion and its standard error.', rows: [ { label: 'p̂', a: 0.6, tol: 0.005 }, { label: 'SE', a: 0.049, tol: 0.002 } ], hint: 'The SE of a proportion is the square root of p-hat times one minus p-hat over n.', sol: 'p̂ = 0.60 and SE = √(0.6 × 0.4/100) = 0.049.' },
+        { q: 'Check the approximation is safe: give np̂ and n(1 − p̂).', rows: [ { label: 'np̂', a: 60, tol: 0.5 }, { label: 'n(1 − p̂)', a: 40, tol: 0.5 } ], hint: 'Both must clear 5.', sol: '60 and 40, comfortably clear. The normal approximation is fine.' },
+        { q: 'Construct the 95% confidence interval for the true preference share.', rows: [ { label: 'Lower', a: 0.504, tol: 0.004 }, { label: 'Upper', a: 0.696, tol: 0.004 } ], hint: 'p-hat plus and minus 1.96 standard errors.', sol: '0.60 ± 1.96(0.049) = 0.60 ± 0.096, so 50.4% to 69.6%.' },
+        { q: 'Does the interval settle that brand X is genuinely preferred by a majority?', rows: [ { label: 'Yes = 1, No = 0', a: 1, tol: 0 } ], hint: 'Ask whether 0.50 falls inside the interval.', sol: 'Just: the lower bound is 0.504, so 0.50 sits outside — but only barely. A panel of 100 is thin for a claim this close, and a few more ties would flip it.' }
+      ] },
+    { key: 's7t', tag: 'Session 7', title: 'A small sample, so a t interval', stem: 'Ten cars of a new model are tested for fuel economy. The readings, in miles per gallon, are 20, 28, 27, 29, 30, 32, 25, 24, 30 and 35.',
+      steps: [
+        { q: 'Give the sample mean and the sample standard deviation.', rows: [ { label: 'x̄', a: 28, tol: 0.02 }, { label: 's', a: 4.269, tol: 0.02 } ], hint: 'Sum is 280. For s use the n − 1 divisor, not n.', sol: 'x̄ = 280/10 = 28 mpg and s = 4.27 mpg (sample variance 18.22). The population variance, 16.40, is the wrong one here.' },
+        { q: 'Why is t the right distribution, and what are the degrees of freedom?', rows: [ { label: 'df', a: 9, tol: 0 } ], hint: 'Ask whether sigma was given to you or estimated from the data.', sol: 'Sigma is unknown and estimated by s from only ten observations, so use t with df = n - 1 = 9. With n this small the difference from z is material.' },
+        { q: 'Give the t critical value and the margin of error for 95%.', rows: [ { label: 't', a: 2.262, tol: 0.01 }, { label: 'Margin', a: 3.053, tol: 0.02 } ], hint: 'Look the two-sided 5% t up at df = 9, then multiply by s over root n.', sol: 't = 2.262 and margin = 2.262 × 4.269/√10 = 3.05 mpg. Using z = 1.96 instead would understate the margin by a third of a mile per gallon.' },
+        { q: 'Give the interval, and state the assumption it rests on.', rows: [ { label: 'Lower', a: 24.95, tol: 0.03 }, { label: 'Upper', a: 31.05, tol: 0.03 } ], hint: 'The mean plus and minus the margin.', sol: '24.95 to 31.05 mpg. The t interval assumes the underlying population of mileages is roughly normal — with n = 10 the CLT cannot rescue you, so that assumption is load-bearing.' }
+      ] },
+    { key: 's7n', tag: 'Session 7', title: 'What another seventy-five accounts buy you', stem: 'A department store is estimating the mean balance due across 300,000 accounts. From past experience balances are normally distributed with a standard deviation of GBP 2. A sample gives a mean balance of GBP 25.',
+      steps: [
+        { q: 'With n = 25, give the 95% interval.', rows: [ { label: 'Margin', a: 0.784, tol: 0.01 }, { label: 'Lower', a: 24.216, tol: 0.02 }, { label: 'Upper', a: 25.784, tol: 0.02 } ], hint: 'Sigma is known, so use z = 1.96 with SE = 2/5.', sol: '1.96 × 0.4 = 0.784, giving GBP 24.22 to GBP 25.78.' },
+        { q: 'With n = 100, give the 95% interval.', rows: [ { label: 'Margin', a: 0.392, tol: 0.01 }, { label: 'Lower', a: 24.608, tol: 0.02 }, { label: 'Upper', a: 25.392, tol: 0.02 } ], hint: 'Same with SE = 2/10.', sol: '1.96 × 0.2 = 0.392, giving GBP 24.61 to GBP 25.39.' },
+        { q: 'Quadrupling the sample did what to the width?', rows: [ { label: 'Ratio of widths, new to old', a: 0.5, tol: 0.02 } ], hint: 'Compare the two margins.', sol: 'It halved it. Precision goes as the square root of n, so every halving of the margin costs four times the sample. This is the single most useful fact in the session.' },
+        { q: 'How large a sample would give a margin of GBP 0.10?', rows: [ { label: 'n', a: 1537, tol: 6 } ], hint: 'n = (1.96 × 2 / 0.10) squared, rounded up.', sol: 'n = 1,536.6, so 1,537 accounts — sixty times the first sample for an eightfold improvement.' }
+      ] },
+    { key: 's9mean', tag: 'Session 9', title: 'Does the sales pitch work?', stem: 'A shop currently averages SGD 5 per transaction, with a population standard deviation known from past data to be SGD 2. After introducing a short spoken pitch, a random sample of 64 transactions averages SGD 5.60.',
+      steps: [
+        { q: 'State the hypotheses for the claim that the pitch raises the mean.', rows: [ { label: 'μ₀ in H₀', a: 5, tol: 0.01 }, { label: 'One-sided = 1, two-sided = 2', a: 1, tol: 0 } ], hint: 'The claim you want to prove goes in H₁, so H₁: μ > 5.', sol: 'H₀: μ = 5 against H₁: μ > 5. One-sided, because a fall in sales would not count as the pitch working.' },
+        { q: 'Give the standard error and the test statistic.', rows: [ { label: 'SE', a: 0.25, tol: 0.005 }, { label: 'z', a: 2.4, tol: 0.02 } ], hint: 'SE is 2 over the square root of 64; z is the gap over the SE.', sol: 'SE = 0.25 and z = (5.60 - 5)/0.25 = 2.40. The observed mean is 2.4 standard errors above the claim.' },
+        { q: 'Give the p-value.', rows: [ { label: 'p', a: 0.0082, tol: 0.001 } ], hint: 'One tail beyond z = 2.40.', sol: 'p = 1 - 0.9918 = 0.0082. Under H₀ a result this good happens under 1% of the time.' },
+        { q: 'At the 5% level, what do you conclude — and what have you not shown?', rows: [ { label: 'Reject H₀? 1 for yes', a: 1, tol: 0 } ], hint: 'Compare p with 0.05.', sol: 'Reject H₀: the pitch does appear to raise the mean. What you have not shown is that it is worth doing — 60 cents a transaction has to be weighed against the cost, and statistical significance says nothing about that.' }
+      ] },
+    { key: 's9small', tag: 'Session 9', title: 'A one-sided test on a small sample', stem: 'A winery will adopt a new fermentation process only if batches ferment faster than the present mean of 30 hours. Twenty-five trial batches average 28.5 hours with a sample standard deviation of 3.2 hours.',
+      steps: [
+        { q: 'State H₀ and H₁, and say which tail you are in.', rows: [ { label: 'μ₀', a: 30, tol: 0.01 }, { label: 'Lower tail = 1, upper tail = 2', a: 1, tol: 0 } ], hint: 'Adopting requires evidence of a faster — that is, smaller — mean.', sol: 'H₀: μ = 30 against H₁: μ < 30. Lower tail. Putting the burden of proof on the new process is the conservative and correct choice.' },
+        { q: 'Give the test statistic and the degrees of freedom.', rows: [ { label: 't', a: -2.344, tol: 0.02 }, { label: 'df', a: 24, tol: 0 } ], hint: 'Sigma is estimated, so t with n − 1 degrees of freedom.', sol: 't = (28.5 - 30)/(3.2/5) = -2.344 with df = 24.' },
+        { q: 'The one-sided 5% critical value at df = 24 is 1.711. What do you conclude?', rows: [ { label: 'Reject H₀? 1 for yes', a: 1, tol: 0 } ], hint: 'Compare the magnitude of t against the critical value, on the correct side.', sol: '-2.344 is beyond -1.711, so reject H₀ at 5%. The p-value is about 0.014.' },
+        { q: 'At the 1% level the critical value is 2.492. Now what?', rows: [ { label: 'Reject H₀? 1 for yes', a: 0, tol: 0 } ], hint: 'Compare again at the tighter level.', sol: 'Do not reject: -2.344 does not clear -2.492. The same data supports the new process at 5% and not at 1%, which is why the level has to be fixed before you look.' }
+      ] },
+    { key: 's9prop', tag: 'Session 9', title: 'Testing a proportion', stem: 'An analyst claims skill at picking stocks that finish in the top 10% of the market. Over a year she picks 190 stocks and 25 of them land in the top 10%.',
+      steps: [
+        { q: 'Give the sample proportion and state the hypotheses.', rows: [ { label: 'p̂', a: 0.1316, tol: 0.002 }, { label: 'p₀', a: 0.1, tol: 0.001 } ], hint: 'No skill means she hits the top decile at the base rate.', sol: 'p̂ = 25/190 = 0.1316 against H₀: p = 0.10, H₁: p > 0.10.' },
+        { q: 'Give the standard error — and be careful which p you use in it.', rows: [ { label: 'SE', a: 0.02176, tol: 0.0005 } ], hint: 'Under H₀ you assume p = p₀, so the null value goes in the standard error.', sol: 'SE = √(0.10 × 0.90/190) = 0.0218. Using p-hat here instead of p₀ is the classic slip: the test is conducted in the world where H₀ is true.' },
+        { q: 'Give the test statistic and the p-value.', rows: [ { label: 'z', a: 1.451, tol: 0.02 }, { label: 'p', a: 0.0734, tol: 0.003 } ], hint: 'The gap over the standard error, then one tail.', sol: 'z = (0.1316 - 0.10)/0.0218 = 1.451, so p = 0.073.' },
+        { q: 'Conclusion at 5%?', rows: [ { label: 'Reject H₀? 1 for yes', a: 0, tol: 0 } ], hint: 'Compare 0.073 with 0.05.', sol: 'Do not reject. She beat the base rate, but not by enough to rule out luck across 190 picks. Notice this is the same analyst as the fourteen-pick exercise in Session 3, where four winners did clear the bar — more picks is not automatically more evidence.' }
+      ] },
+    { key: 's9taste', tag: 'Session 9', title: 'Can anyone tell the difference?', stem: 'At a party, 90 guests each blind-taste an expensive Burgundy and a cheap table wine and state a preference. Fifty-seven prefer the Burgundy.',
+      steps: [
+        { q: 'If nobody could tell the wines apart, what would p be?', rows: [ { label: 'p₀', a: 0.5, tol: 0.001 } ], hint: 'Guessing between two options.', sol: 'p₀ = 0.5. H₀: p = 0.5 against H₁: p > 0.5.' },
+        { q: 'Give p̂ and the standard error under H₀.', rows: [ { label: 'p̂', a: 0.6333, tol: 0.002 }, { label: 'SE', a: 0.0527, tol: 0.001 } ], hint: 'Use 0.5 in the standard error, not p-hat.', sol: 'p̂ = 57/90 = 0.633 and SE = √(0.25/90) = 0.0527.' },
+        { q: 'Give the test statistic and the p-value.', rows: [ { label: 'z', a: 2.53, tol: 0.03 }, { label: 'p', a: 0.0057, tol: 0.001 } ], hint: 'The gap over the standard error, then the upper tail.', sol: 'z = (0.6333 - 0.5)/0.0527 = 2.53, so p = 0.0057.' },
+        { q: 'Conclusion, and the thing the test cannot tell you.', rows: [ { label: 'Reject H₀? 1 for yes', a: 1, tol: 0 } ], hint: 'Compare p with 0.05.', sol: 'Reject H₀ — guests can tell the difference. What the test does not say is that they prefer it for the reasons the label suggests, or that the preference is worth the price difference. Significance is about detectability, not importance.' }
+      ] },
+    { key: 's10corr', tag: 'Session 10', title: 'Reading a correlation matrix', stem: 'A study of graduating students records AGE at entry, years of work EXPERIENCE, SEX (0 men, 1 women) and starting SALARY. The correlations are: AGE–EXPERIENCE 0.72, AGE–SALARY 0.31, EXPERIENCE–SALARY 0.38, SEX–SALARY −0.12, SEX–EXPERIENCE −0.18.',
+      steps: [
+        { q: 'Which pair is most strongly associated, and what does its sign mean?', rows: [ { label: 'Strongest correlation', a: 0.72, tol: 0.01 } ], hint: 'Compare the magnitudes, ignoring the signs.', sol: 'AGE and EXPERIENCE at 0.72 — older entrants have worked longer. Strong, positive, and entirely unsurprising, which is the point: it warns you these two will fight each other in a regression.' },
+        { q: 'A simple regression of SALARY on AGE would have what R²?', rows: [ { label: 'R²', a: 0.0961, tol: 0.003 } ], hint: 'In simple regression R squared is the square of the correlation.', sol: 'R² = 0.31² = 0.096, so age alone explains under 10% of salary variation.' },
+        { q: 'And SALARY on EXPERIENCE?', rows: [ { label: 'R²', a: 0.1444, tol: 0.004 } ], hint: 'Square the relevant correlation.', sol: 'R² = 0.38² = 0.144. Experience explains more than age — which is what you would hope, since it is the thing employers claim to pay for.' },
+        { q: 'SEX–SALARY is −0.12 and SEX–EXPERIENCE is −0.18. What does that combination warn you about?', rows: [ { label: 'Sign of the SEX–SALARY correlation, 1 or −1', a: -1, tol: 0 } ], hint: 'Ask whether the raw salary gap could be running through experience.', sol: 'Women in the sample earn less on average, but they also have less recorded experience. Part of the raw salary gap may be an experience gap. A simple regression of SALARY on SEX cannot separate the two — only a multiple regression holding experience constant can, and even that only addresses what was measured.' }
+      ] },
+    { key: 's11inf', tag: 'Session 11', title: 'Inference on a fitted line', stem: 'Twelve regional markets are used to relate quarterly SALES (EUR thousands) to ADVERTISING spend (EUR thousands). The fitted slope is 3.60 with a standard error of 1.25, the intercept is 42.0, and R² is 0.46.',
+      steps: [
+        { q: 'Give the degrees of freedom and the t statistic on the slope.', rows: [ { label: 'df', a: 10, tol: 0 }, { label: 't', a: 2.88, tol: 0.03 } ], hint: 'Simple regression uses n − 2 degrees of freedom. t is the coefficient over its standard error.', sol: 'df = 12 - 2 = 10, and t = 3.60/1.25 = 2.88.' },
+        { q: 'The two-sided 5% critical value at df = 10 is 2.228. Is the slope distinguishable from zero?', rows: [ { label: 'Significant? 1 for yes', a: 1, tol: 0 } ], hint: 'Compare the magnitude of t against the critical value.', sol: '2.88 > 2.228, so yes — reject the hypothesis that advertising has no effect. The rough |t| > 2 rule would have told you the same.' },
+        { q: 'Give the 95% confidence interval for the slope.', rows: [ { label: 'Lower', a: 0.815, tol: 0.02 }, { label: 'Upper', a: 6.385, tol: 0.02 } ], hint: 'The coefficient plus and minus t times its standard error.', sol: '3.60 ± 2.228(1.25) = 3.60 ± 2.785, so 0.82 to 6.39. Significant, but enormously imprecise: a euro of advertising returns somewhere between 0.8 and 6.4 euros of sales. That is not a number you can plan a budget on.' },
+        { q: 'Predict sales at an advertising spend of 20, and say what R² = 0.46 means here.', rows: [ { label: 'Predicted sales', a: 114, tol: 0.5 } ], hint: 'Substitute into the fitted equation, intercept plus slope times x.', sol: '42.0 + 3.60(20) = 114 thousand. R² = 0.46 says advertising accounts for 46% of the variation in sales across the twelve markets — leaving most of it to everything the model leaves out. Predict with the interval, never the point.' }
+      ] },
     { key: 'desc', tag: 'Session 2', title: 'Summarising a small sample', stem: 'A team records how many minutes seven meetings overran: 12, 15, 15, 18, 20, 22, 26. Summarise the data the way Session 02 asks you to — centre first, then spread, then risk per unit of return.',
       steps: [
         { q: 'Give the three measures of centre.', rows: [ { label: 'Mean', a: 18.29, tol: 0.02 }, { label: 'Median', a: 18, tol: 0 }, { label: 'Mode', a: 15, tol: 0 } ], hint: 'Seven values, already sorted. The median is the fourth; the mode is the only repeated value.', sol: 'Mean = 128/7 = 18.29, median = 18, mode = 15. The mean sits above the median because 26 pulls it up.' },
-        { q: 'Give the population variance and standard deviation.', rows: [ { label: 'σ²', a: 19.63, tol: 0.05 }, { label: 'σ', a: 4.43, tol: 0.02 } ], hint: 'Average the squared deviations from 18.29, dividing by N = 7 rather than N − 1.', sol: 'σ² = 19.63 and σ = √19.63 = 4.43 minutes. In Excel, VAR.P and STDEV.P.' },
+        { q: 'Give the population variance and standard deviation.', rows: [ { label: 'σ²', a: 19.63, tol: 0.05 }, { label: 'σ', a: 4.43, tol: 0.02 } ], hint: 'Average the squared deviations from 18.29, dividing by N = 7 rather than N − 1.', sol: 'σ² = 19.63 and σ = √19.63 = 4.43 minutes.' },
         { q: 'Give the coefficient of variation, as a percentage.', rows: [ { label: 'CV', a: 24.23, tol: 0.2 } ], hint: 'σ divided by μ, times 100.', sol: 'CV = 4.43 / 18.29 × 100 = 24.2%. Useful precisely because it is unitless — you can compare it with a team whose overruns are measured in hours.' },
         { q: 'One meeting is re-timed and turns out to have overrun by 226 minutes, not 26. Which summaries move a lot?', rows: [ { label: 'New mean', a: 46.86, tol: 0.05 }, { label: 'New median', a: 18, tol: 0 } ], hint: 'Recompute the mean with 226 in place of 26. Then ask where the fourth value sits now.', sol: 'The mean jumps to 46.86 while the median stays at 18. This is the robustness point from the session, on your own data rather than in the abstract.' }
       ] },
@@ -2604,7 +2711,7 @@ class Component extends DCLogic {
       ] },
     { key: 'set6', tag: 'Session 6', title: 'Set 6 — confidence intervals for a mean', stem: 'A consultancy wants to estimate the mean hours its analysts bill per week. A random sample of 25 analysts gives a sample mean of 41.6 hours and a sample standard deviation of 7.5 hours. The population standard deviation is unknown.',
       steps: [
-        { q: 'Estimated standard error of the mean.', rows: [ { label: 'SE', a: 1.5, tol: 0.02 } ], hint: 's/√n, using the sample standard deviation in place of the unknown σ.', sol: 'SE = 7.5/√25 = 7.5/5 = 1.5 hours.\n\nWriting it with a hat, SÊ, is a reminder that this is itself an estimate: s is a guess at σ, so the standard error is a guess at a standard error. That double uncertainty is exactly what the t-distribution exists to handle, and it is why the next two steps give different answers from the same data.\n\nOn s itself: the formula divides by n − 1 rather than n, because the deviations are measured from x̄ rather than from the unknown μ, and x̄ sits closer to its own sample than μ does. Dividing by n would understate the spread. Excel calls this VAR.S and STDEV.S; the .P versions divide by n and are for whole populations.' },
+        { q: 'Estimated standard error of the mean.', rows: [ { label: 'SE', a: 1.5, tol: 0.02 } ], hint: 's/√n, using the sample standard deviation in place of the unknown σ.', sol: 'SE = 7.5/√25 = 7.5/5 = 1.5 hours.\n\nWriting it with a hat, SÊ, is a reminder that this is itself an estimate: s is a guess at σ, so the standard error is a guess at a standard error. That double uncertainty is exactly what the t-distribution exists to handle, and it is why the next two steps give different answers from the same data.\n\nOn s itself: the formula divides by n − 1 rather than n, because the deviations are measured from x̄ rather than from the unknown μ, and x̄ sits closer to its own sample than μ does. Dividing by n would understate the spread. The versions that divide by n are the population ones, for when you really do have every observation.' },
         { q: 'The 95% confidence interval, using z = 1.96.', rows: [ { label: 'Lower', a: 38.66, tol: 0.06 }, { label: 'Upper', a: 44.54, tol: 0.06 } ], hint: 'x̄ ± 1.96 × SE.', sol: '41.6 ± 1.96 × 1.5 = 41.6 ± 2.94, giving 38.66 to 44.54 hours.\n\nWhat the 95% attaches to matters more than the arithmetic. It does not attach to this interval: μ is a fixed number, so it is either inside or outside, and the only honest probability is 0 or 1 — you simply do not know which. The 95% describes the procedure. Of all the intervals you would build this way from all the samples you might have drawn, 95% would contain μ. Saying "there is a 95% chance μ is in here" is the single most common error in the topic.\n\n"We are 95% confident that μ lies between 38.66 and 44.54" is accepted, because confident has been given precisely that technical meaning. It says the same thing without misattributing the randomness to μ.' },
         { q: 'The 95% interval done properly, with t on 24 degrees of freedom (t = 2.064).', rows: [ { label: 'Lower', a: 38.5, tol: 0.08 }, { label: 'Upper', a: 44.7, tol: 0.08 } ], hint: 'Same centre, same standard error, a larger multiplier.', sol: '41.6 ± 2.064 × 1.5 = 41.6 ± 3.096, giving 38.50 to 44.70 hours — about 5% wider than the z version.\n\nWith σ unknown you estimated it, and that adds uncertainty the normal distribution does not know about. The t-distribution has the same symmetric shape with heavier tails, so it demands a bigger multiplier for the same confidence. Degrees of freedom are n − 1 = 24, and there is a different t for every one.\n\nAs n grows, t converges on z — by about n = 30 the difference stops mattering, which is where that rule of thumb comes from. At n = 25 the penalty is small. At n = 10 the multiplier would be 2.262, roughly 15% wider than 1.96, and ignoring it starts to matter. Strictly, t is the right choice whenever σ is unknown, which in practice is always; z is the large-sample shortcut.' },
         { q: 'The 99% interval on the same data, using z = 2.576.', rows: [ { label: 'Lower', a: 37.74, tol: 0.08 }, { label: 'Upper', a: 45.46, tol: 0.08 } ], hint: 'Only the multiplier changes.', sol: '41.6 ± 2.576 × 1.5 = 41.6 ± 3.864, giving 37.74 to 45.46 hours.\n\nThree intervals from one sample, all correct, all different. Confidence is not a property of the data — it is a choice about how often you are willing to be wrong, and the width is what you pay for it.\n\nThree things set that width, and only one is free. More spread in the population widens it. More confidence widens it. More data narrows it. You cannot buy confidence without either accepting a wider interval or paying for a bigger sample. Which is why an interval quoted without its confidence level tells you almost nothing: a narrow interval might be a precise estimate, or an 80% interval hoping you will not ask.' }
@@ -2704,7 +2811,7 @@ class Component extends DCLogic {
     { sec: 'Notation', k: 'Covariance', v: 'Cov(X,Y)', note: 'Unstandardised correlation. Sign is meaningful, size is not until divided by the SDs.' },
     { sec: 'Notation', k: 'Poisson rate', v: 'λ', note: '"lambda". Expected number of events per window. Both the mean and the variance.' },
     { sec: 'Notation', k: 'Binomial parameters', v: 'n, p', note: 'Number of independent trials, and the chance of success on each.' },
-    { sec: 'Notation', k: 'Combinations', v: 'C(n,x)  ·  ⁿCₓ', note: '"n choose x" — how many ways to pick x items from n. =COMBIN(n,x).' },
+    { sec: 'Notation', k: 'Combinations', v: 'C(n,x)  ·  ⁿCₓ', note: '"n choose x" — how many ways to pick x items from n.' },
     { sec: 'Notation', k: 'Factorial', v: 'x!', note: 'x × (x−1) × … × 1, with 0! = 1.' },
     { sec: 'Notation', k: 'Distributed as', v: '~', note: '"X ~ N(0,1)" reads "X is distributed as a standard normal".' },
     { sec: 'Notation', k: 'Normal distribution', v: 'N(μ, σ²)', note: 'A normal with that mean and that variance. Note the second slot is the variance.' },
@@ -2730,17 +2837,17 @@ class Component extends DCLogic {
     { sec: 'Notation', k: 'Approximately', v: '≈', note: 'Used for "close enough", e.g. the CLT approximation.' },
     { sec: 'Notation', k: 'Proportional to / at least / at most', v: '≥  ·  ≤', note: '"At least 9" means 9 or more; "at most 3" means 3 or fewer. Watch these in probability questions.' },
     // Describing data
-    { sec: 'Describing data', k: 'Mean', v: 'μ = (1/N) Σ xᵢ  ·  x̄ = (1/n) Σ xᵢ', note: 'Not robust: one outlier moves it. AVERAGE.' },
+    { sec: 'Describing data', k: 'Mean', v: 'μ = (1/N) Σ xᵢ  ·  x̄ = (1/n) Σ xᵢ', note: 'Not robust: one outlier moves it.' },
     { sec: 'Describing data', k: 'Median and mode', v: 'Middle value once sorted · most frequent value', note: 'The median is robust; use it when the mean and median disagree.' },
     { sec: 'Describing data', k: 'Range', v: 'Range = max − min', note: 'The crudest spread, and the most sensitive to one bad value.' },
-    { sec: 'Describing data', k: 'Population variance and SD', v: 'σ² = (1/N) Σ (xᵢ − μ)²  ·  σ = √σ²', note: 'VAR.P and STDEV.P. Divide by N when you have the whole population.' },
-    { sec: 'Describing data', k: 'Sample variance and SD', v: 's² = 1/(n−1) Σ (xᵢ − x̄)²  ·  s = √s²', note: 'VAR.S and STDEV.S. The n − 1 is what makes s² unbiased.' },
+    { sec: 'Describing data', k: 'Population variance and SD', v: 'σ² = (1/N) Σ (xᵢ − μ)²  ·  σ = √σ²', note: 'Divide by N when you have the whole population, not by N \u2212 1.' },
+    { sec: 'Describing data', k: 'Sample variance and SD', v: 's² = 1/(n−1) Σ (xᵢ − x̄)²  ·  s = √s²', note: 'The n − 1 is what makes s² unbiased.' },
     { sec: 'Describing data', k: 'Coefficient of variation', v: 'CV = (σ / μ) × 100%', note: 'Risk per unit of return. Unitless, so two different scales can be compared.' },
     { sec: 'Describing data', k: 'Empirical rule', v: '68% / 95% / 99.7% within 1σ / 2σ / 3σ', note: 'Bell-shaped data only. Working backwards: a 95% range is μ ± 2σ.' },
     { sec: 'Describing data', k: 'Chebyshev', v: 'At least 1 − 1/k² of the data lies within kσ', note: 'Holds for any shape at all: 75% within 2σ, 89% within 3σ. Weaker, but always true.' },
     { sec: 'Describing data', k: 'z-score of an observation', v: 'z = (x − μ) / σ', note: 'How many standard deviations from the mean. The common currency of the course.' },
     { sec: 'Describing data', k: 'Covariance', v: 'Cov(X,Y) = E[(X − μx)(Y − μy)]', note: 'Sign says direction; the size means nothing until it is standardised.' },
-    { sec: 'Describing data', k: 'Correlation', v: 'ρ = Cov(X,Y) / (σx σy)', note: 'Always between −1 and 1. CORREL. Measures linear association only.' },
+    { sec: 'Describing data', k: 'Correlation', v: 'ρ = Cov(X,Y) / (σx σy)', note: 'Always between −1 and 1. Measures linear association only.' },
     // Probability
     { sec: 'Probability', k: 'Complement', v: 'ℙ(not A) = 1 − ℙ(A)', note: '"At least one" is nearly always easier through the complement.' },
     { sec: 'Probability', k: 'Addition rule', v: 'ℙ(A or B) = ℙ(A) + ℙ(B) − ℙ(A and B)', note: 'Subtract the overlap, or you count it twice.' },
@@ -2754,17 +2861,16 @@ class Component extends DCLogic {
     { sec: 'Random variables', k: 'Sum of two variables', v: 'E[aX + bY] = aE[X] + bE[Y]', note: 'True always, correlated or not.' },
     { sec: 'Random variables', k: 'Variance of a sum', v: 'Var[aX + bY] = a²σx² + b²σy² + 2abρσxσy', note: 'The covariance term is the whole of diversification. ρ = 0 kills it.' },
     { sec: 'Random variables', k: 'Bernoulli(p)', v: 'ℙ(X = x) = pˣ(1 − p)¹⁻ˣ', note: 'One trial. E[X] = p, Var[X] = p(1 − p).' },
-    { sec: 'Random variables', k: 'Binomial(n, p)', v: 'ℙ(X = x) = C(n,x) pˣ(1 − p)ⁿ⁻ˣ', note: 'Fixed n independent trials. E[X] = np, Var[X] = np(1 − p). BINOM.DIST.' },
-    { sec: 'Random variables', k: 'Poisson(λ)', v: 'ℙ(X = x) = λˣ e^(−λ) / x!', note: 'Counts in a window, no upper bound. E[X] = Var[X] = λ. POISSON.DIST.' },
+    { sec: 'Random variables', k: 'Binomial(n, p)', v: 'ℙ(X = x) = C(n,x) pˣ(1 − p)ⁿ⁻ˣ', note: 'Fixed n independent trials. E[X] = np, Var[X] = np(1 − p).' },
+    { sec: 'Random variables', k: 'Poisson(λ)', v: 'ℙ(X = x) = λˣ e^(−λ) / x!', note: 'Counts in a window, no upper bound. E[X] = Var[X] = λ.' },
     { sec: 'Random variables', k: 'Rescaling a Poisson rate', v: 'λ for t windows = t × λ per window', note: 'Half the window, half of lambda. The step most often missed.' },
     { sec: 'Random variables', k: 'Normal approximation to a binomial', v: 'X ≈ N(np, np(1 − p))', note: 'Rule of thumb: np ≥ 5 and n(1 − p) ≥ 5.' },
     // The normal distribution
     { sec: 'The normal distribution', k: 'Standardising', v: 'Z = (X − μ) / σ ~ N(0, 1)', note: 'Every normal question becomes a Z question first.' },
     { sec: 'The normal distribution', k: 'Reading the table', v: 'The table gives ℙ(Z < z)', note: 'For the right tail take 1 − ℙ(Z < z); by symmetry ℙ(Z < −z) = 1 − ℙ(Z < z).' },
     { sec: 'The normal distribution', k: 'Between two values', v: 'ℙ(a < X < b) = ℙ(Z < zb) − ℙ(Z < za)', note: 'Standardise both ends, subtract the smaller area.' },
-    { sec: 'The normal distribution', k: 'Going backwards', v: 'x = μ + z σ', note: 'Given a percentage, look the z up first, then unstandardise. NORM.INV.' },
+    { sec: 'The normal distribution', k: 'Going backwards', v: 'x = μ + z σ', note: 'Given a percentage, look the z up first, then unstandardise.' },
     { sec: 'The normal distribution', k: 'Key z values', v: '1.645 → 90%  ·  1.96 → 95%  ·  2.576 → 99%', note: 'Two-sided. One-sided: 1.282, 1.645, 2.326. Worth memorising.' },
-    { sec: 'The normal distribution', k: 'Excel', v: 'NORM.DIST(x, μ, σ, TRUE) · NORM.S.DIST(z, TRUE) · NORM.INV(p, μ, σ)', note: 'TRUE gives the cumulative area, FALSE the height of the curve.' },
     // Sampling and the CLT
     { sec: 'Sampling and the CLT', k: 'Sampling distribution of the mean', v: 'E[X̄] = μ  ·  SD[X̄] = σ / √n', note: 'The mean of the sample means is the population mean.' },
     { sec: 'Sampling and the CLT', k: 'Standard error', v: 'SE = σ / √n  (or s / √n)', note: 'Not the spread of the data — the spread of the estimate.' },
@@ -2774,7 +2880,7 @@ class Component extends DCLogic {
     { sec: 'Sampling and the CLT', k: 'Sampling distribution of a proportion', v: 'E[p̂] = p  ·  SE = √(p(1 − p)/n)', note: 'Approximately normal when np ≥ 5 and n(1 − p) ≥ 5.' },
     // Confidence intervals
     { sec: 'Confidence intervals', k: 'Mean, σ known', v: 'x̄ ± z(α/2) · σ/√n', note: 'Use z. The classic 95% interval is x̄ ± 1.96 σ/√n.' },
-    { sec: 'Confidence intervals', k: 'Mean, σ unknown', v: 'x̄ ± t(α/2, n−1) · s/√n', note: 'Use t with n − 1 degrees of freedom. T.INV.2T(0.05, df).' },
+    { sec: 'Confidence intervals', k: 'Mean, σ unknown', v: 'x̄ ± t(α/2, n−1) · s/√n', note: 'Use t with n − 1 degrees of freedom.' },
     { sec: 'Confidence intervals', k: 'When t, when z', v: 't if σ is estimated from the sample; z if σ is given', note: 'With large n the two nearly coincide, but t is never wrong.' },
     { sec: 'Confidence intervals', k: 'Proportion', v: 'p̂ ± z(α/2) · √(p̂(1 − p̂)/n)', note: 'The margin of error quoted in every poll.' },
     { sec: 'Confidence intervals', k: 'Margin of error', v: 'E = z(α/2) · σ/√n', note: 'Half the width of the interval. Wider confidence means a wider interval.' },
@@ -2816,11 +2922,6 @@ class Component extends DCLogic {
     { sec: 'Model validation', k: 'Histogram of residuals', v: 'Compare against a normal with the same mean and SD', note: 'Checks the normality assumption behind every t and F on the output.' },
     { sec: 'Model validation', k: 'Outliers', v: 'A standardised residual beyond about ±3', note: 'Investigate before deleting: an outlier is often the most informative point.' },
     { sec: 'Model validation', k: 'Extrapolation', v: 'The model only speaks inside the range of the data', note: 'Forecasting outside it assumes the relationship continues, which nothing checked.' },
-    // In Excel
-    { sec: 'In Excel', k: 'Descriptives', v: 'AVERAGE · MEDIAN · MODE.SNGL · STDEV.S · STDEV.P · VAR.S · VAR.P', note: 'Data ▸ Data Analysis ▸ Descriptive Statistics gives them in one block.' },
-    { sec: 'In Excel', k: 'Distributions', v: 'BINOM.DIST · POISSON.DIST · NORM.DIST · NORM.S.DIST · NORM.INV', note: 'Last argument TRUE for cumulative, FALSE for the exact value.' },
-    { sec: 'In Excel', k: 'Inference', v: 'CONFIDENCE.NORM · CONFIDENCE.T · T.INV.2T · T.DIST.2T · Z.TEST · T.TEST', note: 'T.INV.2T(0.05, df) is the t you want for a 95% interval.' },
-    { sec: 'In Excel', k: 'Regression', v: 'LINEST · SLOPE · INTERCEPT · RSQ · CORREL', note: 'Data ▸ Data Analysis ▸ Regression gives coefficients, SEs, t, p and R² at once.' }
   ];
   daTerms = [
     { k: 'Random variable', v: 'An uncertain outcome of interest that has not been realised yet. Written with a capital letter to mark it as random.' },
@@ -4004,7 +4105,7 @@ class Component extends DCLogic {
         const rows = [];
         for (let x = 0; x <= n; x++) rows.push({ cells: [String(x)].concat(ps.map(p => this.f4(this.binPmf(n, p, x)))) });
         v.tableRows = rows;
-        v.tableNote = 'ℙ(X = x) = C(n,x) pˣ(1 − p)ⁿ⁻ˣ for n = ' + n + '. Excel: =BINOM.DIST(x, n, p, FALSE).';
+        v.tableNote = 'ℙ(X = x) = C(n,x) pˣ(1 − p)ⁿ⁻ˣ for n = ' + n + '.';
       } else if (tab === 'pois') {
         const lams = [0.5, 1, 1.5, 2, 2.5, 3, 4, 5];
         v.tableControls = [];
@@ -4012,7 +4113,7 @@ class Component extends DCLogic {
         const rows = [];
         for (let x = 0; x <= 12; x++) rows.push({ cells: [String(x)].concat(lams.map(l => this.f4(this.poisPmf(l, x)))) });
         v.tableRows = rows;
-        v.tableNote = 'ℙ(X = x) = λˣe^(−λ)/x!. Excel: =POISSON.DIST(x, lambda, FALSE).';
+        v.tableNote = 'ℙ(X = x) = λˣe^(−λ)/x!.';
       } else {
         v.tableControls = [];
         v.tableHead = ['z', '0.00', '0.01', '0.02', '0.03', '0.04', '0.05', '0.06', '0.07', '0.08', '0.09'];
