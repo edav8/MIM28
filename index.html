@@ -834,6 +834,11 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
           <div style="border:2px solid var(--acc); background:var(--panel)">
             <div style="padding:8px 10px; border-bottom:2px solid var(--line); font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted)">Calculator</div>
             <div style="padding:10px; font-family:var(--font-h); font-size:23px; font-weight:700; text-align:right; font-variant-numeric:tabular-nums; overflow:hidden">{{ calcDisp }}</div>
+            <sc-if value="{{ canTransfer }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:0 10px 10px">
+                <button type="button" sc-camel-on-click="{{ transferCalc }}" style="width:100%; padding:9px 0; border:none; cursor:pointer; font:inherit; font-size:13px; font-weight:700; background:var(--acc); color:var(--onAcc)">Put this in the answer box</button>
+              </div>
+            </sc-if>
             <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1px; background:var(--line)">
               <sc-for list="{{ calcKeys }}" as="k" hint-placeholder-count="20">
                 <button type="button" sc-camel-on-click="{{ k.onClick }}" aria-label="{{ k.aria }}" title="{{ k.aria }}" style="{{ k.style }}">{{ k.label }}</button>
@@ -1111,7 +1116,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
 
           <sc-if value="{{ q.isNum }}" hint-placeholder-val="{{ false }}">
             <div style="display:flex; gap:10px; margin-top:24px; align-items:center; flex-wrap:wrap">
-              <input value="{{ typed }}" sc-camel-on-change="{{ onTyped }}" placeholder="Your answer" style="border:2px solid var(--acc); background:var(--panel); color:var(--ink); padding:12px 14px; font-size:17px; width:220px; border-radius:0">
+              <input value="{{ typed }}" sc-camel-on-change="{{ onTyped }}" sc-camel-on-focus="{{ onTypedFocus }}" placeholder="Your answer" style="border:2px solid var(--acc); background:var(--panel); color:var(--ink); padding:12px 14px; font-size:17px; width:220px; border-radius:0">
               <button type="button" sc-camel-on-click="{{ submitNum }}" style="{{ btnPrimary }}">Check</button>
               <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ false }}">
                 <button type="button" sc-camel-on-click="{{ toggleHint }}" style="{{ btnGhost }}">Hint</button>
@@ -1177,14 +1182,21 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
           <div style="margin-top:12px; font-size:16px; max-width:62ch; color:var(--soft); text-wrap:pretty">{{ course.pracIntro }}</div>
 
           <div style="margin-top:32px; font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">From the sessions</div>
-          <sc-for list="{{ exList }}" as="e" hint-placeholder-count="4">
-            <div sc-camel-on-click="{{ e.onClick }}" style="padding:18px 0; border-bottom:1px solid var(--line); cursor:pointer; display:flex; gap:16px; align-items:baseline" style-hover="background:var(--panel)">
-              <div style="font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--accSoft); flex:none; width:96px">{{ e.tag }}</div>
-              <div style="flex:1; min-width:0">
-                <div style="font-family:var(--font-h); font-size:19px; font-weight:700; letter-spacing:-0.01em; text-wrap:pretty">{{ e.title }}</div>
-                <div style="font-size:14px; color:var(--soft); margin-top:4px; text-wrap:pretty">{{ e.blurb }}</div>
+          <sc-for list="{{ exGroups }}" as="grp" hint-placeholder-count="4">
+            <div style="margin-top:26px">
+              <div style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; padding-bottom:8px; border-bottom:1px solid var(--line)">
+                <div style="font-family:var(--font-h); font-size:15px; font-weight:700; letter-spacing:-0.01em">{{ grp.label }}</div>
+                <div style="font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:{{ grp.countColor }}; margin-left:auto">{{ grp.count }}</div>
               </div>
-              <div style="font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:{{ e.stateColor }}; flex:none">{{ e.state }}</div>
+              <sc-for list="{{ grp.items }}" as="e" hint-placeholder-count="2">
+                <div sc-camel-on-click="{{ e.onClick }}" style="padding:16px 0 16px 18px; border-bottom:1px solid var(--line); cursor:pointer; display:flex; gap:16px; align-items:baseline" style-hover="background:var(--panel)">
+                  <div style="flex:1; min-width:0">
+                    <div style="font-family:var(--font-h); font-size:18px; font-weight:700; letter-spacing:-0.01em; text-wrap:pretty">{{ e.title }}</div>
+                    <div style="font-size:14px; color:var(--soft); margin-top:4px; text-wrap:pretty">{{ e.blurb }}</div>
+                  </div>
+                  <div style="font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:{{ e.stateColor }}; flex:none">{{ e.state }}</div>
+                </div>
+              </sc-for>
             </div>
           </sc-for>
 
@@ -1223,7 +1235,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
                 <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="2">
                   <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
                     <div style="flex:1; min-width:220px; font-size:15px; color:var(--soft)">{{ r.label }}</div>
-                    <input value="{{ r.value }}" sc-camel-on-change="{{ r.onChange }}" placeholder="Answer" style="border:2px solid {{ r.inputBorder }}; background:var(--ground); color:var(--ink); padding:9px 12px; font-size:16px; width:170px; border-radius:0">
+                    <input value="{{ r.value }}" sc-camel-on-change="{{ r.onChange }}" sc-camel-on-focus="{{ r.onFocus }}" placeholder="Answer" style="border:2px solid {{ r.inputBorder }}; background:var(--ground); color:var(--ink); padding:9px 12px; font-size:16px; width:170px; border-radius:0">
                   </div>
                 </sc-for>
                 <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:4px">
@@ -3064,6 +3076,11 @@ class Component extends DCLogic {
     // A decimal probability read off a table is nearly always wanted as a
     // percent, and doing it by hand is where a factor of ten goes missing.
     if (k === '% of 1') { const v = parseFloat(disp); if (!isFinite(v)) return; this.setState({ calcDisp: this.calcTrim(v * 100), calcFresh: true }); return; }
+    // The other direction: a percentage read off a question is wanted as the
+    // decimal every formula expects. And a sign flip, because half of what
+    // this course computes -- residuals, deviations, z-scores -- is negative.
+    if (k === '%') { const v = parseFloat(disp); if (!isFinite(v)) return; this.setState({ calcDisp: this.calcTrim(v / 100), calcFresh: true }); return; }
+    if (k === '\u00B1') { const v = parseFloat(disp); if (!isFinite(v)) return; this.setState({ calcDisp: this.calcTrim(-v), calcFresh: false }); return; }
     if (k === '+' || k === '−' || k === '×' || k === '÷') {
       const cur = parseFloat(disp);
       const acc = s.calcAcc === null ? cur : this.calcApply(s.calcOp, s.calcAcc, cur);
@@ -3529,13 +3546,27 @@ class Component extends DCLogic {
     v.calcLabel = this.state.calcOpen ? 'Hide calculator' : 'Calculator';
     v.calcBtn = this.btn('ghost') + ' width:100%;';
     v.toggleCalc = () => this.setState({ calcOpen: !this.state.calcOpen });
-    const calcNames = { 'C': 'Clear', '⌫': 'Delete the last digit', '√': 'Square root', 'x²': 'Square', '÷': 'Divide', '×': 'Multiply', '−': 'Subtract', '+': 'Add', '=': 'Equals', '.': 'Decimal point', '% of 1': 'Convert a decimal to a percent — multiplies by 100' };
-    v.calcKeys = ['C', '⌫', '√', '÷', '7', '8', '9', '×', '4', '5', '6', '−', '1', '2', '3', '+', '0', '.', 'x²', '=', '% of 1'].map(k => ({
-      label: k === '% of 1' ? '0.05 → 5%' : k,
+    const calcNames = { 'C': 'Clear', '⌫': 'Delete the last digit', '√': 'Square root', 'x²': 'Square', '÷': 'Divide', '×': 'Multiply', '−': 'Subtract', '+': 'Add', '=': 'Equals', '.': 'Decimal point', '±': 'Change the sign', '%': 'Convert a percent to a decimal — divides by 100', '% of 1': 'Convert a decimal to a percent — multiplies by 100' };
+    const calcWide = { 'x²': 2, '%': 2, '% of 1': 4 };
+    v.calcKeys = ['C', '⌫', '√', '÷', '7', '8', '9', '×', '4', '5', '6', '−', '1', '2', '3', '+', '±', '0', '.', '=', 'x²', '%', '% of 1'].map(k => ({
+      label: k === '% of 1' ? '0.05 → 5%' : k === '%' ? '5% → 0.05' : k,
       aria: calcNames[k] || k,
       onClick: () => this.calcPress(k),
-      style: 'padding:11px 0; border:none; cursor:pointer; font-size:' + (k === '% of 1' ? '13px' : '15px') + '; font-weight:600; background:' + (k === '=' ? 'var(--acc)' : 'var(--panel)') + '; color:' + (k === '=' ? 'var(--onAcc)' : 'var(--ink)') + ';' + (k === '% of 1' ? ' grid-column:1 / -1;' : '')
+      style: 'padding:11px 0; border:none; cursor:pointer; font-size:' + (calcWide[k] ? '12px' : '15px') + '; font-weight:600; background:' + (k === '=' ? 'var(--acc)' : 'var(--panel)') + '; color:' + (k === '=' ? 'var(--onAcc)' : 'var(--ink)') + ';' + (calcWide[k] ? ' grid-column:span ' + calcWide[k] + ';' : '')
     }));
+
+    // Reading a number off the display and retyping it is where the digits get
+    // dropped. The accounting trainer has always been able to hand its result
+    // to the answer box; this side could not, which made the calculator feel
+    // broken in exactly the course that needs it most.
+    const af = this.state.activeField;
+    v.canTransfer = !!af && (mode === 'drill' || mode === 'ex');
+    v.transferCalc = () => {
+      const val = this.state.calcDisp === undefined ? '0' : this.state.calcDisp;
+      if (!af || val === 'Error') return;
+      if (af.kind === 'typed') this.setState({ typed: val });
+      else { const inp = Object.assign({}, this.state.exInp); inp[af.key] = val; this.setState({ exInp: inp }); }
+    };
 
     v.sessionList = d.sessions.map(s => ({
       num: s.num, title: s.title,
@@ -3587,6 +3618,7 @@ class Component extends DCLogic {
       v.drillPct = Math.round(this.state.qi / Math.max(qs.length, 1) * 100) + '%';
       v.typed = this.state.typed;
       v.onTyped = (e) => this.setState({ typed: e.target.value });
+      v.onTypedFocus = () => this.setState({ activeField: { kind: 'typed' } });
       v.submitNum = () => { if (!ans && this.state.typed !== '') this.answer(this.state.typed); };
       // Check / Hint / Skip, and a mark once answered -- the same four things the
       // accounting exercises give you, which the drill here was missing.
@@ -3661,12 +3693,35 @@ class Component extends DCLogic {
       v.hasMissed = missedList.length > 0;
     }
 
-    v.exList = (d.exercises || []).map(e => ({
+    // One flat list in the order they happened to be written, with the session
+    // tags jumping 2, 3, 4, 4, 3, 3, 3, 2, tells you nothing about what you
+    // have and have not got. Grouped by session, in order, and the sessions
+    // with nothing written up are named too -- a gap you can see beats a gap
+    // you discover in the exam.
+    const exOf = (e) => { const m = String(e.tag || '').match(/\d+/); return m ? parseInt(m[0], 10) : null; };
+    const mk = (e) => ({
       tag: e.tag, title: e.title, blurb: e.stem.slice(0, 100) + '…',
       state: this.state.done['ex:' + ck + ':' + e.key] ? 'Complete' : 'Open',
       stateColor: this.state.done['ex:' + ck + ':' + e.key] ? 'var(--good)' : 'var(--faint)',
       onClick: () => { this.setState({ exInp: {}, exUi: {} }); this.go('ex:' + e.key); }
-    }));
+    });
+    v.exList = (d.exercises || []).map(mk);
+    const byNum = {};
+    (d.exercises || []).forEach(e => { const n = exOf(e); if (n === null) return; (byNum[n] = byNum[n] || []).push(e); });
+    v.exGroups = d.sessions.map(ses => {
+      const n = parseInt(ses.num, 10);
+      const items = (byNum[n] || []).map(mk);
+      return {
+        label: 'Session ' + ses.num + ' · ' + ses.title,
+        count: items.length === 0 ? 'Nothing written up yet'
+          : items.length + (items.length === 1 ? ' exercise' : ' exercises'),
+        countColor: items.length === 0 ? 'var(--faint)' : 'var(--accSoft)',
+        hasItems: items.length > 0,
+        items: items
+      };
+    });
+    const loose = (d.exercises || []).filter(e => exOf(e) === null).map(mk);
+    if (loose.length) v.exGroups = v.exGroups.concat([{ label: 'Everything else', count: loose.length + ' exercises', countColor: 'var(--accSoft)', hasItems: true, items: loose }]);
     v.hasGens = (d.gens || []).length > 0;
     v.genList = (d.gens || []).map(g => ({
       tag: g.tag, title: g.title, blurb: g.blurb,
@@ -3695,7 +3750,8 @@ class Component extends DCLogic {
               label: r.label,
               value: (this.state.exInp[si + ':' + ri] === undefined ? '' : this.state.exInp[si + ':' + ri]),
               inputBorder: ui.mark === true ? 'var(--good)' : 'var(--line)',
-              onChange: (e) => { const inp = Object.assign({}, this.state.exInp); inp[si + ':' + ri] = e.target.value; this.setState({ exInp: inp }); }
+              onChange: (e) => { const inp = Object.assign({}, this.state.exInp); inp[si + ':' + ri] = e.target.value; this.setState({ exInp: inp }); },
+              onFocus: () => this.setState({ activeField: { kind: 'ex', key: si + ':' + ri } })
             })),
             onCheck: () => {
               let ok = true;
