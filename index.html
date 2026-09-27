@@ -3363,6 +3363,10 @@ class Component extends DCLogic {
       if (!best[key] || best[key] < pct) best[key] = pct;
       this.setState({ view: 'res:' + this.state.view.split(':')[1], done: done, best: best });
       this.save({ done: done, best: best });
+      // Full marks earns a celebration, the same one the accounting trainer
+      // has always had. Defined at the end of the document, so it is plain DOM
+      // work rather than anything the runtime has to render.
+      if (pct === 100 && window.__celebrate) window.__celebrate(right, n);
       return;
     }
     this.setState({ qi: qi, typed: '' });
@@ -4237,4 +4241,136 @@ button{ border-radius:10px; }
 /* the uppercase micro-labels stay, but stop shouting */
 [style*="text-transform:uppercase"]{ letter-spacing:.06em; font-weight:600; }
 </style>
+<style id="celebrate-style">
+#celebrate{position:fixed; inset:0; z-index:200; display:flex; align-items:flex-end; justify-content:center;
+  pointer-events:none; opacity:0; transition:opacity .35s ease}
+#celebrate.on{opacity:1}
+#celebrate .veil{position:absolute; inset:0; background:radial-gradient(120% 90% at 50% 100%, rgba(255,120,0,.34), rgba(0,0,0,.55) 62%)}
+#celebrate .fire{position:absolute; left:0; right:0; bottom:-40px; height:52vh; filter:blur(14px); opacity:.95}
+#celebrate .fire i{position:absolute; bottom:0; display:block; border-radius:50% 50% 42% 42%;
+  background:radial-gradient(60% 70% at 50% 85%, #fff3b0 0%, #ffd24a 22%, #ff9b21 48%, #f4601a 70%, rgba(200,40,0,0) 78%);
+  animation:flick 1.15s ease-in-out infinite; transform-origin:50% 100%}
+@keyframes flick{0%,100%{transform:scaleY(1) scaleX(1) translateY(0)}
+  28%{transform:scaleY(1.24) scaleX(.9) translateY(-12px)}
+  54%{transform:scaleY(.88) scaleX(1.08) translateY(4px)}
+  76%{transform:scaleY(1.14) scaleX(.95) translateY(-6px)}}
+#celebrate .ember{position:absolute; bottom:8vh; width:7px; height:7px; border-radius:50%;
+  background:#ffd166; box-shadow:0 0 12px 3px rgba(255,160,40,.85); animation:rise 3.4s linear infinite}
+@keyframes rise{0%{transform:translateY(0) scale(1); opacity:0}
+  12%{opacity:1} 100%{transform:translateY(-78vh) scale(.25); opacity:0}}
+#celebrate .who{position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:14px;
+  margin-bottom:2vh;
+  /* backwards / forwards, not both: `both` makes spinOut fill its 0% frame
+     during its own delay, which silently cancelled the whole spin in. */
+  animation:spinIn .95s cubic-bezier(.16,1.05,.3,1) backwards,
+            spinOut .8s cubic-bezier(.55,-0.25,.85,.4) 3.15s forwards}
+@keyframes spinIn{0%{transform:translateY(150px) scale(.1) rotate(-720deg); opacity:0}
+  45%{opacity:1}
+  100%{transform:translateY(0) scale(1) rotate(0); opacity:1}}
+@keyframes spinOut{0%{transform:translateY(0) scale(1) rotate(0); opacity:1}
+  100%{transform:translateY(-70px) scale(.08) rotate(560deg); opacity:0}}
+#celebrate img{height:min(46vh,380px); width:auto; display:block;
+  filter:drop-shadow(0 18px 40px rgba(0,0,0,.6)) drop-shadow(0 0 26px rgba(255,150,40,.45))}
+#celebrate .banner{font-family:var(--font-heading,inherit); font-weight:800; letter-spacing:-.01em;
+  font-size:clamp(26px,4.4vw,52px); color:#fff6d8; text-shadow:0 3px 0 rgba(150,50,0,.55), 0 0 30px rgba(255,150,40,.8)}
+#celebrate .face{position:relative; display:inline-block}
+#celebrate .lid{position:absolute; border-radius:50% 50% 45% 45%; transform-origin:50% 0%;
+  transform:scaleY(0); opacity:0; pointer-events:none;
+  box-shadow:inset 0 -1px 2px rgba(0,0,0,.35)}
+#celebrate.winking .lid{animation:wink .9s ease-in-out .98s 2 both}
+@keyframes wink{0%{transform:scaleY(0); opacity:0}
+  6%{transform:scaleY(1); opacity:1}
+  22%{transform:scaleY(1); opacity:1}
+  30%{transform:scaleY(0); opacity:0}
+  100%{transform:scaleY(0); opacity:0}}
+#celebrate .sub{font-size:15px; letter-spacing:.09em; text-transform:uppercase; color:#ffe6ab; opacity:.92}
+@media (prefers-reduced-motion:reduce){
+  #celebrate .fire i,#celebrate .ember,#celebrate .who{animation:none}}
+</style>
+<script>
+/* Full marks on a drill: flames, and the owner of the site appearing to
+   approve. The photograph is optional — drop assets/celebrate.png in and it
+   is used; add assets/celebrate-wink.png as a second frame and the two
+   alternate, which is what actually makes a wink read as a wink. With no
+   images at all the fire and the banner still run. */
+(function () {
+  var PHOTO = 'assets/celebrate.png', WINK = 'assets/celebrate-wink.png';
+  var have = {}, node = null, timer = null;
+  function probe(src) {
+    return new Promise(function (ok) {
+      var im = new Image();
+      im.onload = function () { ok(true); };
+      im.onerror = function () { ok(false); };
+      im.src = src;
+    });
+  }
+  Promise.all([probe(PHOTO), probe(WINK)]).then(function (r) { have.photo = r[0]; have.wink = r[1]; });
+
+  function build(correct, total) {
+    var el = document.createElement('div');
+    el.id = 'celebrate';
+    var fire = '<div class="fire">';
+    for (var i = 0; i < 9; i++) {
+      var w = 16 + Math.random() * 26, left = (i / 9) * 100 + (Math.random() * 6 - 3);
+      fire += '<i style="left:' + left.toFixed(1) + '%; width:' + w.toFixed(0) + 'vw; height:' +
+        (26 + Math.random() * 22).toFixed(0) + 'vh; animation-delay:' + (-Math.random() * 1.2).toFixed(2) +
+        's; animation-duration:' + (0.9 + Math.random() * 0.7).toFixed(2) + 's"></i>';
+    }
+    fire += '</div>';
+    var embers = '';
+    for (var j = 0; j < 14; j++) {
+      embers += '<span class="ember" style="left:' + (5 + Math.random() * 90).toFixed(1) + '%; animation-delay:' +
+        (Math.random() * 3.4).toFixed(2) + 's; animation-duration:' + (2.6 + Math.random() * 1.8).toFixed(2) + 's"></span>';
+    }
+    el.innerHTML = '<div class="veil"></div>' + fire + embers +
+      '<div class="who"><div class="banner">' + correct + ' out of ' + total + '</div>' +
+      '<div class="sub">Full marks</div></div>';
+    if (have.photo) {
+      var wrap = document.createElement('div');
+      wrap.className = 'face';
+      var face = document.createElement('img');
+      face.id = 'celebrate-face';
+      face.alt = '';
+      face.setAttribute('src', PHOTO);
+      wrap.appendChild(face);
+      // With no second frame, a lid drawn over one eye does the winking. EYE
+      // holds where that eye sits as a percentage of the image, and the skin
+      // tone is sampled from the photograph itself rather than guessed.
+      if (!have.wink && window.__winkEye) {
+        var lid = document.createElement('div');
+        lid.className = 'lid';
+        var q = window.__winkEye;
+        lid.style.left = q.x + '%';
+        lid.style.top = q.y + '%';
+        lid.style.width = q.w + '%';
+        lid.style.height = q.h + '%';
+        lid.style.background = q.skin;
+        wrap.appendChild(lid);
+      }
+      el.querySelector('.who').insertBefore(wrap, el.querySelector('.banner'));
+    }
+    return el;
+  }
+
+  window.__celebrate = function (correct, total) {
+    if (node) { node.remove(); clearTimeout(timer); }
+    node = build(correct, total);
+    document.body.appendChild(node);
+    requestAnimationFrame(function () { node.classList.add('on'); });
+    // The wink: two frames, swapped. One photograph cannot wink on its own.
+    if (have.photo && have.wink) {
+      var face = node.querySelector('#celebrate-face');
+      var seq = [[980, WINK], [1360, PHOTO], [1700, WINK], [2080, PHOTO]];
+      seq.forEach(function (st) { setTimeout(function () { if (face) face.src = st[1]; }, st[0]); });
+    } else if (have.photo && window.__winkEye) {
+      node.classList.add('winking');
+    }
+    timer = setTimeout(function () {
+      if (!node) return;
+      node.classList.remove('on');
+      setTimeout(function () { if (node) { node.remove(); node = null; } }, 400);
+    }, 4150);
+  };
+})();
+</script>
 </body></html>
