@@ -1241,8 +1241,12 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
               <div style="padding:16px 18px; display:flex; flex-direction:column; gap:12px">
                 <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="2">
                   <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-                    <div style="flex:1; min-width:220px; font-size:15px; color:var(--soft)">{{ r.label }}</div>
-                    <input value="{{ r.value }}" sc-camel-on-change="{{ r.onChange }}" sc-camel-on-focus="{{ r.onFocus }}" placeholder="Answer" style="border:2px solid {{ r.inputBorder }}; background:var(--ground); color:var(--ink); padding:9px 12px; font-size:16px; width:170px; border-radius:0">
+                    <div style="flex:1; min-width:200px; font-size:15px; color:var(--soft)">{{ r.label }}</div>
+                    <sc-if value="{{ r.showWant }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size:13px; color:var(--bad); font-variant-numeric:tabular-nums; flex:none">answer {{ r.want }}</div>
+                    </sc-if>
+                    <div style="width:20px; flex:none; text-align:center; font-size:16px; font-weight:700; color:{{ r.markColor }}">{{ r.mark }}</div>
+                    <input value="{{ r.value }}" sc-camel-on-change="{{ r.onChange }}" sc-camel-on-focus="{{ r.onFocus }}" sc-camel-on-blur="{{ r.onBlur }}" sc-camel-on-key-down="{{ r.onKeyDown }}" placeholder="Answer" style="border:2px solid {{ r.inputBorder }}; border-left:4px solid {{ r.inputBorder }}; background:{{ r.inputBg }}; color:var(--ink); padding:9px 12px; font-size:16px; width:170px; border-radius:0; text-align:right; font-variant-numeric:tabular-nums">
                   </div>
                 </sc-for>
                 <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:4px">
@@ -3294,7 +3298,7 @@ class Component extends DCLogic {
       this.save({ last: last });
     }
   }
-  openCourse(c) { this.setState({ course: c, view: 'home', typed: '', exInp: {}, exUi: {}, lastCourse: c }); this.save({ lastCourse: c }); }
+  openCourse(c) { this.setState({ course: c, view: 'home', typed: '', exInp: {}, exUi: {}, exSeen: {}, lastCourse: c }); this.save({ lastCourse: c }); }
 
   mode() {
     if (!this.state.course) return 'hub';
@@ -3386,6 +3390,28 @@ class Component extends DCLogic {
       return;
     }
     this.setState({ qi: qi, typed: '' });
+  }
+
+  // "1,250" and " 1250 " and "1250" are the same answer. One parser, used both
+  // by the per-box marking and by the step verdict, so they cannot disagree.
+  exNum(raw) {
+    if (raw === undefined || raw === null) return null;
+    const t = String(raw).replace(/[\s,]/g, '');
+    if (t === '' || t === '-' || t === '.') return null;
+    const n = parseFloat(t);
+    return isNaN(n) ? null : n;
+  }
+
+  exCheck(ex, st, si) {
+    let ok = true;
+    st.rows.forEach((r, ri) => {
+      const v = this.exNum(this.state.exInp[si + ':' + ri]);
+      if (v === null || Math.abs(v - r.a) > (r.tol === undefined ? 0.001 : r.tol)) ok = false;
+    });
+    const u = Object.assign({}, this.state.exUi); u[si] = Object.assign({}, u[si], { mark: ok });
+    const seen = Object.assign({}, this.state.exSeen || {});
+    st.rows.forEach((r, ri) => { seen[si + ':' + ri] = true; });
+    this.setState({ exUi: u, exSeen: seen });
   }
 
   exFor(key) {
@@ -4098,7 +4124,7 @@ class Component extends DCLogic {
       coversColor: e.covers ? 'var(--accSoft)' : 'var(--faint)',
       state: this.state.done['ex:' + ck + ':' + e.key] ? 'Complete' : 'Open',
       stateColor: this.state.done['ex:' + ck + ':' + e.key] ? 'var(--good)' : 'var(--faint)',
-      onClick: () => { this.setState({ exInp: {}, exUi: {} }); this.go('ex:' + e.key); }
+      onClick: () => { this.setState({ exInp: {}, exUi: {}, exSeen: {} }); this.go('ex:' + e.key); }
     });
     v.exList = (d.exercises || []).map(mk);
     const byNum = {};
@@ -4149,7 +4175,7 @@ class Component extends DCLogic {
     v.hasGens = (d.gens || []).length > 0;
     v.genList = (d.gens || []).map(g => ({
       tag: g.tag, title: g.title, blurb: g.blurb,
-      onClick: () => { this.setState({ exSeed: Date.now() % 99991, exInp: {}, exUi: {} }); this.go('ex:' + g.key); }
+      onClick: () => { this.setState({ exSeed: Date.now() % 99991, exInp: {}, exUi: {}, exSeen: {} }); this.go('ex:' + g.key); }
     }));
 
     if (mode === 'ex') {
@@ -4160,7 +4186,7 @@ class Component extends DCLogic {
           tag: ex.tag, title: ex.title, stem: ex.stem,
           redrawLabel: ex.gen ? 'New numbers' : 'Clear my answers',
           onNext: () => { const dn = Object.assign({}, this.state.done); dn['ex:' + ck + ':' + key] = true; this.setState({ done: dn }); this.save({ done: dn }); this.go('prac'); },
-          onRedraw: () => this.setState({ exSeed: Date.now() % 99991, exInp: {}, exUi: {} })
+          onRedraw: () => this.setState({ exSeed: Date.now() % 99991, exInp: {}, exUi: {}, exSeen: {} })
         };
         v.steps = ex.steps.map((st, si) => {
           const ui = this.state.exUi[si] || {};
@@ -4170,28 +4196,56 @@ class Component extends DCLogic {
             markColor: ui.mark ? 'var(--good)' : 'var(--bad)',
             markLabel: ui.mark ? 'Correct' : 'Not yet — try the hint',
             borderColor: ui.mark === true ? 'var(--good)' : 'var(--line)',
-            rows: st.rows.map((r, ri) => ({
-              label: r.label,
-              value: (this.state.exInp[si + ':' + ri] === undefined ? '' : this.state.exInp[si + ':' + ri]),
-              inputBorder: ui.mark === true ? 'var(--good)' : 'var(--line)',
-              onChange: (e) => { const inp = Object.assign({}, this.state.exInp); inp[si + ':' + ri] = e.target.value; this.setState({ exInp: inp }); },
-              onFocus: () => this.setState({ activeField: { kind: 'ex', key: si + ':' + ri } })
-            })),
-            onCheck: () => {
-              let ok = true;
-              st.rows.forEach((r, ri) => {
-                const val = parseFloat(String(this.state.exInp[si + ':' + ri] || '').replace(/[, ]/g, '').replace(',', '.'));
-                if (isNaN(val) || Math.abs(val - r.a) > (r.tol === undefined ? 0.001 : r.tol)) ok = false;
-              });
-              const u = Object.assign({}, this.state.exUi); u[si] = Object.assign({}, u[si], { mark: ok });
-              this.setState({ exUi: u });
-            },
+            // Each box marks itself, the way the accounting trainer's do: green
+            // when the figure is right, red when it is not, and neutral again
+            // the moment you go back into it to change it. Nothing turns red
+            // while you are still typing -- a box only commits when you leave
+            // it or press Check, or half of "1,250" is wrong on the way in.
+            rows: st.rows.map((r, ri) => {
+              const key = si + ':' + ri;
+              const raw = this.state.exInp[key];
+              const typed = raw !== undefined && String(raw).trim() !== '';
+              const committed = typed && (ui.mark !== undefined || (this.state.exSeen || {})[key]);
+              const val = this.exNum(raw);
+              const good = committed && val !== null
+                && Math.abs(val - r.a) <= (r.tol === undefined ? 0.001 : r.tol);
+              const state = !committed ? 0 : good ? 1 : -1;
+              const edge = state === 1 ? 'var(--good)' : state === -1 ? 'var(--bad)' : 'var(--line)';
+              return {
+                label: r.label,
+                value: raw === undefined ? '' : raw,
+                inputBorder: edge,
+                inputBg: state === 1 ? 'color-mix(in srgb, var(--good) 14%, var(--ground))'
+                  : state === -1 ? 'color-mix(in srgb, var(--bad) 14%, var(--ground))' : 'var(--ground)',
+                mark: state === 1 ? '✓' : state === -1 ? '✕' : '',
+                markColor: state === 1 ? 'var(--good)' : 'var(--bad)',
+                // Only after a Check does the right figure get shown; leaving a
+                // box is not asking to be told the answer.
+                want: (ui.mark !== undefined && state === -1) ? String(r.a) : '',
+                showWant: ui.mark !== undefined && state === -1,
+                onChange: (e) => {
+                  const inp = Object.assign({}, this.state.exInp); inp[key] = e.target.value;
+                  this.setState({ exInp: inp });
+                },
+                onFocus: () => {
+                  const seen = Object.assign({}, this.state.exSeen || {}); delete seen[key];
+                  this.setState({ exSeen: seen, activeField: { kind: 'ex', key: key } });
+                },
+                onBlur: () => {
+                  const seen = Object.assign({}, this.state.exSeen || {}); seen[key] = true;
+                  this.setState({ exSeen: seen });
+                },
+                onKeyDown: (e) => { if (e.key === 'Enter') { e.preventDefault(); this.exCheck(ex, st, si); } }
+              };
+            }),
+            onCheck: () => this.exCheck(ex, st, si),
             onHint: () => { const u = Object.assign({}, this.state.exUi); u[si] = Object.assign({}, u[si], { hint: !(u[si] && u[si].hint) }); this.setState({ exUi: u }); },
             onReveal: () => {
               const u = Object.assign({}, this.state.exUi); u[si] = Object.assign({}, u[si], { sol: true });
               const inp = Object.assign({}, this.state.exInp);
-              st.rows.forEach((r, ri) => { inp[si + ':' + ri] = String(r.a); });
-              this.setState({ exUi: u, exInp: inp });
+              const seen = Object.assign({}, this.state.exSeen || {});
+              st.rows.forEach((r, ri) => { inp[si + ':' + ri] = String(r.a); seen[si + ':' + ri] = true; });
+              this.setState({ exUi: u, exInp: inp, exSeen: seen });
             }
           };
         });
