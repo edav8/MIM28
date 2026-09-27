@@ -1268,15 +1268,21 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
         <div style="padding:40px; max-width:900px">
           <div style="font-family:var(--font-h); font-size:36px; font-weight:800; letter-spacing:-0.03em">{{ course.glossLabel }}</div>
           <sc-if value="{{ hasFormulas }}" hint-placeholder-val="{{ false }}">
-            <div style="margin-top:24px; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); border-top:2px solid var(--line); border-left:2px solid var(--line)">
-              <sc-for list="{{ formulas }}" as="f" hint-placeholder-count="6">
-                <div style="padding:18px 20px; border-right:2px solid var(--line); border-bottom:2px solid var(--line)">
-                  <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--accSoft)">{{ f.k }}</div>
-                  <div style="font-family:var(--font-h); font-size:20px; font-weight:700; margin-top:8px; text-wrap:pretty">{{ f.v }}</div>
-                  <div style="font-size:13px; color:var(--muted); margin-top:8px; text-wrap:pretty">{{ f.note }}</div>
+            <div style="margin-top:14px; font-size:15px; color:var(--soft); max-width:62ch">Every formula the course uses, in the order it teaches them, with what each one is for and the Excel function that does it.</div>
+            <sc-for list="{{ formulaSecs }}" as="fs" hint-placeholder-count="4">
+              <div style="margin-top:34px">
+                <div style="font-family:var(--font-h); font-size:16px; font-weight:800; letter-spacing:-0.01em; padding-bottom:9px; border-bottom:2px solid var(--ink)">{{ fs.label }}</div>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); border-left:2px solid var(--line)">
+                  <sc-for list="{{ fs.items }}" as="f" hint-placeholder-count="4">
+                    <div style="padding:16px 20px; border-right:2px solid var(--line); border-bottom:2px solid var(--line)">
+                      <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--accSoft)">{{ f.k }}</div>
+                      <div style="font-family:var(--font-h); font-size:19px; font-weight:700; margin-top:8px; text-wrap:pretty">{{ f.v }}</div>
+                      <div style="font-size:14px; color:var(--muted); margin-top:8px; text-wrap:pretty">{{ f.note }}</div>
+                    </div>
+                  </sc-for>
                 </div>
-              </sc-for>
-            </div>
+              </div>
+            </sc-for>
           </sc-if>
 
           <div style="margin-top:40px; font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:2px solid var(--ink)">Terms</div>
@@ -2458,6 +2464,77 @@ class Component extends DCLogic {
     // Sets are INSEAD material and are not reproduced here -- work those on the
     // LMS. These drill the same methods on different numbers, which is also
     // better practice than re-reading a worked answer.
+    { key: 's2emp', tag: 'Session 2', title: 'The empirical rule on a class profile', stem: 'A cohort of 300 students has a mean weight of 72.4 kg and a standard deviation of 11.2 kg. Nothing else is known about the shape of the distribution yet.',
+      steps: [
+        { q: 'Assume the weights are roughly bell-shaped. Give the interval that should hold about 68% of them.', rows: [ { label: 'Lower bound', a: 61.2, tol: 0.1 }, { label: 'Upper bound', a: 83.6, tol: 0.1 } ], hint: 'One standard deviation either side of the mean.', sol: '72.4 ± 11.2, so 61.2 kg to 83.6 kg. About 204 of the 300 students.' },
+        { q: 'Give the 95% interval, and how many students that is out of 300.', rows: [ { label: 'Lower bound', a: 50.0, tol: 0.1 }, { label: 'Upper bound', a: 94.8, tol: 0.1 }, { label: 'Students', a: 285, tol: 2 } ], hint: 'Two standard deviations either side. Then 95% of 300.', sol: '72.4 ± 22.4, so 50.0 kg to 94.8 kg, covering about 0.95 × 300 = 285 students. Roughly 15 sit outside it.' },
+        { q: 'Now drop the bell-shape assumption. Chebyshev guarantees what fraction within two standard deviations?', rows: [ { label: 'Fraction, as a percent', a: 75, tol: 0.5 } ], hint: 'At least 1 - 1/k squared, with k = 2.', sol: '1 - 1/4 = 0.75. Chebyshev promises only 75% against the empirical rule’s 95% — the price of knowing nothing about the shape.' },
+        { q: 'What does Chebyshev guarantee within three standard deviations?', rows: [ { label: 'Fraction, as a percent', a: 88.9, tol: 0.2 } ], hint: 'Same rule with k = 3.', sol: '1 - 1/9 = 0.889, so at least 88.9%. The empirical rule would say 99.7%. Use Chebyshev when the histogram is skewed and you cannot assume bell-shaped.' }
+      ] },
+    { key: 's2bell', tag: 'Session 2', title: 'From a mean and a standard deviation to a range', stem: 'A careers office tells you the average starting salary for a cohort is EUR 160,000 with a standard deviation of EUR 20,000. You are given nothing else — no data, no histogram.',
+      steps: [
+        { q: 'Assuming the salaries are bell-shaped, complete: about 95% of salaries were between X and Y.', rows: [ { label: 'X', a: 120000, tol: 100 }, { label: 'Y', a: 200000, tol: 100 } ], hint: 'The empirical rule: two standard deviations either side.', sol: '160,000 ± 2(20,000) = EUR 120,000 to EUR 200,000.' },
+        { q: 'What range would you have to quote for the same 95% if you refuse to assume a shape?', rows: [ { label: 'k needed', a: 4.472, tol: 0.02 }, { label: 'Lower bound', a: 70557, tol: 400 }, { label: 'Upper bound', a: 249443, tol: 400 } ], hint: 'Set 1 - 1/k squared = 0.95 and solve for k, then go k standard deviations either way.', sol: 'k = √20 = 4.47, so 160,000 ± 89,443 — about EUR 70,600 to EUR 249,400. Assuming bell-shaped buys you an interval less than half as wide, which is why the assumption is worth stating out loud.' },
+        { q: 'Someone earns EUR 210,000. How unusual is that, in standard deviations?', rows: [ { label: 'z', a: 2.5, tol: 0.01 } ], hint: 'Subtract the mean, divide by the standard deviation.', sol: 'z = (210,000 - 160,000)/20,000 = 2.5. Beyond the 95% band, so roughly the top 1% of a bell-shaped distribution.' }
+      ] },
+    { key: 's3bintab', tag: 'Session 3', title: 'Reading a binomial table', stem: 'A treatment cures 20% of the patients who receive it. Fifteen patients are treated, and the outcomes are independent. Let X be the number cured.',
+      steps: [
+        { q: 'Name the distribution and give its two parameters, then its mean.', rows: [ { label: 'n', a: 15, tol: 0 }, { label: 'p', a: 0.2, tol: 0.001 }, { label: 'E[X]', a: 3, tol: 0.01 } ], hint: 'A fixed number of independent trials, each a success or a failure.', sol: 'X ~ Bin(n = 15, p = 0.2), so E[X] = np = 3 patients.' },
+        { q: 'What is the probability that exactly 3 are cured?', rows: [ { label: 'P(X = 3)', a: 0.2501, tol: 0.001 } ], hint: 'C(15,3) times 0.2 cubed times 0.8 to the twelfth. =BINOM.DIST(3,15,0.2,FALSE).', sol: 'C(15,3) = 455, so P = 455 (0.008)(0.0687) = 0.2501. The single most likely count, which is no accident — it is the mean.' },
+        { q: 'What is the probability that between 1 and 5 inclusive are cured?', rows: [ { label: 'P(1 ≤ X ≤ 5)', a: 0.9038, tol: 0.002 } ], hint: 'Cumulative to 5 minus cumulative to 0. =BINOM.DIST(5,15,0.2,TRUE)-BINOM.DIST(0,15,0.2,TRUE).', sol: '0.9389 - 0.0352 = 0.9038. Nearly always between one and five.' },
+        { q: 'What is the probability that more than 6 are cured?', rows: [ { label: 'P(X > 6)', a: 0.0181, tol: 0.001 } ], hint: 'More than 6 means 7 or more: 1 minus the cumulative to 6.', sol: '1 - 0.9819 = 0.0181. Under 2% — so seeing seven cures would be real evidence the 20% figure is too low.' }
+      ] },
+    { key: 's3picker', tag: 'Session 3', title: 'Is the stock picker any good?', stem: 'An analyst claims she can pick winners — stocks that finish in the top 10% of the market for the year. She names fourteen stocks and four of them land in the top 10%. You are sceptical.',
+      steps: [
+        { q: 'State the sceptical model: what distribution describes the count of winners if she has no skill at all?', rows: [ { label: 'n', a: 14, tol: 0 }, { label: 'p', a: 0.1, tol: 0.001 }, { label: 'E[X]', a: 1.4, tol: 0.01 } ], hint: 'No skill means each pick has the same chance as a dart: the top 10%.', sol: 'X ~ Bin(14, 0.1) with E[X] = 1.4 winners. That is the benchmark her four have to beat.' },
+        { q: 'Under that model, what is the probability of getting 4 or more winners?', rows: [ { label: 'P(X ≥ 4)', a: 0.0441, tol: 0.002 } ], hint: 'One minus the cumulative probability of 3 or fewer. =1-BINOM.DIST(3,14,0.1,TRUE).', sol: '1 - 0.9559 = 0.0441. Four or more happens about 4% of the time by luck alone.' },
+        { q: 'At a 5% threshold, does the evidence support her claim?', rows: [ { label: 'Reject no-skill? 1 for yes, 0 for no', a: 1, tol: 0 } ], hint: 'Compare the probability you just computed with 0.05.', sol: '0.044 < 0.05, so at the 5% level you reject the no-skill model. But note how close it is, and that one year of fourteen picks is thin evidence — this is the shape of every hypothesis test in Session 9.' }
+      ] },
+    { key: 's3toll', tag: 'Session 3', title: 'Splitting a Poisson rate', stem: 'A customer service line takes 240 calls over a nine-hour day. The load is steady and the calls are independent. About 30% of them are complaints.',
+      steps: [
+        { q: 'What is the arrival rate of all calls per hour, and of complaints per hour?', rows: [ { label: 'All calls per hour', a: 26.667, tol: 0.02 }, { label: 'Complaints per hour', a: 8, tol: 0.02 } ], hint: 'Divide the day’s total by nine, then take 30% of that.', sol: '240/9 = 26.67 calls an hour, of which 30% — 8 an hour — are complaints. Thinning a Poisson process by a fixed probability leaves a Poisson process.' },
+        { q: 'What is the expected number of complaints in a fifteen-minute window?', rows: [ { label: 'λ', a: 2, tol: 0.01 } ], hint: 'A quarter of an hour means a quarter of the hourly rate.', sol: 'λ = 8/4 = 2 complaints. Rescaling lambda with the window is the step that gets dropped.' },
+        { q: 'What is the probability of no complaints at all in that quarter of an hour?', rows: [ { label: 'P(X = 0)', a: 0.1353, tol: 0.001 } ], hint: 'The formula collapses to e to the minus lambda.', sol: 'e^(-2) = 0.1353, about one quarter-hour in seven.' },
+        { q: 'What is the probability of three or more complaints in that window?', rows: [ { label: 'P(X ≥ 3)', a: 0.3233, tol: 0.002 } ], hint: 'One minus the first three terms: 0.1353, 0.2707 and 0.2707.', sol: '1 - 0.6767 = 0.3233. Going through the complement avoids an infinite sum.' }
+      ] },
+    { key: 's3commute', tag: 'Session 3', title: 'Leaving the house in time', stem: 'A student’s journey to school is normally distributed with a mean of 20 minutes and a standard deviation of 5 minutes. She leaves 30 minutes before class starts.',
+      steps: [
+        { q: 'What is the z-score of a 30-minute journey?', rows: [ { label: 'z', a: 2.0, tol: 0.01 } ], hint: 'Subtract the mean, divide by the standard deviation.', sol: 'z = (30 - 20)/5 = 2.0, two standard deviations above the average journey.' },
+        { q: 'What proportion of the time is she late?', rows: [ { label: 'P(late)', a: 0.0228, tol: 0.002 } ], hint: 'Late means the journey takes longer than 30 minutes: the right tail beyond z = 2.', sol: '1 - 0.9772 = 0.0228, so late about one day in 44. The empirical rule would have told you roughly half of 5% without a table.' },
+        { q: 'How early would she have to leave to be on time 99% of the time?', rows: [ { label: 'Minutes', a: 31.63, tol: 0.15 } ], hint: 'Find the z with 99% of the area below it, then unstandardise: 20 + z(5).', sol: 'z = 2.326, so 20 + 2.326(5) = 31.6 minutes. Eleven extra minutes over the average buys 99% reliability; the last percent is always the expensive one.' }
+      ] },
+    { key: 's3door', tag: 'Session 3', title: 'How high to build the door', stem: 'An architect is sizing the doorways for a sports hall. Male students’ heights are normally distributed with a mean of 179 cm and a standard deviation of 8 cm. She wants 95% of them to have at least 30 cm of clearance.',
+      steps: [
+        { q: 'What height is exceeded by only 5% of students?', rows: [ { label: 'Height, cm', a: 192.16, tol: 0.3 } ], hint: 'Find the z with 95% below it, then unstandardise: 179 + z(8).', sol: 'z = 1.645, so 179 + 1.645(8) = 192.2 cm. This is a backwards normal question: the percentage is given, the value is wanted.' },
+        { q: 'How high should the doorway be?', rows: [ { label: 'Doorway height, cm', a: 222.16, tol: 0.4 } ], hint: 'Add the 30 cm of clearance to the height you just found.', sol: '192.2 + 30 = 222.2 cm, so about 2.22 m.' },
+        { q: 'The brief is relaxed to 90% of students. How much lower can the door be?', rows: [ { label: 'New height, cm', a: 219.25, tol: 0.4 }, { label: 'Saving, cm', a: 2.91, tol: 0.4 } ], hint: 'Redo it with the z for 90% instead of 95%.', sol: 'z = 1.282 gives 179 + 10.25 + 30 = 219.2 cm, a saving of under 3 cm. Tightening from 90% to 95% costs almost nothing here, which is worth knowing before you argue about it.' }
+      ] },
+    { key: 's3approx', tag: 'Session 3', title: 'When the normal stands in for the binomial', stem: 'Return to the treatment that cures 20% of 15 patients. You want P(X = 3) again, but this time by normal approximation, and you want to know whether you were entitled to use it.',
+      steps: [
+        { q: 'Give the mean and standard deviation of the approximating normal.', rows: [ { label: 'Mean', a: 3, tol: 0.01 }, { label: 'SD', a: 1.549, tol: 0.01 } ], hint: 'np for the mean, and the square root of np(1 - p) for the standard deviation.', sol: 'μ = 15(0.2) = 3 and σ = √(15 × 0.2 × 0.8) = √2.4 = 1.549.' },
+        { q: 'Check the rule of thumb: give np and n(1 - p).', rows: [ { label: 'np', a: 3, tol: 0.01 }, { label: 'n(1 − p)', a: 12, tol: 0.01 } ], hint: 'Both need to clear 5 for the approximation to be safe.', sol: 'np = 3 and n(1 - p) = 12. np = 3 fails the np ≥ 5 rule, so the approximation is on thin ice here — which is exactly what the comparison below shows.' },
+        { q: 'Approximate P(X = 3) using the continuity correction, as the area between 2.5 and 3.5.', rows: [ { label: 'Approximation', a: 0.2531, tol: 0.004 } ], hint: 'Standardise 2.5 and 3.5 against mean 3 and SD 1.549, then subtract the areas.', sol: 'z runs from -0.323 to +0.323, giving 0.6266 - 0.3734 = 0.2531.' },
+        { q: 'The exact binomial answer was 0.2501. Give the absolute error.', rows: [ { label: 'Error', a: 0.003, tol: 0.002 } ], hint: 'Subtract one from the other.', sol: 'About 0.003 — close, despite np falling short of 5, because p is not too far from 0.5 and the continuity correction is doing real work. Skip the correction and the error roughly quadruples.' }
+      ] },
+    { key: 's3rockets', tag: 'Session 3', title: 'Nine engines out of ten', stem: 'A launch vehicle has ten engines. At least nine must fire correctly for it to reach orbit. Each engine works with probability 0.95, independently of the others.',
+      steps: [
+        { q: 'What is the probability the launch succeeds?', rows: [ { label: 'P(X ≥ 9)', a: 0.9139, tol: 0.002 } ], hint: 'Add the probability of exactly 9 and exactly 10. =1-BINOM.DIST(8,10,0.95,TRUE).', sol: 'P(9) = 10(0.95⁹)(0.05) = 0.3151 and P(10) = 0.95¹⁰ = 0.5987, so 0.9139. A 95% engine gives only a 91% launch — requiring nine of ten costs you four points.' },
+        { q: 'What reliability per engine would you need to reach a 99.5% launch probability? Try 0.99.', rows: [ { label: 'P(X ≥ 9) at 0.99', a: 0.9957, tol: 0.002 } ], hint: 'Redo the same sum with p = 0.99.', sol: '0.9957 — just short of 99.5%, and it took a jump from 95% to 99% per engine to get there. Series reliability is unforgiving.' },
+        { q: 'With ten engines at 0.95, what is the expected number that fire?', rows: [ { label: 'E[X]', a: 9.5, tol: 0.01 }, { label: 'SD', a: 0.689, tol: 0.01 } ], hint: 'np, and the square root of np(1 - p).', sol: 'E[X] = 9.5 with σ = √(10 × 0.95 × 0.05) = 0.689. The requirement of 9 sits well under one standard deviation below the mean, which is why failure is as likely as it is.' }
+      ] },
+    { key: 's3fill', tag: 'Session 3', title: 'A filling line under control', stem: 'A bottling line fills 33 cl bottles. When the process is running normally the fill is normal with a mean of 330 ml and a standard deviation of 1.8 ml. The specification is 327 ml to 333 ml.',
+      steps: [
+        { q: 'What proportion of bottles meet the specification when the process is on target?', rows: [ { label: 'P(327 < X < 333)', a: 0.9044, tol: 0.003 } ], hint: 'Standardise both ends against mean 330 and SD 1.8, then subtract the areas.', sol: 'z runs from -1.667 to +1.667, giving 0.9522 - 0.0478 = 0.9044. About 9.6% out of spec even when nothing is wrong.' },
+        { q: 'The mean drifts up to 331.5 ml with the same standard deviation. What proportion now fails?', rows: [ { label: 'P(out of spec)', a: 0.2085, tol: 0.004 } ], hint: 'Compute the area above 333 and below 327 with the new mean, then add them.', sol: 'Above 333: z = 0.833, so 0.2024. Below 327: z = -2.5, so 0.0062. Total 0.2085 — a 1.5 ml drift doubles the failure rate.' },
+        { q: 'Back on target at 330 ml, how tight would the standard deviation have to be for 99% to meet spec?', rows: [ { label: 'SD needed, ml', a: 1.165, tol: 0.02 } ], hint: 'The spec is ±3 ml. For 99% inside, 3 must equal 2.576 standard deviations.', sol: 'σ = 3/2.576 = 1.165 ml. Cutting the spread by a third takes the failure rate from 9.6% to 1%, which is the argument for spending money on the machine rather than on inspection.' }
+      ] },
+    { key: 's3forecast', tag: 'Session 3', title: 'How wrong is the forecaster?', stem: 'An analyst’s sales forecasts have percentage errors that are normally distributed with a mean of +2% (she is biased high) and a standard deviation of 8%.',
+      steps: [
+        { q: 'What is the probability that a forecast is more than 10% too high?', rows: [ { label: 'P(error > 10%)', a: 0.1587, tol: 0.003 } ], hint: 'Standardise 10 against mean 2 and SD 8.', sol: 'z = (10 - 2)/8 = 1.0, so 1 - 0.8413 = 0.1587. About one forecast in six.' },
+        { q: 'What is the probability the error lands within ±5%?', rows: [ { label: 'P(−5% < error < 5%)', a: 0.4554, tol: 0.004 } ], hint: 'Standardise both ends. Note the interval is not symmetric about the mean of 2.', sol: 'z runs from -0.875 to +0.375, giving 0.6462 - 0.1908 = 0.4554. Under half the time — and the bias is why it is not centred.' },
+        { q: 'Give the error she beats 90% of the time (the 90th percentile of her errors).', rows: [ { label: '90th percentile, %', a: 12.25, tol: 0.1 } ], hint: 'Find the z with 90% below it, then unstandardise: 2 + z(8).', sol: '2 + 1.282(8) = 12.25%. One forecast in ten is more than 12% too high.' },
+        { q: 'If the bias were removed but the spread stayed, what would the chance of being within ±5% become?', rows: [ { label: 'P', a: 0.468, tol: 0.005 } ], hint: 'Same calculation with a mean of 0.', sol: 'z runs from -0.625 to +0.625, giving 0.4680. Barely better — her problem is the spread, not the bias, and fixing the bias is the easier thing to sell.' }
+      ] },
     { key: 'desc', tag: 'Session 2', title: 'Summarising a small sample', stem: 'A team records how many minutes seven meetings overran: 12, 15, 15, 18, 20, 22, 26. Summarise the data the way Session 02 asks you to — centre first, then spread, then risk per unit of return.',
       steps: [
         { q: 'Give the three measures of centre.', rows: [ { label: 'Mean', a: 18.29, tol: 0.02 }, { label: 'Median', a: 18, tol: 0 }, { label: 'Mode', a: 15, tol: 0 } ], hint: 'Seven values, already sorted. The median is the fourth; the mode is the only repeated value.', sol: 'Mean = 128/7 = 18.29, median = 18, mode = 15. The mean sits above the median because 26 pulls it up.' },
@@ -2608,15 +2685,98 @@ class Component extends DCLogic {
     { name: 'Nataliia Bogomolova', role: 'Decision Sciences Faculty Support Coordinator', mail: 'nataliia.bogomolova@insead.edu', where: 'Octa B OSP 0.05 · Mon–Fri 9:00–17:30' }
   ];
   daFormulas = [
-    { k: 'Expected value', v: 'EV = Σ pₖ vₖ', note: 'Probability-weighted average of the payoffs.' },
-    { k: 'Mean', v: 'μ = (1/N) Σ xᵢ', note: 'Not robust to outliers; the median is.' },
-    { k: 'Variance and SD', v: 'σ² = (1/N) Σ (xᵢ − μ)² · σ = √σ²', note: 'The SD is back in the units of the data.' },
-    { k: 'Coefficient of variation', v: 'CV = (σ / μ) × 100%', note: 'Risk per unit of return.' },
-    { k: 'Empirical rule', v: '68% / 95% / 99.7% within 1σ / 2σ / 3σ', note: 'Only for roughly bell-shaped data.' },
-    { k: 'Random variable', v: 'E[X] = Σ ℙ(X = x)·x', note: 'Var[X] = Σ ℙ(X = x)·(x − μ)².' },
-    { k: 'Bernoulli(p)', v: 'ℙ(X = x) = pˣ(1 − p)¹⁻ˣ', note: 'E[X] = p, Var[X] = p(1 − p).' },
-    { k: 'Binomial(n, p)', v: 'ℙ(X = x) = C(n,x) pˣ(1 − p)ⁿ⁻ˣ', note: 'E[X] = np, Var[X] = np(1 − p). =BINOM.DIST(x,n,p,FALSE).' },
-    { k: 'Poisson(λ)', v: 'ℙ(X = x) = λˣe^(−λ) / x!', note: 'E[X] = Var[X] = λ. =POISSON.DIST(x,lambda,FALSE).' }
+    // Describing data
+    { sec: 'Describing data', k: 'Mean', v: 'μ = (1/N) Σ xᵢ  ·  x̄ = (1/n) Σ xᵢ', note: 'Not robust: one outlier moves it. AVERAGE.' },
+    { sec: 'Describing data', k: 'Median and mode', v: 'Middle value once sorted · most frequent value', note: 'The median is robust; use it when the mean and median disagree.' },
+    { sec: 'Describing data', k: 'Range', v: 'Range = max − min', note: 'The crudest spread, and the most sensitive to one bad value.' },
+    { sec: 'Describing data', k: 'Population variance and SD', v: 'σ² = (1/N) Σ (xᵢ − μ)²  ·  σ = √σ²', note: 'VAR.P and STDEV.P. Divide by N when you have the whole population.' },
+    { sec: 'Describing data', k: 'Sample variance and SD', v: 's² = 1/(n−1) Σ (xᵢ − x̄)²  ·  s = √s²', note: 'VAR.S and STDEV.S. The n − 1 is what makes s² unbiased.' },
+    { sec: 'Describing data', k: 'Coefficient of variation', v: 'CV = (σ / μ) × 100%', note: 'Risk per unit of return. Unitless, so two different scales can be compared.' },
+    { sec: 'Describing data', k: 'Empirical rule', v: '68% / 95% / 99.7% within 1σ / 2σ / 3σ', note: 'Bell-shaped data only. Working backwards: a 95% range is μ ± 2σ.' },
+    { sec: 'Describing data', k: 'Chebyshev', v: 'At least 1 − 1/k² of the data lies within kσ', note: 'Holds for any shape at all: 75% within 2σ, 89% within 3σ. Weaker, but always true.' },
+    { sec: 'Describing data', k: 'z-score of an observation', v: 'z = (x − μ) / σ', note: 'How many standard deviations from the mean. The common currency of the course.' },
+    { sec: 'Describing data', k: 'Covariance', v: 'Cov(X,Y) = E[(X − μx)(Y − μy)]', note: 'Sign says direction; the size means nothing until it is standardised.' },
+    { sec: 'Describing data', k: 'Correlation', v: 'ρ = Cov(X,Y) / (σx σy)', note: 'Always between −1 and 1. CORREL. Measures linear association only.' },
+    // Probability
+    { sec: 'Probability', k: 'Complement', v: 'ℙ(not A) = 1 − ℙ(A)', note: '"At least one" is nearly always easier through the complement.' },
+    { sec: 'Probability', k: 'Addition rule', v: 'ℙ(A or B) = ℙ(A) + ℙ(B) − ℙ(A and B)', note: 'Subtract the overlap, or you count it twice.' },
+    { sec: 'Probability', k: 'Multiplication rule', v: 'ℙ(A and B) = ℙ(A) ℙ(B | A)', note: 'If independent, ℙ(B | A) = ℙ(B) and it is just the product.' },
+    { sec: 'Probability', k: 'Conditional probability', v: 'ℙ(A | B) = ℙ(A and B) / ℙ(B)', note: 'Read it as: restrict the world to B, then ask about A.' },
+    { sec: 'Probability', k: 'Bayes', v: 'ℙ(A | B) = ℙ(B | A) ℙ(A) / ℙ(B)', note: 'Prior times likelihood, rescaled. The base rate is what people drop.' },
+    { sec: 'Probability', k: 'Independence', v: 'ℙ(A and B) = ℙ(A) ℙ(B)', note: 'Independent is not the same as mutually exclusive.' },
+    // Random variables
+    { sec: 'Random variables', k: 'Expected value', v: 'E[X] = Σ ℙ(X = x)·x', note: 'Probability-weighted average. Linear: E[aX + b] = aE[X] + b.' },
+    { sec: 'Random variables', k: 'Variance of a random variable', v: 'Var[X] = Σ ℙ(X = x)(x − μ)² = E[X²] − (E[X])²', note: 'Var[aX + b] = a² Var[X]. The b does nothing to the spread.' },
+    { sec: 'Random variables', k: 'Sum of two variables', v: 'E[aX + bY] = aE[X] + bE[Y]', note: 'True always, correlated or not.' },
+    { sec: 'Random variables', k: 'Variance of a sum', v: 'Var[aX + bY] = a²σx² + b²σy² + 2abρσxσy', note: 'The covariance term is the whole of diversification. ρ = 0 kills it.' },
+    { sec: 'Random variables', k: 'Bernoulli(p)', v: 'ℙ(X = x) = pˣ(1 − p)¹⁻ˣ', note: 'One trial. E[X] = p, Var[X] = p(1 − p).' },
+    { sec: 'Random variables', k: 'Binomial(n, p)', v: 'ℙ(X = x) = C(n,x) pˣ(1 − p)ⁿ⁻ˣ', note: 'Fixed n independent trials. E[X] = np, Var[X] = np(1 − p). BINOM.DIST.' },
+    { sec: 'Random variables', k: 'Poisson(λ)', v: 'ℙ(X = x) = λˣ e^(−λ) / x!', note: 'Counts in a window, no upper bound. E[X] = Var[X] = λ. POISSON.DIST.' },
+    { sec: 'Random variables', k: 'Rescaling a Poisson rate', v: 'λ for t windows = t × λ per window', note: 'Half the window, half of lambda. The step most often missed.' },
+    { sec: 'Random variables', k: 'Normal approximation to a binomial', v: 'X ≈ N(np, np(1 − p))', note: 'Rule of thumb: np ≥ 5 and n(1 − p) ≥ 5.' },
+    // The normal distribution
+    { sec: 'The normal distribution', k: 'Standardising', v: 'Z = (X − μ) / σ ~ N(0, 1)', note: 'Every normal question becomes a Z question first.' },
+    { sec: 'The normal distribution', k: 'Reading the table', v: 'The table gives ℙ(Z < z)', note: 'For the right tail take 1 − ℙ(Z < z); by symmetry ℙ(Z < −z) = 1 − ℙ(Z < z).' },
+    { sec: 'The normal distribution', k: 'Between two values', v: 'ℙ(a < X < b) = ℙ(Z < zb) − ℙ(Z < za)', note: 'Standardise both ends, subtract the smaller area.' },
+    { sec: 'The normal distribution', k: 'Going backwards', v: 'x = μ + z σ', note: 'Given a percentage, look the z up first, then unstandardise. NORM.INV.' },
+    { sec: 'The normal distribution', k: 'Key z values', v: '1.645 → 90%  ·  1.96 → 95%  ·  2.576 → 99%', note: 'Two-sided. One-sided: 1.282, 1.645, 2.326. Worth memorising.' },
+    { sec: 'The normal distribution', k: 'Excel', v: 'NORM.DIST(x, μ, σ, TRUE) · NORM.S.DIST(z, TRUE) · NORM.INV(p, μ, σ)', note: 'TRUE gives the cumulative area, FALSE the height of the curve.' },
+    // Sampling and the CLT
+    { sec: 'Sampling and the CLT', k: 'Sampling distribution of the mean', v: 'E[X̄] = μ  ·  SD[X̄] = σ / √n', note: 'The mean of the sample means is the population mean.' },
+    { sec: 'Sampling and the CLT', k: 'Standard error', v: 'SE = σ / √n  (or s / √n)', note: 'Not the spread of the data — the spread of the estimate.' },
+    { sec: 'Sampling and the CLT', k: 'Central limit theorem', v: 'X̄ ≈ N(μ, σ²/n) for large n', note: 'Whatever the population shape. n ≥ 30 is the usual rule of thumb.' },
+    { sec: 'Sampling and the CLT', k: 'Standardising a sample mean', v: 'z = (x̄ − μ) / (σ / √n)', note: 'The √n is the difference between one observation and an average.' },
+    { sec: 'Sampling and the CLT', k: 'Quadrupling rule', v: 'To halve the SE, multiply n by 4', note: 'Precision improves with √n, so accuracy gets expensive fast.' },
+    { sec: 'Sampling and the CLT', k: 'Sampling distribution of a proportion', v: 'E[p̂] = p  ·  SE = √(p(1 − p)/n)', note: 'Approximately normal when np ≥ 5 and n(1 − p) ≥ 5.' },
+    // Confidence intervals
+    { sec: 'Confidence intervals', k: 'Mean, σ known', v: 'x̄ ± z(α/2) · σ/√n', note: 'Use z. The classic 95% interval is x̄ ± 1.96 σ/√n.' },
+    { sec: 'Confidence intervals', k: 'Mean, σ unknown', v: 'x̄ ± t(α/2, n−1) · s/√n', note: 'Use t with n − 1 degrees of freedom. T.INV.2T(0.05, df).' },
+    { sec: 'Confidence intervals', k: 'When t, when z', v: 't if σ is estimated from the sample; z if σ is given', note: 'With large n the two nearly coincide, but t is never wrong.' },
+    { sec: 'Confidence intervals', k: 'Proportion', v: 'p̂ ± z(α/2) · √(p̂(1 − p̂)/n)', note: 'The margin of error quoted in every poll.' },
+    { sec: 'Confidence intervals', k: 'Margin of error', v: 'E = z(α/2) · σ/√n', note: 'Half the width of the interval. Wider confidence means a wider interval.' },
+    { sec: 'Confidence intervals', k: 'Sample size for a mean', v: 'n = (z(α/2) σ / E)²', note: 'Always round up. Halving E costs four times the sample.' },
+    { sec: 'Confidence intervals', k: 'Sample size for a proportion', v: 'n = z(α/2)² p(1 − p) / E²', note: 'With no prior estimate use p = 0.5, which is the worst case.' },
+    { sec: 'Confidence intervals', k: 'Reading one correctly', v: '95% of such intervals contain μ', note: 'Not: there is a 95% chance μ is in this one. μ is fixed; the interval is random.' },
+    // Hypothesis testing
+    { sec: 'Hypothesis testing', k: 'The two hypotheses', v: 'H₀: μ = μ₀  ·  H₁: μ ≠ μ₀ (or < , >)', note: 'H₀ is what you try to reject. The claim you want to prove goes in H₁.' },
+    { sec: 'Hypothesis testing', k: 'Test statistic, mean', v: 'z = (x̄ − μ₀)/(σ/√n)  ·  t = (x̄ − μ₀)/(s/√n)', note: 'Same shape as a z-score: distance from the claim, in standard errors.' },
+    { sec: 'Hypothesis testing', k: 'Test statistic, proportion', v: 'z = (p̂ − p₀) / √(p₀(1 − p₀)/n)', note: 'Use p₀, the hypothesised value, in the standard error — not p̂.' },
+    { sec: 'Hypothesis testing', k: 'p-value', v: 'ℙ(a result at least this extreme | H₀ true)', note: 'Reject H₀ when p < α. Double the tail area for a two-sided test.' },
+    { sec: 'Hypothesis testing', k: 'Critical values', v: 'Two-sided at 5%: ±1.96 · one-sided at 5%: 1.645', note: 'Reject when the statistic falls beyond the critical value.' },
+    { sec: 'Hypothesis testing', k: 'The two errors', v: 'Type I: reject a true H₀ (prob α) · Type II: fail to reject a false H₀ (prob β)', note: 'Lowering α raises β for a fixed n. Only more data improves both.' },
+    { sec: 'Hypothesis testing', k: 'Power', v: 'Power = 1 − β', note: 'The chance of catching a real effect. Rises with n and with effect size.' },
+    { sec: 'Hypothesis testing', k: 'Significance is not size', v: 'A tiny effect is significant if n is large enough', note: 'Always report the estimate and the interval, not only the verdict.' },
+    // Simple regression
+    { sec: 'Simple regression', k: 'The model', v: 'Y = β₀ + β₁X + ε', note: 'ε is assumed independent, of constant variance, and normal with mean 0.' },
+    { sec: 'Simple regression', k: 'Slope', v: 'b₁ = Σ(xᵢ − x̄)(yᵢ − ȳ) / Σ(xᵢ − x̄)² = r · (sy/sx)', note: 'A one-unit rise in X moves fitted Y by b₁.' },
+    { sec: 'Simple regression', k: 'Intercept', v: 'b₀ = ȳ − b₁x̄', note: 'The fitted line always passes through (x̄, ȳ).' },
+    { sec: 'Simple regression', k: 'Fitted value and residual', v: 'ŷᵢ = b₀ + b₁xᵢ  ·  eᵢ = yᵢ − ŷᵢ', note: 'Least squares is exactly the line that minimises Σeᵢ².' },
+    { sec: 'Simple regression', k: 'Sums of squares', v: 'SST = SSR + SSE', note: 'Total = explained + unexplained.' },
+    { sec: 'Simple regression', k: 'R²', v: 'R² = SSR/SST = 1 − SSE/SST', note: 'Share of the variation in Y the model accounts for. In simple regression R² = r².' },
+    { sec: 'Simple regression', k: 'Standard error of the estimate', v: 's(e) = √(SSE / (n − 2))', note: 'The typical size of a residual, in the units of Y.' },
+    { sec: 'Simple regression', k: 't-test on a slope', v: 't = b₁ / SE(b₁), df = n − 2', note: '|t| > 2 is the rough test at 5%. Tests whether the slope is distinguishable from zero.' },
+    { sec: 'Simple regression', k: 'Interval for a slope', v: 'b₁ ± t(α/2, n−2) · SE(b₁)', note: 'If it straddles zero, the variable has not earned its place.' },
+    // Multiple regression
+    { sec: 'Multiple regression', k: 'The model', v: 'Y = β₀ + β₁X₁ + … + βₖXₖ + ε', note: 'Each coefficient is the effect of its X holding the others fixed.' },
+    { sec: 'Multiple regression', k: 'Adjusted R²', v: 'R̄² = 1 − (1 − R²)(n − 1)/(n − k − 1)', note: 'R² never falls when you add a variable; adjusted R² can. Compare on this.' },
+    { sec: 'Multiple regression', k: 'F-test', v: 'F = (SSR/k) / (SSE/(n − k − 1))', note: 'Tests whether the model as a whole beats no model at all.' },
+    { sec: 'Multiple regression', k: 't-tests', v: 't = bⱼ / SE(bⱼ), df = n − k − 1', note: 'One per coefficient, each holding the rest constant.' },
+    { sec: 'Multiple regression', k: 'Multicollinearity', v: 'Correlated predictors inflate the standard errors', note: 'The sign: a high R² and F, but no individual t is significant. Check VIF.' },
+    { sec: 'Multiple regression', k: 'Dummy variables', v: '0/1 for a category; k categories need k − 1 dummies', note: 'The omitted category is the baseline the coefficients are measured against.' },
+    { sec: 'Multiple regression', k: 'Non-linearity', v: 'Add X² as a second variable', note: 'A curve is linear in the coefficients once you define X₂ = X². That is why it still works.' },
+    // Model validation
+    { sec: 'Model validation', k: 'The four assumptions', v: 'Linearity · independence · constant variance · normal errors', note: 'Every diagnostic below tests exactly one of them.' },
+    { sec: 'Model validation', k: 'Residuals against fitted', v: 'Look for a funnel or a curve', note: 'A funnel is heteroskedasticity; a curve means a term is missing.' },
+    { sec: 'Model validation', k: 'Residuals against time', v: 'Look for runs and drift', note: 'Patterns mean autocorrelation: the independence assumption has failed.' },
+    { sec: 'Model validation', k: 'Durbin–Watson', v: 'DW ≈ 2(1 − r₁), range 0 to 4', note: 'Near 2 is clean; below 1.5 positive autocorrelation; above 2.5 negative.' },
+    { sec: 'Model validation', k: 'Histogram of residuals', v: 'Compare against a normal with the same mean and SD', note: 'Checks the normality assumption behind every t and F on the output.' },
+    { sec: 'Model validation', k: 'Outliers', v: 'A standardised residual beyond about ±3', note: 'Investigate before deleting: an outlier is often the most informative point.' },
+    { sec: 'Model validation', k: 'Extrapolation', v: 'The model only speaks inside the range of the data', note: 'Forecasting outside it assumes the relationship continues, which nothing checked.' },
+    // In Excel
+    { sec: 'In Excel', k: 'Descriptives', v: 'AVERAGE · MEDIAN · MODE.SNGL · STDEV.S · STDEV.P · VAR.S · VAR.P', note: 'Data ▸ Data Analysis ▸ Descriptive Statistics gives them in one block.' },
+    { sec: 'In Excel', k: 'Distributions', v: 'BINOM.DIST · POISSON.DIST · NORM.DIST · NORM.S.DIST · NORM.INV', note: 'Last argument TRUE for cumulative, FALSE for the exact value.' },
+    { sec: 'In Excel', k: 'Inference', v: 'CONFIDENCE.NORM · CONFIDENCE.T · T.INV.2T · T.DIST.2T · Z.TEST · T.TEST', note: 'T.INV.2T(0.05, df) is the t you want for a 95% interval.' },
+    { sec: 'In Excel', k: 'Regression', v: 'LINEST · SLOPE · INTERCEPT · RSQ · CORREL', note: 'Data ▸ Data Analysis ▸ Regression gives coefficients, SEs, t, p and R² at once.' }
   ];
   daTerms = [
     { k: 'Random variable', v: 'An uncertain outcome of interest that has not been realised yet. Written with a capital letter to mark it as random.' },
@@ -3540,6 +3700,18 @@ class Component extends DCLogic {
       { v: String((d.exercises || []).length + (d.gens || []).length), k: 'Exercise sets' },
       { v: String(doneCount), k: 'Drills completed' }
     ];
+
+    // Eighty-odd cards in one undifferentiated grid is a wall, not a cheat
+    // sheet. Grouped by topic, in the order the course teaches them, so the
+    // whole of inference can be found without reading past descriptive stats.
+    const fsecs = [];
+    (d.formulas || []).forEach(f => {
+      const name = f.sec || 'Formulas';
+      let g = fsecs.find(x => x.label === name);
+      if (!g) { g = { label: name, items: [] }; fsecs.push(g); }
+      g.items.push(f);
+    });
+    v.formulaSecs = fsecs;
 
     v.calcOpen = this.state.calcOpen;
     v.calcDisp = this.state.calcDisp;
