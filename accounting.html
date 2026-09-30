@@ -2462,6 +2462,121 @@ textarea.input { min-height: 90px; resize: vertical; }
           </div>
         </sc-if>
 
+        <sc-if value="{{ isS13 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:72ch">
+            <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <p style="margin:8px 0 0; font-size:16px">One company owns shares in another. That single fact can be reported three completely different ways, and the choice is not made by the accountant&rsquo;s taste or by the size of the cheque. It is made by how much of the other company you effectively control. Own a little and you hold a financial asset. Own enough to sit at the table and you report your share of what it earns. Own enough to run it and you put the whole of it on your balance sheet as though it were a division.</p>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <sc-raw-table class="table" style="margin-top:6px">
+              <sc-raw-tbody>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>Associate</strong></sc-raw-td><sc-raw-td>A company you have significant influence over but do not control. Accounted for by the equity method.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>Significant influence</strong></sc-raw-td><sc-raw-td>The power to participate in financial and operating policy decisions &mdash; without directing them. Presumed from about 20% of the votes, and shown in practice by board seats and involvement in policy.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>Control</strong></sc-raw-td><sc-raw-td>Power over the relevant activities, exposure to variable returns, and the ability to use the power to affect those returns. All three, or it is not control.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>Equity method</strong></sc-raw-td><sc-raw-td>One line on the balance sheet and one line in the income statement. Sometimes called one-line consolidation, because the bottom line comes out the same.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>FVTPL and FVOCI</strong></sc-raw-td><sc-raw-td>Fair value through profit or loss, or through other comprehensive income. For passive stakes: the choice decides whether the price swings reach reported earnings.</sc-raw-td></sc-raw-tr>
+              </sc-raw-tbody>
+              </sc-raw-table>
+            </div>
+
+            <h2 style="margin-top:34px">The three buckets</h2>
+            <p>Everything in this session hangs off one table. Read it left to right: as influence rises, more of the investee appears in your statements.</p>
+            <sc-raw-table class="table" style="margin-top:14px">
+              <sc-raw-thead><sc-raw-tr><sc-raw-th>Position</sc-raw-th><sc-raw-th>Usual presumption</sc-raw-th><sc-raw-th>Method</sc-raw-th><sc-raw-th>What appears in your statements</sc-raw-th></sc-raw-tr></sc-raw-thead>
+              <sc-raw-tbody>
+                <sc-raw-tr><sc-raw-td>Passive</sc-raw-td><sc-raw-td>Under 20%</sc-raw-td><sc-raw-td>Fair value (FVTPL or FVOCI)</sc-raw-td><sc-raw-td>An asset at market value; dividends are income</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td>Significant influence</sc-raw-td><sc-raw-td>20% to 50%</sc-raw-td><sc-raw-td>Equity method</sc-raw-td><sc-raw-td>One asset line; one income line for your share of profit</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td>Control</sc-raw-td><sc-raw-td>Over 50%</sc-raw-td><sc-raw-td>Consolidation</sc-raw-td><sc-raw-td>100% of assets, liabilities, revenue and expenses, plus a non-controlling interest</sc-raw-td></sc-raw-tr>
+              </sc-raw-tbody>
+            </sc-raw-table>
+
+            <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The trap</div>
+              <p style="margin:8px 0 0">Those percentages are <em>presumptions</em>, not rules, and the facts can rebut them in both directions. AB InBev ended 2012 holding about 50.34% of Grupo Modelo &mdash; and used the equity method, because the holding carried no voting or other control over either Modelo or its operating subsidiary. Substance beat the percentage. In the other direction, a 15% stake with a board seat and a hand in policy can be an associate.</p>
+            </div>
+
+            <h2 style="margin-top:34px">How the equity method actually moves</h2>
+            <p>The investment account is a running record of your claim on the investee&rsquo;s net assets. It starts at what you paid and then breathes with the investee:</p>
+            <ul>
+              <li><strong>Your share of profit</strong> increases the asset, and is the one line that reaches your income statement.</li>
+              <li><strong>Dividends received</strong> decrease it. They are not income &mdash; you already took the profit when the investee earned it, and this is that profit arriving as cash.</li>
+              <li><strong>Exchange movements</strong> adjust it when the investee reports in another currency.</li>
+              <li><strong>Impairment</strong> writes it down if the stake has genuinely gone bad.</li>
+            </ul>
+            <p>That last point about dividends is the one people get wrong, and it is worth saying twice: recognise your share of profit <em>and</em> the dividend as income and you have counted the same money in two places.</p>
+
+            <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">What to look for in the note</div>
+              <p style="margin:8px 0 0">An associates note carries a roll-forward &mdash; opening balance, currency, share of results, dividends, closing balance &mdash; and, crucially, the investee&rsquo;s assets, liabilities, revenue and profit <em>on a 100% basis</em>. That second disclosure is the only place a reader learns how big the business behind that single balance sheet line really is. AB InBev&rsquo;s 7,090 line stood for a business with 17,461 of assets and 7,516 of revenue, none of which appeared anywhere in its own totals.</p>
+            </div>
+
+            <h2 style="margin-top:34px">The habit to build</h2>
+            <p>When you meet an investment, ask three questions in order, and never start with the third. What does this stake let the holder <em>do</em>? Which method follows from that? And what does that method hide &mdash; how much revenue, debt and assets sit behind the line you can see? Session 14 takes the third question seriously.</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isS14 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:72ch">
+            <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">In plain words</div>
+              <p style="margin:8px 0 0; font-size:16px">A company buys the rest of a business it already half-owned. Nothing changes in any brewery, any contract or any customer. Yet its balance sheet grows by seventeen billion, its revenue jumps by seven and a half, and it books a six-billion gain that brings in no cash at all. Every one of those numbers is correct. This session is about why, and about what to do with a set of accounts on either side of that line.</p>
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; margin-top:20px">Words you will hear</div>
+              <sc-raw-table class="table" style="margin-top:6px">
+              <sc-raw-tbody>
+                <sc-raw-tr><sc-raw-td style="width:34%"><strong>Consolidation</strong></sc-raw-td><sc-raw-td>Adding the subsidiary&rsquo;s assets, liabilities, revenue and expenses to the parent&rsquo;s line by line, then eliminating the investment and any dealings between them.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>Non-controlling interest</strong></sc-raw-td><sc-raw-td>The share of a consolidated subsidiary owned by somebody else. It sits <em>inside equity</em>, separately &mdash; it is other people&rsquo;s ownership, not a debt.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>Goodwill</strong></sc-raw-td><sc-raw-td>Consideration less the fair value of identifiable net assets. The plug, not a valuation. Not amortised; tested for impairment.</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>Step acquisition</strong></sc-raw-td><sc-raw-td>Gaining control of something you already held part of. IFRS 3 makes you remeasure the old stake to fair value and put the difference through income.</sc-raw-td></sc-raw-tr>
+              </sc-raw-tbody>
+              </sc-raw-table>
+            </div>
+
+            <h2 style="margin-top:34px">What consolidation does, mechanically</h2>
+            <ol>
+              <li>Bring in <strong>100%</strong> of the subsidiary&rsquo;s assets and liabilities, at fair value on the day control is obtained &mdash; not your ownership percentage of them.</li>
+              <li><strong>Eliminate</strong> the investment account against the subsidiary&rsquo;s equity. Keeping both would count the same resource twice.</li>
+              <li>Recognise <strong>non-controlling interest</strong> in equity for the share you do not own.</li>
+              <li>Whatever consideration exceeds the identifiable net assets becomes <strong>goodwill and intangibles</strong>.</li>
+              <li>Remove every transaction <strong>between</strong> the two companies &mdash; intercompany sales, balances and unrealised profit &mdash; because a group cannot trade with itself.</li>
+            </ol>
+
+            <h2 style="margin-top:34px">The step acquisition, worked</h2>
+            <p>Take the brewer from Session 13, carrying its associate at 7,090. It agrees to buy the remaining 49.65% for 20,100 in cash. On the day control passes, the fair value of the stake it already held exceeds its carrying value by 6,216.</p>
+            <sc-raw-table class="table" style="margin-top:14px">
+              <sc-raw-tbody>
+                <sc-raw-tr><sc-raw-td style="width:62%">Carrying value of the existing stake</sc-raw-td><sc-raw-td style="text-align:right">7,090</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td>Remeasurement to fair value &mdash; <em>a gain in profit for the year</em></sc-raw-td><sc-raw-td style="text-align:right">6,216</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td>Fair value of the existing stake</sc-raw-td><sc-raw-td style="text-align:right">13,306</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td>Cash paid for the rest</sc-raw-td><sc-raw-td style="text-align:right">20,100</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>Total consideration</strong></sc-raw-td><sc-raw-td style="text-align:right"><strong>33,406</strong></sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td>Less identifiable net assets (17,461 &minus; 3,013)</sc-raw-td><sc-raw-td style="text-align:right">(14,448)</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td><strong>Goodwill and intangibles</strong></sc-raw-td><sc-raw-td style="text-align:right"><strong>18,958</strong></sc-raw-td></sc-raw-tr>
+              </sc-raw-tbody>
+            </sc-raw-table>
+
+            <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
+              <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--color-accent-700)">The trap</div>
+              <p style="margin:8px 0 0">That 6,216 is reported in profit for the year and brings in <strong>no cash whatsoever</strong>. The company revalued something it already owned, because an accounting threshold was crossed. It is entirely correct under IFRS 3 and it tells you nothing about how the year went. It is the purest example in the course of why you read the cash flow statement next to the income statement, and it belongs in the same mental file as the earnings-quality material from Session 04.</p>
+            </div>
+
+            <h2 style="margin-top:34px">What it does to the numbers you compare</h2>
+            <p>Move a business from the equity method to consolidation and, with nothing changing underneath:</p>
+            <sc-raw-table class="table" style="margin-top:14px">
+              <sc-raw-thead><sc-raw-tr><sc-raw-th>Line</sc-raw-th><sc-raw-th>Under the equity method</sc-raw-th><sc-raw-th>After consolidation</sc-raw-th></sc-raw-tr></sc-raw-thead>
+              <sc-raw-tbody>
+                <sc-raw-tr><sc-raw-td>Revenue</sc-raw-td><sc-raw-td>None of the investee&rsquo;s</sc-raw-td><sc-raw-td>All of it</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td>Assets</sc-raw-td><sc-raw-td>One investment line</sc-raw-td><sc-raw-td>Every asset, in full</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td>Debt</sc-raw-td><sc-raw-td>Invisible behind that line</sc-raw-td><sc-raw-td>On the face of the balance sheet</sc-raw-td></sc-raw-tr>
+                <sc-raw-tr><sc-raw-td>Net income</sc-raw-td><sc-raw-td>Your share, on one line</sc-raw-td><sc-raw-td>Essentially the same</sc-raw-td></sc-raw-tr>
+              </sc-raw-tbody>
+            </sc-raw-table>
+            <p style="margin-top:14px">Profit barely moves while the denominators explode, so every margin and every return ratio shifts on the day the paperwork completes. Return on assets falls. Revenue growth looks spectacular. Leverage worsens. None of it is performance.</p>
+
+            <h2 style="margin-top:34px">The habit to build</h2>
+            <p>Before comparing two years, check whether the reporting boundary moved. A change of method is not a change of business, and a company that has just consolidated something is not comparable with its own prior year until you have adjusted for it. The associates note tells you how much was hidden before; the acquisition note tells you what arrived.</p>
+          </div>
+        </sc-if>
+
         <sc-if value="{{ isF1 }}" hint-placeholder-val="{{ true }}">
           <div style="max-width:72ch">
             <div style="border:2px solid var(--color-divider); padding:18px 20px; margin-top:28px; background:var(--color-surface)">
@@ -4311,7 +4426,7 @@ class Component extends DCLogic {
       { id: 'fa2', title: 'Practice set — the three statements', when: 'Ongoing', tag: 'Practice' }
     ];
 
-  built = { s1: 1, s2: 1, s3: 1, s4: 1, s5: 1, s6: 1, s7: 1, s8: 1, s9: 1, s10: 1, s11: 1, s12: 1, f1: 1, f2: 1, f3: 1, f4: 1, f5: 1, f6: 1, f7: 1, f8: 1, f9: 1, f10: 1 };
+  built = { s1: 1, s2: 1, s3: 1, s4: 1, s5: 1, s6: 1, s7: 1, s8: 1, s9: 1, s10: 1, s11: 1, s12: 1, s13: 1, s14: 1, f1: 1, f2: 1, f3: 1, f4: 1, f5: 1, f6: 1, f7: 1, f8: 1, f9: 1, f10: 1 };
 
   courseSessions(c) { return (c || this.state.course) === 'fra' ? this.fraSessions : this.sessions; }
 
@@ -4666,6 +4781,42 @@ class Component extends DCLogic {
       { t: 'mcq', k: 'After 2019', p: 'Which arrangement has been used since 2019 to keep obligations off the balance sheet?', o: [ 'Sale and leaseback transactions','Variable lease payments tied to sales rather than fixed in the contract', 'Leases of exactly twelve months and one day', 'Joint ventures holding the leased assets'], a: 1, e: 'A payment that is not fixed cannot be measured reliably at inception, so it stays out of the lease liability. The obligation is real; it is simply not debt on the balance sheet. Which is why the summary of this session is to evaluate debt both on and off the balance sheet, not that leases are now fixed.' },
       { t: 'tf', k: 'True or false', p: 'Choosing a finance lease over an operating lease changes the cash a firm pays.', a: false, why: 'False. The payments are identical — 10,000 a year in the worked example either way. What changes is where those payments appear: how much is expense and how much repays debt, and whether the asset and the obligation are visible at all.' }
     ],
+    s13: [
+      { t: 'mcq', k: 'Concept', p: 'You buy shares in another company. What decides how you account for the stake?', o: ['How much influence or control it gives you', 'How much you paid for it', 'Whether the shares are listed', 'How long you intend to hold it'], a: 0, e: 'Influence, not price and not intent. The whole session is one question asked three ways: how much of the other company do you effectively control?' },
+      { t: 'mcq', k: 'The three buckets', p: 'A stake giving neither significant influence nor control is carried how?', o: ['At fair value, remeasured each period', 'At cost, never remeasured', 'By the equity method', 'Fully consolidated'], a: 0, e: 'Fair value. You own a financial asset and nothing more, so the balance sheet carries what it is worth.' },
+      { t: 'mcq', k: 'The three buckets', p: 'Significant influence over an investee means the investment is accounted for by:', o: ['The equity method', 'Fair value through profit or loss', 'Consolidation', 'Cost less impairment'], a: 0, e: 'The equity method. You are close enough to the results to report your share of them, but not close enough to put the investee’s assets on your balance sheet.' },
+      { t: 'mcq', k: 'The three buckets', p: 'Control over an investee means:', o: ['Consolidation, line by line, with a non-controlling interest for the rest', 'The equity method', 'Fair value through OCI', 'Disclosure in the notes only'], a: 0, e: 'Consolidation. You bring in 100% of the investee’s assets, liabilities, revenue and expenses, then show the slice you do not own as non-controlling interest.' },
+      { t: 'tf', k: 'True or false', p: 'The 20% and 50% thresholds are rules: cross 50% and you must consolidate.', a: false, e: 'False. They are rebuttable presumptions. What matters is the substance — whether you actually direct the relevant activities. A stake over 50% with no voting rights does not give control.' },
+      { t: 'mcq', k: 'Substance over form', p: 'A brewer holds about 50.3% of another brewer but has no voting or other control over it. Which method applies?', o: ['The equity method, because there is influence but not control', 'Consolidation, because the stake is over 50%', 'Fair value, because the stake is passive', 'Cost, because control is disputed'], a: 0, e: 'The equity method. This is the AB InBev and Grupo Modelo position at the end of 2012, and it is the cleanest illustration that the percentage is a presumption the facts can rebut.' },
+      { t: 'mcq', k: 'Equity method', p: 'Under the equity method, the investment on the balance sheet starts at cost and then:', o: ['Rises by your share of profit, falls by dividends received', 'Rises by dividends received, falls by your share of profit', 'Stays at cost until sold', 'Is remeasured to market each period'], a: 0, e: 'Your share of profit increases the asset; cash taken out of the investee reduces it. The investment is a running record of your claim on the investee’s net assets.' },
+      { t: 'mcq', k: 'Equity method', p: 'Why do dividends from an associate reduce the investment rather than count as income?', o: ['The profit was already recognised when the associate earned it', 'Dividends are never income under IFRS', 'Because they are a return of capital for tax purposes', 'To keep the cash flow statement in balance'], a: 0, e: 'Recognising both would count the same profit twice. You take the income when the associate earns it; the dividend is that profit being converted into cash and handed over.' },
+      { t: 'num', k: 'Equity method', p: 'An investor holds 30% of an associate. The associate earns 400. By how much does the investment account rise?', a: 120, tol: 0.01, e: 'Your share of profit: 30% of 400 = 120.' },
+      { t: 'num', k: 'Equity method', p: 'Same investor and associate. The associate then pays a total dividend of 150. By how much does the investment account fall?', a: 45, tol: 0.01, e: '30% of 150 = 45. The asset ends at cost + 120 − 45 = cost + 75.' },
+      { t: 'mcq', k: 'Presentation', p: 'Where does your share of an associate’s profit appear?', o: ['As a single line in the income statement', 'Spread across revenue and expenses', 'In other comprehensive income only', 'Only in the notes'], a: 0, e: 'One line, usually near the bottom: "share of result of associates". None of the associate’s revenue or costs is mixed into yours, which is the visible difference from consolidation.' },
+      { t: 'tf', k: 'True or false', p: 'Under the equity method the associate’s revenue is added to the investor’s revenue.', a: false, e: 'False. Not a single euro of it. Only your share of its bottom line appears, on one line. This is why moving from the equity method to consolidation can transform reported revenue without anything changing in the business.' },
+      { t: 'mcq', k: 'Impairment', p: 'An associate’s business deteriorates badly. Under the equity method the investor must:', o: ['Test the investment for impairment and write it down if recoverable amount is lower', 'Do nothing until the stake is sold', 'Remeasure to fair value through OCI', 'Consolidate it instead'], a: 0, e: 'The carrying amount is tested like any other asset. The equity method does not protect you from a stake that has gone bad.' },
+      { t: 'mcq', k: 'Fair value stakes', p: 'A passive stake is designated at fair value through OCI. Where do the gains go?', o: ['Other comprehensive income, not profit', 'Profit or loss', 'Retained earnings directly', 'Nowhere until sale'], a: 0, e: 'Through OCI. The choice between FVTPL and FVOCI decides whether the swings hit reported profit, which is why it matters to anyone reading earnings.' },
+      { t: 'num', k: 'Reading a note', p: 'An associate balance opens at 6,696, moves +485 for exchange, +624 for the share of results, −719 for dividends and +4 for a capital increase. What is the closing balance?', a: 7090, tol: 1, e: '6,696 + 485 + 624 − 719 + 4 = 7,090. This is exactly the shape of the roll-forward every associates note carries.' },
+      { t: 'mcq', k: 'Judgment', p: 'Which of these would best support a claim of significant influence with only a 15% stake?', o: ['A seat on the board and participation in policy decisions', 'A long holding period', 'The shares being unlisted', 'A large absolute investment'], a: 0, e: 'Board representation and involvement in policy. Influence is about access to decisions, not about size or duration.' },
+    ],
+    s14: [
+      { t: 'mcq', k: 'Consolidation', p: 'Consolidating a subsidiary means the parent’s balance sheet shows:', o: ['100% of the subsidiary’s assets and liabilities, with a non-controlling interest for the share not owned', 'Its ownership percentage of each asset and liability', 'A single investment line at fair value', 'Only the goodwill arising'], a: 0, e: 'All of it, then the slice belonging to others is shown as non-controlling interest inside equity. Control is treated as all-or-nothing on the asset side.' },
+      { t: 'mcq', k: 'Consolidation', p: 'On consolidation, what happens to the investment account the parent was carrying?', o: ['It is eliminated against the subsidiary’s equity', 'It stays as an asset alongside the subsidiary’s assets', 'It becomes goodwill in full', 'It moves to non-controlling interest'], a: 0, e: 'Eliminated. Leaving it would count the same economic resource twice — once as a share certificate, once as the underlying assets.' },
+      { t: 'num', k: 'Goodwill', p: 'A parent pays 33,406 for 100% of a business whose identifiable net assets are worth 14,448. What goodwill and intangibles arise?', a: 18958, tol: 1, e: '33,406 − 14,448 = 18,958. Goodwill is what is left once every identifiable asset and liability has been recognised at fair value — the plug, not a valuation.' },
+      { t: 'mcq', k: 'Non-controlling interest', p: 'Where does non-controlling interest sit?', o: ['Within equity, separately from the parent’s shareholders', 'Within liabilities', 'Net against goodwill', 'Outside the balance sheet entirely'], a: 0, e: 'Inside equity, on its own line. It is other people’s ownership, not an obligation to pay anyone.' },
+      { t: 'mcq', k: 'Step acquisition', p: 'A company already holds a stake, then buys the rest and gains control. Under IFRS 3 the existing stake is:', o: ['Remeasured to fair value, with the gain or loss in income', 'Left at its carrying amount', 'Written off against goodwill', 'Remeasured through OCI only'], a: 0, e: 'Remeasured to fair value through profit or loss. Gaining control is treated as if you sold the old stake and bought the whole thing, so the gain that had accrued quietly gets recognised all at once.' },
+      { t: 'num', k: 'Step acquisition', p: 'The fair value of a previously held stake exceeds its carrying value by 6,216 on the day control is obtained. What is reported in income?', a: 6216, tol: 1, e: 'A gain of 6,216, in profit for the year. It is real under the standard and entirely non-cash, which is why it belongs in any discussion of earnings quality.' },
+      { t: 'tf', k: 'True or false', p: 'A step-acquisition remeasurement gain brings cash into the business.', a: false, e: 'False. Not a cent. The company revalued something it already owned because the accounting trigger of control was crossed. Analysts strip it out before judging the year.' },
+      { t: 'mcq', k: 'Effects', p: 'Moving an investee from the equity method to consolidation, with the business unchanged, does what to reported revenue?', o: ['Raises it, because the investee’s revenue is now added in', 'Leaves it unchanged', 'Lowers it', 'Raises it only if the investee is profitable'], a: 0, e: 'Raises it, often sharply. Under the equity method none of the investee’s revenue appeared; after consolidation all of it does. Growth from an accounting change is not growth.' },
+      { t: 'mcq', k: 'Effects', p: 'What does consolidation typically do to reported leverage?', o: ['Raises reported debt, because the subsidiary’s borrowings come on balance sheet', 'Lowers it', 'Leaves it unchanged', 'Removes the need to disclose it'], a: 0, e: 'The subsidiary’s liabilities arrive in full. Debt that was invisible behind a one-line investment is now on the face of the balance sheet.' },
+      { t: 'num', k: 'Effects', p: 'A subsidiary has assets of 17,461 and liabilities of 3,013. What are its identifiable net assets?', a: 14448, tol: 1, e: '17,461 − 3,013 = 14,448. This is the figure the purchase price is compared against to find goodwill.' },
+      { t: 'mcq', k: 'Analysis', p: 'Two companies are identical except one consolidates a joint operation and the other equity-accounts it. Which ratio is most distorted by the comparison?', o: ['Return on assets', 'Earnings per share', 'The dividend payout ratio', 'The effective tax rate'], a: 0, e: 'Return on assets. Net income is similar under both methods, but the asset base is far larger after consolidation, so ROA falls for reasons that have nothing to do with performance.' },
+      { t: 'mcq', k: 'Analysis', p: 'Which method leaves net income essentially the same as consolidation?', o: ['The equity method', 'Fair value through OCI', 'Cost', 'None of them'], a: 0, e: 'The equity method — it is sometimes called one-line consolidation for exactly this reason. The bottom line agrees; everything above it does not.' },
+      { t: 'num', k: 'Roll-forward', p: 'An associate balance of 7,090 is remeasured upward by 6,216 on the day control is obtained. What is the fair value of the previously held stake?', a: 13306, tol: 1, e: '7,090 + 6,216 = 13,306. That, plus the cash paid for the rest, is the consideration compared against net assets.' },
+      { t: 'num', k: 'Roll-forward', p: 'Cash of 20,100 is paid for the remaining stake, and the previously held stake is worth 13,306. What is the total consideration for goodwill purposes?', a: 33406, tol: 1, e: '20,100 + 13,306 = 33,406. The old stake counts at fair value, not at what it originally cost.' },
+      { t: 'tf', k: 'True or false', p: 'Goodwill recognised on consolidation is amortised over its useful life under IFRS.', a: false, e: 'False. It is not amortised; it is tested for impairment at least annually. That is why goodwill balances sit unchanged for years and then fall off a cliff.' },
+      { t: 'mcq', k: 'Disclosure', p: 'An associates note discloses the investee’s total assets, liabilities, revenue and profit on a 100% basis. Why does that matter to a reader?', o: ['It shows the scale hidden behind a single balance sheet line', 'It is required only for listed investees', 'It replaces the need to consolidate', 'It reconciles the tax charge'], a: 0, e: 'Because one line on the balance sheet can stand for a very large business. The note is the only place the reader sees how big the thing behind that line actually is.' },
+    ],
     s12: [
       { t: 'mcq', k: 'Concept', p: 'A liability is a present obligation to make a future sacrifice of economic benefits. Which two further tests decide whether an uncertain one goes on the balance sheet?', o: ['Probable and measurable', 'Material and audited', 'Legal and enforceable', 'Current and unsecured'], a: 0, e: 'Probable and measurable. Fail either and nothing is recognised, however genuine the worry — which is the whole of this session in one line.' },
       { t: 'mcq', k: 'Principles', p: 'Which principle explains why a probable loss is recognised but a probable gain is not?', o: ['Conservatism', 'Matching', 'Consistency', 'The going concern assumption'], a: 0, e: 'Conservatism: anticipate all losses and expenses, but defer gains until they are realised. It is why the asymmetry exists and is not an oversight.' },
@@ -4823,6 +4974,59 @@ class Component extends DCLogic {
 
   exercises = {
     fa: [
+      {
+        key: 'ex-associate', title: 'From one line to a whole balance sheet', sub: 'A 50% stake, the equity method, and what changes on the day control arrives', ses: 'Sessions 13 & 14 · Investments',
+        brief: 'A global brewer holds roughly half of a large overseas brewer and accounts for it by the equity method, because the stake carries no voting or other control. Its associates note for the year reads as below, in millions of dollars. Part-way through the following year it agrees to buy the rest of the shares for 20,100 in cash, which will give it control.\n\nWork the note first, then the consolidation.',
+        tables: [
+          { at: [0, 1, 2], title: 'Note 16 — Investment in associates', note: 'Millions of US dollars. This is the roll-forward every associates note carries.', cols: ['Amount'], rows: [
+            ['Balance at end of previous year', '6,696'],
+            ['Effect of movements in foreign exchange', '485'],
+            ['Share of results of associates', '624'],
+            ['Dividends', '(719)'],
+            ['Capital increase', '4'],
+            ['Balance at end of the period', '7,090']
+          ] },
+          { at: [3, 4, 5, 6], title: 'The investee on a 100% basis', note: 'Disclosed in the same note, because one balance sheet line can stand for a very large business.', cols: ['Amount'], rows: [
+            ['Total assets', '17,461'],
+            ['Total liabilities', '3,013'],
+            ['Net revenue for the year', '7,516'],
+            ['Profit for the year', '1,228']
+          ] }
+        ],
+        steps: [
+          { t: 'fill', p: 'The stake is about 50.3%, and the brewer still uses the equity method. Start with the note. Confirm the closing balance from the movements given.', rows: [
+            { l: 'Closing investment balance', a: 7090, tol: 1 }
+          ], why: '6,696 + 485 + 624 − 719 + 4 = 7,090. Every associates note has this shape: open, add your share of profit, take out what the investee paid you, adjust for currency, close.' },
+          { t: 'fill', p: 'Two of those movements are the equity method itself. Give the amount that went through the income statement, and the amount that reduced the asset without touching income.', rows: [
+            { l: 'Through the income statement', a: 624, tol: 1 },
+            { l: 'Reduced the asset only', a: 719, tol: 1 }
+          ], why: 'The 624 share of results is the single line of income. The 719 of dividends is the investee converting profit you already recognised into cash and handing it over — recognise it again and you would count it twice.' },
+          { t: 'fill', p: 'Given the share of results, what profit did the investee make in the year, and what percentage of it does 624 represent? (Use the 100% figures.)', rows: [
+            { l: 'Investee profit', a: 1228, tol: 1 },
+            { l: 'Share, as a percentage', a: 50.8, tol: 1.2 }
+          ], why: '624/1,228 = 50.8%, close to the 50.3% holding — the small gap is the indirect structure and timing. Note that not one dollar of the investee’s 7,516 of revenue appears in the investor’s revenue.' },
+          { t: 'fill', p: 'Now the acquisition. The investor pays 20,100 in cash for the rest, and on that day the fair value of the stake it already held exceeds its carrying value by 6,216. Give the fair value of the old stake and the total consideration.', rows: [
+            { l: 'Fair value of the previously held stake', a: 13306, tol: 2 },
+            { l: 'Total consideration', a: 33406, tol: 2 }
+          ], why: '7,090 + 6,216 = 13,306, plus 20,100 of cash = 33,406. Under IFRS 3 a step acquisition treats the old stake as if it had been sold and rebought at fair value.' },
+          { t: 'fill', p: 'What is reported in profit for the year as a result of that remeasurement, and how much cash does it bring in?', rows: [
+            { l: 'Gain in profit', a: 6216, tol: 2 },
+            { l: 'Cash received', a: 0, tol: 0 }
+          ], why: 'A gain of 6,216 and no cash at all. The company revalued something it already owned because an accounting threshold was crossed. It is correct under the standard and worthless as evidence about the year’s trading.' },
+          { t: 'fill', p: 'Give the investee’s identifiable net assets, and the goodwill and intangibles arising on consolidation.', rows: [
+            { l: 'Identifiable net assets', a: 14448, tol: 2 },
+            { l: 'Goodwill and intangibles', a: 18958, tol: 2 }
+          ], why: '17,461 − 3,013 = 14,448, and 33,406 − 14,448 = 18,958. Goodwill is the plug once everything identifiable has been recognised at fair value — not a valuation of anything in particular.' },
+          { t: 'pick', p: 'Finally, what changes in the consolidated statements once control arrives. Mark each statement true or false.', rows: [
+            { l: 'Total assets rise by about 17,461, because the investee’s assets come on in full', a: true, w: 'All of them, not the ownership share. Control is treated as all-or-nothing on the asset side.' },
+            { l: 'The 7,090 investment line disappears', a: true, w: 'Eliminated against the investee’s equity. Leaving it would count the same resource twice.' },
+            { l: 'Reported revenue rises by about 7,516 with no change in the business', a: true, w: 'Under the equity method none of it appeared; after consolidation all of it does. This is the single most misleading thing about a method change.' },
+            { l: 'Reported debt rises by the investee’s liabilities', a: true, w: 'The 3,013 arrives on the face of the balance sheet, where before it sat invisibly behind one line.' },
+            { l: 'Net income changes substantially', a: false, w: 'It does not, which is why the equity method is called one-line consolidation. The bottom line agrees; everything above it does not.' },
+            { l: 'A non-controlling interest is recognised for the part not owned', a: false, w: 'Not here — the investor bought 100%, so there is no one else left to show. Buy 80% and you would.' }
+          ], why: 'Assets, revenue and debt all jump while profit barely moves, so every margin and return ratio shifts on the day the paperwork completes. Anyone comparing the year before with the year after is comparing two different accounting policies, not two years of trading.' }
+        ]
+      },
       {
         key: 'ex-accrual', gen: 'g-accrual', title: 'Cash basis versus accrual basis', sub: 'One month, built one line at a time', ses: 'Session 03 · Income Statement',
         brief: 'Ailawadi Corporation opened on 1 January. Its cash account for the month, and the additional information gathered at month end, are set out below.',
@@ -10493,6 +10697,8 @@ class Component extends DCLogic {
       isS10: mode === 'lesson' && view === 's10',
       isS11: mode === 'lesson' && view === 's11',
       isS12: mode === 'lesson' && view === 's12',
+      isS13: mode === 'lesson' && view === 's13',
+      isS14: mode === 'lesson' && view === 's14',
       isF1: mode === 'lesson' && view === 'f1',
       isF2: mode === 'lesson' && view === 'f2',
       isF3: mode === 'lesson' && view === 'f3',
