@@ -9,5 +9,47 @@
     "does not announce itself -- add the id and it is held back, and named in",
     "the run output so you can see it was."
   ],
-  "never_publish": []
+  "never_publish": [
+    "acc-fa-assignment-5-netflix-case-may-be-turned-in-for-course",
+    "atl-community-challenge-group-submission",
+    "atl-community-challenge-individual-preparation-e1",
+    "atl-community-challenge-peer-review",
+    "life-fbl-register-your-immigration-status-during-your-stay-in",
+    "life-vlsts-validation-receipt"
+  ],
+  "_why": {
+    "life-vlsts-validation-receipt": [
+      "Immigration status. source: canvas and namespace: life, so neither the mailbox",
+      "guard nor the retake guard is meant to catch it. A dry run on 2 Oct 2026 did hold",
+      "it back -- but only because its found_only_in line happens to contain the word",
+      "'mail' ('no mail, feed or page states this'). That is a coincidence of wording,",
+      "not a guard: reword that line and it publishes.",
+      "",
+      "What it would have put on a public page: that the author may hold a French",
+      "long-stay visa still needing validation. Nobody else's business, and not undone",
+      "by deleting it later."
+    ],
+    "life-fbl-register-your-immigration-status-during-your-stay-in": [
+      "Immigration, same as life-vlsts-validation-receipt. Its title also states that her own",
+      "Canvas survey is done and when -- personal submission state, which this site withholds by",
+      "design everywhere else."
+    ],
+    "acc-fa-assignment-5-netflix-case-may-be-turned-in-for-course": [
+      "Title carries her submission timestamp, her uploaded filename and her group id",
+      "('SUBMITTED Tue 15 Sep 2026 18:25 CEST as E01-G11 Netflix Case.pdf'). The deadline itself is",
+      "cohort information; none of the rest is."
+    ],
+    "atl-community-challenge-group-submission": [
+      "Title says a groupmate submitted it and that Canvas still counts it missing against her.",
+      "Third-party action plus her own standing. Was LIVE on the public site until 2 Oct 2026."
+    ],
+    "atl-community-challenge-peer-review": [
+      "Title attributes the work to a named-by-implication groupmate 'on behalf of the team'.",
+      "Somebody else's business. Was LIVE on the public site until 2 Oct 2026."
+    ],
+    "atl-community-challenge-individual-preparation-e1": [
+      "Title explains that a Canvas 'missing' flag against her is spurious -- her own standing,",
+      "and meaningless to any other reader."
+    ]
+  }
 }
