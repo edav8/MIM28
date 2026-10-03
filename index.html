@@ -2151,23 +2151,149 @@ class Component extends DCLogic {
 
   daSessions = [
     { key: 's1', num: '01', title: 'Introduction to Uncertainty, Data, and Judgment', preview: 'Expected value, process versus outcome, the kinds of uncertainty you can control, and the two modes of thinking.' },
-    { key: 's2', num: '02', title: 'Descriptive Data Analysis', preview: 'Reading a chart honestly, mean/median/mode, range, MAD, variance, standard deviation, the coefficient of variation and the empirical rule.' },
+    { key: 's2', num: '02', title: 'Descriptive Data Analysis + Anchoring Bias', preview: 'Reading a chart honestly, mean/median/mode, range, MAD, variance, standard deviation, the coefficient of variation, the empirical rule — and the first number you hear.' },
     { key: 's3', num: '03', title: 'Binomial and Poisson Distributions', preview: 'Random variables and probability models, Bernoulli trials, the Binomial and Poisson formulas, and when each one applies.' },
-    { key: 's4', num: '04', title: 'The Normal Distribution, Functions of Random Variables, and Correlation' },
-    { key: 's5', num: '05', title: 'Sampling and the Central Limit Theorem' },
-    { key: 's6', num: '06', title: 'Estimation — Confidence Intervals' },
-    { key: 's7', num: '07', title: 'Estimation: Proportions, Margin of Error, and Sampling in Practice' },
-    { key: 's8', num: '08', title: 'Hypothesis Testing' },
-    { key: 's9', num: '09', title: 'What is Statistical Evidence?' },
-    { key: 's10', num: '10', title: 'Simple Regression & Practical Data Analysis Pipeline II' },
-    { key: 's11', num: '11', title: 'Statistical Inference in Simple Regression Models' },
-    { key: 's12', num: '12', title: 'Multiple Regression' },
-    { key: 's13', num: '13', title: 'Multicollinearity and Model Selection' },
-    { key: 's14', num: '14', title: 'Model Validation, Autocorrelations, and Outliers' },
-    { key: 's15', num: '15', title: 'Applying Regression and Course Synthesis' }
+    { key: 's4', num: '04', title: 'The Normal Distribution, Functions of Random Variables, and Correlation', preview: 'Standardising, reading the table, what happens to a random variable when you scale or add them, covariance, correlation and the arithmetic of diversification.' },
+    { key: 's5', num: '05', title: 'Sampling and the Central Limit Theorem', preview: 'What a random sample has to satisfy, the sampling distribution of the mean, the standard error and the root-n law.' },
+    { key: 's6', num: '06', title: 'More on the CLT + Availability Bias', preview: 'The central limit theorem put to work on a real series, the normal approximation to a binomial, and the bias that makes vivid events feel frequent.' },
+    { key: 's7', num: '07', title: 'Confidence Intervals for Means & Proportions', preview: 'From a point estimate to an interval, when t replaces z, degrees of freedom, and what the 95% actually refers to.' },
+    { key: 's8', num: '08', title: 'Estimation III + Overconfidence Bias', preview: 'Margin of error, the sample size a given precision demands, and why 90% intervals contain the truth far less than 90% of the time.' },
+    { key: 's9', num: '09', title: 'Hypothesis Testing I', preview: 'The null and the alternative, the test statistic, one tail or two, and the two ways a test can be wrong.' },
+    { key: 's10', num: '10', title: 'Hypothesis Testing II', preview: 'p-values and what they do not mean, the cost of each error, power, and how significance is manufactured.' },
+    { key: 's11', num: '11', title: 'Hypothesis Testing III & Linear Regression I', preview: 'The testing recipe end to end, then the first regression: least squares, the fitted line, residuals and why you plot first.' },
+    { key: 's12', num: '12', title: 'Simple Linear Regression', preview: 'Inference on a slope — standard errors, t-tests, intervals, R-squared, and prediction against confidence intervals.' },
+    { key: 's13', num: '13', title: 'Multiple Regression, Multicollinearity and Model Selection', preview: 'Several predictors at once, holding others constant, what correlated predictors do to the standard errors, and choosing between models on adjusted R-squared.' },
+    { key: 's14', num: '14', title: 'Model Validation, Autocorrelations, and Outliers', preview: 'The four assumptions and the plot that tests each one, Durbin–Watson, heteroskedasticity, outliers and spurious trends.' },
+    { key: 's15', num: '15', title: 'Applying Regression and Course Synthesis', preview: 'Where the course lands: logistic regression, what machine learning trades away, and the pitfalls worth carrying out of it.' }
   ];
   daBuilt = { s1: true, s2: true, s3: true, s4: true, s5: true, s6: true, s7: true, s8: true, s9: true, s10: true, s11: true, s12: true, s13: true, s14: true, s15: true };
   daLessons = {
+    s1: [
+      { t: 'h', text: 'Was that a good bet?' },
+      { t: 'p', text: 'Heads you earn €30 (€50 less the €20 stake); tails you lose €20. The expected value of the profit is positive, so the bet is worth taking — whether or not this particular flip goes your way.' },
+      { t: 'f', text: 'EV = 0.5 × (+€30) + 0.5 × (−€20) = +€5', note: 'In general EV = Σ pₖ vₖ over K outcomes with probabilities pₖ and payoffs vₖ.' },
+      { t: 'h', text: 'Process versus outcome' },
+      { t: 'p', text: 'A good process with a bad outcome is bad luck; a bad process with a good outcome is dumb luck. Only the process is under your control, so that is what you judge a decision on.' },
+      { t: 'tbl', label: 'The four cases', head: ['', 'Good outcome', 'Bad outcome'], rows: [ { cells: ['Good process', 'Well deserved', 'Bad luck'] }, { cells: ['Bad process', 'Dumb luck', 'Poetic justice'] } ] },
+      { t: 'h', text: 'What the course is about' },
+      { t: 'p', text: 'In management, data analysis is the pipeline for decision making under uncertainty. Three questions run through the whole course.' },
+      { t: 'ul', items: ['Uncertainty: how do I make sense of the possibilities surrounding this decision?', 'Data: how do I use data to model, and reduce, that uncertainty?', 'Judgment: how do I make good decisions using the model, the data and my intuition?'] },
+      { t: 'h', text: 'Types of uncertainty' },
+      { t: 'p', text: 'Klaus the Swiss-German banker had great control over subway uncertainty and none at all over coconut uncertainty. The first question about any uncertainty is which kind it is.' },
+      { t: 'note', label: 'A black swan or a mere coconut?', text: 'Goldman Sachs reported “25-standard-deviation moves, several days in a row” in August 2007. Either the world was staging a once-in-100,000-years event, or the model was wrong. Heavy tails are usually the second.' },
+      { t: 'h', text: 'Three stages of data analysis' },
+      { t: 'ul', items: ['Exploratory: what does the data actually look like? EDA is how you avoid the coconuts.', 'Inferential: given the data, what model of uncertainty can I infer?', 'Predictive: what does the inferred model say about what happens next?'] },
+      { t: 'h', text: 'Judgment: two modes of thinking' },
+      { t: 'p', text: '2 + 2 is answered instantly; 17 × 24 is not. Most of the brain is devoted to System 1, fast and intuitive. System 2, slow and reasoned, costs effort — which is exactly why biases survive.' },
+      { t: 'note', label: 'Not examinable', text: 'The judgment mini-modules are breaks from the technical content. They do not appear in the exercises or the final exam.' },
+      { t: 'h', text: 'Which uncertainties can you control?' },
+      { t: 'p', text: 'The session works through cases where the answer differs. A US presidential election is forecast rather than controlled. A day in the financial market has tails heavier than the model allows for. And a great deal of what happens to a person is neither lifestyle nor genetics.' },
+      { t: 'note', label: 'Cancer: lifestyle and genetics, or bad luck?', text: '“While it sometimes does come down to lifestyle and genetics, researchers have found that most of the time it is something else entirely: a simple matter of (bad) luck.” A Johns Hopkins analysis attributes about 65% of the difference in cancer risk to random mutation.' },
+      { t: 'h', text: 'The illusion of control' },
+      { t: 'p', text: 'The trap runs the other way too: treating a coconut as a subway. Believing an uncertainty is controllable when it is not produces confident decisions with no basis, and the confidence is what does the damage.' },
+      { t: 'note', label: 'Bubbles, time and time again', text: '“Financial markets are like champagne: if there are no bubbles no one will drink them.” — a senior Chinese government official, 2007. “We have never been able to model successfully the transition from euphoria to fear.” — Alan Greenspan, Financial Times, March 2009.' },
+      { t: 'h', text: 'What data is for' },
+      { t: 'p', text: 'Data does not remove uncertainty; it models and reduces it. John Snow mapped cholera deaths onto a street plan and found the Broad Street pump — modern epidemiology begins with someone looking at the data rather than reasoning from theory about bad air.' },
+      { t: 'h', text: 'Where the course goes' },
+      { t: 'tbl', label: 'Course outline', head: ['Topic', 'Sessions'], rows: [ { cells: ['Describing data — intro to UDJ, exploratory data analysis', '1–2'] }, { cells: ['Modelling uncertainty — binomial, Poisson, normal', '3–4'] }, { cells: ['Sampling and estimation — collecting data, the CLT, confidence intervals', '5–7'] }, { cells: ['Hypothesis testing — quantifying evidence, p-values', '8–9'] }, { cells: ['Regression — simple, multiple, and model selection', '10–15'] } ] },
+      { t: 'h', text: 'The class survey' },
+      { t: 'p', text: 'Two parts, due by 17:00 the day after the session, anonymous and ungraded. Answer the judgment part instinctively and without looking anything up — the point is to measure the cohort\'s intuition, so a researched answer spoils the data.' },
+      { t: 'ul', items: ['The judgment survey: multiple-choice questions on the cohort\'s own biases, revisited later in the course.', 'The class data survey: the numbers the course then uses as its own dataset, including measuring your second and fourth finger lengths in centimetres, without the fingernail.'] },
+      { t: 'h', text: 'Ground rules, and the evidence behind them' },
+      { t: 'p', text: 'Attendance is scanned by QR code before class; three absences are allowed and more is a fail. No laptops, phone in your bag, pen and paper or a tablet. The rules are not arbitrary — each one has a study behind it.' },
+      { t: 'ul', items: ['Ward et al. (2017), “Brain Drain”: the mere presence of your own smartphone reduces available cognitive capacity — face down on the desk is not enough.', 'Sana et al. (2013): laptop multitasking hinders learning for the user and for the peers seated nearby.', 'Mueller & Oppenheimer (2014), “The Pen Is Mightier Than the Keyboard”: longhand notes beat laptop notes, because writing forces you to compress rather than transcribe.'] }
+        ],
+    s2: [
+      { t: 'h', text: 'Visualisation, read critically' },
+      { t: 'p', text: 'Visuals move people even when fabricated. Before believing a chart, check the vertical axis, the horizontal axis, the numbers displayed and which measure is being shown. A log scale can make a trend easier or harder to see, and both are choices someone made.' },
+      { t: 'ul', items: ['Zooming the vertical axis turns a flat record into a dramatic one — Usain Bolt’s 100m record is the classic case.', 'Histograms and bar charts are the recommended defaults.', 'Visualisation tells you which uncertainties are present and can be modelled.'] },
+      { t: 'h', text: 'The central value' },
+      { t: 'f', text: 'μ = (x₁ + x₂ + ⋯ + x_N) / N', note: 'The mean is intuitive but not robust: replacing 90 with 96,480 in 30, 40, 50, 60, 70, 80, 90 moves the mean from 60 to 13,830.' },
+      { t: 'ul', items: ['Median: the middle value when sorted (average the middle two if N is even). Robust to outliers — it stays at 60 in the example above.', 'Mode: the most frequent value. Defined for non-numeric data too, and not well defined when firsts tie.'] },
+      { t: 'note', label: 'Simpson’s paradox', text: 'In the court case, women were paid less than men on average in both departments — yet overall women earned more. Aggregation can reverse a comparison.' },
+      { t: 'h', text: 'The spread' },
+      { t: 'f', text: 'Range = max{x} − min{x}   ·   MAD = (1/N) Σ |xᵢ − μ|   ·   σ² = (1/N) Σ (xᵢ − μ)²', note: 'The worked example: MAD = (9 + 16 + 6 + 12 + 7 + 20)/6 = 11.7; σ² = (81 + 256 + 36 + 144 + 49 + 400)/6 = 161; σ = √161 ≈ 12.7.' },
+      { t: 'p', text: 'Because the variance squares everything it is not in comparable units. The standard deviation is the square root of the variance, back in the units of the data.' },
+      { t: 'h', text: 'Coefficient of variation' },
+      { t: 'f', text: 'CV = (σ / μ) × 100%', note: 'Risk per unit of return. At a given target return, how much risk am I bearing? Interest-free leverage can deliver the same 8% gain at lower CV.' },
+      { t: 'h', text: 'The normal empirical rule' },
+      { t: 'p', text: 'For roughly bell-shaped data, about 68% of observations fall within one standard deviation of the mean, about 95% within two, and about 99.7% within three.' },
+      { t: 'note', label: 'Worked in class', text: 'Mean starting salary €160,000 with σ = €20,000. Approximately 95% of starting salaries fall between €120,000 and €200,000 — provided the distribution really is bell-shaped.' },
+      { t: 'h', text: 'Anchoring bias' },
+      { t: 'p', text: 'People rely too heavily on the first piece of information offered, even when it is irrelevant or manipulative: the UN member-count anchors of 300 versus 95, the USD/EUR anchors of 0.90 versus 1.50, Attila the Hun and your phone number. Prepare independently before meetings, ask whether you have explored enough alternatives, and in a negotiation speak first to set the frame.' },
+      { t: 'note', label: 'Three kinds of lies', text: '“There are three kinds of lies: lies, damned lies, and statistics.” — Mark Twain, who attributed it to Benjamin Disraeli. The session opens on how far a chart can mislead while every number on it is true.' },
+      { t: 'h', text: 'Mode, including on non-numeric data' },
+      { t: 'ul', items: ['30, 40, 50, 60, 70, 70, 80, 90 → mode 70. When firsts tie the mode is not well defined; take one at random.', 'A, A, B, B, B, C, D, F, F → mode B. The mode is the only one of the three that works on categories, which is why it is the “most likely outcome” for discrete data.'] },
+      { t: 'h', text: 'The birthday bet' },
+      { t: 'p', text: 'The claim: at least two people in this section share a birthday. Bet €10 against it and win €20 if no two match. With 99 students the chance of no match is about 1 in 2.4 million — the bet is close to free money for the person offering it.' },
+      { t: 'f', text: 'ℙ(at least one match) = 1 − (364/365) × (363/365) × ⋯ × ((365 − n + 1)/365)', note: 'Intuition fails because you count people, not pairs. With n = 99 there are n(n−1)/2 = 99 × 98 / 2 = 4,851 comparisons, not 99.' },
+      { t: 'h', text: 'Reading for this session' },
+      { t: 'ul', items: ['S02.1 — “The hidden traps in decision making” (Hammond, Keeney and Raiffa), the anchoring material.', 'S02.2 — Descriptive Statistics, pp. 89–97.', 'S02.3 — Hanke & Reitsch, Measures of Variability and Measures of Position, pp. 104–112, via the Doriot Library: copyright means the chapter PDFs are not on the LMS.', 'Dig deeper: “Freud, Finance and Folly” and “Doctor’s orders”.'] },
+      { t: 'note', label: 'When the empirical rule fails', text: 'It assumes a roughly bell-shaped distribution. On skewed data — salaries with a few very large ones, or anything with heavy tails — two standard deviations will not hold 95%, and the rule quietly overstates how much you know.' }
+        ],
+    s3: [
+      { t: 'h', text: 'Random variables and probability models' },
+      { t: 'p', text: 'A random variable X is an uncertain outcome of interest that has not been realised yet: tomorrow’s commute time, the next coin flip, the number of website visits between 10pm and midnight. Capital letters mark the variable as random. A probability model ℙ assigns a probability to every value X can take, and those probabilities must sum to 1.' },
+      { t: 'tbl', label: 'A discretised model for Klaus’ commute', head: ['Value of X', 'Probability'], rows: [ { cells: ['35', '0.1'] }, { cells: ['40', '0.2'] }, { cells: ['45', '0.4'] }, { cells: ['50', '0.2'] }, { cells: ['55', '0.1'] }, { cells: ['Total', '1.0'] } ] },
+      { t: 'f', text: 'E[X] = Σₓ ℙ(X = x)·x   ·   Var[X] = Σₓ ℙ(X = x)·(x − μ)²', note: 'For the table above: E[X] = 45 and Var[X] = 30. The mean is a weighted average of the values; the variance a weighted average of squared deviations.' },
+      { t: 'h', text: 'Bernoulli: the coin-flip model' },
+      { t: 'f', text: 'ℙ(X = x) = pˣ(1 − p)¹⁻ˣ for x = 0 or 1', note: 'E[X] = p and Var[X] = p(1 − p). The parameter p is the bias of the coin.' },
+      { t: 'h', text: 'The Binomial model' },
+      { t: 'ul', items: ['There are n trials with two possible outcomes each.', 'Every trial has the same Bernoulli model: ℙ(success) = p.', 'All trials are independent. X = the number of successes in the n trials.'] },
+      { t: 'f', text: 'ℙ(X = x) = C(n, x) pˣ(1 − p)ⁿ⁻ˣ = n!/(x!(n − x)!) · pˣ(1 − p)ⁿ⁻ˣ', note: 'E[X] = np and Var[X] = np(1 − p).' },
+      { t: 'p', text: 'With three fair coin flips the probabilities are 1/8, 3/8, 3/8, 1/8, giving E[X] = 1.5, Var[X] = np(1 − p) = 0.75 and SD ≈ 0.866. With four flips the numerators are the binomial coefficients 1, 4, 6, 4, 1 over 16, giving E[X] = 2.0 and Var[X] = 1.0.' },
+      { t: 'note', label: 'Why the variance measures uncertainty', text: 'p(1 − p) is largest at p = 0.5. A 50% chance of rain is the most uncertain forecast there is; 0% or 100% carry almost none.' },
+      { t: 'h', text: 'The Poisson model' },
+      { t: 'p', text: 'Instead of n fixed trials, count the number of arrivals over indefinitely many independent trials within a fixed period: customers per day, website visits between 10pm and midnight, patients in an emergency room, goals in a football match.' },
+      { t: 'f', text: 'ℙ(X = x) = λˣe^(−λ) / x!   for x = 0, 1, 2, …', note: 'E[X] = λ and Var[X] = λ.' },
+      { t: 'p', text: 'Poisson arises as the limit of many independent Bernoulli trials with a small success rate, where λ ≈ np. The process is memoryless: the past does not affect future counts.' },
+      { t: 'note', label: 'Binomial or Poisson?', text: 'Ask whether you know n. Meals served by the cafeteria in an hour, red giant stars in a volume of space, chocolate chips in a cookie — no fixed n, so Poisson. Deaths in a year among a known set of policyholders — n is known, so Binomial.' },
+      { t: 'h', text: 'Data analysis in the era of AI' },
+      { t: 'ul', items: ['Stochasticity: no two responses, reasoning chains or analyses are the same.', 'No faithful explanation: you cannot know how it reached the answer.', 'Pattern matching versus reasoning, and the model decides which it uses.', 'Tokens versus numbers: large numbers are not encoded as single numbers.', 'Version issues: different models, different contexts, different times.'] },
+      { t: 'p', text: 'The guidelines: ask for code, because procedural solutions are verifiable and reproducible; take care of data hygiene, since cleaning needs context the model does not have; cross-check with another model; sharpen your eyes, because the chart is your responsibility; be the pilot, not the passenger.' },
+      { t: 'note', label: 'Not on the final', text: 'The AI mini-module is not examinable.' },
+      { t: 'note', label: 'A slip in the handout', text: 'The Session 03 slide for three fair coin flips prints 0.866 against the label “Variance”. For Bin(3, 0.5) the variance is np(1 − p) = 0.75; 0.866 is the standard deviation, √0.75. The four-flip slide is right because there Var = 1.0 and SD = 1.0 coincide.' },
+      { t: 'h', text: 'Why model at all' },
+      { t: 'p', text: 'Every decision is about an outcome that has not happened yet. A probability model is an assumption about how your data was generated — and the data, in turn, is what tells you which model describes it. The two directions are the whole course in one line.' },
+      { t: 'h', text: 'Worked: morning people' },
+      { t: 'p', text: 'In a random group of five, with a 40% chance each is a morning person, X ~ Bin(5, 0.4).' },
+      { t: 'ul', items: ['No morning people: ℙ(X = 0) = 0.6⁵ = 0.0778.', 'Exactly two: ℙ(X = 2) = C(5,2)(0.4)²(0.6)³ = 0.3456.', 'At least two: 1 − ℙ(0) − ℙ(1) = 0.6630. Always go via the complement rather than summing the tail.'] },
+      { t: 'h', text: 'Worked: emergency room staffing' },
+      { t: 'p', text: 'Two cases arrive per eight-hour shift on average. For the first four hours the rate halves, so λ = 1 and X ~ Pois(1). The probability of no cases is e⁻¹ = 0.3679. Rescaling λ with the window is the step people miss.' },
+      { t: 'note', label: 'Only 14 of 900', text: 'U.S. News & World Report (8 July 1996) reported that of 900 diversified equity funds alive at the end of 1990, only 14 beat the S&P 500 year in, year out. The binomial asks the right question: how many would you expect to manage that by chance alone?' },
+      { t: 'note', label: 'Is it safe to fly?', text: 'If crashes were rare independent events — Poisson — then clusters in some decades are exactly what you should expect. A run of accidents is not evidence that flying got more dangerous.' },
+      { t: 'h', text: 'Reading for this session' },
+      { t: 'ul', items: ['S03.1 — The Binomial Distribution, pp. 146–149.', 'S03.2 — The Poisson Distribution, pp. 161–164.', 'The binomial and Poisson tables are in the course statistical tables — and this trainer computes both live under Statistical tables, so you can check a table reading against the formula.'] }
+        ],
+    s4: [
+      { t: 'h', text: 'The normal distribution' },
+      { t: 'p', text: 'A continuous distribution fixed entirely by two numbers: its mean and its standard deviation. Symmetric about the mean, with the familiar bell shape, and — unlike the binomial or Poisson — defined over a continuum, so probabilities attach to intervals rather than to single values.' },
+      { t: 'f', text: 'X ~ N(μ, σ²)', note: 'ℙ(X = x) = 0 for any single x. Only ℙ(a < X < b) is meaningful, which is the area under the curve between a and b.' },
+      { t: 'note', label: 'The empirical rule, again', text: 'About 68% of the distribution lies within one standard deviation of the mean, 95% within two and 99.7% within three. For a genuine normal these are exact to the decimals shown; the Session 02 version was the same rule applied loosely to any bell-shaped data.' },
+      { t: 'h', text: 'Standardising' },
+      { t: 'p', text: 'Every normal question becomes the same question once you standardise. Subtract the mean and divide by the standard deviation, and any normal turns into the standard normal — mean 0, standard deviation 1 — which is the only one the tables carry.' },
+      { t: 'f', text: 'Z = (X − μ) / σ,   Z ~ N(0, 1)', note: 'z is a distance measured in standard deviations. z = 1.5 means “one and a half standard deviations above the mean”, whatever the original units were.' },
+      { t: 'p', text: 'Reading the table gives ℙ(Z < z). Everything else comes from symmetry and complements: ℙ(Z > z) = 1 − ℙ(Z < z), and ℙ(Z < −z) = ℙ(Z > z).' },
+      { t: 'h', text: 'Worked: salaries' },
+      { t: 'p', text: 'Starting salaries are normal with mean €160,000 and σ = €20,000. What share exceeds €190,000?' },
+      { t: 'ul', items: ['Standardise: z = (190,000 − 160,000) / 20,000 = 1.5.', 'The table gives ℙ(Z < 1.5) = 0.9332.', 'So ℙ(X > 190,000) = 1 − 0.9332 = 0.0668, about one in fifteen.'] },
+      { t: 'h', text: 'Linear functions of a random variable' },
+      { t: 'p', text: 'Scaling and shifting a random variable does predictable things to its mean and spread — and the two behave differently, which is the point worth remembering.' },
+      { t: 'f', text: 'E[aX + b] = a·E[X] + b   ·   SD(aX + b) = |a|·SD(X)', note: 'Adding a constant moves the mean and leaves the spread alone. Multiplying scales both — and the absolute value matters, since a negative a still widens rather than narrows.' },
+      { t: 'note', label: 'Notation', text: 'The course convention: fixed numbers are lower-case Latin (a, b, c), random variables are upper-case (X, Y, Z), and parameters are lower-case Greek (μ, σ, ρ).' },
+      { t: 'h', text: 'Covariance and correlation' },
+      { t: 'p', text: 'With two random variables the question becomes how they move together. Covariance measures that, but in the product of their units, which makes it impossible to interpret on its own. Dividing by both standard deviations strips the units out and bounds the result.' },
+      { t: 'f', text: 'Cov(X, Y) = E[(X − μₓ)(Y − μᵥ)] = E[XY] − μₓμᵥ', note: 'Positive when they tend to move together, negative when one rises as the other falls, zero when there is no linear relationship — which is not the same as no relationship at all.' },
+      { t: 'f', text: 'ρ = Cov(X, Y) / (σₓ σᵥ)   ·   Cov(X, Y) = ρ σₓ σᵥ', note: 'ρ always lies between −1 and +1. Read it as the strength of the LINEAR relationship: a perfect parabola has ρ near zero.' },
+      { t: 'p', text: 'A positive linear transformation leaves correlation untouched — measuring in dollars rather than cents changes nothing. If the two scalings have opposite signs, the correlation keeps its size and flips its sign.' },
+      { t: 'h', text: 'Sums, and why diversification works' },
+      { t: 'f', text: 'E[aX + bY] = a·E[X] + b·E[Y]   ·   Var(aX + bY) = a²σₓ² + b²σᵥ² + 2ab·Cov(X, Y)' },
+      { t: 'p', text: 'The expectation of a sum is always the sum of the expectations. The variance is not — it carries a covariance term, and that term is the whole of portfolio theory. Independent holdings let losses in one offset gains in the other; two shares of the same company simply double both.' },
+      { t: 'note', label: 'Worked: two assets', text: 'Hold 2 units of X and 3 units of Y, each with mean 100 and σ = 10. If they are independent, Var = 4(100) + 9(100) = 1,300 and σ ≈ 36.1. If instead ρ = −0.4, then Cov = −0.4 × 10 × 10 = −40, so Var = 1,300 + 2(2)(3)(−40) = 820 and σ ≈ 28.6. Same expected return, materially less risk — which is the sense in which negative correlation is worth paying for.' },
+      { t: 'h', text: 'Reading for this session' },
+      { t: 'ul', items: ['S04.1 — The Normal Distribution, pp. 192–208. A licensed reprint: read it on the LMS rather than copying it out.', 'S04.2 — Note on Covariance, Correlation and Linear Functions of Random Variables, which is where the rules above come from.', 'Dig deeper: “In Plato’s Cave” (Taleb), on mistaking the model for the world.'] },
+      { t: 'note', label: 'Written from the readings, not the deck', text: 'The Session 04 slides were not among the handouts available when this was written, so the normal-distribution material here is standard statistical content and the covariance rules come from S04.2. Check it against the slides when they are posted.' }
+        ],
     s5: [
       { t: 'h', text: 'Why sample at all' },
       { t: 'p', text: 'You almost never see the population. Measuring all of it is too slow, too expensive or impossible, so you take a sample and reason back. The whole of inference is the price you pay for that shortcut, and the point of the session is to price it exactly rather than hope.' },
@@ -2201,8 +2327,20 @@ class Component extends DCLogic {
       ] },
       { t: 'p', text: 'Four times the data, half the standard error \u2014 the \u221an law in two rows. The two sample means differ by 22, which is well inside what a standard error of 62.6 would lead you to expect. Neither is wrong; they are two draws from the same sampling distribution.' },
       { t: 'note', label: 'What the CLT explains beyond inference', text: 'It also explains why so much real data looks normal without anyone arranging it. Height is the sum of many small independent influences \u2014 genetics, nutrition, sleep. So are sales, customer arrivals and measurement errors, which is where Gauss found it. Galton called it the supreme law of Unreason, and the line is worth having: \u201cThe huger the mob, and the greater the apparent anarchy, the more perfect is its sway.\u201d \u2014 Francis Galton, Natural Inheritance, 1889.' }
-    ],
+        ],
     s6: [
+      { t: 'h', text: 'The theorem, put to work' },
+      { t: 'p', text: 'Session 5 stated the central limit theorem. This one uses it, and the use is the lesson: once you know a sample mean is approximately normal, every question about "how likely is a run like this?" becomes a z-score. The worked example in class is a share price. Sixty trading days, each either up or down; if the market is a coin, the number of up days is Binomial(60, 0.5). That is a count, but a count is a sum of sixty independent 0/1 draws, so the theorem applies to it directly.' },
+      { t: 'f', text: 'Bin(n, p) \u2248 N(np, np(1 \u2212 p))   when np \u2265 5 and n(1 \u2212 p) \u2265 5', note: 'Mean np, variance np(1 \u2212 p). The rule of thumb matters: with a small p the binomial is bunched against zero and a symmetric normal fits it badly.' },
+      { t: 'p', text: 'Because the binomial counts whole things and the normal does not, a half-unit continuity correction is applied: "36 or more" becomes "beyond 35.5". It is a small adjustment that matters most where the numbers are small, and leaving it out makes a run look more unusual than it was.' },
+      { t: 'h', text: 'The same move on a proportion' },
+      { t: 'p', text: 'A proportion is a mean of 0s and 1s, so nothing new is needed for it. The sampling distribution of p\u0302 is approximately normal with standard error \u221a(p(1 \u2212 p)/n). That one line is what every poll and every margin of error in the next two sessions is built on.' },
+      { t: 'f', text: 'SE(p\u0302) = \u221a(p(1 \u2212 p)/n)', note: 'Largest at p = 0.5, which is why sample-size planning assumes the worst case when nothing is known.' },
+      { t: 'h', text: 'Availability bias' },
+      { t: 'p', text: 'The judgment half of the session. People estimate how likely something is by how easily an example comes to mind, which is not the same thing as how often it happens. Vivid, recent and widely reported events are over-weighted; quiet, common ones are under-weighted. Shark attacks against falling furniture is the standard pairing, and it runs the same way in business: the spectacular failure everybody remembers crowds out the base rate.' },
+      { t: 'p', text: 'The remedy is procedural rather than mental. Look the base rate up before estimating, and notice when your evidence is a story you can recall rather than a number you have checked.' }
+    ],
+    s7: [
       { t: 'h', text: 'From a point to an interval' },
       { t: 'p', text: 'x̄ is a point estimate: one number, certain to be wrong by some amount you cannot see. A confidence interval reports the estimate together with how far off it plausibly is, which is the honest version of the same answer.' },
       { t: 'f', text: 'x̄ ± z · σ/√n', note: 'The standard error from Session 05, scaled by how confident you want to be. z = 1.645 for 90%, 1.96 for 95%, 2.576 for 99%.' },
@@ -2240,8 +2378,8 @@ class Component extends DCLogic {
         { cells: ['\u22121.0', '$500', '0'] }
       ] },
       { t: 'note', label: 'Worth remembering', text: 'Diversification is the only thing in finance that improves one side of the trade-off without costing you the other \u2014 and it works through correlation, which is why two assets that both look safe alone can be dangerous together if they fall at the same time.' }
-    ],
-    s7: [
+        ],
+    s8: [
       { t: 'h', text: 'Intervals for a proportion' },
       { t: 'p', text: 'Categorical outcomes — voted or did not, clicked or did not — are counts, and the same machinery applies with the binomial standard deviation in place of σ.' },
       { t: 'f', text: 'p̂ ± z · √(p̂(1 − p̂) / n)', note: 'p̂ is the sample proportion. The standard error is largest at p̂ = 0.5 and shrinks towards either end, which is why a 50/50 split is the hardest thing to measure precisely.' },
@@ -2278,8 +2416,8 @@ class Component extends DCLogic {
       { t: 'h', text: 'When \u03c3 is unknown, which is always' },
       { t: 'f', text: 'SE\u0302 = s\u2099/\u221an', note: 'In large samples, replacing \u03c3 with the sample standard deviation gives a valid interval. s\u2099\u00b2 divides by n \u2212 1 because that makes it unbiased for \u03c3\u00b2. Note the small print: s\u2099\u00b2 is unbiased for \u03c3\u00b2, but s\u2099 is still slightly biased for \u03c3.' },
       { t: 'note', label: 'Proportions are the same machinery', text: 'For a binary outcome the mean is a proportion, and everything follows from p\u0302 alone: the sample variance is p\u0302(1 \u2212 p\u0302) and the standard error \u221a(p\u0302(1 \u2212 p\u0302)/n). One caution the handout flags \u2014 the approximation breaks down for genuinely rare events, roughly when p \u2264 1/n.' }
-    ],
-    s8: [
+        ],
+    s9: [
       { t: 'h', text: 'The shape of a test' },
       { t: 'p', text: 'Hypothesis testing is a procedure for deciding whether a claim about a population survives contact with a sample. It is deliberately asymmetric: one hypothesis is on trial and the other is presumed until the evidence is strong enough to abandon it.' },
       { t: 'ul', items: ['H₀, the null: the claim of no effect, no difference, nothing going on. This is what is presumed.', 'H₁, the alternative: what you actually suspect, and what the data must earn.', 'You never prove H₀. You either reject it or fail to reject it — which is not the same as accepting it.'] },
@@ -2293,8 +2431,8 @@ class Component extends DCLogic {
       { t: 'note', label: 'One tail or two', text: 'Use one tail only when you genuinely care about a single direction, and decide before you look. Switching to a one-tailed test after seeing which way the data went halves your p-value without any new evidence, which is cheating with extra steps.' },
       { t: 'h', text: 'This session' },
       { t: 'ul', items: ['Reading: S08.1 — Hypothesis Testing, pp. 289–309, with pp. 289–301 the focus for this session.', 'Exercises: Set 9, first part. No graded online exercise this session.'] }
-    ],
-    s9: [
+        ],
+    s10: [
       { t: 'h', text: 'What counts as evidence' },
       { t: 'p', text: 'A test gives a verdict; evidence is a matter of degree. The session steps back from reject-or-not and asks how strongly a sample speaks against a hypothesis — and the standard answer, for better and worse, is the p-value.' },
       { t: 'f', text: 'p = ℙ(a result at least this extreme | H₀ is true)', note: 'Read the conditioning bar carefully. It assumes the null and asks about the data. It does not assume the data and give you the probability of the null.' },
@@ -2309,134 +2447,8 @@ class Component extends DCLogic {
       { t: 'note', label: 'The fix is procedural', text: 'Decide the analysis before the data, say how many tests you ran, correct for them, and prefer estimates with intervals to verdicts. A pre-registered plan is not bureaucracy — it is what makes the p-value mean what it claims.' },
       { t: 'h', text: 'This session' },
       { t: 'ul', items: ['Reading: “Trampling Science in a Rush to Judgment”, and re-read S08.1 pp. 302–309.', 'Exercises: Set 9, continued. Graded online exercise: 9.2, due before Session 10.'] }
-    ],
-    s4: [
-      { t: 'h', text: 'The normal distribution' },
-      { t: 'p', text: 'A continuous distribution fixed entirely by two numbers: its mean and its standard deviation. Symmetric about the mean, with the familiar bell shape, and — unlike the binomial or Poisson — defined over a continuum, so probabilities attach to intervals rather than to single values.' },
-      { t: 'f', text: 'X ~ N(μ, σ²)', note: 'ℙ(X = x) = 0 for any single x. Only ℙ(a < X < b) is meaningful, which is the area under the curve between a and b.' },
-      { t: 'note', label: 'The empirical rule, again', text: 'About 68% of the distribution lies within one standard deviation of the mean, 95% within two and 99.7% within three. For a genuine normal these are exact to the decimals shown; the Session 02 version was the same rule applied loosely to any bell-shaped data.' },
-      { t: 'h', text: 'Standardising' },
-      { t: 'p', text: 'Every normal question becomes the same question once you standardise. Subtract the mean and divide by the standard deviation, and any normal turns into the standard normal — mean 0, standard deviation 1 — which is the only one the tables carry.' },
-      { t: 'f', text: 'Z = (X − μ) / σ,   Z ~ N(0, 1)', note: 'z is a distance measured in standard deviations. z = 1.5 means “one and a half standard deviations above the mean”, whatever the original units were.' },
-      { t: 'p', text: 'Reading the table gives ℙ(Z < z). Everything else comes from symmetry and complements: ℙ(Z > z) = 1 − ℙ(Z < z), and ℙ(Z < −z) = ℙ(Z > z).' },
-      { t: 'h', text: 'Worked: salaries' },
-      { t: 'p', text: 'Starting salaries are normal with mean €160,000 and σ = €20,000. What share exceeds €190,000?' },
-      { t: 'ul', items: ['Standardise: z = (190,000 − 160,000) / 20,000 = 1.5.', 'The table gives ℙ(Z < 1.5) = 0.9332.', 'So ℙ(X > 190,000) = 1 − 0.9332 = 0.0668, about one in fifteen.'] },
-      { t: 'h', text: 'Linear functions of a random variable' },
-      { t: 'p', text: 'Scaling and shifting a random variable does predictable things to its mean and spread — and the two behave differently, which is the point worth remembering.' },
-      { t: 'f', text: 'E[aX + b] = a·E[X] + b   ·   SD(aX + b) = |a|·SD(X)', note: 'Adding a constant moves the mean and leaves the spread alone. Multiplying scales both — and the absolute value matters, since a negative a still widens rather than narrows.' },
-      { t: 'note', label: 'Notation', text: 'The course convention: fixed numbers are lower-case Latin (a, b, c), random variables are upper-case (X, Y, Z), and parameters are lower-case Greek (μ, σ, ρ).' },
-      { t: 'h', text: 'Covariance and correlation' },
-      { t: 'p', text: 'With two random variables the question becomes how they move together. Covariance measures that, but in the product of their units, which makes it impossible to interpret on its own. Dividing by both standard deviations strips the units out and bounds the result.' },
-      { t: 'f', text: 'Cov(X, Y) = E[(X − μₓ)(Y − μᵥ)] = E[XY] − μₓμᵥ', note: 'Positive when they tend to move together, negative when one rises as the other falls, zero when there is no linear relationship — which is not the same as no relationship at all.' },
-      { t: 'f', text: 'ρ = Cov(X, Y) / (σₓ σᵥ)   ·   Cov(X, Y) = ρ σₓ σᵥ', note: 'ρ always lies between −1 and +1. Read it as the strength of the LINEAR relationship: a perfect parabola has ρ near zero.' },
-      { t: 'p', text: 'A positive linear transformation leaves correlation untouched — measuring in dollars rather than cents changes nothing. If the two scalings have opposite signs, the correlation keeps its size and flips its sign.' },
-      { t: 'h', text: 'Sums, and why diversification works' },
-      { t: 'f', text: 'E[aX + bY] = a·E[X] + b·E[Y]   ·   Var(aX + bY) = a²σₓ² + b²σᵥ² + 2ab·Cov(X, Y)' },
-      { t: 'p', text: 'The expectation of a sum is always the sum of the expectations. The variance is not — it carries a covariance term, and that term is the whole of portfolio theory. Independent holdings let losses in one offset gains in the other; two shares of the same company simply double both.' },
-      { t: 'note', label: 'Worked: two assets', text: 'Hold 2 units of X and 3 units of Y, each with mean 100 and σ = 10. If they are independent, Var = 4(100) + 9(100) = 1,300 and σ ≈ 36.1. If instead ρ = −0.4, then Cov = −0.4 × 10 × 10 = −40, so Var = 1,300 + 2(2)(3)(−40) = 820 and σ ≈ 28.6. Same expected return, materially less risk — which is the sense in which negative correlation is worth paying for.' },
-      { t: 'h', text: 'Reading for this session' },
-      { t: 'ul', items: ['S04.1 — The Normal Distribution, pp. 192–208. A licensed reprint: read it on the LMS rather than copying it out.', 'S04.2 — Note on Covariance, Correlation and Linear Functions of Random Variables, which is where the rules above come from.', 'Dig deeper: “In Plato’s Cave” (Taleb), on mistaking the model for the world.'] },
-      { t: 'note', label: 'Written from the readings, not the deck', text: 'The Session 04 slides were not among the handouts available when this was written, so the normal-distribution material here is standard statistical content and the covariance rules come from S04.2. Check it against the slides when they are posted.' }
-    ],
-    s1: [
-      { t: 'h', text: 'Was that a good bet?' },
-      { t: 'p', text: 'Heads you earn €30 (€50 less the €20 stake); tails you lose €20. The expected value of the profit is positive, so the bet is worth taking — whether or not this particular flip goes your way.' },
-      { t: 'f', text: 'EV = 0.5 × (+€30) + 0.5 × (−€20) = +€5', note: 'In general EV = Σ pₖ vₖ over K outcomes with probabilities pₖ and payoffs vₖ.' },
-      { t: 'h', text: 'Process versus outcome' },
-      { t: 'p', text: 'A good process with a bad outcome is bad luck; a bad process with a good outcome is dumb luck. Only the process is under your control, so that is what you judge a decision on.' },
-      { t: 'tbl', label: 'The four cases', head: ['', 'Good outcome', 'Bad outcome'], rows: [ { cells: ['Good process', 'Well deserved', 'Bad luck'] }, { cells: ['Bad process', 'Dumb luck', 'Poetic justice'] } ] },
-      { t: 'h', text: 'What the course is about' },
-      { t: 'p', text: 'In management, data analysis is the pipeline for decision making under uncertainty. Three questions run through the whole course.' },
-      { t: 'ul', items: ['Uncertainty: how do I make sense of the possibilities surrounding this decision?', 'Data: how do I use data to model, and reduce, that uncertainty?', 'Judgment: how do I make good decisions using the model, the data and my intuition?'] },
-      { t: 'h', text: 'Types of uncertainty' },
-      { t: 'p', text: 'Klaus the Swiss-German banker had great control over subway uncertainty and none at all over coconut uncertainty. The first question about any uncertainty is which kind it is.' },
-      { t: 'note', label: 'A black swan or a mere coconut?', text: 'Goldman Sachs reported “25-standard-deviation moves, several days in a row” in August 2007. Either the world was staging a once-in-100,000-years event, or the model was wrong. Heavy tails are usually the second.' },
-      { t: 'h', text: 'Three stages of data analysis' },
-      { t: 'ul', items: ['Exploratory: what does the data actually look like? EDA is how you avoid the coconuts.', 'Inferential: given the data, what model of uncertainty can I infer?', 'Predictive: what does the inferred model say about what happens next?'] },
-      { t: 'h', text: 'Judgment: two modes of thinking' },
-      { t: 'p', text: '2 + 2 is answered instantly; 17 × 24 is not. Most of the brain is devoted to System 1, fast and intuitive. System 2, slow and reasoned, costs effort — which is exactly why biases survive.' },
-      { t: 'note', label: 'Not examinable', text: 'The judgment mini-modules are breaks from the technical content. They do not appear in the exercises or the final exam.' },
-      { t: 'h', text: 'Which uncertainties can you control?' },
-      { t: 'p', text: 'The session works through cases where the answer differs. A US presidential election is forecast rather than controlled. A day in the financial market has tails heavier than the model allows for. And a great deal of what happens to a person is neither lifestyle nor genetics.' },
-      { t: 'note', label: 'Cancer: lifestyle and genetics, or bad luck?', text: '“While it sometimes does come down to lifestyle and genetics, researchers have found that most of the time it is something else entirely: a simple matter of (bad) luck.” A Johns Hopkins analysis attributes about 65% of the difference in cancer risk to random mutation.' },
-      { t: 'h', text: 'The illusion of control' },
-      { t: 'p', text: 'The trap runs the other way too: treating a coconut as a subway. Believing an uncertainty is controllable when it is not produces confident decisions with no basis, and the confidence is what does the damage.' },
-      { t: 'note', label: 'Bubbles, time and time again', text: '“Financial markets are like champagne: if there are no bubbles no one will drink them.” — a senior Chinese government official, 2007. “We have never been able to model successfully the transition from euphoria to fear.” — Alan Greenspan, Financial Times, March 2009.' },
-      { t: 'h', text: 'What data is for' },
-      { t: 'p', text: 'Data does not remove uncertainty; it models and reduces it. John Snow mapped cholera deaths onto a street plan and found the Broad Street pump — modern epidemiology begins with someone looking at the data rather than reasoning from theory about bad air.' },
-      { t: 'h', text: 'Where the course goes' },
-      { t: 'tbl', label: 'Course outline', head: ['Topic', 'Sessions'], rows: [ { cells: ['Describing data — intro to UDJ, exploratory data analysis', '1–2'] }, { cells: ['Modelling uncertainty — binomial, Poisson, normal', '3–4'] }, { cells: ['Sampling and estimation — collecting data, the CLT, confidence intervals', '5–7'] }, { cells: ['Hypothesis testing — quantifying evidence, p-values', '8–9'] }, { cells: ['Regression — simple, multiple, and model selection', '10–15'] } ] },
-      { t: 'h', text: 'The class survey' },
-      { t: 'p', text: 'Two parts, due by 17:00 the day after the session, anonymous and ungraded. Answer the judgment part instinctively and without looking anything up — the point is to measure the cohort\'s intuition, so a researched answer spoils the data.' },
-      { t: 'ul', items: ['The judgment survey: multiple-choice questions on the cohort\'s own biases, revisited later in the course.', 'The class data survey: the numbers the course then uses as its own dataset, including measuring your second and fourth finger lengths in centimetres, without the fingernail.'] },
-      { t: 'h', text: 'Ground rules, and the evidence behind them' },
-      { t: 'p', text: 'Attendance is scanned by QR code before class; three absences are allowed and more is a fail. No laptops, phone in your bag, pen and paper or a tablet. The rules are not arbitrary — each one has a study behind it.' },
-      { t: 'ul', items: ['Ward et al. (2017), “Brain Drain”: the mere presence of your own smartphone reduces available cognitive capacity — face down on the desk is not enough.', 'Sana et al. (2013): laptop multitasking hinders learning for the user and for the peers seated nearby.', 'Mueller & Oppenheimer (2014), “The Pen Is Mightier Than the Keyboard”: longhand notes beat laptop notes, because writing forces you to compress rather than transcribe.'] }
-    ],
-    s2: [
-      { t: 'h', text: 'Visualisation, read critically' },
-      { t: 'p', text: 'Visuals move people even when fabricated. Before believing a chart, check the vertical axis, the horizontal axis, the numbers displayed and which measure is being shown. A log scale can make a trend easier or harder to see, and both are choices someone made.' },
-      { t: 'ul', items: ['Zooming the vertical axis turns a flat record into a dramatic one — Usain Bolt’s 100m record is the classic case.', 'Histograms and bar charts are the recommended defaults.', 'Visualisation tells you which uncertainties are present and can be modelled.'] },
-      { t: 'h', text: 'The central value' },
-      { t: 'f', text: 'μ = (x₁ + x₂ + ⋯ + x_N) / N', note: 'The mean is intuitive but not robust: replacing 90 with 96,480 in 30, 40, 50, 60, 70, 80, 90 moves the mean from 60 to 13,830.' },
-      { t: 'ul', items: ['Median: the middle value when sorted (average the middle two if N is even). Robust to outliers — it stays at 60 in the example above.', 'Mode: the most frequent value. Defined for non-numeric data too, and not well defined when firsts tie.'] },
-      { t: 'note', label: 'Simpson’s paradox', text: 'In the court case, women were paid less than men on average in both departments — yet overall women earned more. Aggregation can reverse a comparison.' },
-      { t: 'h', text: 'The spread' },
-      { t: 'f', text: 'Range = max{x} − min{x}   ·   MAD = (1/N) Σ |xᵢ − μ|   ·   σ² = (1/N) Σ (xᵢ − μ)²', note: 'The worked example: MAD = (9 + 16 + 6 + 12 + 7 + 20)/6 = 11.7; σ² = (81 + 256 + 36 + 144 + 49 + 400)/6 = 161; σ = √161 ≈ 12.7.' },
-      { t: 'p', text: 'Because the variance squares everything it is not in comparable units. The standard deviation is the square root of the variance, back in the units of the data.' },
-      { t: 'h', text: 'Coefficient of variation' },
-      { t: 'f', text: 'CV = (σ / μ) × 100%', note: 'Risk per unit of return. At a given target return, how much risk am I bearing? Interest-free leverage can deliver the same 8% gain at lower CV.' },
-      { t: 'h', text: 'The normal empirical rule' },
-      { t: 'p', text: 'For roughly bell-shaped data, about 68% of observations fall within one standard deviation of the mean, about 95% within two, and about 99.7% within three.' },
-      { t: 'note', label: 'Worked in class', text: 'Mean starting salary €160,000 with σ = €20,000. Approximately 95% of starting salaries fall between €120,000 and €200,000 — provided the distribution really is bell-shaped.' },
-      { t: 'h', text: 'Anchoring bias' },
-      { t: 'p', text: 'People rely too heavily on the first piece of information offered, even when it is irrelevant or manipulative: the UN member-count anchors of 300 versus 95, the USD/EUR anchors of 0.90 versus 1.50, Attila the Hun and your phone number. Prepare independently before meetings, ask whether you have explored enough alternatives, and in a negotiation speak first to set the frame.' },
-      { t: 'note', label: 'Three kinds of lies', text: '“There are three kinds of lies: lies, damned lies, and statistics.” — Mark Twain, who attributed it to Benjamin Disraeli. The session opens on how far a chart can mislead while every number on it is true.' },
-      { t: 'h', text: 'Mode, including on non-numeric data' },
-      { t: 'ul', items: ['30, 40, 50, 60, 70, 70, 80, 90 → mode 70. When firsts tie the mode is not well defined; take one at random.', 'A, A, B, B, B, C, D, F, F → mode B. The mode is the only one of the three that works on categories, which is why it is the “most likely outcome” for discrete data.'] },
-      { t: 'h', text: 'The birthday bet' },
-      { t: 'p', text: 'The claim: at least two people in this section share a birthday. Bet €10 against it and win €20 if no two match. With 99 students the chance of no match is about 1 in 2.4 million — the bet is close to free money for the person offering it.' },
-      { t: 'f', text: 'ℙ(at least one match) = 1 − (364/365) × (363/365) × ⋯ × ((365 − n + 1)/365)', note: 'Intuition fails because you count people, not pairs. With n = 99 there are n(n−1)/2 = 99 × 98 / 2 = 4,851 comparisons, not 99.' },
-      { t: 'h', text: 'Reading for this session' },
-      { t: 'ul', items: ['S02.1 — “The hidden traps in decision making” (Hammond, Keeney and Raiffa), the anchoring material.', 'S02.2 — Descriptive Statistics, pp. 89–97.', 'S02.3 — Hanke & Reitsch, Measures of Variability and Measures of Position, pp. 104–112, via the Doriot Library: copyright means the chapter PDFs are not on the LMS.', 'Dig deeper: “Freud, Finance and Folly” and “Doctor’s orders”.'] },
-      { t: 'note', label: 'When the empirical rule fails', text: 'It assumes a roughly bell-shaped distribution. On skewed data — salaries with a few very large ones, or anything with heavy tails — two standard deviations will not hold 95%, and the rule quietly overstates how much you know.' }
-    ],
-    s3: [
-      { t: 'h', text: 'Random variables and probability models' },
-      { t: 'p', text: 'A random variable X is an uncertain outcome of interest that has not been realised yet: tomorrow’s commute time, the next coin flip, the number of website visits between 10pm and midnight. Capital letters mark the variable as random. A probability model ℙ assigns a probability to every value X can take, and those probabilities must sum to 1.' },
-      { t: 'tbl', label: 'A discretised model for Klaus’ commute', head: ['Value of X', 'Probability'], rows: [ { cells: ['35', '0.1'] }, { cells: ['40', '0.2'] }, { cells: ['45', '0.4'] }, { cells: ['50', '0.2'] }, { cells: ['55', '0.1'] }, { cells: ['Total', '1.0'] } ] },
-      { t: 'f', text: 'E[X] = Σₓ ℙ(X = x)·x   ·   Var[X] = Σₓ ℙ(X = x)·(x − μ)²', note: 'For the table above: E[X] = 45 and Var[X] = 30. The mean is a weighted average of the values; the variance a weighted average of squared deviations.' },
-      { t: 'h', text: 'Bernoulli: the coin-flip model' },
-      { t: 'f', text: 'ℙ(X = x) = pˣ(1 − p)¹⁻ˣ for x = 0 or 1', note: 'E[X] = p and Var[X] = p(1 − p). The parameter p is the bias of the coin.' },
-      { t: 'h', text: 'The Binomial model' },
-      { t: 'ul', items: ['There are n trials with two possible outcomes each.', 'Every trial has the same Bernoulli model: ℙ(success) = p.', 'All trials are independent. X = the number of successes in the n trials.'] },
-      { t: 'f', text: 'ℙ(X = x) = C(n, x) pˣ(1 − p)ⁿ⁻ˣ = n!/(x!(n − x)!) · pˣ(1 − p)ⁿ⁻ˣ', note: 'E[X] = np and Var[X] = np(1 − p).' },
-      { t: 'p', text: 'With three fair coin flips the probabilities are 1/8, 3/8, 3/8, 1/8, giving E[X] = 1.5, Var[X] = np(1 − p) = 0.75 and SD ≈ 0.866. With four flips the numerators are the binomial coefficients 1, 4, 6, 4, 1 over 16, giving E[X] = 2.0 and Var[X] = 1.0.' },
-      { t: 'note', label: 'Why the variance measures uncertainty', text: 'p(1 − p) is largest at p = 0.5. A 50% chance of rain is the most uncertain forecast there is; 0% or 100% carry almost none.' },
-      { t: 'h', text: 'The Poisson model' },
-      { t: 'p', text: 'Instead of n fixed trials, count the number of arrivals over indefinitely many independent trials within a fixed period: customers per day, website visits between 10pm and midnight, patients in an emergency room, goals in a football match.' },
-      { t: 'f', text: 'ℙ(X = x) = λˣe^(−λ) / x!   for x = 0, 1, 2, …', note: 'E[X] = λ and Var[X] = λ.' },
-      { t: 'p', text: 'Poisson arises as the limit of many independent Bernoulli trials with a small success rate, where λ ≈ np. The process is memoryless: the past does not affect future counts.' },
-      { t: 'note', label: 'Binomial or Poisson?', text: 'Ask whether you know n. Meals served by the cafeteria in an hour, red giant stars in a volume of space, chocolate chips in a cookie — no fixed n, so Poisson. Deaths in a year among a known set of policyholders — n is known, so Binomial.' },
-      { t: 'h', text: 'Data analysis in the era of AI' },
-      { t: 'ul', items: ['Stochasticity: no two responses, reasoning chains or analyses are the same.', 'No faithful explanation: you cannot know how it reached the answer.', 'Pattern matching versus reasoning, and the model decides which it uses.', 'Tokens versus numbers: large numbers are not encoded as single numbers.', 'Version issues: different models, different contexts, different times.'] },
-      { t: 'p', text: 'The guidelines: ask for code, because procedural solutions are verifiable and reproducible; take care of data hygiene, since cleaning needs context the model does not have; cross-check with another model; sharpen your eyes, because the chart is your responsibility; be the pilot, not the passenger.' },
-      { t: 'note', label: 'Not on the final', text: 'The AI mini-module is not examinable.' },
-      { t: 'note', label: 'A slip in the handout', text: 'The Session 03 slide for three fair coin flips prints 0.866 against the label “Variance”. For Bin(3, 0.5) the variance is np(1 − p) = 0.75; 0.866 is the standard deviation, √0.75. The four-flip slide is right because there Var = 1.0 and SD = 1.0 coincide.' },
-      { t: 'h', text: 'Why model at all' },
-      { t: 'p', text: 'Every decision is about an outcome that has not happened yet. A probability model is an assumption about how your data was generated — and the data, in turn, is what tells you which model describes it. The two directions are the whole course in one line.' },
-      { t: 'h', text: 'Worked: morning people' },
-      { t: 'p', text: 'In a random group of five, with a 40% chance each is a morning person, X ~ Bin(5, 0.4).' },
-      { t: 'ul', items: ['No morning people: ℙ(X = 0) = 0.6⁵ = 0.0778.', 'Exactly two: ℙ(X = 2) = C(5,2)(0.4)²(0.6)³ = 0.3456.', 'At least two: 1 − ℙ(0) − ℙ(1) = 0.6630. Always go via the complement rather than summing the tail.'] },
-      { t: 'h', text: 'Worked: emergency room staffing' },
-      { t: 'p', text: 'Two cases arrive per eight-hour shift on average. For the first four hours the rate halves, so λ = 1 and X ~ Pois(1). The probability of no cases is e⁻¹ = 0.3679. Rescaling λ with the window is the step people miss.' },
-      { t: 'note', label: 'Only 14 of 900', text: 'U.S. News & World Report (8 July 1996) reported that of 900 diversified equity funds alive at the end of 1990, only 14 beat the S&P 500 year in, year out. The binomial asks the right question: how many would you expect to manage that by chance alone?' },
-      { t: 'note', label: 'Is it safe to fly?', text: 'If crashes were rare independent events — Poisson — then clusters in some decades are exactly what you should expect. A run of accidents is not evidence that flying got more dangerous.' },
-      { t: 'h', text: 'Reading for this session' },
-      { t: 'ul', items: ['S03.1 — The Binomial Distribution, pp. 146–149.', 'S03.2 — The Poisson Distribution, pp. 161–164.', 'The binomial and Poisson tables are in the course statistical tables — and this trainer computes both live under Statistical tables, so you can check a table reading against the formula.'] }
-    ],
-    s10: [
+        ],
+    s11: [
       { t: 'h', text: 'Simple linear regression' },
       { t: 'p', text: 'One predictor, one outcome, a straight line through the cloud. Regression is the workhorse for two different jobs — describing how two variables move together, and predicting an outcome you have not seen — and most of the trouble in the topic comes from doing the second while talking as if you had done a third, causal, one.' },
       { t: 'f', text: 'Y = β₀ + β₁X + ε', note: 'β₀ is the intercept, β₁ the slope, and ε the error the model does not explain. The fitted line replaces the βs with estimates b₀ and b₁ from the sample.' },
@@ -2448,8 +2460,8 @@ class Component extends DCLogic {
       { t: 'note', label: 'The plot comes first', text: 'A single line of regression output is compatible with wildly different scatter plots — curvature, a single leverage point, two separate groups. Fit second, look first.' },
       { t: 'h', text: 'This session' },
       { t: 'ul', items: ['Reading: S10.1 — Simple Regression, pp. 186–207.', 'Dig deeper: “The Hemline Theory of the Dow”, which is what spurious correlation looks like when it is dressed up.'] }
-    ],
-    s11: [
+        ],
+    s12: [
       { t: 'h', text: 'Inference in regression' },
       { t: 'p', text: 'The slope you computed is an estimate from one sample, so it has a standard error like any other estimate — and the same machinery from Session 06 applies. The question is no longer “what is the slope” but “is there a relationship here at all”.' },
       { t: 'f', text: 't = b₁ / SE(b₁),   with H₀: β₁ = 0', note: 'The null is that the predictor does nothing. The p-value beside a coefficient is the result of exactly this test, and nothing more.' },
@@ -2464,8 +2476,8 @@ class Component extends DCLogic {
       { t: 'note', label: 'Regression to the mean', text: 'Extreme observations are extreme partly by luck, and luck does not repeat, so the next measurement drifts back towards the average. Praise a spectacular performance and the follow-up disappoints; punish a terrible one and it improves. Neither the praise nor the punishment did anything, and this is how superstitions about management style are born.' },
       { t: 'h', text: 'This session' },
       { t: 'ul', items: ['Reading: S10.1 — Simple Regression, pp. 208–221.', 'Opens with the debrief of the loyalty scheme and direct mail assignment.'] }
-    ],
-    s12: [
+        ],
+    s13: [
       { t: 'h', text: 'Multiple regression' },
       { t: 'p', text: 'More than one predictor, and the interpretation of every coefficient changes with it. Each slope is now the effect of its own variable holding the others fixed — which is what makes multiple regression powerful and what makes it so easy to describe wrongly.' },
       { t: 'f', text: 'Y = β₀ + β₁X₁ + β₂X₂ + ⋯ + βₖXₖ + ε', note: 'β₁ is the average change in Y per unit of X₁ with X₂ … Xₖ held constant. Drop the “holding the others constant” and the sentence is no longer true.' },
@@ -2476,9 +2488,7 @@ class Component extends DCLogic {
       { t: 'tbl', label: 'Do not confuse them', head: ['', 'Answers', 'Width'], rows: [ { cells: ['Confidence interval', 'Where the mean of Y sits at these X values', 'Narrower'] }, { cells: ['Forecast interval', 'Where a single new observation will fall', 'Wider — it also carries ε'] } ] },
       { t: 'note', label: 'Prediction is not causation', text: 'A coefficient is a statement about the data-generating process only if the model is right and nothing important is omitted. Absent that, regression supports prediction and description. An omitted variable correlated with both X and Y will happily hand you a confident, significant, wrong coefficient.' },
       { t: 'h', text: 'This session' },
-      { t: 'ul', items: ['Reading: S12.1 — Introduction to Multiple Linear Regression, pp. 241–262, via the Doriot Library. Copyright keeps the chapter off the LMS.'] }
-    ],
-    s13: [
+      { t: 'ul', items: ['Reading: S12.1 — Introduction to Multiple Linear Regression, pp. 241–262, via the Doriot Library. Copyright keeps the chapter off the LMS.'] },
       { t: 'h', text: 'Choosing between models' },
       { t: 'p', text: 'Add a predictor and R² can only rise, even if the predictor is noise. So R² cannot be used to compare models of different sizes, and the session is about what can.' },
       { t: 'ul', items: ['Adjusted R² penalises extra predictors, so it can fall when a variable does not earn its place.', 'The F-test asks whether the model as a whole explains anything, against the null that every slope is zero.', 'Neither settles it. Out-of-sample performance does.'] },
@@ -2489,7 +2499,7 @@ class Component extends DCLogic {
       { t: 'p', text: 'Stepwise procedures that add or drop variables by p-value are convenient and quietly invalidate the p-values they use, because the same data chose the model and then tested it. Prefer a small model motivated by what you know about the problem, and judge it out of sample.' },
       { t: 'h', text: 'This session' },
       { t: 'ul', items: ['Reading: S13.1 — Variable Selection and Multicollinearity, pp. 274–290.', 'Opens with the debrief of the “Firing an Expert” assignment.'] }
-    ],
+        ],
     s14: [
       { t: 'h', text: 'What the residuals tell you' },
       { t: 'p', text: 'Regression assumes the errors are independent, of constant variance, and roughly normal. None of that is checked by R² or by any p-value — it is checked by plotting the residuals, which is why this session exists.' },
@@ -2501,7 +2511,7 @@ class Component extends DCLogic {
       { t: 'ul', items: ['Heteroskedasticity: variance that grows with the level. Coefficients survive, standard errors do not; a log transformation often fixes it.', 'Outliers and leverage points: a single observation far out in X can set the slope on its own. Find it, understand it, and report what happens with and without it rather than deleting it quietly.', 'Spurious correlation: two series that both trend will correlate beautifully and mean nothing. This is what “The Hemline Theory of the Dow” and the sunshine-and-stock-returns paper are for.'] },
       { t: 'h', text: 'This session' },
       { t: 'ul', items: ['Reading: S14.01 — Regression with Time Series, pp. 263–273.', 'Dig deeper: “Good Day Sunshine: Stock Returns and the Weather”.'] }
-    ],
+        ],
     s15: [
       { t: 'h', text: 'Beyond the straight line' },
       { t: 'p', text: 'The final session widens the toolkit and then closes the loop back to the first one.' },
@@ -2511,8 +2521,7 @@ class Component extends DCLogic {
       { t: 'note', label: 'The pitfalls, collected', text: 'Reading a chart without reading its axes. Summarising with a mean that an outlier owns. Treating a coconut as a subway — the illusion of control. Mistaking a p-value for the probability of a hypothesis. Reporting the one test that worked out of twenty. And the extra one: a coefficient described as an effect when the data was never able to support that word.' },
       { t: 'h', text: 'This session' },
       { t: 'ul', items: ['Opens with the “Harmon Foods” debrief.', 'No mandatory reading. Guidance on the final exam is given in class.'] }
-    ]
-
+        ]
   };
   daBank = {
     s1: [
@@ -2522,12 +2531,8 @@ class Component extends DCLogic {
       { t: 'mcq', k: 'Stages of analysis', p: 'Which stage answers “what does the data actually look like?”', o: [ 'Confirmatory analysis', 'Inferential data analysis', 'Predictive data analysis','Exploratory data analysis'], a: 3, why: 'Exploratory analysis is the look-at-it-first stage — the one that stops you tripping over the coconuts.' },
       { t: 'mcq', k: 'Uncertainty', p: 'Goldman Sachs described “25-standard-deviation moves, several days in a row”. The more sensible reading is:', o: ['The model was wrong', 'A genuine once-in-100,000-years event', 'The data was mismeasured', 'Markets became normally distributed'], a: 0, why: 'Repeated “impossible” moves are evidence about the model, not about the world. Real financial tails are much heavier than the normal model assumes.' },
       { t: 'mcq', k: 'Two modes of thinking', p: '17 × 24 is answered by which system?', o: [ 'System 1 — fast intuition','System 2', 'Neither', 'Both equally'], a: 1, why: 'System 2 — slow, effortful reasoning. 2 + 2 is System 1. 17 × 24 requires deliberate work, which is System 2 — and effortful enough that most people avoid it.' },
-      { t: 'mcq', k: 'Availability bias', p: 'Availability bias makes people judge likelihood by:', o: ['How recent the underlying data is', 'The size of the sample', 'How easily examples come to mind', 'Who reported the number'], a: 2, why: 'Vivid and recent coverage is easy to recall, and ease of recall gets mistaken for frequency. It is why one plane crash outweighs a decade of safety statistics.' },
-      { t: 'mcq', k: 'Availability', p: 'Which group had the larger total revenue: PepsiCo, L\u2019Or\u00e9al, Salesforce, J&J and Airbus, or ThyssenKrupp, Cencora, Kroger, McKesson and Cardinal Health?', o: [ 'They were within about 10% of each other', 'The first group, at roughly twice the second','The second group, at roughly three times the first', 'The first group, but only once Airbus is included'], a: 2, why: '$1,131bn against $362bn. Three of the second group are pharmaceutical distributors, which almost nobody has heard of because they never advertise to consumers. Familiarity is not size, and availability bias systematically confuses them.' },
       { t: 'mcq', k: 'Conjunction', p: 'Audiences rate a North Korean attack drawing in the U.S. as more likely than the U.S. being drawn into any nuclear war. Why is that impossible?', o: [ 'The general scenario includes outcomes that are not really wars', 'The two events are measured over different time horizons', 'Subjective probabilities cannot be compared across scenarios','The detailed scenario is contained within the general one'], a: 3, why: 'Every world in which the specific chain happens is a world in which the U.S. is drawn into a nuclear war, so the specific probability cannot exceed the general one. Adding detail makes a scenario easier to picture, and availability converts easy-to-picture into feels-more-likely.' },
       { t: 'tf', k: 'True or false', p: 'Thinking of a friend just before they call is evidence of something beyond coincidence.', a: false, why: 'False, and the two-by-two shows why. Thinking of them and being called is memorable; thinking of them and not being called is forgotten by dinner; being called without thinking of them goes unnoticed. Only one of four cells reaches memory, and judging from one cell is the same error as judging a treatment from the patients who recovered.' },
-      { t: 'mcq', k: 'Overconfidence', p: 'Asked for 90% intervals, people typically produce ones that contain the truth:', o: ['About 90% of the time', 'Far less often', 'Slightly more often', 'Almost always'], a: 1, why: 'Commonly nearer 50%. The failure is not ignorance but believing your range is tighter than it is — which is why calibration has to be measured rather than assumed.' },
-      { t: 'mcq', k: 'Anchoring', p: 'Groups asked to start from 300 rather than 95 guess a higher number of UN members. The remedy in a meeting is:', o: [ 'Discuss the anchor openly first','Prepare before the meeting', 'Average the group’s guesses', 'Use a wider range'], a: 1, why: 'Prepare independently before the meeting. Independent preparation stops the first number spoken from setting everyone’s frame. In a negotiation the same effect is why you speak first.' },
       { t: 'mcq', k: 'Representativeness', p: 'Representativeness bias means judging probability by:', o: ['The base rate', 'The size of the sample', 'How recent the case is', 'Resemblance to a stereotype'], a: 3, why: 'Detail that makes a story feel typical makes it feel likelier, even when each added detail can only lower the probability.' }
     ],
     s2: [
@@ -2537,12 +2542,12 @@ class Component extends DCLogic {
       { t: 'num', k: 'Empirical rule', p: 'Mean salary €160,000, σ = €20,000. Under the empirical rule, 95% of salaries fall between €120,000 and what upper figure (in thousands)?', a: 200, tol: 0.5, unit: '€ thousand', ph: 'e.g. 200', hint: 'Under the empirical rule 95% sits within two standard deviations either side. The lower bound given is two below.', why: 'Two standard deviations either side: 160 ± 2 × 20, so €120,000 to €200,000.' },
       { t: 'mcq', k: 'Coefficient of variation', p: 'An asset returns 8% with σ = 4%. Its coefficient of variation is:', o: [ '200%', '32%', '2%','50%'], a: 3, why: 'CV = σ/μ × 100% = 4/8 × 100% = 50%. CV is risk per unit of return, which is what makes two assets with different means comparable.' },
       { t: 'mcq', k: 'Simpson’s paradox', p: 'Women are paid less than men on average in every department, yet more than men overall. This is:', o: ['Possible — the mix of departments differs', 'Impossible — the averages contradict', 'A rounding artefact', 'Evidence of a data error'], a: 0, why: 'Aggregation can reverse a comparison when group sizes differ. It is the court case from the session, and it is why you look at the breakdown.' },
-      { t: 'tf', k: 'True or false', p: 'The standard deviation is in the same units as the data.', a: true, why: 'True. The variance squares the units, which is precisely why the square root is taken.' }
-    ,
+      { t: 'tf', k: 'True or false', p: 'The standard deviation is in the same units as the data.', a: true, why: 'True. The variance squares the units, which is precisely why the square root is taken.' },
       { t: 'num', k: 'Compute it', p: 'For the values 4, 8, 9, 12 and 17, what is the median?', a: 9, tol: 0, why: 'Five values already in order; the median is the third. Note it is not the mean, which is 10.' },
       { t: 'mcq', k: 'Choosing a summary', p: 'House prices in a city are strongly right-skewed. Which summary best represents a typical price?', o: [ 'The median','The mean', 'The range', 'The standard deviation'], a: 0, why: 'The median. A handful of very expensive houses drags the mean upward, so it stops describing anybody in particular. This is why property reports quote medians.' },
       { t: 'num', k: 'Compute it', p: 'A sample has mean 50 and standard deviation 12.5. What is its coefficient of variation, as a percentage?', a: 25, tol: 0.1, why: 'CV = 12.5/50 × 100 = 25%. Unitless, so it can be compared against a series measured in something else entirely.' },
-      { t: 'tf', k: 'True or false', p: 'Two datasets with the same mean and the same standard deviation must have the same shape.', a: false, why: 'False. Mean and standard deviation fix the centre and the spread and nothing else — skew, bimodality and outliers all survive untouched. It is the reason the session insists on plotting the data before summarising it.' }
+      { t: 'tf', k: 'True or false', p: 'Two datasets with the same mean and the same standard deviation must have the same shape.', a: false, why: 'False. Mean and standard deviation fix the centre and the spread and nothing else — skew, bimodality and outliers all survive untouched. It is the reason the session insists on plotting the data before summarising it.' },
+      { t: 'mcq', k: 'Anchoring', p: 'Groups asked to start from 300 rather than 95 guess a higher number of UN members. The remedy in a meeting is:', o: [ 'Discuss the anchor openly first','Prepare before the meeting', 'Average the group’s guesses', 'Use a wider range'], a: 1, why: 'Prepare independently before the meeting. Independent preparation stops the first number spoken from setting everyone’s frame. In a negotiation the same effect is why you speak first.' }
     ],
     s3: [
       { t: 'mcq', k: 'Model conditions', p: 'Which condition is NOT required by the Binomial model?', o: [ 'The same p on every trial', 'A fixed number of trials n','The number of trials is unknown', 'Independent trials'], a: 2, why: 'Binomial needs a known, fixed n. If you do not know n but do know a rate over a fixed period, that is Poisson.' },
@@ -2556,9 +2561,7 @@ class Component extends DCLogic {
       { t: 'mcq', k: 'Which model?', p: 'The number of chocolate chips in a cookie is best modelled as:', o: [ 'Binomial','Poisson', 'Bernoulli', 'Uniform'], a: 1, why: 'There is no fixed n of chip-placement trials, only a rate per cookie. No n means Poisson.' },
       { t: 'mcq', k: 'Which model?', p: 'Deaths in a year among the holders of a known set of life insurance policies:', o: [ 'Bernoulli', 'Poisson','Binomial', 'Neither'], a: 2, why: 'The number of policyholders is known, so n is fixed and each policy is a trial. That is Binomial — though with small p it is well approximated by Poisson with λ = np.' },
       { t: 'num', k: 'Variance', p: 'For a Bernoulli(p) coin, at which p is the variance largest? Give p.', a: 0.5, tol: 0.01, unit: '', ph: 'e.g. 0.5', hint: 'Variance is p(1 − p). Sketch it between 0 and 1 and find the peak.', why: 'p(1 − p) peaks at p = 0.5, value 0.25. A 50% forecast is the most uncertain one available.' },
-      { t: 'tf', k: 'True or false', p: 'For a Poisson random variable the mean and the variance are equal.', a: true, why: 'True. E[X] = λ and Var[X] = λ — a property worth checking against your data before assuming Poisson.' },
-      { t: 'num', k: 'Approximation', p: 'X ~ Bin(100, 0.3) is approximated by a normal. What is its standard deviation, to two decimals?', a: 4.58, tol: 0.02, hint: 'The binomial standard deviation is √(np(1 − p)).', why: '√(100 × 0.3 × 0.7) = √21 = 4.58, with mean np = 30. Both np and n(1 − p) are well above 5, so the approximation is safe.' },
-      { t: 'mcq', k: 'Approximation', p: 'For Pois(λ) approximated by a normal, the variance is:', o: [ 'λ squared','λ, the same as the mean', 'The square root of λ', 'One over λ'], a: 1, why: 'Mean and variance are both λ — the one distribution where they coincide. The approximation improves as λ grows.' }
+      { t: 'tf', k: 'True or false', p: 'For a Poisson random variable the mean and the variance are equal.', a: true, why: 'True. E[X] = λ and Var[X] = λ — a property worth checking against your data before assuming Poisson.' }
     ],
     s4: [
       { t: 'mcq', k: 'Normal', p: 'A normal distribution is fixed by which quantities?', o: ['Its range and its median', 'Its sample size and range', 'Its skewness and its median value', 'Its mean and standard deviation'], a: 3, why: 'Two numbers, and no others. That is what makes the family so tractable: fix μ and σ and the whole curve is determined.' },
@@ -2592,6 +2595,18 @@ class Component extends DCLogic {
       { t: 'num', k: 'The √n law', p: 'A sample of 50 gives a standard error of 4. What sample size would bring it to 2?', a: 200, tol: 0, why: 'Halving the standard error means quadrupling n: 50 × 4 = 200.' }
     ],
     s6: [
+      { t: 'mcq', k: 'Availability bias', p: 'Availability bias makes people judge likelihood by:', o: ['How recent the underlying data is', 'The size of the sample', 'How easily examples come to mind', 'Who reported the number'], a: 2, why: 'Vivid and recent coverage is easy to recall, and ease of recall gets mistaken for frequency. It is why one plane crash outweighs a decade of safety statistics.' },
+      { t: 'mcq', k: 'Availability', p: 'Which group had the larger total revenue: PepsiCo, L\u2019Or\u00e9al, Salesforce, J&J and Airbus, or ThyssenKrupp, Cencora, Kroger, McKesson and Cardinal Health?', o: [ 'They were within about 10% of each other', 'The first group, at roughly twice the second','The second group, at roughly three times the first', 'The first group, but only once Airbus is included'], a: 2, why: '$1,131bn against $362bn. Three of the second group are pharmaceutical distributors, which almost nobody has heard of because they never advertise to consumers. Familiarity is not size, and availability bias systematically confuses them.' },
+      { t: 'num', k: 'Approximation', p: 'X ~ Bin(100, 0.3) is approximated by a normal. What is its standard deviation, to two decimals?', a: 4.58, tol: 0.02, hint: 'The binomial standard deviation is √(np(1 − p)).', why: '√(100 × 0.3 × 0.7) = √21 = 4.58, with mean np = 30. Both np and n(1 − p) are well above 5, so the approximation is safe.' },
+      { t: 'mcq', k: 'Approximation', p: 'For Pois(λ) approximated by a normal, the variance is:', o: [ 'λ squared','λ, the same as the mean', 'The square root of λ', 'One over λ'], a: 1, why: 'Mean and variance are both λ — the one distribution where they coincide. The approximation improves as λ grows.' },
+      { t: 'mcq', k: 'Counts to normal', p: 'A share closes up or down on each of 60 trading days, with probability 0.5 of a rise. Which model fits the number of up days, and what lets you use a normal for it?', o: [ 'Binomial(60, 0.5), and the central limit theorem, since a count is a sum of independent 0/1 draws','Poisson, because days have no upper bound', 'Normal from the start, because prices are continuous', 'None — the trials are not independent'], a: 0, why: 'A count of successes in a fixed number of independent trials is binomial. It is also a sum, so the CLT applies to it directly, which is why the normal approximation works at all.' },
+      { t: 'num', k: 'Normal approximation', p: 'For that count — Bin(60, 0.5) — give the standard deviation of the approximating normal, to three decimals.', a: 3.873, tol: 0.01, why: 'Square root of np(1 − p) = √(60 × 0.5 × 0.5) = √15 = 3.873, around a mean of 30.' },
+      { t: 'num', k: 'Continuity correction', p: 'Using that normal with a continuity correction, what is the probability of 36 or more up days? Give four decimals.', a: 0.0778, tol: 0.004, why: 'Treat 36 or more as beyond 35.5: z = (35.5 − 30)/3.873 = 1.42, so 0.0778. Without the half-unit correction you would get 0.0607 and overstate how unusual the run was.' },
+      { t: 'mcq', k: 'When it is safe', p: 'For n = 40 and p = 0.08, is the normal approximation to the binomial safe?', o: [ 'No — np = 3.2 is below 5, so the distribution is still too skewed','Yes — n is comfortably above 30', 'Yes — p is small, which is when it works best', 'No — the trials are not independent'], a: 0, why: 'The rule of thumb is np ≥ 5 and n(1 − p) ≥ 5. Here np = 3.2 fails it: with a small p the binomial is bunched against zero and a symmetric normal is a poor fit.' },
+      { t: 'num', k: 'Proportions', p: 'A random sample of 400 voters splits 55/45. What is the standard error of the sample proportion, to four decimals?', a: 0.0249, tol: 0.0004, why: 'Square root of 0.55 × 0.45/400 = 0.0249. The CLT applies to a proportion exactly as it applies to a mean — a proportion is a mean of 0s and 1s.' },
+      { t: 'tf', k: 'Availability', p: 'People fear shark attacks more than falling furniture because the risk is genuinely higher.', a: false, why: 'False. It is availability: how easily an example comes to mind, not how often it happens. Vivid, reported and recent events feel frequent. The remedy is to look the base rate up rather than consult your memory for instances.' }
+    ],
+    s7: [
       { t: 'mcq', k: 'Interpretation', p: 'A 95% confidence interval means:', o: ['μ is 95% likely to be inside', '95% of such intervals hold μ', '95% of the data lies inside', 'The estimate is 95% accurate'], a: 1, why: 'μ is fixed, so no probability attaches to whether it is in this particular interval. The 95% is a property of the procedure, across the samples you might have drawn.' },
       { t: 'num', k: 'Interval', p: 'x̄ = 160, σ = 20, n = 25. What is the half-width of the 95% interval? Use z = 1.96.', a: 7.84, tol: 0.02, hint: 'z times the standard error. The standard error is 4.', why: '1.96 × 4 = 7.84, so the interval runs from 152.16 to 167.84.' },
       { t: 'mcq', k: 'Confidence level', p: 'Moving from 95% to 99% confidence does what to the interval?', o: [ 'Leaves it unchanged', 'Narrows it','Widens it', 'Depends on the sample'], a: 2, why: 'z rises from 1.96 to 2.576. More confidence is bought with a vaguer answer — the only way to have both is more data.' },
@@ -2605,7 +2620,7 @@ class Component extends DCLogic {
       { t: 'tf', k: 'True or false', p: 'A 95% confidence interval has a 95% probability of containing the sample mean.', a: false, why: 'False twice over. It contains the sample mean by construction, with certainty — it is built around it. The 95% refers to the unknown population mean, and to the procedure rather than to this one interval.' },
       { t: 'num', k: 'Margin of error', p: 'σ = 12 and you want a 95% margin of error of 3. What sample size do you need? Round up.', a: 62, tol: 0, why: 'n = (1.96 × 12/3)² = 61.5, so 62. Always round up: rounding down misses the target you set.' }
     ],
-    s7: [
+    s8: [
       { t: 'num', k: 'Proportions', p: '420 of 600 people say yes. What is the standard error of the proportion, to four decimals?', a: 0.0187, tol: 0.0005, hint: 'p̂ = 0.7. Use √(p̂(1 − p̂)/n).', why: '√(0.7 × 0.3 / 600) = √0.00035 = 0.0187, so the 95% interval is 66.3% to 73.7%.' },
       { t: 'mcq', k: 'Worst case', p: 'When planning a sample size you assume p = 0.5 because:', o: ['It is the most likely value', 'It maximises p(1 − p)', 'It simplifies the algebra', 'Surveys are usually even'], a: 1, why: 'p(1 − p) peaks at 0.25 when p = 0.5, so that assumption gives the sample size that is safe whatever the true proportion turns out to be.' },
       { t: 'num', k: 'Sample size', p: 'What sample size gives a 3 percentage point margin of error at 95% confidence? Round up.', a: 1068, tol: 3, hint: 'n = z²p(1 − p)/E² with p = 0.5, z = 1.96 and E = 0.03.', why: '1.96² × 0.25 / 0.0009 = 1,067.1, so 1,068. This is why national polls hover around a thousand respondents.' },
@@ -2617,9 +2632,10 @@ class Component extends DCLogic {
       { t: 'num', k: 'Confidence interval', p: 'Same sample. What is the lower end of the 99% CI, in percent?', a: 66.85, tol: 0.2, hint: 'z is 2.576 at 99%. The standard error has not changed.', why: '72 \u2212 2.576 \u00d7 2.0 = 66.85%. Raising confidence from 95% to 99% costs about 2.5 percentage points of width at each end, from the same data.' },
       { t: 'mcq', k: 'Interpretation', p: 'The 95% CI is 68.1% to 75.9%. Which statement is correct?', o: [ 'There is a 95% probability that the population mean lies inside that range', 'About 95% of individual users delegate between 68.1% and 75.9% of their work', 'In a fresh sample of 100 users, about 95 will fall inside that range','Of 20 intervals from repeated samples, 19 are expected to cover the true mean'], a: 3, why: 'The confidence level is a property of the procedure across repeated samples. The second and third confuse an interval for the mean with an interval for individuals. The fourth is the subtle one: \u03bc is fixed, so it is either inside or outside and no probability attaches \u2014 though saying \u201cwe are 95% confident\u201d is accepted, because confident has been given exactly that technical meaning.' },
       { t: 'tf', k: 'True or false', p: 'A wider confidence interval means the estimate is worse.', a: false, why: 'False. The same sample gives 69.4\u201374.6% at 80% confidence and 66.9\u201377.2% at 99%, and both are honest. Width reflects the confidence level and the sample size, not the quality of the work \u2014 a narrow interval quoted without its level tells you nothing.' },
-      { t: 'mcq', k: 'Proportions', p: 'For a binary outcome, why can everything be computed from p\u0302 alone?', o: ['The variance of a Bernoulli variable is fixed by its mean at p(1 \u2212 p)', 'Binary data have no variance, so only the mean needs estimating', 'The sample size cancels out of the standard error for proportions', 'Proportions are always normally distributed regardless of n'], a: 0, why: 'For a Bernoulli variable the mean determines the variance, so p\u0302 gives you both the estimate and its standard error, \u221a(p\u0302(1 \u2212 p\u0302)/n). The handout adds one caution: the approximation fails for genuinely rare events, roughly when p \u2264 1/n.' }
+      { t: 'mcq', k: 'Proportions', p: 'For a binary outcome, why can everything be computed from p\u0302 alone?', o: ['The variance of a Bernoulli variable is fixed by its mean at p(1 \u2212 p)', 'Binary data have no variance, so only the mean needs estimating', 'The sample size cancels out of the standard error for proportions', 'Proportions are always normally distributed regardless of n'], a: 0, why: 'For a Bernoulli variable the mean determines the variance, so p\u0302 gives you both the estimate and its standard error, \u221a(p\u0302(1 \u2212 p\u0302)/n). The handout adds one caution: the approximation fails for genuinely rare events, roughly when p \u2264 1/n.' },
+      { t: 'mcq', k: 'Overconfidence', p: 'Asked for 90% intervals, people typically produce ones that contain the truth:', o: ['About 90% of the time', 'Far less often', 'Slightly more often', 'Almost always'], a: 1, why: 'Commonly nearer 50%. The failure is not ignorance but believing your range is tighter than it is — which is why calibration has to be measured rather than assumed.' }
     ],
-    s8: [
+    s9: [
       { t: 'mcq', k: 'The null', p: 'The null hypothesis is:', o: ['What you suspect is true', 'The claim of no effect', 'Whatever the data shows', 'The larger of the two means'], a: 1, why: 'H₀ is the presumption the data has to overturn. Your actual suspicion belongs in H₁, where it has to earn its place.' },
       { t: 'mcq', k: 'Conclusions', p: 'Failing to reject H₀ means:', o: ['H₀ has been proven correct', 'H₁ is false', 'The data is consistent with H₀', 'The test was invalid'], a: 2, why: 'You never prove a null. Consistency with H₀ is also what an underpowered study looks like when an effect is really there.' },
       { t: 'num', k: 'Test statistic', p: 'μ₀ = 500, x̄ = 494, σ = 24, n = 64. What is z?', a: -2, tol: 0.02, hint: 'Standard error first: σ over the root of n. Then the gap divided by it.', why: 'SE = 24/8 = 3, so z = (494 − 500)/3 = −2.0.' },
@@ -2629,7 +2645,7 @@ class Component extends DCLogic {
       { t: 'mcq', k: 'Power', p: 'Statistical power is:', o: ['1 − α', 'The p-value', '1 − β', 'The effect size'], a: 2, why: 'The chance of detecting an effect that is genuinely there. Low power is why a null result so often means nothing at all.' },
       { t: 'mcq', k: 'Tails', p: 'Switching to a one-tailed test after seeing the direction of the data:', o: ['Is standard practice', 'Requires a larger α', 'Increases the power', 'Invalidates the p-value'], a: 3, why: 'It halves the p-value without adding evidence. The choice of tail has to be made before the data, for the same reason α does.' }
     ],
-    s9: [
+    s10: [
       { t: 'mcq', k: 'Definition', p: 'A p-value is the probability of:', o: [ 'A result this extreme, given H₀','The null hypothesis being true', 'Making an error', 'The effect being large'], a: 0, why: 'It conditions on the null and asks about the data. Reversing the conditioning is the single most common misreading in statistics.' },
       { t: 'mcq', k: 'Misreading', p: 'p = 0.03 means:', o: ['A 3% chance the null holds true', 'Data this extreme is rare under H₀', 'A 3% chance of error', 'The effect is 3% in size'], a: 1, why: 'Getting from the data to a probability about H₀ needs a prior, which a p-value has not got.' },
       { t: 'mcq', k: 'Large p-values', p: 'A large p-value tells you:', o: ['There is definitely no effect', 'The sample was too small', 'The data is consistent with H₀', 'H₀ is probably true'], a: 2, why: 'Absence of evidence is not evidence of absence. A wide confidence interval will show you which of the two you are looking at; the p-value will not.' },
@@ -2639,7 +2655,7 @@ class Component extends DCLogic {
       { t: 'mcq', k: 'Thresholds', p: 'p = 0.049 against p = 0.051 represents:', o: [ 'A decisive difference in evidence','Essentially the same evidence', 'Twice the evidence', 'Opposite conclusions'], a: 1, why: '0.05 is a convention, not a property of nature. Treating it as a cliff is how a continuous measure of evidence became a verdict.' },
       { t: 'mcq', k: 'Remedy', p: 'The most effective guard against manufactured significance is:', o: ['A larger sample', 'A stricter α', 'Deciding the analysis first', 'More replications'], a: 2, why: 'Fixing the plan before the data removes the freedom that p-hacking exploits. The others help, but they do not close the door.' }
     ],
-    s10: [
+    s11: [
       { t: 'mcq', k: 'Coefficients', p: 'In Y = β₀ + β₁X + ε, the slope β₁ is:', o: ['The value of Y at X = 0', 'The share of variation explained', 'The correlation between X and Y', 'The average change in Y per unit X'], a: 3, why: 'And it carries units. Saying the slope is “1,200” without saying per what is how a regression gets misread.' },
       { t: 'mcq', k: 'Least squares', p: 'Least squares fits the line by minimising:', o: [ 'The squared vertical distances','The sum of the residuals', 'The perpendicular distances', 'The largest residual'], a: 0, why: 'Vertical, because the model predicts Y from X, and squared, so that positive and negative misses cannot cancel out.' },
       { t: 'mcq', k: 'Intercept', p: 'An intercept with no sensible real-world meaning is:', o: ['A sign of a broken model', 'Often perfectly normal', 'A reason to drop it', 'Evidence of collinearity'], a: 1, why: 'X = 0 is frequently outside the data and physically impossible. That does not stop the intercept doing its job of positioning the line.' },
@@ -2647,25 +2663,22 @@ class Component extends DCLogic {
       { t: 'mcq', k: 'Pipeline', p: 'The step the session insists on and people skip is:', o: ['Loading the data', 'Exporting the results', 'Fitting the model', 'Verifying the output'], a: 3, why: 'Checking the output against what you already know about the data. A model that runs is not a model that is right.' },
       { t: 'mcq', k: 'Plots', p: 'Why plot before fitting?', o: [ 'Identical output, different data','To decide which software to use', 'To find missing values', 'It is required by the exam'], a: 0, why: 'Curvature, one leverage point, or two distinct groups all produce respectable-looking regression output. Only the scatter plot distinguishes them.' }
     ],
-    s11: [
+    s12: [
       { t: 'mcq', k: 'The test', p: 'The p-value printed beside a regression coefficient tests:', o: ['That the model is correct', 'H₀: the slope is zero', 'That R² is large enough', 'That the residuals are normal'], a: 1, why: 'Nothing more than whether that predictor does anything. It says nothing about the model being right or the relationship being causal.' },
       { t: 'mcq', k: 'Intervals', p: 'A confidence interval for β₁ that includes zero corresponds to:', o: [ 'A high R²', 'p < 0.05','p > 0.05', 'Multicollinearity'], a: 2, why: 'The same information, more usefully expressed — the interval also shows how large the effect could plausibly be.' },
       { t: 'mcq', k: 'R²', p: 'R² measures:', o: ['Whether the model is correct', 'The precision of β₁', 'The size of the slope', 'Variation in Y explained'], a: 3, why: 'A share of variation, and nothing else. A high R² with curved residuals is a model that fits and is wrong.' },
       { t: 'mcq', k: 'Standard error', p: 'A coefficient with a large standard error relative to its size is:', o: ['Large but imprecise', 'Precise but small', 'Evidence of causation', 'Necessarily zero'], a: 0, why: 'The estimate is poorly pinned down. Size and precision are separate questions and a single p-value conflates them.' },
       { t: 'mcq', k: 'Controlled comparison', p: 'Randomised assignment buys you:', o: ['A higher R²', 'Comparable groups', 'Smaller standard errors', 'Freedom from outliers'], a: 1, why: 'Groups that differ only by chance, so the difference can be read as an effect. Observational data leaves the coefficient carrying every unobserved difference too.' },
-      { t: 'mcq', k: 'Regression to the mean', p: 'A team has a terrible quarter, gets a stern talking-to, and improves. The likeliest explanation is:', o: ['The talk worked', 'A change in the market', 'Regression to the mean', 'Better measurement'], a: 2, why: 'Extremes are extreme partly by luck, and luck does not repeat. The improvement was coming whatever anyone said.' }
-    ,
+      { t: 'mcq', k: 'Regression to the mean', p: 'A team has a terrible quarter, gets a stern talking-to, and improves. The likeliest explanation is:', o: ['The talk worked', 'A change in the market', 'Regression to the mean', 'Better measurement'], a: 2, why: 'Extremes are extreme partly by luck, and luck does not repeat. The improvement was coming whatever anyone said.' },
       { t: 'num', k: 'The test', p: 'A fitted slope is 4.8 with a standard error of 1.6. What is its t statistic?', a: 3, tol: 0.02, why: 't = 4.8/1.6 = 3.0, comfortably beyond the rough ±2 threshold, so the slope is distinguishable from zero.' },
       { t: 'mcq', k: 'Prediction', p: 'Why is a prediction interval for a single new observation wider than a confidence interval for the mean at the same x?', o: [ 'It carries the scatter of individual points as well as the uncertainty in the line','It uses a larger t multiplier', 'It is computed at a higher confidence level', 'It ignores the residual standard deviation'], a: 0, why: 'Two sources of uncertainty rather than one: where the line sits, and how far an individual point falls from it. Only the first shrinks as the sample grows.' }
     ],
-    s12: [
+    s13: [
       { t: 'mcq', k: 'Interpretation', p: 'In a multiple regression, β₁ is the effect of X₁:', o: [ 'Holding the others fixed','On its own', 'Combined with the other predictors', 'On the residuals'], a: 0, why: 'Leave out “holding the others fixed” and the sentence is simply false. It is the commonest error in reporting a multiple regression.' },
       { t: 'mcq', k: 'Multicollinearity', p: 'The classic symptom of multicollinearity is:', o: ['A low R² for the whole model', 'Good fit, no significant slopes', 'Curved residuals', 'A negative R²'], a: 1, why: 'The model predicts well while no individual predictor can be credited, because the data cannot separate them.' },
       { t: 'mcq', k: 'Multicollinearity', p: 'If you only care about prediction, multicollinearity is:', o: ['Fatal', 'A sign of overfitting', 'Often tolerable', 'A cause of bias'], a: 2, why: 'It destabilises individual coefficients, not the fitted values. It matters when you want to interpret a slope.' },
       { t: 'mcq', k: 'Intervals', p: 'A forecast interval is wider than a confidence interval because it:', o: ['Uses a larger z', 'Assumes collinearity', 'Has fewer degrees of freedom', 'Includes the error term'], a: 3, why: 'One is about the mean of Y at those X values; the other about a single new observation, which also carries ε.' },
-      { t: 'mcq', k: 'Causation', p: 'An omitted variable correlated with both X and Y produces:', o: [ 'A biased coefficient','A larger standard error', 'A lower R²', 'Heteroskedasticity'], a: 0, why: 'The coefficient absorbs the omitted variable\'s effect and can be confident, significant and wrong — which is why prediction and causation are different claims.' }
-    ],
-    s13: [
+      { t: 'mcq', k: 'Causation', p: 'An omitted variable correlated with both X and Y produces:', o: [ 'A biased coefficient','A larger standard error', 'A lower R²', 'Heteroskedasticity'], a: 0, why: 'The coefficient absorbs the omitted variable\'s effect and can be confident, significant and wrong — which is why prediction and causation are different claims.' },
       { t: 'mcq', k: 'Model choice', p: 'Adding a predictor to a regression does what to R²?', o: [ 'It can rise or fall','It can only rise', 'It always falls', 'It is unchanged'], a: 1, why: 'Even pure noise cannot reduce it, which is exactly why R² cannot compare models of different sizes.' },
       { t: 'mcq', k: 'Adjusted R²', p: 'Adjusted R² differs from R² in that it:', o: [ 'Ignores the intercept', 'Is always larger','Penalises extra predictors', 'Measures out-of-sample fit'], a: 2, why: 'It can fall when a variable does not earn its place, which makes it comparable across model sizes in a way R² is not.' },
       { t: 'mcq', k: 'The F-test', p: 'The F-test in a regression tests:', o: ['One coefficient at a time', 'Whether R² exceeds 0.5', 'Whether residuals are normal', 'All slopes are zero'], a: 3, why: 'Whether the model explains anything at all. It can reject while no individual coefficient does — the collinearity case.' },
