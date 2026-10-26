@@ -11540,10 +11540,13 @@ button{ border-radius:10px; }
     } else if (have.photo && window.__winkEye) {
       node.classList.add('winking');
     }
+    // Hold on to THIS element: a second full-marks run that lands inside the
+    // 400ms fade-out used to have its own banner removed by the previous run's
+    // timeout, because both closed over the same `node` variable.
+    var mine = node;
     timer = setTimeout(function () {
-      if (!node) return;
-      node.classList.remove('on');
-      setTimeout(function () { if (node) { node.remove(); node = null; } }, 400);
+      mine.classList.remove('on');
+      setTimeout(function () { mine.remove(); if (node === mine) node = null; }, 400);
     }, 4150);
   };
 })();
