@@ -44,9 +44,24 @@ MANUAL = ROOT / "tools" / "manual-todos.json"
 
 DEFAULT_OBLIGATIONS = pathlib.Path.home() / "Desktop" / "INSEAD CLAUDE REPO" / "obligations"
 
-# namespace in the obligation -> the hub's course field prefix
-COURSE = {"dsc": "da", "mkt": "mkt", "acc": "fa"}
-FIELD = {"da": "daTodo", "mkt": "mktTodo", "fa": "faTodo", "other": "otherTodo"}
+# namespace in the obligation -> the hub's course field prefix.
+# The namespace is the DEPARTMENT, not the course: Data Analysis (P1),
+# Data Science ML&O (P2) and Negotiations all carry namespace "dsc", and
+# LDMS carries "mkt". Routing on the namespace alone therefore files P2
+# work under an archived P1 course, so the Canvas course id wins where the
+# obligation has one.
+COURSE = {"dsc": "da", "mkt": "mkt", "acc": "fa", "eps": "eps", "fin": "fin"}
+BY_CANVAS_ID = {
+    "9838": "da",    # Data Analysis            P1
+    "9839": "mkt",   # Marketing                P1
+    "9841": "fa",    # Financial Accounting     P1
+    "9843": "eps",   # Applied Microeconomics   P2
+    "9844": "ml",    # Data Science: ML & Opt   P2
+    "9862": "other", # Negotiations — runs across both, not a hub course
+}
+FIELD = {"da": "daTodo", "mkt": "mktTodo", "fa": "faTodo",
+         "eps": "epsTodo", "fin": "finTodo", "ml": "mlTodo",
+         "other": "otherTodo"}
 
 # Everything the command centre tracks that is not one of the three courses:
 # careers and consulting prep, the community challenge, clubs, leadership,
@@ -172,7 +187,11 @@ def collect(obligations: pathlib.Path, today: dt.date, personal: bool = False):
     for f in sorted(obligations.glob("*.md")):
         fm = frontmatter(f)
         ns = fm.get("namespace", "")
-        course = COURSE.get(ns)
+        cid = str(fm.get("canvas_course_id", "")).strip()
+        if not cid:
+            m = re.search(r"/courses/(\d+)", fm.get("link", ""))
+            cid = m.group(1) if m else ""
+        course = BY_CANVAS_ID.get(cid) or COURSE.get(ns)
         if not course:
             if ns in OTHER_LABEL:
                 course = "other"
