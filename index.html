@@ -1579,6 +1579,9 @@ class Component extends DCLogic {
     da: '--ground:#0e3461; --panel:#164077; --line:#3771b8; --ink:#f3f8ff; --soft:#dbe8fb; --muted:#bed3ef; --faint:#a3bcdd; --acc:#54b2ff; --accSoft:#abd7ff; --onAcc:#04121f; --good:#6fd6ab; --bad:#ff8b80;',
     mkt: '--ground:#491f6c; --panel:#56277d; --line:#8552b4; --ink:#faf3ff; --soft:#ecdefa; --muted:#d8c2ee; --faint:#c3a9e2; --acc:#d78fff; --accSoft:#e9ceff; --onAcc:#250c38; --good:#7ad9b4; --bad:#ff96a0;',
     ips: '--ground:#1b1410; --panel:#2a201a; --line:#57433a; --ink:#f7efe8; --soft:#e2d2c5; --muted:#c0aa9b; --faint:#937c6c; --acc:#d08a4a; --accSoft:#f0bb85; --onAcc:#241609; --good:#6fd6ab; --bad:#ff8b80;',
+    eps: '--ground:#3a1210; --panel:#4a1a16; --line:#7e342b; --ink:#fff1ed; --soft:#f7d9cf; --muted:#e5b7a9; --faint:#c08d7d; --acc:#ff7a5c; --accSoft:#ffb79f; --onAcc:#2a0b08; --good:#7ad9b4; --bad:#ffb0a6;',
+    fin: '--ground:#3d2206; --panel:#4d2c0a; --line:#8a5a1d; --ink:#fff6e9; --soft:#f7e1c2; --muted:#e6c89d; --faint:#c2a178; --acc:#ff9f3d; --accSoft:#ffce90; --onAcc:#2b1704; --good:#7ad9b4; --bad:#ff9b90;',
+    ml: '--ground:#352a06; --panel:#45380b; --line:#7d6a1e; --ink:#fff9e6; --soft:#f4e7ba; --muted:#e0ce90; --faint:#bbaa6e; --acc:#ffcc3d; --accSoft:#ffe595; --onAcc:#2a2104; --good:#7ad9b4; --bad:#ff9b90;',
     fa: '--ground:#0c1a13; --panel:#13251b; --line:#345043; --ink:#e9f3ec; --soft:#c7d9ce; --muted:#a3b8ab; --faint:#728a7c; --acc:#3faa6c; --accSoft:#8bd8ab; --onAcc:#06170e; --good:#6fd6ab; --bad:#ff8b80;'
   };
 
@@ -4667,6 +4670,111 @@ class Component extends DCLogic {
                         'aria-label': cheering ? 'A blue fish blowing bubbles' : (glad ? 'A blue fish' : 'A blue fish floating upside down') },
         glad ? fit(-8, 0, 1.04, body)
              : E('g', { transform: 'translate(0 120) scale(1 -1)' }, fit(-8, 0, 1.04, body)));
+    }
+    if (which === 'eps') {
+      // Applied Microeconomics: a tiger. Front on, because at 74px across a
+      // head reads and a whole animal does not.
+      const kids = [
+        E('circle', { key: 'ea', cx: 52, cy: 32, r: 14, fill: '#d9472a' }),
+        E('circle', { key: 'eb', cx: 52, cy: 32, r: 7, fill: '#ffc3a8' }),
+        E('circle', { key: 'ec', cx: 120, cy: 32, r: 14, fill: '#d9472a' }),
+        E('circle', { key: 'ed', cx: 120, cy: 32, r: 7, fill: '#ffc3a8' }),
+        E('path', { key: 'head', d: 'M86 20 C116 20 134 38 134 62 C134 90 112 106 86 106 C60 106 38 90 38 62 C38 38 56 20 86 20 Z', fill: '#f0703f' }),
+        E('g', { key: 'stripes', stroke: '#7d2a12', 'stroke-width': 5, 'stroke-linecap': 'round', fill: 'none' }, [
+          E('path', { key: '1', d: 'M86 23 L86 37' }),
+          E('path', { key: '2', d: 'M71 26 L67 40' }),
+          E('path', { key: '3', d: 'M101 26 L105 40' }),
+          E('path', { key: '4', d: 'M41 54 L55 57' }),
+          E('path', { key: '5', d: 'M131 54 L117 57' }),
+          E('path', { key: '6', d: 'M40 70 L54 71' }),
+          E('path', { key: '7', d: 'M132 70 L118 71' })
+        ]),
+        E('ellipse', { key: 'muz', cx: 86, cy: 82, rx: 25, ry: 16, fill: '#fff1e7' }),
+        E('circle', { key: 'eyeL', cx: 70, cy: 59, r: 8, fill: '#fffaf6' }),
+        E('circle', { key: 'pupL', cx: 70, cy: 60, r: 3.8, fill: '#3a1206' }),
+        E('circle', { key: 'eyeR', cx: 102, cy: 59, r: 8, fill: '#fffaf6' }),
+        E('circle', { key: 'pupR', cx: 102, cy: 60, r: 3.8, fill: '#3a1206' }),
+        E('path', { key: 'nose', d: 'M79 73 L93 73 L86 80 Z', fill: '#8c3418' }),
+        E('g', { key: 'whisk', stroke: '#8c3418', 'stroke-width': 2, 'stroke-linecap': 'round', opacity: 0.7 }, [
+          E('path', { key: '1', d: 'M62 80 L42 76' }),
+          E('path', { key: '2', d: 'M62 85 L42 87' }),
+          E('path', { key: '3', d: 'M110 80 L130 76' }),
+          E('path', { key: '4', d: 'M110 85 L130 87' })
+        ]),
+        E('path', { key: 'phil', d: 'M86 80 L86 85', stroke: '#8c3418', 'stroke-width': 2.6, 'stroke-linecap': 'round' }),
+        mouth('M72 86 C78 93 82 93 86 85 C90 93 94 93 100 86',
+              'M72 93 C78 86 82 86 86 94 C90 86 94 86 100 93', '#8c3418', 3)
+      ];
+      if (cheering) {
+        kids.push(E('circle', { key: 'b1', className: 'dc-bubble dc-b1', cx: 24, cy: 40, r: 4, fill: '#ffc3a8' }));
+        kids.push(E('circle', { key: 'b2', className: 'dc-bubble dc-b2', cx: 148, cy: 44, r: 3.2, fill: '#ffd9c6' }));
+        kids.push(E('circle', { key: 'b3', className: 'dc-bubble dc-b3', cx: 32, cy: 30, r: 2.4, fill: '#ffd9c6' }));
+      }
+      return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%',
+                        'aria-label': glad ? 'A tiger' : 'A glum tiger' }, kids);
+    }
+    if (which === 'fin') {
+      // Finance: a raccoon, which is the animal that counts what it finds.
+      const kids = [
+        E('path', { key: 'tail', d: 'M132 104 C156 98 166 74 156 54 C151 44 140 43 136 52 C129 68 136 88 122 100 Z', fill: '#d9a46f' }),
+        E('g', { key: 'rings', stroke: '#45291a', 'stroke-width': 8, 'stroke-linecap': 'round', fill: 'none' }, [
+          E('path', { key: '1', d: 'M152 58 C145 61 141 66 139 73' }),
+          E('path', { key: '2', d: 'M158 76 C150 79 144 84 141 91' })
+        ]),
+        E('circle', { key: 'ea', cx: 50, cy: 36, r: 16, fill: '#b98451' }),
+        E('circle', { key: 'eb', cx: 50, cy: 36, r: 8.5, fill: '#f0cdae' }),
+        E('circle', { key: 'ec', cx: 120, cy: 36, r: 16, fill: '#b98451' }),
+        E('circle', { key: 'ed', cx: 120, cy: 36, r: 8.5, fill: '#f0cdae' }),
+        E('path', { key: 'head', d: 'M85 22 C113 22 130 40 130 64 C130 90 110 106 85 106 C60 106 40 90 40 64 C40 40 57 22 85 22 Z', fill: '#d9a46f' }),
+        E('path', { key: 'blaze', d: 'M85 30 C91 42 93 54 92 66 L78 66 C77 54 79 42 85 30 Z', fill: '#fdf2e4' }),
+        E('ellipse', { key: 'mL', cx: 65, cy: 58, rx: 19, ry: 15, fill: '#45291a' }),
+        E('ellipse', { key: 'mR', cx: 105, cy: 58, rx: 19, ry: 15, fill: '#45291a' }),
+        E('circle', { key: 'eyeL', cx: 66, cy: 58, r: 7, fill: '#fdf2e4' }),
+        E('circle', { key: 'pupL', cx: 66, cy: 59, r: 3.4, fill: '#231209' }),
+        E('circle', { key: 'eyeR', cx: 104, cy: 58, r: 7, fill: '#fdf2e4' }),
+        E('circle', { key: 'pupR', cx: 104, cy: 59, r: 3.4, fill: '#231209' }),
+        E('path', { key: 'snout', d: 'M85 62 C98 62 108 72 109 84 C110 96 99 104 85 104 C71 104 60 96 61 84 C62 72 72 62 85 62 Z', fill: '#fdf2e4' }),
+        E('path', { key: 'nose', d: 'M85 74 C91 74 94 78 90 82 L85 86 L80 82 C76 78 79 74 85 74 Z', fill: '#45291a' }),
+        E('path', { key: 'phil', d: 'M85 86 L85 90', stroke: '#45291a', 'stroke-width': 2.4, 'stroke-linecap': 'round' }),
+        mouth('M74 91 C79 97 91 97 96 91', 'M74 97 C79 91 91 91 96 97', '#45291a', 3)
+      ];
+      if (cheering) {
+        kids.push(E('circle', { key: 'b1', className: 'dc-bubble dc-b1', cx: 26, cy: 44, r: 5, fill: '#ffcd77' }));
+        kids.push(E('circle', { key: 'b2', className: 'dc-bubble dc-b2', cx: 16, cy: 56, r: 3.4, fill: '#ffe0a6' }));
+        kids.push(E('circle', { key: 'b3', className: 'dc-bubble dc-b3', cx: 34, cy: 34, r: 2.8, fill: '#ffe0a6' }));
+      }
+      return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%',
+                        'aria-label': glad ? 'A raccoon' : 'A glum raccoon' }, kids);
+    }
+    if (which === 'ml') {
+      // Machine Learning: a horse, drawn side on like the giraffe so the two
+      // long-necked animals sit in the same family.
+      const kids = [
+        E('path', { key: 'tail', d: 'M44 72 C32 70 22 84 26 102 C30 94 36 90 44 88', fill: 'none', stroke: '#c8902c', 'stroke-width': 7, 'stroke-linecap': 'round' }),
+        E('path', { key: 'legs', d: 'M52 88 L52 110 M70 90 L70 110 M92 90 L92 110 M108 86 L108 110', stroke: '#c8902c', 'stroke-width': 11, 'stroke-linecap': 'round' }),
+        E('path', { key: 'body', d: 'M44 76 C44 62 58 56 78 56 L100 56 C116 56 120 68 118 84 C116 92 100 94 78 94 C58 94 44 88 44 76 Z', fill: '#edb84e' }),
+        E('path', { key: 'neck', d: 'M98 62 L112 30', stroke: '#edb84e', 'stroke-width': 25, 'stroke-linecap': 'round' }),
+        E('g', { key: 'mane', stroke: '#fff0c8', 'stroke-width': 6, 'stroke-linecap': 'round', fill: 'none' }, [
+          E('path', { key: '1', d: 'M92 60 C86 50 90 42 98 36' }),
+          E('path', { key: '2', d: 'M98 48 C93 42 95 34 102 29' }),
+          E('path', { key: '3', d: 'M106 38 C102 32 104 26 110 22' })
+        ]),
+        E('path', { key: 'head', d: 'M110 24 C124 16 142 20 146 30 C149 38 142 43 133 42 L112 38 Z', fill: '#f3c764' }),
+        E('ellipse', { key: 'muz', cx: 142, cy: 34, rx: 8.5, ry: 6.5, fill: '#d79e33' }),
+        E('path', { key: 'earL', d: 'M106 22 L101 8 L114 17 Z', fill: '#f3c764' }),
+        E('path', { key: 'earR', d: 'M118 20 L117 6 L127 17 Z', fill: '#f3c764' }),
+        E('circle', { key: 'eye', cx: 124, cy: 29, r: 3.2, fill: '#2a1a04' }),
+        E('circle', { key: 'nost', cx: 139, cy: 31, r: 1.8, fill: '#2a1a04' }),
+        mouth('M130 38 C135 42 141 41 145 37', 'M130 42 C135 38 141 37 145 41', '#2a1a04', 2.6)
+      ];
+      if (cheering) {
+        kids.push(E('circle', { key: 'b1', className: 'dc-bubble dc-b1', cx: 30, cy: 104, r: 4.5, fill: '#fff0c8' }));
+        kids.push(E('circle', { key: 'b2', className: 'dc-bubble dc-b2', cx: 20, cy: 110, r: 3.2, fill: '#ffe49a' }));
+        kids.push(E('circle', { key: 'b3', className: 'dc-bubble dc-b3', cx: 38, cy: 112, r: 2.6, fill: '#ffe49a' }));
+      }
+      return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%',
+                        'aria-label': glad ? 'A horse' : 'A glum horse' },
+        E('g', { transform: 'translate(14 17) scale(0.8)' }, kids));
     }
     if (which === 'mkt') {
       return E('svg', { viewBox: '0 0 172 120', width: '100%', height: '100%', 'aria-label': 'A purple giraffe' },
