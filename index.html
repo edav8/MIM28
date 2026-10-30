@@ -1064,6 +1064,13 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
                   <div style="font-size:15px; margin-top:6px; text-wrap:pretty; color:var(--soft)">{{ b.text }}</div>
                 </div>
               </sc-if>
+              <sc-if value="{{ b.isCode }}" hint-placeholder-val="{{ false }}">
+                <div style="margin:6px 0 18px">
+                  <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--accSoft); margin-bottom:6px">{{ b.label }}</div>
+                  <pre style="margin:0; background:var(--panel); border:2px solid var(--line); border-left:3px solid var(--acc); padding:14px 16px; overflow-x:auto; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13.5px; line-height:1.55; color:var(--ink); white-space:pre">{{ b.code }}</pre>
+                  <div style="font-size:13px; color:var(--muted); margin-top:8px; max-width:64ch; text-wrap:pretty">{{ b.text }}</div>
+                </div>
+              </sc-if>
               <sc-if value="{{ b.isTbl }}" hint-placeholder-val="{{ false }}">
                 <div style="margin:6px 0 22px; overflow-x:auto">
                   <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted); margin-bottom:8px">{{ b.label }}</div>
@@ -1118,6 +1125,10 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
 
           <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted); margin-top:24px">{{ q.kicker }}</div>
           <div style="font-family:var(--font-h); font-size:26px; font-weight:700; letter-spacing:-0.015em; line-height:1.2; margin-top:8px; text-wrap:pretty">{{ q.prompt }}</div>
+
+          <sc-if value="{{ q.hasCode }}" hint-placeholder-val="{{ false }}">
+            <pre style="margin:18px 0 0; background:var(--panel); border:2px solid var(--line); border-left:3px solid var(--acc); padding:14px 16px; overflow-x:auto; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13.5px; line-height:1.55; color:var(--ink); white-space:pre">{{ q.code }}</pre>
+          </sc-if>
 
           <sc-if value="{{ q.isMcq }}" hint-placeholder-val="{{ true }}">
             <div style="display:flex; flex-direction:column; gap:10px; margin-top:24px">
@@ -1374,6 +1385,9 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
               <div style="padding:16px 18px; border-bottom:2px solid var(--line)">
                 <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted)">{{ s.label }}</div>
                 <div style="font-size:17px; font-weight:600; margin-top:6px; text-wrap:pretty">{{ s.q }}</div>
+                <sc-if value="{{ s.hasCode }}" hint-placeholder-val="{{ false }}">
+                  <pre style="margin:14px 0 0; background:var(--panel); border:2px solid var(--line); border-left:3px solid var(--acc); padding:14px 16px; overflow-x:auto; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13.5px; line-height:1.55; color:var(--ink); white-space:pre">{{ s.code }}</pre>
+                </sc-if>
               </div>
               <div style="padding:16px 18px; display:flex; flex-direction:column; gap:12px">
                 <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="2">
@@ -1579,9 +1593,9 @@ class Component extends DCLogic {
     da: '--ground:#0e3461; --panel:#164077; --line:#3771b8; --ink:#f3f8ff; --soft:#dbe8fb; --muted:#bed3ef; --faint:#a3bcdd; --acc:#54b2ff; --accSoft:#abd7ff; --onAcc:#04121f; --good:#6fd6ab; --bad:#ff8b80;',
     mkt: '--ground:#491f6c; --panel:#56277d; --line:#8552b4; --ink:#faf3ff; --soft:#ecdefa; --muted:#d8c2ee; --faint:#c3a9e2; --acc:#d78fff; --accSoft:#e9ceff; --onAcc:#250c38; --good:#7ad9b4; --bad:#ff96a0;',
     ips: '--ground:#1b1410; --panel:#2a201a; --line:#57433a; --ink:#f7efe8; --soft:#e2d2c5; --muted:#c0aa9b; --faint:#937c6c; --acc:#d08a4a; --accSoft:#f0bb85; --onAcc:#241609; --good:#6fd6ab; --bad:#ff8b80;',
-    eps: '--ground:#3a1210; --panel:#4a1a16; --line:#7e342b; --ink:#fff1ed; --soft:#f7d9cf; --muted:#e5b7a9; --faint:#c08d7d; --acc:#ff7a5c; --accSoft:#ffb79f; --onAcc:#2a0b08; --good:#7ad9b4; --bad:#ffb0a6;',
-    fin: '--ground:#3d2206; --panel:#4d2c0a; --line:#8a5a1d; --ink:#fff6e9; --soft:#f7e1c2; --muted:#e6c89d; --faint:#c2a178; --acc:#ff9f3d; --accSoft:#ffce90; --onAcc:#2b1704; --good:#7ad9b4; --bad:#ff9b90;',
-    ml: '--ground:#352a06; --panel:#45380b; --line:#7d6a1e; --ink:#fff9e6; --soft:#f4e7ba; --muted:#e0ce90; --faint:#bbaa6e; --acc:#ffcc3d; --accSoft:#ffe595; --onAcc:#2a2104; --good:#7ad9b4; --bad:#ff9b90;',
+    eps: '--ground:#4a0f0b; --panel:#67150f; --line:#b33a22; --ink:#fff4f0; --soft:#ffd9cb; --muted:#ffb59b; --faint:#e08a6c; --acc:#ff4d2e; --accSoft:#ff9470; --onAcc:#2a0600; --good:#45e3a8; --bad:#ffc24d;',
+    fin: '--ground:#4a2300; --panel:#652f00; --line:#c06c12; --ink:#fff8ee; --soft:#ffe3bd; --muted:#ffc885; --faint:#dda258; --acc:#ff8c00; --accSoft:#ffb84d; --onAcc:#2b1300; --good:#45e3a8; --bad:#ff6b5c;',
+    ml: '--ground:#3d3200; --panel:#544400; --line:#a8891a; --ink:#fffdf0; --soft:#fff0b8; --muted:#ffe176; --faint:#d6bb4a; --acc:#ffd400; --accSoft:#ffe866; --onAcc:#241c00; --good:#45e3a8; --bad:#ff6b5c;',
     fa: '--ground:#0c1a13; --panel:#13251b; --line:#345043; --ink:#e9f3ec; --soft:#c7d9ce; --muted:#a3b8ab; --faint:#728a7c; --acc:#3faa6c; --accSoft:#8bd8ab; --onAcc:#06170e; --good:#6fd6ab; --bad:#ff8b80;'
   };
 
@@ -2243,25 +2257,427 @@ class Component extends DCLogic {
   finBank = {};
 
   mlSessions = [
-    { key: 'm1', num: '01', title: 'Session 01', preview: 'Class on Wed 28 Oct. Materials appear here once the handout is released.' },
-    { key: 'm2', num: '02', title: 'Session 02', preview: 'Class on Thu 29 Oct. Materials appear here once the handout is released.' },
-    { key: 'm3', num: '03', title: 'Session 03', preview: 'Class on Fri 30 Oct. Materials appear here once the handout is released.' },
-    { key: 'm4', num: '04', title: 'Session 04', preview: 'Class on Mon 2 Nov. Materials appear here once the handout is released.' },
-    { key: 'm5', num: '05', title: 'Session 05', preview: 'Class on Fri 6 Nov. Materials appear here once the handout is released.' },
-    { key: 'm6', num: '06', title: 'Session 06', preview: 'Class on Mon 9 Nov. Materials appear here once the handout is released.' },
-    { key: 'm7', num: '07', title: 'Session 07', preview: 'Class on Tue 10 Nov. Materials appear here once the handout is released.' },
-    { key: 'm8', num: '08', title: 'Session 08', preview: 'Class on Wed 11 Nov. Materials appear here once the handout is released.' },
-    { key: 'm9', num: '09', title: 'Session 09', preview: 'Class on Mon 16 Nov. Materials appear here once the handout is released.' },
-    { key: 'm10', num: '10', title: 'Session 10', preview: 'Class on Wed 18 Nov. Materials appear here once the handout is released.' },
-    { key: 'm11', num: '11', title: 'Session 11', preview: 'Class on Fri 20 Nov. Materials appear here once the handout is released.' },
-    { key: 'm12', num: '12', title: 'Session 12', preview: 'Class on Mon 23 Nov. Materials appear here once the handout is released.' },
-    { key: 'm13', num: '13', title: 'Session 13', preview: 'Class on Wed 25 Nov. Materials appear here once the handout is released.' },
-    { key: 'm14', num: '14', title: 'Session 14', preview: 'Class on Fri 27 Nov. Materials appear here once the handout is released.' },
-    { key: 'm15', num: '15', title: 'Session 15', preview: 'Class on Mon 30 Nov. Materials appear here once the handout is released.' }
+    { key: 'm1', num: '01', title: 'Course Intro: ML, Optimization and a Python Recap', preview: 'What machine learning, optimization and “AI” actually mean, how the course is graded, and the Python you are assumed to have.' },
+    { key: 'm2', num: '02', title: 'Data Pre-processing and Feature Engineering', preview: 'The Titanic dataset end to end: corrupt values, outliers, duplicates, scaling, imputation, and turning categories into numbers.' },
+    { key: 'm3', num: '03', title: 'Supervised Learning Basics and Regression Recap', preview: 'M. Gelato’s ice creams: linear regression in scikit-learn, where it fails, and polynomial regression as the fix.' },
+    { key: 'm4', num: '04', title: 'Classification: Logistic Regression', preview: 'Class on Mon 2 Nov. Materials appear here once the handout is released.' },
+    { key: 'm5', num: '05', title: 'Tree-Based Methods', preview: 'Class on Fri 6 Nov. Materials appear here once the handout is released.' },
+    { key: 'm6', num: '06', title: 'Extensions of Tree-Based Methods', preview: 'Class on Mon 9 Nov. Materials appear here once the handout is released.' },
+    { key: 'm7', num: '07', title: 'Case: STC (Retention Modeling at Scholastic Travel Company)', preview: 'Class on Tue 10 Nov. The last session the midterm covers. Materials appear here once the handout is released.' },
+    { key: 'm8', num: '08', title: 'Dimension Reduction', preview: 'Class on Wed 11 Nov. Materials appear here once the handout is released.' },
+    { key: 'm9', num: '09', title: 'Clustering and Segmentation', preview: 'Class on Mon 16 Nov. Materials appear here once the handout is released.' },
+    { key: 'm10', num: '10', title: 'Case: Boats (A)', preview: 'Class on Wed 18 Nov. Materials appear here once the handout is released.' },
+    { key: 'm11', num: '11', title: 'Linear Programming', preview: 'Class on Fri 20 Nov. Materials appear here once the handout is released.' },
+    { key: 'm12', num: '12', title: 'Integer Programming', preview: 'Class on Mon 23 Nov. Materials appear here once the handout is released.' },
+    { key: 'm13', num: '13', title: 'Capstone Case: Integration Planning at SFB (A)', preview: 'Class on Wed 25 Nov. Materials appear here once the handout is released.' },
+    { key: 'm14', num: '14', title: 'Capstone Case: Integration Planning at SFB (B)', preview: 'Class on Fri 27 Nov. Materials appear here once the handout is released.' },
+    { key: 'm15', num: '15', title: 'Capstone Case: Integration Planning at SFB (C)', preview: 'Class on Mon 30 Nov. Materials appear here once the handout is released.' }
   ];
-  mlBuilt = {};
-  mlLessons = {};
-  mlBank = {};
+  mlBuilt = { m1: true, m2: true, m3: true };
+
+  mlLessons = {
+    m1: [
+      { t: 'h', text: 'What this course is actually for' },
+      { t: 'p', text: 'The stated goal is to go from raw data to a decision on real business data — and to be able to check somebody else’s work while doing it. Professor Hall puts the reason for that bluntly on the first slide.' },
+      { t: 'note', label: 'Why you still have to learn the code', text: '“LLMs can write the code. You need to know which question to ask, whether the answer is right, and what to do with it.” The class is explicitly not designed for programmers or engineers.' },
+      { t: 'h', text: 'The three things the course is made of' },
+      { t: 'p', text: 'Everything in the fifteen sessions is one of three activities, and telling them apart is the single most tested idea in Lecture 1.' },
+      { t: 'tbl', label: 'Machine learning and optimization', head: ['', 'Goal', 'Labels?', 'Sessions'], rows: [
+        { cells: ['Supervised ML', 'Obtain predictions from data', 'Yes — the label is what you want to predict', '3, 4, 5, 6'] },
+        { cells: ['Unsupervised ML', 'Find patterns in data', 'No — the algorithm decides what is interesting', '8, 9'] },
+        { cells: ['Optimization', 'Make the best possible decision under constraints', 'Not applicable', '11, 12'] } ] },
+      { t: 'ul', items: ['In optimization a decision is made, which maximises or minimises some quantity.', 'In machine learning you get information from the data. It can inform a decision, but the algorithm does not return one.', 'Supervised vs unsupervised: always ask whether there is a clear quantity you want to predict. If there is, that is your label.'] },
+      { t: 'h', text: 'And what about “AI”?' },
+      { t: 'p', text: 'The lecture deliberately refuses to give one definition. It is a catch-all whose meaning depends on the source — the EU AI Act, an ISO standard and a marketing pamphlet classify the same product differently.' },
+      { t: 'tbl', label: 'The same system, three verdicts', head: ['System', 'EU AI Act', 'ISO standard', 'Marketing pamphlet'], rows: [
+        { cells: ['Bank website assistant', 'No', 'Yes', '“Our AI assistant”'] },
+        { cells: ['Thermostat', 'No', 'Yes', '“Smart heating”'] },
+        { cells: ['Loan prediction', 'Yes', 'Yes', '“AI-powered credit score”'] },
+        { cells: ['Deciding how many items to produce', 'Unknown', 'Yes', '“AI-powered production planning”'] } ] },
+      { t: 'p', text: 'A typical definition is a set of tasks performed by a computer that are commonly associated with intelligent beings. The course is called Machine Learning and Optimization precisely because both of those terms are defined. LLMs are revisited at the end of the ML block: they generate text, and are built mostly with supervised learning plus some reinforcement learning.' },
+      { t: 'h', text: 'The shape of the fifteen sessions' },
+      { t: 'tbl', label: 'Class organisation', head: ['Block', 'Sessions'], rows: [
+        { cells: ['Introduction to data analysis — course intro, then data pre-processing and feature engineering', '1–2'] },
+        { cells: ['Supervised learning — linear/polynomial regression, logistic regression, trees, extensions, STC case', '3–7'] },
+        { cells: ['Unsupervised learning — dimension reduction, clustering and segmentation, Boats (A)', '8–10'] },
+        { cells: ['Optimization — linear programming, integer programming', '11–12'] },
+        { cells: ['Capstone case — Integration Planning at SFB (A), (B), (C)', '13–15'] } ] },
+      { t: 'note', label: 'What the midterm covers', text: 'Lectures 1 through 7, and it can ask you to interpret code — which is why every session here carries code-reading drills and a written “explain the code” set.' },
+      { t: 'h', text: 'What “knowing how to code” means here' },
+      { t: 'p', text: 'The bar the lecture sets is deliberately modest, and it is a reading bar rather than a writing one: “Main goal: you can read code and figure out what it does!” That is the same skill the midterm tests when it asks you to interpret code.' },
+      { t: 'note', label: 'Vibe coding', text: '“Vibe coding is great… but it requires basic coding knowledge to be able to check/debug.” The sequence the course wants is understand first, then let the model write it.' },
+      { t: 'h', text: 'Python recap: the four data structures' },
+      { t: 'p', text: 'Lecture 1 is a recap of P0, worked on the 2025 Financial Times ranking of Masters in Management programmes — 100 schools, 22 criteria, INSEAD ranked 3rd. Four structures matter, and the course uses each for a different job.' },
+      { t: 'tbl', label: 'Which structure, and what for', head: ['Structure', 'Package', 'Used in this course for'], rows: [
+        { cells: ['Python list', 'built in', 'Small ad-hoc collections'] },
+        { cells: ['Numpy array', 'numpy', 'Fast calculation across whole arrays at once'] },
+        { cells: ['Pandas dataframe', 'pandas', 'Almost everything in the machine learning lectures'] },
+        { cells: ['Dictionary', 'built in', 'Optimization, where entries carry different amounts of information'] } ] },
+      { t: 'code', label: 'The preamble of every notebook', code: 'import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt', text: 'Colab already has the major packages installed. What it does not do is import them for you — that is the first cell of every exercise book.' },
+      { t: 'h', text: 'Lists, and the thing everyone gets wrong' },
+      { t: 'code', label: 'Indexing from zero', code: 'L = ["Insead", "France", 3]\nlen(L)        # 3\nL[1]          # "France" — the SECOND element\nL[-1]         # 3 — the last element\nL[0] = "INSEAD"\nL.append(9.62)', text: 'L[1] is the second element because Python counts from zero. L[-1] reaches the last one. Assignment with = changes an element in place; .append adds one to the end.' },
+      { t: 'code', label: 'Joining and counting', code: 'M = ["MIM", 2025]\nNewList = L + M          # + concatenates two lists\n\ncountries = ["Switzerland","France","France","Portugal","China","China","France","China","Sweden","UK"]\ncountries.count("China")  # 3', text: '.sort, .insert and .index work the same way. + on two lists joins them; it does not add their elements.' },
+      { t: 'h', text: 'Conditions and loops' },
+      { t: 'f', text: '=  assigns     ==  compares     !=  is not equal to', note: 'This is the distinction the lecture flags explicitly. = puts a value into a variable; == asks whether two things are the same and returns True or False.' },
+      { t: 'code', label: 'if / elif / else', code: 'school = "Insead"\n\nif school == "HEC Paris":\n    print("You are at HEC Paris.")\nelif school == "Insead":\n    print("You are at INSEAD.")\nelse:\n    print("You are neither at HEC Paris, nor at INSEAD.")', text: 'Two things are crucial and are the usual cause of an error: the colon at the end of each condition, and the indentation of the line underneath. Without the tab, the code does not run.' },
+      { t: 'code', label: 'for, range, and while', code: 'enrolled = [54, 578, 201, 68]\ntotal = 0\nfor i in enrolled:\n    total = total + i\nprint(total)        # 901\n\nrange(10)           # 0,1,...,9\nrange(5, 10)        # 5,6,...,9\nrange(0, 10, 2)     # 0,2,4,6,8\n\nsalary = 100000\nyears = 0\nwhile salary < 200000:\n    salary = salary * 1.05\n    years = years + 1\nprint(years)        # 15', text: 'A for loop runs once per item. A while loop keeps running as long as its condition holds — here, how many years of 5% rises it takes a salary to double.' },
+      { t: 'h', text: 'Numpy arrays' },
+      { t: 'p', text: 'An array looks like a list but calculates like a number: you can act on the whole thing at once. That is the reason to bother with them.' },
+      { t: 'code', label: 'Whole-array arithmetic and filtering', code: 'salary = [139.9, 141.6, 127.4, 123.5, 115.5, 128.4]\nnp_salary = np.array(salary)\n\nstart = np_salary / (1 + increase/100)   # acts on every element at once\n\n(start >= 80) & (start <= 90)   # array of True/False\nstart[(start >= 80) & (start <= 90)]   # the VALUES that qualify', text: 'For arrays, and becomes & and or becomes |, and the parentheses around each condition are not optional. A condition on its own gives you True/False; putting it in square brackets gives you the values.' },
+      { t: 'code', label: 'Shapes and the all/any pair', code: 'A = np.arange(12).reshape((4,3))\nB = np.ones(12).reshape((4,3))\nA + B        # elementwise\nA * B        # elementwise, NOT matrix multiplication\nA.min()      # 0\n(B == 1).all()   # True  — every entry is 1\n(A == 1).any()   # True  — at least one entry is 1', text: '.all() asks whether the condition holds everywhere; .any() asks whether it holds anywhere. .max, .sum and .cumsum behave like .min.' },
+      { t: 'h', text: 'Pandas dataframes' },
+      { t: 'p', text: 'This is the structure used almost exclusively in the machine learning lectures. Columns and rows are not reached the same way, which is the part worth memorising.' },
+      { t: 'code', label: 'Reading, looking, selecting', code: 'ft = pd.read_csv("MIM_FT_rankings.csv")\nft.head()                     # first few rows\nft["School Name"]             # a Series\nft[["School Name"]]           # a DataFrame — the type we work with\nft[["School Name", "Main location"]]\n\nft[0:5]        # rows by position\nft.loc[[5]]    # the row LABELLED 5\nft.iloc[[5]]   # the SIXTH row, whatever its label\nft.iloc[:, 1:3]   # all rows, columns 2 and 3', text: 'One pair of brackets returns a Series; two returns a DataFrame. .loc works on the index label, .iloc on the position — identical until rows have been dropped, and then very different.' },
+      { t: 'code', label: 'Filtering, dropping, describing', code: 'ft[ft["School Name"] == "Insead"]\nft[ft["Female students (%)"] >= 50]\n\nft.drop(columns=["Carbon footprint rank"])\nft.describe()     # count, mean, std, quartiles — numeric columns only\nft.dtypes         # what type each column actually is', text: 'A column missing from .describe() is a column Python does not consider numeric — usually a number stored as text, which is a Lecture 2 problem.' },
+      { t: 'h', text: 'Dictionaries' },
+      { t: 'code', label: 'Keys and values', code: 'schools = {"insead": ["France", 3],\n           "hec paris": ["France", 2],\n           "harvard business school": ["US"]}\n\nschools["insead"]    # ["France", 3]\nschools.keys()', text: 'Harvard has no MIM rank, and the dictionary simply carries less information for that key. A dataframe would have to store an empty cell. That flexibility is why dictionaries turn up in the optimization block.' },
+      { t: 'h', text: 'Plotting' },
+      { t: 'code', label: 'Group, then plot', code: 'country_ft = ft.groupby("Main location").mean(numeric_only=True).reset_index()\nplt.bar(country_ft["Main location"], country_ft["Salary percentage increase"])\nplt.xticks(rotation=90)\n\nft.groupby("Main location").size()   # how many schools per country', text: 'The second line is the one the lecture actually cares about: a country that tops the bar chart on one school is not a finding. Check the group sizes before concluding anything.' }
+    ],
+
+    m2: [
+      { t: 'h', text: 'Where this sits' },
+      { t: 'p', text: 'The machine learning pipeline runs raw data → data pre-processing → prepared data → feature engineering → engineered features → modeling → insights. Lecture 2 is the first two arrows; every later lecture is the last one.' },
+      { t: 'note', label: 'Why it gets a whole session', text: 'It “often requires business knowledge/detective work combined with good technical knowledge to identify and correct”. The techniques are easy; knowing that something is wrong is the hard part.' },
+      { t: 'h', text: 'The dataset' },
+      { t: 'p', text: 'Everything is worked on Titanic.csv: a passenger list with features and whether each one survived. 11 features, 893 observations — 2 floats, 3 integers and 6 objects, where an object is a string or a mix of strings and numbers.' },
+      { t: 'f', text: 'Observation = a row.     Feature = a column.', note: 'A numerical variable denotes a measurement or a count (fare, age, sibsp). A categorical variable denotes membership of a category — and may well be written as a number, where the number stands in for the category (Pclass, sex).' },
+      { t: 'h', text: 'The five things that can be wrong with a dataset' },
+      { t: 'ul', items: ['Values that are not in the right format — a number written as a string.', 'Invalid values — a negative number for something that can only be positive.', 'Features that bring no information: the same value for every observation, or a different value for every observation with no useful pattern.', 'Duplicate observations.', 'Observations or features with missing elements.'] },
+      { t: 'h', text: 'Corrupt and invalid values' },
+      { t: 'p', text: 'For numbers, .describe() is the detector: read the min and max and ask whether they are possible. In the Titanic data a fare is negative, which it cannot be.' },
+      { t: 'code', label: 'Find it, then drop the row', code: 'Titanic.describe()                  # a negative minimum fare appears here\nTitanic[Titanic["Fare"] < 0]        # row 892 — completely corrupt\nTitanic.drop(index=892)', text: 'Filter to see the offending row before deleting anything. Row 892 turns out to be corrupt across the board, not just in Fare.' },
+      { t: 'p', text: 'For strings and objects the detector is different: .unique() lists every distinct value, and you read the list for things that should not be there.' },
+      { t: 'code', label: 'The string equivalent', code: 'Titanic["Embarked"].unique()', text: 'On the Titanic data this surfaces two passengers sharing a name, shared ticket numbers, and missing values in Embarked and Cabin.' },
+      { t: 'note', label: 'Outliers', text: 'An outlier is an observation that does not fit into your dataset — from corrupt data, a typo, or a real outlier (the lecture’s example is Michael Jordan). Three ways to look: boxplots, Z-score charts (above 3 or below −3), and anomaly detection, an unsupervised technique. All three only flag; area-specific knowledge decides whether to keep or discard.' },
+      { t: 'h', text: 'Features with no information, and duplicates' },
+      { t: 'code', label: 'Dropping columns and duplicate rows', code: 'Titanic.drop(columns=["column1", "column2"])\n\ndups = Titanic.duplicated()   # True/False per row\nprint(dups.any())             # is there any duplicate at all?\nTitanic[dups]                 # show the offending row\n\nprint(Titanic.shape)\nTitanic.drop_duplicates(inplace=True)\nprint(Titanic.shape)', text: 'Delete features that are unique to every observation and carry no information, and features that are identical for every observation. drop_duplicates does the detection and the deletion in one, which is why you only investigate by hand once.' },
+      { t: 'h', text: 'Scaling and normalizing' },
+      { t: 'f', text: 'Normalizing → data between 0 and 1.     Scaling → mean 0, standard deviation 1.', note: 'Numerical features only. Both exist to put data on comparable scales.' },
+      { t: 'code', label: 'The two, side by side', code: 'from sklearn import preprocessing\n\nmin_max_scaler = preprocessing.MinMaxScaler()\nX_minmax = min_max_scaler.fit_transform(X)   # normalizing: 0 to 1\n\nX_scaled = preprocessing.scale(X)            # scaling: mean 0, sd 1', text: 'MinMaxScaler normalizes; preprocessing.scale scales. The exercise book asks you which is which, and the names are not a reliable guide.' },
+      { t: 'ul', items: ['Useful for regressions and PCA. NOT for tree algorithms.', 'Rule of thumb: if the algorithm takes features and multiplies them by numbers, scaling probably helps.', 'Symptoms that you needed it: columns orders of magnitude apart, a “poor condition number” warning, or output that comes back as NAs.'] },
+      { t: 'h', text: 'Missing data' },
+      { t: 'code', label: 'Detecting it', code: 'Titanic.isna().any()   # WHICH columns have missing values\nTitanic.isna().sum()   # HOW MANY are missing in each', text: 'On the Titanic data three columns have gaps: Age, Cabin and Embarked.' },
+      { t: 'p', text: 'The lecture ranks the ways of filling a gap from easy to hard, and the ladder is worth knowing in order — the midterm can ask which one you would use.' },
+      { t: 'tbl', label: 'Imputation, easy to hard', head: ['Numerical variables', 'Categorical variables'], rows: [
+        { cells: ['Replace with the mean / largest / smallest value', 'Replace with the most or least frequent value'] },
+        { cells: ['Delete the rows or columns with missing values', 'Delete the rows or columns with missing values'] },
+        { cells: ['Use the closest observation on the other features', 'Use the closest observation on the other features'] },
+        { cells: ['Pick at random among several close observations', 'Run a prediction algorithm that outputs a category (Lecture 5)'] },
+        { cells: ['Regress on complete rows and infer the missing values', ''] },
+        { cells: ['The same regression, then add noise', ''] } ] },
+      { t: 'tbl', label: 'Why a value is missing matters more than how you fill it', head: ['Pattern', 'What it means'], rows: [
+        { cells: ['Missing completely at random', 'No pattern at all to the missing entries'] },
+        { cells: ['Missing at random', 'Whether an entry is absent depends on another feature'] },
+        { cells: ['Missing not at random', 'Entries are absent because of their own value, or a feature you have not accounted for'] } ] },
+      { t: 'note', label: 'The limit of all of it', text: 'The methods above work for missing completely at random and missing at random. For missing not at random it is “much harder”, and the only mitigation the lecture offers is adding features.' },
+      { t: 'code', label: 'What was actually done to the Titanic data', code: 'Titanic.drop(columns=["Cabin"])        # too many missing to rescue\n\nfrom sklearn.impute import SimpleImputer\nimp = SimpleImputer(missing_values=np.nan, strategy="most_frequent")\nTitanic[["Embarked"]] = imp.fit_transform(Titanic[["Embarked"]])\n\nfrom sklearn.impute import KNNImputer\nimputer = KNNImputer(n_neighbors=1)\nTitanic[["Age","SibSp","Parch","Fare"]] = imputer.fit_transform(\n    Titanic[["Age","SibSp","Parch","Fare"]])', text: 'Cabin is dropped because too much of it is missing. Embarked is categorical, so it gets the most frequent value, “S”. Age is numerical, so it gets the age of the observation that is closest on the other features — which is what n_neighbors=1 means.' },
+      { t: 'h', text: 'Feature engineering: categories into numbers' },
+      { t: 'p', text: 'Some algorithms only accept numerical input — regression among them. Which conversion you use depends on whether the categories can be ranked.' },
+      { t: 'tbl', label: 'Two kinds of category', head: ['Kind', 'Example', 'Conversion'], rows: [
+        { cells: ['Ordinal — the entries can be ranked', 'Pclass: First, Second, Third', 'Replace with 1, 2, 3'] },
+        { cells: ['Nominal — the entries cannot be ranked', 'Embarked: S, C, Q', 'One-hot encoding, then drop one redundant column'] } ] },
+      { t: 'p', text: 'One-hot encoding gives each category its own column of 0s and 1s. The last column is redundant — if an observation is not S and not C, it must be Q — so it is dropped.' },
+      { t: 'p', text: 'Going the other way, numerical → categorical, is bucketization or data binning: choose a number of buckets, and take the average within each. It also serves to aggregate observations.' },
+      { t: 'h', text: 'Transforms, interactions, and what comes later' },
+      { t: 'ul', items: ['A transform changes one feature: take a power of it, add or multiply a constant, take an exponential or a log. The homework example converts 1912 pounds into today’s euros.', 'An interaction combines two features into a new one. The homework example merges ParCh and SibSp into whether the passenger had family aboard.', 'Feature selection picks the right features out of the ones you have.', 'Dimension reduction merges features so that as few as possible explain the variability — that is Lecture 8, in the unsupervised block.'] },
+      { t: 'note', label: 'The step back', text: 'The wrap-up makes two claims: business knowledge matters when pre-processing, and pre-processing is fundamental to getting a good model. Neither is a technique, and both are examinable.' }
+    ],
+
+    m3: [
+      { t: 'h', text: 'Supervised learning, and the two kinds' },
+      { t: 'p', text: 'Supervised means there is a label — a quantity you are trying to predict. Within supervised learning the split is by what kind of quantity it is: regression predicts a number, classification predicts a category. Lecture 3 is regression; Lecture 4 starts classification.' },
+      { t: 'h', text: 'M. Gelato’s problem' },
+      { t: 'p', text: 'An ice-cream parlour owner has written down some of his daily sales over the year. He knows sales are periodic — roughly the same shape every year — and wants to fit a curve so he can predict next year. The dataset is Gelato_Times_Sales.csv, and the label is Sales.' },
+      { t: 'code', label: 'The preamble for this lecture', code: 'import pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport sklearn.datasets as data\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import preprocessing\n\nGelato = pd.read_csv("Gelato_Times_Sales.csv")', text: 'Three questions come before any model: how many observations and features, what are we predicting, and what does a scatterplot of Sales against Times look like.' },
+      { t: 'h', text: 'Linear regression in scikit-learn' },
+      { t: 'f', text: 'y = a · x + b', note: 'Linear regression fits a line. scikit-learn finds a (the coefficient) and b (the intercept) for you.' },
+      { t: 'code', label: 'Fitting the model', code: 'from sklearn.linear_model import LinearRegression\n\nX = Gelato[["Times"]]\nY = Gelato[["Sales"]]\n\nlm = LinearRegression().fit(X, Y)', text: 'Note the double brackets: X and Y are DataFrames, not Series. scikit-learn expects the features as a two-dimensional structure, and single brackets are the most common cause of an error here.' },
+      { t: 'code', label: 'Reading the three quantities out', code: 'print(lm.intercept_)     # b, where the line crosses the axis\nprint(lm.coef_)          # a, the slope\nprint(lm.score(X, Y))    # R-squared', text: 'The exercise book asks what each one corresponds to — which is exactly the kind of thing the midterm means by interpreting code. The trailing underscore marks a value scikit-learn learned from the data rather than one you set.' },
+      { t: 'code', label: 'Plotting the data and the fitted line', code: 'plt.scatter(X, Y)                       # the original blue points\n\n# 100 evenly spaced points across the range of X\nlinepoints = np.linspace(np.min(X), np.max(X), 100).reshape(-1, 1)\n\n# the value of the line at each of those points, joined up\nplt.plot(linepoints, lm.predict(linepoints), c="red")\n\nplt.xlabel("Time")\nplt.ylabel("Sales")', text: 'np.linspace builds the x-values to draw at; .reshape(-1, 1) turns that flat list into a column, which is the shape predict expects. plt.scatter draws points, plt.plot joins them.' },
+      { t: 'h', text: 'Why a line is not enough here' },
+      { t: 'p', text: 'Ice-cream sales are seasonal: they rise into summer and fall away again. No straight line can follow that, however well it is fitted — which is the reason the lecture moves on to polynomial regression.' },
+      { t: 'h', text: 'Polynomial regression' },
+      { t: 'f', text: 'degree 4:  y = c₄·x⁴ + c₃·x³ + c₂·x² + c₁·x + c₀', note: 'In general regression we fit a curve rather than a line. Polynomial regression is the versatile case that is still “easy” to do.' },
+      { t: 'p', text: 'The trick is that nothing new is fitted. The pipeline changes from data → linear regression to data → polynomial data → linear regression: you build the powers of x as extra columns, then run exactly the same linear regression over them. The c’s are what the linear regression returns.' },
+      { t: 'code', label: 'Building the polynomial features, then fitting', code: 'from sklearn.preprocessing import PolynomialFeatures\n\ndegree = 2\npoly = PolynomialFeatures(degree)      # define the polynomial\nX_poly = poly.fit_transform(X)         # map each x to [1, x, x^2, ...]\n\npolyreg = LinearRegression().fit(X_poly, Y)', text: 'X has one column; X_poly has one per power, including a column of 1s for the constant. The exercise book asks you to check exactly that difference.' },
+      { t: 'code', label: 'Plotting a curve instead of a line', code: 'plt.scatter(X, Y)\n\nlinepoints = np.linspace(np.min(X), np.max(X), 100)\n\nplt.plot(linepoints,\n         polyreg.predict(poly.fit_transform(linepoints.reshape(-1, 1))),\n         c="red")', text: 'The only change from the linear version: the points to plot have to go through the same fit_transform before predict sees them. A model trained on polynomial features cannot read raw x.' },
+      { t: 'note', label: 'The activity', text: 'Part 4 asks you to repeat the R-squared and the plot for degrees 3, 5, 8 and 12. R-squared keeps improving as the degree rises — which is the setup for overfitting, and the reason the next part of the lecture exists.' },
+      { t: 'h', text: 'What else Lecture 3 covers' },
+      { t: 'note', label: 'Not written up yet', text: 'The second half of the deck — training, validation and testing sets, and target leakage — is on slides that carry no extractable text, so there is nothing here that can be quoted faithfully. The wrap-up names them as: overfitting, the purpose of training/testing/validation sets, and what target leakage is and how it impacts preprocessing. Work those from the deck itself; they are flagged as “very important for next lecture + midterm”.' }
+    ]
+  };
+
+  mlBank = {
+    m1: [
+      { t: 'mcq', k: 'The three activities', p: 'A supermarket wants to group its customers into segments it has not defined in advance. Which part of the course is that?', o: ['Supervised machine learning', 'Unsupervised machine learning', 'Optimization', 'Feature engineering'], a: 1, why: 'There is no quantity being predicted and no label — the algorithm decides what is interesting. That is unsupervised learning, Sessions 8 and 9.' },
+      { t: 'mcq', k: 'The three activities', p: 'A factory needs to decide how many of each item to produce given limited machine hours. Which part of the course is that?', o: ['Optimization', 'Supervised machine learning', 'Unsupervised machine learning', 'Data pre-processing'], a: 0, why: 'A decision is made, maximising or minimising something, under constraints. That is optimization — Sessions 11 and 12.' },
+      { t: 'mcq', k: 'Labels', p: 'What is the test the lecture gives for deciding whether a problem is supervised?', o: ['Whether the dataset is large enough to split', 'Whether there is a clear quantity you want to predict', 'Whether the data is numerical rather than categorical', 'Whether a decision has to be made at the end'], a: 1, why: '“Always ask: is there a clear quantity we want to predict? This is your label.” No label means unsupervised.' },
+      { t: 'tf', k: 'True or false', p: 'A machine learning algorithm returns a decision.', a: false, why: 'False. In machine learning you get information from the data, which can inform a decision — but the algorithm does not return one. That is what distinguishes it from optimization.' },
+      { t: 'mcq', k: 'AI', p: 'Under the EU AI Act, a thermostat sold as “smart heating” counts as AI:', o: ['Yes', 'No', 'Only if it learns from usage', 'The Act does not cover consumer devices'], a: 1, why: 'The lecture’s table puts the thermostat at No under the EU AI Act, Yes under the ISO standard, and “Smart heating” in the marketing pamphlet. The point is that the three disagree.' },
+      { t: 'mcq', k: 'The course map', p: 'Which block are tree-based methods in?', o: ['Introduction to data analysis', 'Supervised learning', 'Unsupervised learning', 'Optimization'], a: 1, why: 'Sessions 3–7 are supervised learning: linear and polynomial regression, logistic regression, trees, extensions of trees, then the STC case.' },
+      { t: 'mcq', k: 'The course map', p: 'Clustering and segmentation sit in which block, and why?', o: ['Supervised learning — segments are the label', 'Unsupervised learning — there is no label to predict', 'Optimization — a segment is a decision', 'Pre-processing — it reshapes the features'], a: 1, why: 'Sessions 8 and 9. Nothing is being predicted: the algorithm decides what counts as an interesting grouping, which is the definition of unsupervised.' },
+      { t: 'code', k: 'Read the code', p: 'What does this return?', code: 'A = np.arange(12).reshape((4,3))\nB = np.ones(12).reshape((4,3))\nA * B', o: ['The matrix product of A and B', 'A, elementwise multiplied by 1 — so A unchanged', 'A single number', 'An error — the shapes do not allow multiplication'], a: 1, why: '* on numpy arrays is elementwise, not matrix multiplication. B is all ones, so A * B returns A. The matrix product would be A @ B, and those shapes would not allow it.' },
+      { t: 'code', k: 'Read the code', p: 'What is the difference between these two lines?', code: 'schools = {"insead": ["France", 3]}\n\nschools["insead"]\nschools.keys()', o: ['The first returns the value for that key; the second returns all the keys', 'The first returns the key; the second returns the values', 'They return the same thing', 'The second is only valid for numeric keys'], a: 0, why: 'A dictionary is looked up by key. schools["insead"] gives ["France", 3]; .keys() lists the keys themselves, which is how you find out what is in a dictionary you did not build.' },
+      { t: 'mcq', k: 'Lists', p: 'L = ["Insead", "France", 3]. What does L[1] return?', o: ['"Insead"', '"France"', '3', 'An error'], a: 1, why: 'Python counts from zero, so L[0] is "Insead" and L[1] is "France". L[-1] would give the last element, 3.' },
+      { t: 'code', k: 'Read the code', p: 'What does this print?', code: 'L = ["a", "b", "c", "d"]\nprint(L[-2])', o: ['"b"', '"c"', '"d"', 'An error — negative indices are not allowed'], a: 1, why: 'Negative indices count back from the end: L[-1] is "d", so L[-2] is "c".' },
+      { t: 'code', k: 'Read the code', p: 'What is the value of total after this runs?', code: 'enrolled = [54, 578, 201, 68]\ntotal = 0\nfor i in enrolled:\n    total = total + i', o: ['4', '901', '578', '0'], a: 1, why: 'The loop adds each element in turn: 54 + 578 + 201 + 68 = 901. Note that i takes the VALUES in the list, not the positions.' },
+      { t: 'code', k: 'Read the code', p: 'How many numbers does this print?', code: 'for i in range(0, 10, 2):\n    print(i)', o: ['10', '5', '4', '2'], a: 1, why: 'range(0, 10, 2) gives 0, 2, 4, 6, 8 — five numbers. The stop value is never included.' },
+      { t: 'code', k: 'Read the code', p: 'This code does not run. Why?', code: 'school = "Insead"\nif school == "Insead"\nprint("You are at INSEAD.")', o: ['The colon after the condition is missing, and print is not indented', 'school should be compared with = rather than ==', 'There is no else branch', 'Strings cannot be compared in Python'], a: 0, why: 'Two crucial things, both flagged in the lecture: the colon at the end of the if line, and the indentation of the line beneath it.' },
+      { t: 'mcq', k: '= and ==', p: 'What is the difference between = and == ?', o: ['= compares, == assigns', '= assigns a value; == checks whether two things are the same', 'They are interchangeable in Python', '== is only valid inside an if statement'], a: 1, why: 'They mean fundamentally different things. = puts a value into a variable; == returns True or False. != is “not equal to”.' },
+      { t: 'code', k: 'Read the code', p: 'What does the last line return?', code: 'import numpy as np\nA = np.arange(12).reshape((4,3))\n(A == 1).any()', o: ['True', 'False', 'An array of True/False', 'An error'], a: 0, why: '.any() asks whether the condition holds ANYWHERE. np.arange(12) contains 1, so at least one entry equals 1 and the answer is True. .all() would be False.' },
+      { t: 'code', k: 'Read the code', p: 'What does this line give you?', code: 'start[(start >= 80) & (start <= 90)]', o: ['An array of True and False', 'The values of start that lie between 80 and 90', 'The positions of the values between 80 and 90', 'The number of values between 80 and 90'], a: 1, why: 'The condition on its own returns True/False. Putting it inside square brackets returns the values that qualify. For arrays, and becomes & and the parentheses are required.' },
+      { t: 'mcq', k: 'Dataframes', p: 'What is the difference between ft["School Name"] and ft[["School Name"]] ?', o: ['Nothing — the second is just a style choice', 'The first returns a Series, the second returns a DataFrame', 'The first returns a column, the second returns a row', 'The second is invalid syntax'], a: 1, why: 'One pair of brackets gives a Series; two gives a DataFrame. The course uses the double-bracket form because the DataFrame is the type it works with — and scikit-learn expects it later.' },
+      { t: 'code', k: 'Read the code', p: 'ft has had some rows dropped. What does this return?', code: 'ft.iloc[[5]]', o: ['The row whose index label is 5', 'The sixth row of the table, whatever its label', 'The first five rows', 'Column number 5'], a: 1, why: '.iloc works on position, .loc on the index label. They agree until rows are dropped — after that, the fifth label may not be the sixth row.' },
+      { t: 'mcq', k: 'Dictionaries', p: 'Why does the lecture say dictionaries suit optimization?', o: ['They are faster than dataframes', 'Entries can carry different amounts of information without wasting empty cells', 'They keep their entries sorted', 'They can hold numbers, which dataframes cannot'], a: 1, why: 'Harvard has no MIM rank, so its entry is simply shorter. A dataframe would have to store an empty cell for it.' },
+      { t: 'code', k: 'Read the code', p: 'Why does the lecture insist on running the second line before drawing any conclusion from the first?', code: 'country_ft = ft.groupby("Main location").mean(numeric_only=True).reset_index()\nft.groupby("Main location").size()', o: ['Because .mean() fails without it', 'Because a country at the top of the chart may be there on the strength of one school', 'Because reset_index() destroys the group labels', 'Because the chart needs the sizes to set the bar widths'], a: 1, why: 'The mean per country says nothing about how many schools went into it. The group sizes are what tell you whether the comparison is worth anything.' },
+      { t: 'tf', k: 'True or false', p: 'The lecture expects you to be able to write Python from scratch by the end of the course.', a: false, why: 'False. “Not asking you to become a programmer: just the basics.” The stated main goal is that you can read code and figure out what it does — which is what the midterm tests.' }
+    ],
+
+    m2: [
+      { t: 'mcq', k: 'The pipeline', p: 'In the machine learning pipeline, what comes immediately after raw data?', o: ['Modeling', 'Feature engineering', 'Data pre-processing', 'Insights'], a: 2, why: 'Raw data → data pre-processing → prepared data → feature engineering → engineered features → modeling → insights. Lecture 2 is the first two steps.' },
+      { t: 'mcq', k: 'Vocabulary', p: 'Pclass takes the values First, Second and Third. Sex takes Male and Female. What kind of variables are these?', o: ['Both numerical', 'Both categorical', 'Pclass numerical, Sex categorical', 'Pclass categorical, Sex numerical'], a: 1, why: 'Both denote membership of a category. A categorical variable can even be written as a number — the number simply stands in for the category.' },
+      { t: 'mcq', k: 'Detecting problems', p: 'Which command would you use to find a negative fare?', o: ['df.unique()', 'df.describe()', 'df.isna().sum()', 'df.duplicated()'], a: 1, why: '.describe() is the detector for numerical columns — you read the min and max and ask whether they are possible. .unique() is the equivalent for strings and objects.' },
+      { t: 'code', k: 'Read the code', p: 'What does this do?', code: 'Titanic[Titanic["Fare"] < 0]', o: ['Deletes every row with a negative fare', 'Shows the rows where the fare is negative', 'Replaces negative fares with zero', 'Returns True if any fare is negative'], a: 1, why: 'It filters and displays. Deleting comes afterwards, with .drop(index=...) — and the lecture looks at the row first, which is how it discovers row 892 is corrupt throughout.' },
+      { t: 'mcq', k: 'Outliers', p: 'Which of these is NOT one of the three ways the lecture gives for checking for outliers?', o: ['Boxplots', 'Z-score charts, flagging above 3 or below −3', 'Anomaly detection', 'Dropping the top and bottom 5% of every column'], a: 3, why: 'The three are boxplots, Z-score charts and anomaly detection. All three only flag candidates — area-specific knowledge decides whether to keep or discard them.' },
+      { t: 'tf', k: 'True or false', p: 'An outlier should always be removed from the dataset.', a: false, why: 'False. It may be corrupt data or a typo — or a real outlier, like Michael Jordan. The tools flag; the business knowledge decides.' },
+      { t: 'code', k: 'Read the code', p: 'What does the second line print?', code: 'dups = Titanic.duplicated()\nprint(dups.any())', o: ['The number of duplicate rows', 'True if there is at least one duplicate row', 'The duplicated rows themselves', 'True if every row is a duplicate'], a: 1, why: '.duplicated() gives True/False per row; .any() collapses that to a single True if any of them is True. Titanic[dups] is what shows the offending rows.' },
+      { t: 'mcq', k: 'Features with no information', p: 'Which feature should be dropped for carrying no information?', o: ['One with a few missing values', 'One whose values are all identical, or all different with no pattern', 'One that correlates with another feature', 'One measured on a different scale from the rest'], a: 1, why: 'Both extremes are useless: a column that never varies, and a column that is unique to every observation with no useful pattern.' },
+      { t: 'mcq', k: 'Scaling and normalizing', p: 'Which is normalizing?', o: ['Ensuring the data has mean 0 and standard deviation 1', 'Ensuring the data lies between 0 and 1', 'Removing the outliers', 'Converting categories into numbers'], a: 1, why: 'Normalizing puts data between 0 and 1; scaling gives it mean 0 and standard deviation 1. In code, MinMaxScaler normalizes and preprocessing.scale scales.' },
+      { t: 'code', k: 'Read the code', p: 'Which of these two normalizes the data?', code: 'min_max_scaler = preprocessing.MinMaxScaler()\nX_minmax = min_max_scaler.fit_transform(X)\n\nX_scaled = preprocessing.scale(X)', o: ['X_minmax', 'X_scaled', 'Both', 'Neither — both scale'], a: 0, why: 'MinMaxScaler maps to the 0–1 range, which is normalizing. preprocessing.scale gives mean 0 and standard deviation 1, which is scaling.' },
+      { t: 'mcq', k: 'When to scale', p: 'For which algorithm is scaling NOT useful?', o: ['Linear regression', 'PCA', 'Tree algorithms', 'Any algorithm that multiplies features by numbers'], a: 2, why: 'Useful for regressions and PCA; not for trees. The rule of thumb: if the algorithm multiplies features by numbers, scaling probably helps.' },
+      { t: 'code', k: 'Read the code', p: 'What is the difference between these two lines?', code: 'Titanic.isna().any()\nTitanic.isna().sum()', o: ['The first gives which columns have missing values, the second how many', 'The first gives how many, the second which columns', 'They return the same thing in different formats', 'The first works on rows, the second on columns'], a: 0, why: '.any() answers whether a column has any gap at all; .sum() counts the gaps, because True counts as 1.' },
+      { t: 'mcq', k: 'Imputation', p: 'Why is Cabin dropped rather than imputed?', o: ['It is categorical and categories cannot be imputed', 'It has too many missing values', 'It is unique to each passenger', 'It is not numerical'], a: 1, why: 'Cabin has too many missing values to rescue, so the column goes. Age and Embarked have few enough to fill.' },
+      { t: 'code', k: 'Read the code', p: 'What does this do to the Embarked column?', code: 'imp = SimpleImputer(missing_values=np.nan, strategy="most_frequent")\nTitanic[["Embarked"]] = imp.fit_transform(Titanic[["Embarked"]])', o: ['Deletes rows where Embarked is missing', 'Fills missing values with the most common value, "S"', 'Fills missing values with the average of the column', 'Converts Embarked into three 0/1 columns'], a: 1, why: 'Embarked is categorical, so the mean is meaningless; the most frequent value is the easy option on the categorical ladder. On this dataset that value is "S".' },
+      { t: 'code', k: 'Read the code', p: 'What does n_neighbors=1 mean here?', code: 'imputer = KNNImputer(n_neighbors=1)\nTitanic[["Age","SibSp","Parch","Fare"]] = imputer.fit_transform(\n    Titanic[["Age","SibSp","Parch","Fare"]])', o: ['Only one column is imputed', 'Each missing value is filled from the single closest observation on the other features', 'Only one missing value is filled per column', 'The imputation is run once rather than repeatedly'], a: 1, why: 'That is the “find the observation that is closest to it on other features and use the value there” rung of the ladder. With n_neighbors=1 it is literally the nearest single passenger.' },
+      { t: 'mcq', k: 'Missingness', p: 'Sales figures are missing precisely for the shops that performed worst. What kind of missingness is that?', o: ['Missing completely at random', 'Missing at random', 'Missing not at random', 'It is not missingness, it is corruption'], a: 2, why: 'The entries are absent because of their own value. That is missing not at random — the hard case, which the standard methods do not handle well.' },
+      { t: 'tf', k: 'True or false', p: 'The imputation methods taught in this lecture work well for data that is missing not at random.', a: false, why: 'False. They work for missing completely at random and missing at random. For missing not at random it is “much harder”, and the lecture’s only suggestion is adding features.' },
+      { t: 'mcq', k: 'Encoding', p: 'Embarked takes the values S, C and Q, which cannot be ranked. What encoding does the lecture use?', o: ['Replace with 1, 2, 3', 'One-hot encoding, then drop a redundant column', 'Bucketization', 'Leave it as text'], a: 1, why: 'Nominal variables get one-hot encoding. The third column is redundant — not S and not C means Q — so it is dropped.' },
+      { t: 'mcq', k: 'Encoding', p: 'Pclass takes First, Second and Third. What encoding suits it?', o: ['One-hot encoding', 'Ordinal encoding: 1, 2, 3', 'Bucketization', 'It cannot be encoded'], a: 1, why: 'These entries can be ranked, so they are ordinal and the ranking is the encoding. The homework asks you to build a Pclass_Num column and drop the original.' },
+      { t: 'mcq', k: 'Feature engineering', p: 'Converting the 1912 fare into today’s euros is an example of:', o: ['A feature interaction', 'A feature transform', 'Dimension reduction', 'Imputation'], a: 1, why: 'A transform changes one feature — a power, a constant, a log, an exponential. Combining ParCh and SibSp into Family_Presence is the interaction.' },
+      { t: 'mcq', k: 'Selection vs reduction', p: 'What is the difference between feature selection and dimension reduction?', o: ['Selection picks the right features; reduction merges features together', 'Selection merges features; reduction picks the right ones', 'They are two names for the same operation', 'Selection applies to rows, reduction to columns'], a: 0, why: 'Selection picks from the features you have. Reduction merges them so that as few as possible explain the variability — covered in Lecture 8.' }
+    ],
+
+    m3: [
+      { t: 'mcq', k: 'Supervised learning', p: 'What makes a supervised problem a regression rather than a classification?', o: ['The label is a number rather than a category', 'There are more than two possible labels', 'The data is continuous rather than discrete', 'There is no label'], a: 0, why: 'Regression predicts a quantity; classification predicts a category. Both are supervised — both have a label.' },
+      { t: 'mcq', k: 'M. Gelato', p: 'In the Gelato dataset, what is the label?', o: ['Times', 'Sales', 'The degree of the polynomial', 'There is no label — this is unsupervised'], a: 1, why: 'He wants to predict sales from the time of year, so Sales is what is being predicted and Times is the feature.' },
+      { t: 'code', k: 'Read the code', p: 'Why the double brackets around "Times" and "Sales"?', code: 'X = Gelato[["Times"]]\nY = Gelato[["Sales"]]\nlm = LinearRegression().fit(X, Y)', o: ['To select two columns at once', 'To return DataFrames rather than Series, which is what scikit-learn expects', 'To copy the data rather than reference it', 'They are interchangeable with single brackets here'], a: 1, why: 'Single brackets give a Series, double give a DataFrame. scikit-learn wants the features as a two-dimensional structure, and single brackets are the usual cause of an error at this line.' },
+      { t: 'code', k: 'Read the code', p: 'Which of the three is R-squared?', code: 'print(lm.intercept_)\nprint(lm.coef_)\nprint(lm.score(X, Y))', o: ['lm.intercept_', 'lm.coef_', 'lm.score(X, Y)', 'None — R-squared is not available'], a: 2, why: '.intercept_ is b, .coef_ is a, and .score is R-squared. The trailing underscore marks something learned from the data rather than set by you.' },
+      { t: 'code', k: 'Read the code', p: 'What is the purpose of .reshape(-1, 1) here?', code: 'linepoints = np.linspace(np.min(X), np.max(X), 100).reshape(-1, 1)\nplt.plot(linepoints, lm.predict(linepoints), c="red")', o: ['It sorts the points into ascending order', 'It turns a flat list of 100 values into a single column, which is the shape predict expects', 'It limits the line to 100 pixels', 'It rescales the values to lie between −1 and 1'], a: 1, why: 'np.linspace makes 100 evenly spaced x-values; predict needs them as a column. The −1 tells numpy to work out the number of rows itself.' },
+      { t: 'mcq', k: 'Plotting', p: 'In the Gelato plot, what does plt.scatter draw and what does plt.plot draw?', o: ['scatter draws the fitted line, plot draws the data', 'scatter draws the data points, plot draws the fitted line', 'Both draw the data, at different sizes', 'scatter draws the axes, plot draws everything else'], a: 1, why: 'plt.scatter puts down the original points; plt.plot joins up the predicted values into the red line.' },
+      { t: 'mcq', k: 'Limitations', p: 'Why is linear regression not enough for M. Gelato?', o: ['The dataset is too small', 'Sales are seasonal, and no straight line can follow a curve that rises and falls', 'Times is categorical', 'There are missing values in Sales'], a: 1, why: 'He says himself that sales are periodic. A line has one slope, so it cannot rise into summer and fall away again — which is why the lecture moves to polynomial regression.' },
+      { t: 'mcq', k: 'Polynomial regression', p: 'How does the pipeline change when you move from linear to polynomial regression?', o: ['data → polynomial regression', 'data → polynomial data → linear regression', 'polynomial data → polynomial regression', 'data → linear regression → polynomial smoothing'], a: 1, why: 'Nothing new is fitted. You build the powers of x as extra columns and run the same linear regression over them — the coefficients it returns are the c’s of the polynomial.' },
+      { t: 'code', k: 'Read the code', p: 'What is the difference between X and X_poly?', code: 'degree = 2\npoly = PolynomialFeatures(degree)\nX_poly = poly.fit_transform(X)', o: ['X_poly is X squared', 'X_poly has one column per power of x, including a column of 1s', 'X_poly is X sorted into ascending order', 'X_poly is X with the outliers removed'], a: 1, why: 'fit_transform maps each value x to [1, x, x²] for degree 2. X has one column; X_poly has three.' },
+      { t: 'code', k: 'Read the code', p: 'Why must linepoints go through poly.fit_transform before predict sees them?', code: 'plt.plot(linepoints,\n         polyreg.predict(poly.fit_transform(linepoints.reshape(-1, 1))),\n         c="red")', o: ['To sort them', 'Because polyreg was trained on polynomial features and cannot read a raw x', 'To normalize them to the 0–1 range', 'It is optional — it only makes the curve smoother'], a: 1, why: 'The model learned coefficients for [1, x, x², …]. Handing it a single raw column is a different shape and a different meaning, so the input has to be transformed the same way the training data was.' },
+      { t: 'tf', k: 'True or false', p: 'A polynomial regression of degree 12 fits the Gelato data better than a degree 2 one, so it is the better model.', a: false, why: 'False — and this is the trap Part 4 of the exercise book is setting up. R-squared keeps improving as the degree rises because the curve bends to reach the points it was trained on. Fitting the data you have is not the same as predicting next year, which is what overfitting means.' },
+      { t: 'mcq', k: 'What comes next', p: 'The wrap-up names three things from the second half of Lecture 3. Which is NOT one of them?', o: ['Overfitting', 'Training, testing and validation sets', 'Target leakage', 'Cross-validation with k folds'], a: 3, why: 'The wrap-up lists overfitting, the purpose of training/testing/validation sets, and target leakage. It flags them as very important for the next lecture and the midterm.' }
+    ]
+  };
+
+
+
+  // "I can ask you to interpret code" — Professor Hall on the midterm. These are
+  // written-answer sets: a listing, a question, the points a full answer has to
+  // make, and a model answer to mark yourself against. Nothing here can read
+  // prose, so it does not pretend to.
+  mlExercises = [
+    { key: 'mx1', covers: '1', tag: 'Session 1', title: 'Explain the code: Python foundations',
+      stem: 'Six listings from the Lecture 1 exercise book. For each one, say in your own words what it does — the way you would have to on the midterm, with no computer in front of you.',
+      steps: [
+        { q: 'Explain what this code does and what it prints.',
+          code: 'enrolled = [54, 578, 201, 68]\ntotal = 0\n\nfor i in enrolled:\n    total = total + i\n\nprint(total)',
+          rows: [ { label: 'Explain the code and give the output.', rubric: [
+            'total starts at 0 and the for loop runs once for each element of the list.',
+            'i takes the VALUES in the list (54, then 578, …), not the positions — this is the part people get wrong.',
+            'Each pass adds the current value to the running total, so the final output is 901.'
+          ], model: 'A running-total loop. total is initialised to 0; the loop visits each element of enrolled in turn, binding i to that element and adding it to total. After four passes total is 54 + 578 + 201 + 68 = 901, which is what print displays. The same sum could be written with range(len(enrolled)) and indexing, which is the variant the exercise book asks for next.' } ],
+          hint: 'Ask yourself what i is on each pass: the position in the list, or the value at that position?',
+          sol: 'It sums the list and prints 901. i takes each value in turn.' },
+
+        { q: 'Explain what each of these three lines returns, and why the first two differ.',
+          code: 'np_salary = np.array([139.9, 141.6, 127.4])\n\n(np_salary >= 130)\nnp_salary[(np_salary >= 130)]\nlen(np_salary[(np_salary >= 130)])',
+          rows: [ { label: 'Explain all three lines.', rubric: [
+            'The first returns an array of True/False, one per element — a mask, not the data.',
+            'The second uses that mask inside square brackets, so it returns the VALUES that qualify: 139.9 and 141.6.',
+            'The third counts them, giving 2.'
+          ], model: 'A condition applied to a numpy array is evaluated elementwise and returns a boolean array of the same length. Indexing the array with that boolean array keeps only the positions where it is True, so you get the values rather than the flags. Wrapping it in len counts how many passed. When two conditions are combined, and becomes & and or becomes |, and each condition needs its own parentheses.' },
+            { label: 'What would change if you wrote np_salary >= 130 and np_salary <= 142 with the word "and"?', rubric: [
+            'It would raise an error rather than filter.',
+            'For arrays the elementwise operator is &, not the keyword and.',
+            'Each condition also needs its own parentheses, because & binds more tightly than the comparison.'
+          ], model: 'Python’s and expects two single True/False values and cannot decide the truth of a whole array, so it raises “the truth value of an array with more than one element is ambiguous”. The elementwise version is (np_salary >= 130) & (np_salary <= 142).' } ],
+          hint: 'One of the three gives you flags, one gives you data, one gives you a count.',
+          sol: 'Mask, values, count. & and | are the array versions of and and or.' },
+
+        { q: 'This code raises an error. Explain what is wrong and how to fix it.',
+          code: 'school = "Insead"\nrank = 3\n\nif school == "Insead" or rank = 3\nprint("Your school is INSEAD or it is ranked 3rd.")',
+          rows: [ { label: 'Name every fault and give the corrected code.', rubric: [
+            'rank = 3 inside the condition should be rank == 3: = assigns a value, == compares.',
+            'The if line is missing its colon.',
+            'The print line is not indented, so it is not inside the if at all.'
+          ], model: 'Three faults, two of which the lecture calls crucial. The corrected version is:\n\nif school == "Insead" or rank == 3:\n    print("Your school is INSEAD or it is ranked 3rd.")\n\nNote that even with the colon restored, an unindented print would run unconditionally rather than erroring — which is worse, because the code appears to work.' },
+            { label: 'What does the or do here?', rubric: [
+            'or returns True when at least one of the two conditions is true.',
+            'Both happen to be true here, so the message prints.',
+            'and would have required both; it would also print here, but for a different reason.'
+          ], model: 'or is satisfied by either side. With school == "Insead" true and rank == 3 true, both or and and would pass — which is why the exercise book asks you to try each and watch where they diverge.' } ],
+          hint: 'Count three separate problems. One of them would not even raise an error.',
+          sol: '== instead of =, a missing colon, and a missing indent.' },
+
+        { q: 'Explain what these two lines return and when they would disagree.',
+          code: 'ft.loc[[5]]\nft.iloc[[5]]',
+          rows: [ { label: 'Explain both, and say when they differ.', rubric: [
+            '.loc selects by index LABEL — the row whose index is 5.',
+            '.iloc selects by POSITION — the sixth row of the table, counting from zero.',
+            'They agree on a fresh dataframe and diverge as soon as rows have been dropped or the index reordered, because the labels then no longer match the positions.'
+          ], model: 'On a dataframe read straight from a csv the index runs 0, 1, 2, … and the two give the same row. Once you drop a corrupt row — as Lecture 2 does to row 892 — the labels have a gap in them while the positions do not, and .loc[[5]] and .iloc[[5]] can point at different passengers. The exercise book makes this concrete with ft1 = ft.loc[[5,7,8]], where the second row has label 7 and position 1.' } ],
+          hint: 'One of them survives a .drop unchanged. The other does not.',
+          sol: 'Label versus position; identical until rows are dropped.' },
+
+        { q: 'Explain the difference between these two, and say which one the course uses.',
+          code: 'ft["School Name"]\nft[["School Name"]]',
+          rows: [ { label: 'Explain both and say which the course prefers, with the reason.', rubric: [
+            'Single brackets return a Series — a one-dimensional labelled column.',
+            'Double brackets return a DataFrame — a table that happens to have one column.',
+            'The course uses the double-bracket form, because the DataFrame is the type it works with and scikit-learn expects two-dimensional features later.'
+          ], model: 'type() is how the exercise book has you tell them apart. The distinction looks pedantic in Lecture 1 and stops being pedantic in Lecture 3: X = Gelato[["Times"]] works and X = Gelato["Times"] throws a shape error at .fit.' } ],
+          hint: 'Use type() on each. Then ask what shape scikit-learn wants in Lecture 3.',
+          sol: 'Series versus DataFrame; the course uses the DataFrame.' },
+
+        { q: 'Explain what this does, and why the lecture insists on the last line.',
+          code: 'country_ft = ft.groupby("Main location").mean(numeric_only=True).reset_index()\nplt.bar(country_ft["Main location"], country_ft["Salary percentage increase"])\nplt.xticks(rotation=90)\n\nft.groupby("Main location").size()',
+          rows: [ { label: 'Explain the three plotting lines.', rubric: [
+            'groupby collapses the table to one row per country, averaging the numeric columns; numeric_only=True stops it choking on the text ones.',
+            'reset_index turns the country back into an ordinary column so plt.bar can use it.',
+            'plt.bar draws one bar per country and xticks(rotation=90) turns the labels upright so they are readable.'
+          ], model: 'A group-then-plot pipeline. Without reset_index the country sits in the index rather than a column, and plt.bar cannot address it by name.' },
+            { label: 'Why run the last line before drawing any conclusion?', rubric: [
+            'The bar chart shows the mean per country but says nothing about how many schools went into each mean.',
+            'A country represented by a single school can top the chart on one observation.',
+            'size() gives the group counts, which is what tells you whether a comparison is worth making at all.'
+          ], model: 'This is the statistical point hidden in a plotting exercise: an average over one observation is not an average. The exercise book asks “what do you notice?” precisely because the top country turns out to have very few schools in the ranking.' } ],
+          hint: 'The chart is fine. The question is whether the comparison it invites is.',
+          sol: 'Group, average, plot — then check the group sizes before believing the ranking.' }
+      ] },
+
+    { key: 'mx2', covers: '2', tag: 'Session 2', title: 'Explain the code: cleaning the Titanic data',
+      stem: 'The pre-processing pipeline from Lecture 2, line by line. Each listing is one real step from the exercise book.',
+      steps: [
+        { q: 'Explain what this sequence does and in what order you would run it.',
+          code: 'Titanic.describe()\nTitanic[Titanic["Fare"] < 0]\nTitanic.drop(index=892)',
+          rows: [ { label: 'Explain all three lines and the order.', rubric: [
+            '.describe() summarises the numeric columns — count, mean, std, min, quartiles, max — and the impossible negative minimum fare is what gives the problem away.',
+            'The second line filters to the offending rows so you can look at them before touching anything.',
+            '.drop(index=892) removes that row, which on inspection turns out to be corrupt across every column, not just Fare.'
+          ], model: 'Detect, inspect, then delete — and never delete before inspecting. The reason the lecture looks at the row is that it discovers the corruption is not confined to the column that flagged it. Note that .drop returns a new dataframe unless you assign it back or pass inplace=True.' } ],
+          hint: 'Three verbs, in an order the lecture is quite insistent about.',
+          sol: 'Summarise to detect, filter to inspect, drop to fix.' },
+
+        { q: 'Explain what each line returns and what you would conclude.',
+          code: 'Titanic.isna().any()\nTitanic.isna().sum()',
+          rows: [ { label: 'Explain both lines.', rubric: [
+            '.isna() gives a True/False table the same shape as the data, True wherever a value is missing.',
+            '.any() collapses each column to one answer: does this column have any gap at all?',
+            '.sum() counts them instead, because True counts as 1 — so you learn how bad each gap is, not just that it exists.'
+          ], model: 'any() tells you where to look; sum() tells you whether it is worth rescuing. On the Titanic data the two together produce the decision made later: Cabin has too many missing to impute and is dropped, while Age and Embarked have few enough to fill.' } ],
+          hint: 'One answers “is anything missing?”, the other answers “how much?”.',
+          sol: 'Which columns have gaps, then how many gaps each has.' },
+
+        { q: 'Explain the difference between these two operations and when you would use each.',
+          code: 'from sklearn import preprocessing\n\nmin_max_scaler = preprocessing.MinMaxScaler()\nX_minmax = min_max_scaler.fit_transform(X)\n\nX_scaled = preprocessing.scale(X)',
+          rows: [ { label: 'Say which is which, and when each is used.', rubric: [
+            'MinMaxScaler normalizes: it maps every value into the 0 to 1 range.',
+            'preprocessing.scale scales: it gives the data mean 0 and standard deviation 1.',
+            'Both apply to numerical features only, and both help regressions and PCA but not tree algorithms.'
+          ], model: 'The names are a poor guide and the exercise book asks you to work out which is which from the output. The rule of thumb for whether you need either: if the algorithm takes features and multiplies them by numbers, scaling probably improves it. Symptoms that you should have: columns orders of magnitude apart, a “poor condition number” warning, or output arriving as NAs.' } ],
+          hint: 'One produces numbers between 0 and 1. The other produces numbers either side of 0.',
+          sol: 'MinMaxScaler normalizes; preprocessing.scale scales. Not for trees.' },
+
+        { q: 'Explain what each imputer does here and why they are different from one another.',
+          code: 'imp = SimpleImputer(missing_values=np.nan, strategy="most_frequent")\nTitanic[["Embarked"]] = imp.fit_transform(Titanic[["Embarked"]])\n\nimputer = KNNImputer(n_neighbors=1)\nTitanic[["Age","SibSp","Parch","Fare"]] = imputer.fit_transform(\n    Titanic[["Age","SibSp","Parch","Fare"]])',
+          rows: [ { label: 'Explain both, and why each suits its column.', rubric: [
+            'Embarked is categorical, so a mean is meaningless; the most frequent value — "S" on this dataset — is the easy rung of the categorical ladder.',
+            'Age is numerical, so KNNImputer fills each gap from the observation that is closest on the other features, which is a harder and better rung.',
+            'n_neighbors=1 means literally the single nearest passenger; SibSp, Parch and Fare are passed in because they are what "closest" is measured on.'
+          ], model: 'Two different rungs of the same ladder, chosen by the type of the variable. The lecture ranks the options from easy (replace with the mean, or the most frequent value) to hard (regress on the complete rows and infer, then add noise). Which rung is defensible depends on why the data is missing: all of these work for missing completely at random and missing at random, and none of them handles missing not at random well.' } ],
+          hint: 'One column is a category and one is a number. That is the whole reason the two lines differ.',
+          sol: 'Most-frequent for the categorical column, nearest-neighbour for the numerical one.' },
+
+        { q: 'Explain what this does and what it tells you about the dataset.',
+          code: 'dups = Titanic.duplicated()\nprint(dups.any())\nTitanic[dups]\n\nprint(Titanic.shape)\nTitanic.drop_duplicates(inplace=True)\nprint(Titanic.shape)',
+          rows: [ { label: 'Explain the two halves and what inplace=True does.', rubric: [
+            '.duplicated() returns True for every row that repeats an earlier one; .any() says whether there are any at all; Titanic[dups] shows them.',
+            'The second half prints the shape before and after, so the two numbers tell you how many rows were removed.',
+            'inplace=True modifies the dataframe itself rather than returning a cleaned copy — without it, nothing would have changed.'
+          ], model: 'Investigate once, automate thereafter: the point of the second half is that drop_duplicates does the detection and the deletion together, so the manual inspection is a one-off. The shape before and after is the check that it did something.' } ],
+          hint: 'The two print(shape) lines exist to answer one question.',
+          sol: 'Find duplicates, then drop them in place and confirm by the change in shape.' },
+
+        { q: 'Embarked takes the values S, C and Q. Explain what encoding this represents and why the third column can be dropped.',
+          code: '#        S   C   Q\n# obs 1  1   0   0\n# obs 2  0   1   0\n# obs 3  0   0   1',
+          rows: [ { label: 'Name the encoding and justify dropping a column.', rubric: [
+            'This is one-hot encoding, used for nominal variables — categories that cannot be ranked.',
+            'The third column is redundant: an observation that is neither S nor C must be Q, so the information is already there.',
+            'Pclass would be handled differently — First/Second/Third can be ranked, so it is ordinal and becomes 1, 2, 3.'
+          ], model: 'Some algorithms, regression among them, only accept numerical input, so categories have to become numbers. Which conversion you use depends on whether the categories can be ranked: ordinal variables get their ranking, nominal variables get one-hot encoding with one column dropped. Name and Ticket get neither — the lecture notes they are too personal and are not really categories at all.' } ],
+          hint: 'Two of the three columns are enough to recover the third.',
+          sol: 'One-hot encoding of a nominal variable; the last column is implied by the others.' }
+      ] },
+
+    { key: 'mx3', covers: '3', tag: 'Session 3', title: 'Explain the code: regression on M. Gelato',
+      stem: 'The regression pipeline from the Lecture 3 exercise book. These are the listings most likely to turn up on a midterm that asks you to interpret code.',
+      steps: [
+        { q: 'Explain every line of this and what each printed quantity means.',
+          code: 'X = Gelato[["Times"]]\nY = Gelato[["Sales"]]\n\nlm = LinearRegression().fit(X, Y)\n\nprint(lm.intercept_)\nprint(lm.coef_)\nprint(lm.score(X, Y))',
+          rows: [ { label: 'Explain the set-up and all three printed quantities.', rubric: [
+            'X is the feature and Y the label; the double brackets make each a DataFrame, which is the shape scikit-learn requires.',
+            '.fit(X, Y) finds the line y = a·x + b that best fits the data — this is where the model is estimated.',
+            '.intercept_ is b, .coef_ is a, and .score(X, Y) is R-squared, the share of the variation in sales the line accounts for.'
+          ], model: 'The trailing underscore on intercept_ and coef_ is a scikit-learn convention marking a value learned from the data rather than one you set — degree, by contrast, is something you choose. Writing Gelato["Times"] with single brackets gives a Series and fails at .fit, which is the most common error at this line.' } ],
+          hint: 'Three quantities, and the slope is not the first of them.',
+          sol: 'Feature and label as DataFrames, fit the line, then read intercept, slope and R-squared.' },
+
+        { q: 'Explain what this plotting code does, line by line.',
+          code: 'plt.scatter(X, Y)\n\nlinepoints = np.linspace(np.min(X), np.max(X), 100).reshape(-1, 1)\n\nplt.plot(linepoints, lm.predict(linepoints), c="red")\n\nplt.xlabel("Time")\nplt.ylabel("Sales")',
+          rows: [ { label: 'Explain each line.', rubric: [
+            'plt.scatter draws the original observations as points.',
+            'np.linspace builds 100 evenly spaced x-values spanning the data, and .reshape(-1, 1) turns that flat list into a single column, which is the shape predict expects.',
+            'plt.plot evaluates the fitted line at those 100 points and joins them into the red line; the last two lines label the axes.'
+          ], model: 'scatter draws data, plot draws the model. The 100 points exist only to draw with — they are not data. The −1 in reshape tells numpy to work out the number of rows itself, given that you have asked for one column.' } ],
+          hint: 'One of these five lines draws the data and one draws the model. The reshape is about shape, not about values.',
+          sol: 'Points, then a grid of x-values, then the fitted line over them.' },
+
+        { q: 'Explain what this does, and why nothing here is a "polynomial regression" in the sense of a new algorithm.',
+          code: 'degree = 2\npoly = PolynomialFeatures(degree)\nX_poly = poly.fit_transform(X)\n\npolyreg = LinearRegression().fit(X_poly, Y)',
+          rows: [ { label: 'Explain the transformation and the fit.', rubric: [
+            'PolynomialFeatures(2) maps each value x to the row [1, x, x²], so a one-column X becomes a three-column X_poly.',
+            'The model fitted is still an ordinary LinearRegression — it is just fitted over those new columns.',
+            'The coefficients it returns are the c’s of y = c₂·x² + c₁·x + c₀, so a curve comes out of a linear fit.'
+          ], model: 'The pipeline changes from data → linear regression to data → polynomial data → linear regression. That is the whole idea: the regression is linear in the coefficients, which is all it needs to be, even though it is not linear in x. It is why polynomial regression is described as "easy" — nothing new has to be implemented.' } ],
+          hint: 'Compare the number of columns in X with the number in X_poly.',
+          sol: 'Build the powers of x as columns, then run the same linear regression over them.' },
+
+        { q: 'Explain why fit_transform appears again inside the plotting call, and what would happen without it.',
+          code: 'linepoints = np.linspace(np.min(X), np.max(X), 100)\n\nplt.plot(linepoints,\n         polyreg.predict(poly.fit_transform(linepoints.reshape(-1, 1))),\n         c="red")',
+          rows: [ { label: 'Explain the nested call and the consequence of removing it.', rubric: [
+            'polyreg was trained on columns [1, x, x²], so it expects an input of that shape and meaning.',
+            'The 100 drawing points start as raw x values, so they have to go through the same transformation before predict sees them.',
+            'Without it predict receives one column where it expects three and raises a shape error — it does not silently draw the wrong curve.'
+          ], model: 'A model remembers the shape of what it was trained on, not the data itself. Any new input — drawing points here, next year’s sales dates in practice — has to be put through exactly the same preprocessing as the training data. This is the habit that matters far beyond plotting: it is the same reason a scaler fitted on the training set must be reused rather than refitted later.' } ],
+          hint: 'Count the columns the model was trained on, then count the columns linepoints has.',
+          sol: 'The input has to be transformed the same way the training data was, or the shapes do not match.' },
+
+        { q: 'Part 4 asks you to repeat this for degrees 3, 5, 8 and 12. R-squared rises every time. Explain what that does and does not tell you.',
+          code: 'for degree in [2, 3, 5, 8, 12]:\n    poly = PolynomialFeatures(degree)\n    X_poly = poly.fit_transform(X)\n    polyreg = LinearRegression().fit(X_poly, Y)\n    print(degree, polyreg.score(X_poly, Y))',
+          rows: [ { label: 'Explain what the rising R-squared means.', rubric: [
+            'R-squared is measured on the same data the model was fitted to, so a more flexible curve can always get closer to those particular points.',
+            'It therefore cannot fall as the degree rises, which makes it useless for choosing a degree.',
+            'What M. Gelato actually wants is next year’s sales — performance on data the model has not seen — and nothing in this loop measures that.'
+          ], model: 'This is the setup for overfitting, which the second half of Lecture 3 names explicitly. Fitting the data you have and predicting the data you do not are different problems, and scoring a model on its own training data cannot tell them apart. The fix — holding data back in training, validation and testing sets — is exactly what the rest of the lecture introduces, and the wrap-up flags it as very important for both the next lecture and the midterm.' } ],
+          hint: 'Ask which data the score is computed on, and which data M. Gelato actually cares about.',
+          sol: 'A higher degree always fits the training points better; that says nothing about next year.' }
+      ] },
+  ];
 
   daSessions = [
     { key: 's1', num: '01', title: 'Introduction to Uncertainty, Data, and Judgment', preview: 'Expected value, process versus outcome, the kinds of uncertainty you can control, and the two modes of thinking.' },
@@ -4198,7 +4614,7 @@ class Component extends DCLogic {
   data(c) {
     if (c === 'eps') return { sessions: this.epsSessions, built: this.epsBuilt, lessons: this.epsLessons, bank: this.epsBank, exercises: [], gens: [], todo: this.epsTodo || [], grading: this.epsGrading || [], contacts: [], formulas: [], terms: [] };
     if (c === 'fin') return { sessions: this.finSessions, built: this.finBuilt, lessons: this.finLessons, bank: this.finBank, exercises: [], gens: [], todo: this.finTodo || [], grading: this.finGrading || [], contacts: [], formulas: [], terms: [] };
-    if (c === 'ml') return { sessions: this.mlSessions, built: this.mlBuilt, lessons: this.mlLessons, bank: this.mlBank, exercises: [], gens: [], todo: this.mlTodo || [], grading: this.mlGrading || [], contacts: [], formulas: [], terms: [] };
+    if (c === 'ml') return { sessions: this.mlSessions, built: this.mlBuilt, lessons: this.mlLessons, bank: this.mlBank, exercises: this.mlExercises || [], gens: [], todo: this.mlTodo || [], grading: this.mlGrading || [], contacts: [], formulas: [], terms: [] };
     if (c === 'mkt') return { sessions: this.mktSessions, built: this.mktBuilt, lessons: this.mktLessons, bank: this.mktBank, exercises: this.mktExercises, gens: [], todo: this.mktTodo, grading: this.mktGrading, contacts: this.mktContacts, formulas: this.mktFormulas, terms: this.mktTerms };
     if (c === 'ips') return { sessions: this.ipsSessions, built: this.ipsBuilt, lessons: this.ipsLessons, bank: this.ipsBank, exercises: [], gens: [], todo: this.ipsTodo, grading: this.ipsGrading, contacts: [], formulas: [], terms: this.ipsTerms };
     if (c === 'fa') return { sessions: this.faSessions, built: {}, lessons: {}, bank: this.faBank, exercises: [], gens: [], todo: this.faTodo, grading: this.faGrading, contacts: this.faContacts, formulas: [], terms: this.faTerms };
@@ -5248,7 +5664,8 @@ class Component extends DCLogic {
     v.ses = { num: ses.num, title: ses.title, preview: ses.preview || 'Materials not released yet.', built: isBuilt(ses.key), notBuilt: !isBuilt(ses.key) };
     v.blocks = lessonBlocks.map(b => ({
       isH: b.t === 'h', isP: b.t === 'p', isUl: b.t === 'ul', isF: b.t === 'f', isNote: b.t === 'note', isTbl: b.t === 'tbl',
-      text: b.text, items: b.items, note: b.note, label: b.label, head: b.head, rows: b.rows
+      isCode: b.t === 'code',
+      text: b.text, items: b.items, note: b.note, label: b.label, head: b.head, rows: b.rows, code: b.code
     }));
     v.startDrill = () => this.startDrillFor(ses.key);
     v.drillLabel = 'Drill this session · ' + (d.bank[ses.key] || []).length + ' questions';
@@ -5293,6 +5710,9 @@ class Component extends DCLogic {
       v.q = {
         kicker: q.k || '', prompt: q.p, why: q.why || q.e || '',
         isMcq: q.t !== 'num', isNum: q.t === 'num',
+        // ML&O asks you to read code and say what it does, so a question can
+        // carry a listing that renders above the options.
+        hasCode: !!q.code, code: q.code || '',
         options: (q.o || []).map((label, i) => ({
           label: label, n: String(i + 1),
           onClick: () => { if (!ans) this.answer(i); },
@@ -5522,6 +5942,7 @@ class Component extends DCLogic {
           const ui = this.state.exUi[si] || {};
           return {
             n: String(si + 1), q: st.q, hint: st.hint, sol: st.sol,
+            hasCode: !!st.code, code: st.code || '',
             label: ex.isMock ? ((st.part || '') + (st.m ? '  ·  ' + st.m + (st.m === 1 ? ' point' : ' points') : '')) : ('Step ' + (si + 1)),
             hintShown: !!ui.hint, solShown: !!ui.sol, marked: ui.mark !== undefined,
             markColor: ui.mark ? 'var(--good)' : 'var(--bad)',
