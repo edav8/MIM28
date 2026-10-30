@@ -432,14 +432,23 @@ x-dc { display: none !important; }
 [style*="2px solid var(--ink)"]{ border-width:1px !important; border-color:var(--hair) !important; }
 
 /* course cards: separate rounded tiles rather than cells in a ruled table */
-#hubcards{ border:0 !important; gap:14px; padding-top:4px; }
-#hubcards > *{
+#hubcards, #hubpast{ border:0 !important; gap:14px; padding-top:4px; }
+/* "MICROECONOMICS" is longer than a narrow card, and an unbreakable word in a
+   grid cell runs straight over the border rather than widening the track. */
+#hubcards h2, #hubpast h3{ overflow-wrap:break-word; }
+#hubcards > *, #hubpast > *{
   border:1px solid var(--hair) !important;
   border-radius:18px !important;
+  min-width:0;
+  overflow:hidden;
+  /* The accounting trainer fills its two course cards with the surface colour;
+     the hub left them transparent, which was the last thing making the two
+     halves of the site read as different products. */
+  background:color-mix(in srgb, var(--panel) 72%, transparent) !important;
   background:var(--glass) !important;
   transition:transform .3s var(--ease), box-shadow .4s var(--ease), border-color .3s var(--ease);
 }
-#hubcards > *:hover{
+#hubcards > *:hover, #hubpast > *:hover{
   transform:translateY(-3px);
   border-color:color-mix(in srgb, var(--acc) 55%, transparent) !important;
   box-shadow:0 18px 40px -22px color-mix(in srgb, var(--acc) 70%, transparent);
@@ -653,7 +662,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
       <header style="display:flex; align-items:flex-start; justify-content:space-between; gap:32px; flex-wrap:wrap">
         <div>
           <img src="assets/image-4ceca88f.png" alt="MIM28" style="height:64px; width:auto; display:block; border-radius:12px">
-          <h1 class="dc-display" style="font-family:var(--font-h); font-size:52px; font-weight:800; letter-spacing:-0.035em; line-height:1.0; margin:24px 0 0">Study hub</h1>
+          <h1 class="dc-display" style="font-family:var(--font-h); font-size:clamp(34px, 5.2vw, 56px); font-weight:800; letter-spacing:-0.035em; line-height:1.0; margin:24px 0 0; max-width:19ch">Study hub</h1>
           <p style="margin:14px 0 0; font-size:18px; max-width:56ch; color:var(--soft); text-wrap:pretty">Seven courses, one place to work through them. Period 2 is running; Period 1 is kept in full below.</p>
         </div>
         <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted); text-align:right">MIM’28<br>Autumn 2026</div>
@@ -685,7 +694,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
               <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:{{ c.acc }}">{{ c.code }}</div>
               <div style="width:74px; height:52px; flex:none">{{ c.mascot }}</div>
             </div>
-            <h2 class="dc-display" style="font-family:var(--font-h); font-size:30px; font-weight:800; letter-spacing:-0.025em; line-height:1.08; margin:14px 0 0">{{ c.title }}</h2>
+            <h2 class="dc-display" style="font-family:var(--font-h); font-size:clamp(21px, 2.3vw, 30px); font-weight:800; letter-spacing:-0.025em; line-height:1.08; margin:14px 0 0">{{ c.title }}</h2>
             <div style="font-size:15px; color:var(--soft); margin-top:10px; text-wrap:pretty">{{ c.blurb }}</div>
             <div style="font-size:13px; letter-spacing:0.06em; text-transform:uppercase; margin-top:20px; color:{{ c.acc }}">{{ c.stat }} →</div>
           </div>
@@ -697,7 +706,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
           <h2 style="font-family:var(--font-h); font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin:0; color:var(--muted)">Period 1 · finished</h2>
           <div style="font-size:13px; color:var(--faint)">Exams sat in October. Kept in full — every lesson, drill and exercise still works.</div>
         </div>
-        <nav aria-label="Archived courses" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); margin-top:14px; border-top:2px solid var(--line); border-left:2px solid var(--line); opacity:0.72">
+        <nav id="hubpast" aria-label="Archived courses" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); margin-top:14px; border-top:2px solid var(--line); border-left:2px solid var(--line); opacity:0.72">
           <sc-for list="{{ pastCards }}" as="c" hint-placeholder-count="4">
             <div sc-camel-on-click="{{ c.onClick }}" style="{{ c.style }}">
               <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px">
