@@ -1519,7 +1519,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
         <div style="padding:40px; max-width:900px">
           <div style="font-family:var(--font-h); font-size:36px; font-weight:800; letter-spacing:-0.03em">{{ course.glossLabel }}</div>
           <sc-if value="{{ hasFormulas }}" hint-placeholder-val="{{ false }}">
-            <div style="margin-top:14px; font-size:15px; color:var(--soft); max-width:62ch">Every formula the course uses, in the order it teaches them, with what each one is for and the Excel function that does it.</div>
+            <div style="margin-top:14px; font-size:15px; color:var(--soft); max-width:62ch">{{ glossIntro }}</div>
             <sc-for list="{{ formulaSecs }}" as="fs" hint-placeholder-count="4">
               <div style="margin-top:34px">
                 <div style="font-family:var(--font-h); font-size:16px; font-weight:800; letter-spacing:-0.01em; padding-bottom:9px; border-bottom:2px solid var(--ink)">{{ fs.label }}</div>
@@ -1527,7 +1527,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
                   <sc-for list="{{ fs.items }}" as="f" hint-placeholder-count="4">
                     <div style="padding:16px 20px; border-right:2px solid var(--line); border-bottom:2px solid var(--line)">
                       <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--accSoft)">{{ f.k }}</div>
-                      <div style="font-family:var(--font-h); font-size:19px; font-weight:700; margin-top:8px; text-wrap:pretty">{{ f.v }}</div>
+                      <div style="{{ glossValStyle }}">{{ f.v }}</div>
                       <div style="font-size:14px; color:var(--muted); margin-top:8px; text-wrap:pretty">{{ f.note }}</div>
                     </div>
                   </sc-for>
@@ -1625,7 +1625,7 @@ class Component extends DCLogic {
       blurb: 'Prediction and decision from data — the models, what they assume, and where the optimisation sits. Mid-term 13 November, exam 3 December.',
       intro: 'Period 2. The timetable and the deadlines are live here; lessons and drills appear as each handout is released.',
       pracIntro: 'No worked exercises yet — the handouts have not been released.',
-      glossLabel: 'Glossary & formulas', hasTables: false, hasCalc: true,
+      glossLabel: 'Code glossary', hasTables: false, hasCalc: true,
       note: 'Scaffolded from the timetable. No session material released yet.' },
     da: { key: 'da', name: 'Data Analysis', code: 'MIM-2710-DSC', short: 'Data', period: 'P1', archived: true,
       blurb: 'Uncertainty, data and judgment. Descriptive statistics, probability models, and the pipeline from data to decision.',
@@ -2297,6 +2297,18 @@ class Component extends DCLogic {
       { t: 'note', label: 'The counter-intuitive part', text: 'A perfectly competitive firm has no pricing decision. Charge a cent more and you sell nothing, because the identical good is available elsewhere at P. Charge less and you have given away money you would have been paid anyway. The only decision left is how much to produce — which is what makes the next session possible.' },
       { t: 'h', text: 'Why an experiment is convincing' },
       { t: 'p', text: 'Trading experiments are a standard way to see this: give buyers private values and sellers private costs, let them trade freely, and the transaction prices converge on the theoretical equilibrium within a few rounds — even though no participant knows the demand or supply curve, and none is trying to find it. The prediction survives people who have never heard of it.' },
+      { t: 'h', text: 'Elasticity: how much, not just which way' },
+      { t: 'p', text: 'Knowing demand slopes down is not enough to make a decision. Elasticity puts a number on it: the percentage change in quantity for a one per cent change in something else.' },
+      { t: 'f', text: 'Price elasticity of demand:  ε = (% change in Q) / (% change in P)', note: 'Negative for a normal good. |ε| > 1 is elastic (quantity reacts more than price), |ε| < 1 is inelastic. Income elasticity and cross-price elasticity are defined the same way against income and against another good’s price.' },
+      { t: 'tbl', label: 'Reading elasticity off an estimated demand curve', head: ['Form of the estimate', 'Where the elasticity is'], rows: [
+        { cells: ['log Q = a − b·log P + c·log Y', 'The coefficients ARE the elasticities: −b on price, c on income'] },
+        { cells: ['Q = a − b·P + c·Y', 'ε = −b × (P/Q), so it changes as you move along the curve'] } ] },
+      { t: 'note', label: 'Why the log form is so common', text: 'In a log-log specification the elasticity is constant and can be read straight off the coefficient. In a linear specification you have to evaluate it at a particular price and quantity, and the same curve is elastic at the top and inelastic at the bottom.' },
+      { t: 'ul', items: [
+        'Cross-price elasticity positive means substitutes; negative means complements.',
+        'Income elasticity above 1 means a luxury; between 0 and 1 a normal necessity; below 0 an inferior good.',
+        'Elasticity is what decides whether a price cut raises or lowers revenue: revenue rises when demand is elastic and falls when it is inelastic.'
+      ] },
       { t: 'h', text: 'What the model buys you' },
       { t: 'ul', items: [
         'A prediction of price from cost data alone, with no need to know anyone’s strategy.',
@@ -2322,6 +2334,23 @@ class Component extends DCLogic {
       { t: 'h', text: 'When should it stop altogether?' },
       { t: 'f', text: 'Short run: produce if  P ≥ AVC.   Long run: stay in if  P ≥ ATC.', note: 'AVC is average variable cost; ATC is average total cost. The two rules differ precisely because fixed costs are unavoidable in the short run and avoidable in the long run.' },
       { t: 'p', text: 'The short-run rule looks wrong the first time you meet it: a firm covering its variable costs but not its fixed ones is making a loss and should still keep producing. The reason is that shutting down does not escape the fixed cost — it only forfeits the margin over variable cost that was helping to pay for it. Losing less is the right decision.' },
+      { t: 'h', text: 'The cost buckets, as this course splits them' },
+      { t: 'p', text: 'A plant’s monthly costs get sorted into buckets by how they behave, not by which department they come from. Direct materials, energy and shipping are bought in competitive spot markets and move in direct proportion to output — produce nothing and you incur none of them. Production labour and overhead are volume-insensitive over the month: they are incurred whether or not the plant runs.' },
+      { t: 'f', text: 'AFC = total fixed costs / Q', note: 'Careful: "total fixed costs" here means the ongoing, year-in year-out fixed operating costs. It does NOT include the annual capital charge or the redeployment value, which are counted separately.' },
+      { t: 'h', text: 'Capital charge and redeployment value' },
+      { t: 'ul', items: [
+        'The capital charge is the annual cost of the capital tied up in the plant — what the owners could have earned on that money elsewhere. It is an opportunity cost, so it appears in no accounting ledger.',
+        'Redeployment value is what the assets would fetch in their next-best use: sold, leased out, or moved. Positive redeployment value means staying in the business has a real opportunity cost; zero redeployment value means the capital is sunk.'
+      ] },
+      { t: 'f', text: 'FR-ATC = full-reinvestment average total cost = (variable + ongoing fixed + capital charge) / Q', note: 'The cost per unit of running the plant AND renewing the capital when it wears out. ATC covers the first two buckets; FR-ATC adds the third.' },
+      { t: 'tbl', label: 'Three tests, three questions', head: ['Compare price to', 'Question it answers'], rows: [
+        { cells: ['AVC', 'Should I run the plant this month, given it already exists?'] },
+        { cells: ['ATC', 'Is this plant covering its ongoing costs, so should I keep it rather than exit?'] },
+        { cells: ['FR-ATC', 'Would I build it again? Should anyone enter this industry?'] } ] },
+      { t: 'note', label: 'Why three and not two', text: 'A plant can be worth running but not worth keeping, and worth keeping but not worth rebuilding. An industry whose price sits between ATC and FR-ATC is one where nobody exits and nobody enters, and the capacity quietly ages out. Price below AVC is the only one that stops production this month.' },
+      { t: 'h', text: 'The long-run equilibrium price' },
+      { t: 'f', text: 'With free entry, the long-run price settles at the minimum of FR-ATC for a typical entrant.', note: 'Above it, entry is profitable and new capacity arrives until the price is pushed back down. Below it, nobody replaces worn-out capacity and supply shrinks until the price rises.' },
+      { t: 'p', text: 'This is why a price pattern over time tells you about entry and exit without any data on the number of firms. A long stretch above minimum FR-ATC implies entry has been happening; a long stretch below it implies capacity has been leaving.' },
       { t: 'h', text: 'From one firm to the market' },
       { t: 'p', text: 'Each firm’s supply curve is its marginal cost curve above the shutdown point. The market supply curve is the horizontal sum: at each price, add up what every firm would produce at that price.' },
       { t: 'ul', items: [
@@ -2361,6 +2390,11 @@ class Component extends DCLogic {
       { t: 'mcq', k: 'Perfect competition', p: 'Which is NOT a condition for perfect competition?', o: ['Many buyers and sellers, each small relative to the market', 'A homogeneous product', 'Free entry and exit in the long run', 'Firms earn zero profit in the short run'], a: 3, why: 'Zero economic profit is a long-run consequence of free entry, not an assumption. In the short run competitive firms can make large profits or large losses.' },
       { t: 'mcq', k: 'Price taking', p: 'For a perfectly competitive firm, marginal revenue equals:', o: ['The market price', 'Average total cost', 'Marginal cost, by definition', 'Zero'], a: 0, why: 'The firm faces a horizontal demand curve at P, so each extra unit sold brings in exactly P. Hence P = MR = AR — and the profit-maximising rule MR = MC becomes P = MC.' },
       { t: 'tf', k: 'True or false', p: 'A perfectly competitive firm should charge slightly above the market price to improve its margin.', a: false, why: 'False. The product is homogeneous and buyers can see prices, so at a cent above the market price it sells nothing at all. It has no pricing decision — only a quantity decision.' },
+      { t: 'mcq', k: 'Elasticity', p: 'An estimate gives log Q = 14 − 0.4 log P + 1.2 log Y. What is the price elasticity of demand?', o: ['−0.4', '14', '1.2', 'It depends on the price'], a: 0, why: 'In a log-log specification the coefficients ARE the elasticities, and they are constant along the curve. Here demand is price-inelastic: a 10% price rise cuts quantity by 4%.' },
+      { t: 'mcq', k: 'Elasticity', p: 'For a LINEAR demand curve Q = a − bP, the price elasticity:', o: ['Equals −b everywhere', 'Equals −b × (P/Q), so it changes as you move along the curve', 'Is constant and equal to −1', 'Cannot be computed'], a: 1, why: 'Only the log-log form gives a constant elasticity. On a linear curve the same demand is elastic at high prices and inelastic at low ones.' },
+      { t: 'mcq', k: 'Elasticity', p: 'A firm cuts price by 5% into demand with elasticity −0.4. What happens to revenue?', o: ['Rises by about 2%', 'Falls by about 3%', 'Stays flat', 'Rises by about 5%'], a: 1, why: 'Quantity rises only 2% while price falls 5%, so revenue falls about 3% — and variable costs rise with the extra volume, so profit falls by more. Cutting price into inelastic demand destroys money twice.' },
+      { t: 'mcq', k: 'Elasticity', p: 'The coefficient on another good’s price in your demand curve is positive. The two goods are:', o: ['Complements', 'Substitutes', 'Inferior goods', 'Luxuries'], a: 1, why: 'Positive cross-price elasticity means a rise in their price sends buyers to you — substitutes. Negative would mean complements, used together.' },
+      { t: 'tf', k: 'True or false', p: 'An income elasticity of 1.2 makes the good a luxury in the technical sense.', a: true, why: 'True. Above 1 means demand grows faster than income; between 0 and 1 is a normal necessity, and below 0 an inferior good.' },
       { t: 'mcq', k: 'Why commodities', p: 'Why do commodity markets approximate perfect competition well?', o: ['Because they are regulated', 'Because the product is standardised and prices are publicly traded', 'Because there are few producers', 'Because demand is perfectly inelastic'], a: 1, why: 'A graded tonne is the same whoever produced it, and exchange trading makes prices visible to everyone. That is homogeneity plus information — two of the four conditions, and the hardest two to get in most industries.' },
       { t: 'mcq', k: 'Experiments', p: 'In a trading experiment where buyers know only their own values and sellers only their own costs, prices tend to:', o: ['Stay random throughout', 'Converge on the theoretical equilibrium within a few rounds', 'Settle at the average of the highest value and the lowest cost', 'Rise steadily as traders learn'], a: 1, why: 'Convergence happens without anybody knowing the curves or trying to find the equilibrium — which is what makes the prediction credible for real markets.' }
     ],
@@ -2374,6 +2408,14 @@ class Component extends DCLogic {
       { t: 'mcq', k: 'Shutdown', p: 'In the short run a firm should keep producing as long as:', o: ['Price is at least average total cost', 'Price is at least average variable cost', 'It is making an accounting profit', 'Price is at least marginal cost at every quantity'], a: 1, why: 'Fixed costs are unavoidable in the short run, so shutting down does not escape them. Any price above AVC contributes something towards them, and losing less is better than losing more.' },
       { t: 'tf', k: 'True or false', p: 'A firm making a loss should always shut down immediately.', a: false, why: 'False, and this is the counter-intuitive result of the session. If price covers average variable cost, producing loses less money than stopping, because the fixed costs are owed either way.' },
       { t: 'mcq', k: 'Long run', p: 'What changes between the short-run and long-run shutdown rules?', o: ['Marginal cost becomes irrelevant', 'Fixed costs become avoidable, so the test rises from AVC to ATC', 'Demand becomes more elastic', 'Price is no longer taken as given'], a: 1, why: 'In the long run every cost can be escaped by exiting, so the firm must cover average TOTAL cost to justify staying in.' },
+      { t: 'mcq', k: 'Capital charge', p: 'What is the annual capital charge?', o: ['The depreciation shown in the accounts', 'The interest actually paid on borrowings', 'The return the capital tied up in the plant could have earned elsewhere', 'The cost of replacing worn-out equipment this year'], a: 2, why: 'It is an opportunity cost on the capital employed, so it appears in no ledger — which is exactly why it has to be added by hand when you ask whether a plant is worth having at all.' },
+      { t: 'mcq', k: 'Redeployment value', p: 'Assets with ZERO redeployment value means:', o: ['They are worthless to the firm', 'They cannot be sold or moved to another use, so that capital is sunk', 'They have been fully depreciated', 'They can be sold at book value'], a: 1, why: 'Redeployment value is what the assets would fetch in their next-best use. Zero means staying has no opportunity cost in asset terms — the money is already gone whatever you decide.' },
+      { t: 'mcq', k: 'FR-ATC', p: 'What does full-reinvestment average total cost add to ordinary ATC?', o: ['The variable costs', 'The ongoing fixed operating costs', 'The annual capital charge', 'The redeployment value'], a: 2, why: 'ATC covers variable plus ongoing fixed cost per unit. FR-ATC adds the capital charge, so it answers “would I build this again?” rather than “is it covering its running costs?”.' },
+      { t: 'mcq', k: 'Three tests', p: 'A plant’s price is above ATC but below FR-ATC. What follows?', o: ['Shut it down immediately', 'Keep running it, but do not replace it when it wears out', 'Build another one like it', 'Nothing can be said without the redeployment value'], a: 1, why: 'It covers its running costs, so exiting now would be wrong; it does not cover the cost of the capital, so rebuilding would be. Industries sitting in this band shrink quietly as capacity ages out.' },
+      { t: 'mcq', k: 'Long-run price', p: 'With free entry, where does the long-run equilibrium price settle?', o: ['At the minimum AVC of the cheapest plant', 'At the minimum ATC of the average plant', 'At the minimum FR-ATC of a typical entrant', 'Wherever demand happens to cut the short-run supply curve'], a: 2, why: 'Above that level building another plant pays, so capacity arrives until the price falls back. Below it, worn-out capacity is not replaced. It is the only price at which the number of plants is stable.' },
+      { t: 'mcq', k: 'Reading a price series', p: 'A competitive industry’s price sat well above minimum FR-ATC for six years. With no data on the number of firms, what can you infer?', o: ['Costs must have been falling', 'Entry was profitable, so capacity was being added', 'Demand must have been inelastic', 'The incumbents were colluding'], a: 1, why: 'Price above minimum FR-ATC is precisely the condition under which building another plant pays. The entry it provokes is also the mechanism that pushes the price back down.' },
+      { t: 'tf', k: 'True or false', p: 'Average fixed cost, as this course defines it, includes the annual capital charge.', a: false, why: 'False. AFC is total ONGOING fixed operating costs divided by quantity. The capital charge and the redeployment value are counted separately — which is the whole reason FR-ATC exists as a third measure.' },
+      { t: 'num', k: 'Compute FR-ATC', p: 'A plant at full capacity has AVC of €40 a unit, ongoing fixed costs of €12 a unit and a capital charge of €8 a unit. What is its FR-ATC, in euros per unit?', a: 60, why: '40 + 12 + 8 = €60. With free entry and a typical entrant looking like this plant, €60 is also the long-run equilibrium price.' },
       { t: 'mcq', k: 'Market supply', p: 'The market supply curve is found by:', o: ['Adding the firms’ supply curves vertically', 'Adding the firms’ supply curves horizontally', 'Averaging the firms’ marginal costs', 'Taking the lowest-cost firm’s curve'], a: 1, why: 'At each PRICE you add up the QUANTITIES every firm would supply. Adding quantities at a given price is horizontal summation.' },
       { t: 'mcq', k: 'Who sets the price', p: 'In a competitive market with plants of differing costs, the market price is set by:', o: ['The lowest-cost plant', 'The average cost across all plants', 'The last plant needed to meet demand', 'The plant with the largest capacity'], a: 2, why: 'Demand cuts the cost staircase at the marginal plant, and its marginal cost is the price. Every cheaper plant earns the same price and a bigger margin.' },
       { t: 'num', k: 'Read the staircase', p: 'Four plants, each 30,000 tonnes of capacity, with marginal costs of €900, €1,100, €1,400 and €1,900 a tonne. Demand at the current price is 75,000 tonnes. What is the market price, in euros per tonne?', a: 1400, hint: 'Stack the capacities cheapest first and find which plant supplies the 75,000th tonne.', why: 'The first two plants cover 60,000 tonnes; the 75,000th tonne comes from the third, so the price is its marginal cost of €1,400. The two cheaper plants earn €1,400 as well.' },
@@ -2406,51 +2448,57 @@ class Component extends DCLogic {
   finBank = {};
 
 
-  // Original practice written for this site, with invented numbers. The course's
-  // own drill problem sets and exercises are copyright INSEAD material and are
-  // not reproduced here -- work those from the LMS.
+
+  // Written for this site, in the same SHAPES the course's own drill sets use --
+  // fill the cost table, derive the curves from a TVC equation, build the market
+  // supply curve from a table of firm types, read entry and exit off a price
+  // series. The numbers, the industries and the wording are all original; none of
+  // the course's drill problems, exercises or case exhibits is reproduced.
   epsExercises = [
-    { key: 'ex1', covers: '3', tag: 'Session 3', title: 'The cost staircase', stem: 'A refined-metal market is served by five plants. Each is a price taker; each has a flat marginal cost up to its capacity and cannot exceed it. Capacities and marginal costs are: A 20kt at €700/t, B 25kt at €950/t, C 30kt at €1,250/t, D 25kt at €1,600/t, E 20kt at €2,200/t.',
+    { key: 'ex1', covers: '3', tag: 'Session 3', title: 'Fill in the cost table', stem: 'A plant’s costs at each level of output are partly known. Total fixed cost does not change with Q. Work across the rows, and say which cells cannot be determined.',
       steps: [
-        { q: 'Demand this quarter is 70,000 tonnes. Which plant is marginal, and what is the market price?', rows: [ { label: 'Market price (€/t)', a: 1250, tol: 0 } ], hint: 'Stack the plants cheapest first and find which one supplies the 70,000th tonne.', sol: 'A and B together cover 45kt, so the 70,000th tonne comes from C. The price is C’s marginal cost, €1,250 a tonne. C is the marginal plant; D and E stay idle.' },
-        { q: 'What margin per tonne does plant A earn at that price?', rows: [ { label: 'Margin (€/t)', a: 550, tol: 0 } ], hint: 'Everyone receives the market price, whatever their own cost.', sol: '€1,250 − €700 = €550 a tonne. A’s cost advantage shows up entirely in margin; it does not and cannot charge more.' },
-        { q: 'Demand now grows to 78,000 tonnes. What is the new price, and by what percentage has it risen?', rows: [ { label: 'New price (€/t)', a: 1600, tol: 0 }, { label: 'Increase (%)', a: 28, tol: 0.5 } ], hint: 'Where does the 78,000th tonne now come from?', sol: 'A, B and C cover 75kt, so the 78,000th tonne comes from D at €1,600. The price rises 28% on a demand increase of about 11% — the market has moved onto a steeper step.' },
-        { q: 'Earlier, demand grew from 50,000 to 58,000 tonnes. What was the price before and after?', rows: [ { label: 'Price at 50kt (€/t)', a: 1250, tol: 0 }, { label: 'Price at 58kt (€/t)', a: 1250, tol: 0 } ], hint: 'Both quantities fall inside the same step of the staircase.', sol: 'Both are inside C’s capacity, so the price is €1,250 in both cases. The same 8kt of extra demand moved the price not at all here and by €350 a tonne in the previous step — which is the whole point: volatility is a property of where demand sits on the curve, not of the industry.' },
-        { q: 'A consultant argues the industry is stable because prices moved less than 1% over the last three years. What is wrong with the argument?', rows: [ { label: 'Say what the argument misses.', rubric: [
-            'Past price stability only shows that demand has been sitting on a flat part of the supply curve.',
-            'It says nothing about the slope further along, where the remaining capacity is much more expensive.',
-            'If demand grows into the steep part, prices can move violently without anything about the industry having changed.'
-          ], model: 'Stability is evidence about where demand has been, not about the shape of the curve ahead of it. The forward-looking question is how much cheap capacity is left between current demand and the steep section — and this industry has only 5kt of headroom before D sets the price.' } ], hint: 'What would you need to know about the curve to the right of today’s demand?', sol: 'The argument reads history off a flat step and projects it onto a staircase that turns steep 5kt later.' }
+        { q: 'At Q = 4, total cost is €95 and average variable cost is €12.50. What are total variable cost and total fixed cost?', rows: [ { label: 'TVC at Q=4 (€)', a: 50, tol: 0 }, { label: 'TFC (€)', a: 45, tol: 0 } ], hint: 'TVC = AVC × Q, and TC = TVC + TFC.', sol: 'TVC = 12.50 × 4 = €50, so TFC = 95 − 50 = €45. Because fixed cost is the same at every Q, this one row fixes it for the whole table.' },
+        { q: 'At Q = 6 total cost is €120. What are TVC, AVC and ATC there?', rows: [ { label: 'TVC (€)', a: 75, tol: 0 }, { label: 'AVC (€)', a: 12.5, tol: 0.01 }, { label: 'ATC (€)', a: 20, tol: 0.01 } ], hint: 'Fixed cost is still €45.', sol: 'TVC = 120 − 45 = €75; AVC = 75/6 = €12.50; ATC = 120/6 = €20. AVC happens to be flat between Q=4 and Q=6, so marginal cost is €12.50 over that range too.' },
+        { q: 'What is marginal cost between Q = 4 and Q = 6?', rows: [ { label: 'MC (€ per unit)', a: 12.5, tol: 0.01 } ], hint: 'Change in total cost over change in quantity.', sol: '(120 − 95) / (6 − 4) = €12.50 a unit. Note it equals AVC here only because AVC is constant — in general they differ.' },
+        { q: 'Only ATC is known at Q = 2: it is €40. Find TVC there, then say whether MC between Q = 1 and Q = 2 can be determined.', rows: [ { label: 'TVC at Q=2 (€)', a: 35, tol: 0 }, { label: 'Can MC between Q=1 and Q=2 be found from this alone?', a: 1, opts: ['Yes', 'No — total cost at Q = 1 is needed as well', 'Yes, it equals AVC at Q = 2', 'No, because fixed cost is unknown'] } ], hint: 'ATC × Q gives total cost; fixed cost is already known from the first step.', sol: 'TC = 40 × 2 = €80, so TVC = 80 − 45 = €35 and AVC = €17.50 — higher than the €12.50 further up, so average variable cost is falling over this range. Marginal cost needs two ADJACENT totals and nothing here gives TC at Q = 1, so that cell is one to mark "cannot be determined, and here is why" rather than guess.' }
       ] },
 
-    { key: 'ex2', covers: '3', tag: 'Session 3', title: 'Should this plant keep running?', stem: 'A plant has capacity of 40,000 tonnes a quarter and is currently selling everything it makes at €1,050 a tonne. Its costs per quarter: materials and power €30.4m, hourly labour €4.8m, salaried staff €3.2m, depreciation on equipment bought four years ago €6.0m, and a site lease of €2.4m which can be exited with one quarter’s notice.',
+    { key: 'ex2', covers: '3', tag: 'Session 3', title: 'Cost curves from an equation', stem: 'A price-taking firm has total variable cost TVC = 90Q + 5Q², with Q in units per year and TVC in euros per year. Its ongoing fixed operating costs are €720 a year, and the annual capital charge on its assets is €180 a year.',
       steps: [
-        { q: 'What is average variable cost per tonne?', rows: [ { label: 'AVC (€/t)', a: 880, tol: 1 } ], hint: 'Only costs that change with output are variable. Two of the five lines qualify.', sol: 'Materials and power €30.4m plus hourly labour €4.8m = €35.2m over 40kt, so AVC = €880 a tonne. Salaried staff, depreciation and the lease do not vary with how much is produced.' },
-        { q: 'What is average total cost per tonne?', rows: [ { label: 'ATC (€/t)', a: 1170, tol: 1 } ], hint: 'Add every cost line, including the ones that do not vary.', sol: 'Total cost = €30.4 + 4.8 + 3.2 + 6.0 + 2.4 = €46.8m over 40kt, so ATC = €1,170 a tonne. At €1,050 the plant loses €120 a tonne on a full-cost basis.' },
-        { q: 'Should it keep producing this quarter?', rows: [ { label: 'Contribution per tonne (€)', a: 170, tol: 1 }, { label: 'Which rule applies in the short run?', a: 1, opts: ['Shut down if price is below ATC', 'Keep producing if price is at or above AVC', 'Shut down if the plant is making an accounting loss', 'Keep producing only if price exceeds ATC'] } ], hint: 'Compare price to AVC, not to ATC.', sol: 'Price €1,050 less AVC €880 = €170 a tonne of contribution, €6.8m over the quarter. The fixed costs are owed whether or not it runs, so stopping would turn a €4.8m loss into an €11.6m one. It keeps running.' },
-        { q: 'The depreciation is on equipment with no resale value. How should it enter the decision?', rows: [ { label: 'Explain how depreciation should be treated here.', rubric: [
-            'The equipment is already bought and has no resale value, so its cost is sunk.',
-            'A sunk cost is identical under every option and therefore cannot distinguish between them.',
-            'It belongs in the profitability report but not in the decision about whether to run this quarter.'
-          ], model: 'Depreciation here is an accounting allocation of money spent four years ago. Including it in the run/stop comparison double-counts a decision already made, and would argue for shutting a plant that is contributing €6.8m a quarter towards costs that continue either way.' } ], hint: 'Does the number change depending on which option you pick?', sol: 'Sunk: it belongs in the report, not in the decision.' },
-        { q: 'Prices are expected to stay near €1,050 for several years. Does the answer change, and what has to be true for an exit to be right?', rows: [ { label: 'Say what changes in the long run.', rubric: [
-            'In the long run every cost becomes avoidable, so the test rises from AVC to ATC.',
-            'At €1,050 against an ATC of €1,170 the plant does not cover its full costs, so it should not continue indefinitely.',
-            'The lease is already avoidable at one quarter’s notice, so part of the “fixed” cost can be escaped sooner than the rest.'
-          ], model: 'Short run and long run differ only in which costs can be escaped. Here the right sequence is: run this quarter for the contribution, and simultaneously plan the exit — starting with the lease, because it is the fixed cost with the shortest notice period. The equipment’s sunk cost never enters either decision.' } ], hint: 'Which costs stop being unavoidable once you have time to act?', sol: 'Long-run test is ATC, which the plant fails. Run now for the contribution, plan exit in parallel.' }
+        { q: 'Write down AVC and MC, then give their values at Q = 12.', rows: [ { label: 'AVC at Q=12 (€)', a: 150, tol: 0.5 }, { label: 'MC at Q=12 (€)', a: 210, tol: 0.5 } ], hint: 'AVC = TVC/Q. For MC, differentiate TVC — or compute the cost of the 12th unit.', sol: 'AVC = 90 + 5Q, so at Q = 12 it is €150. MC = 90 + 10Q, so €210. MC lies above AVC wherever AVC is rising, which is the general rule.' },
+        { q: 'What are ATC and FR-ATC at Q = 12?', rows: [ { label: 'ATC at Q=12 (€)', a: 210, tol: 0.5 }, { label: 'FR-ATC at Q=12 (€)', a: 225, tol: 0.5 } ], hint: 'ATC adds the ongoing fixed cost per unit; FR-ATC adds the capital charge per unit on top.', sol: 'ATC = AVC + 720/Q = 150 + 60 = €210. FR-ATC = ATC + 180/Q = 210 + 15 = €225. The gap between the two is the capital charge, and it is the gap that decides whether anyone would build this plant again.' },
+        { q: 'At what output is ATC at its minimum, and what is the minimum?', rows: [ { label: 'Q at minimum ATC', a: 12, tol: 0.2 }, { label: 'Minimum ATC (€)', a: 210, tol: 0.5 } ], hint: 'ATC is minimised where MC crosses it. Set 90 + 10Q = 90 + 5Q + 720/Q.', sol: '5Q = 720/Q gives Q² = 144, so Q = 12 and ATC = €210. The MC curve always cuts ATC at its minimum — if the next unit costs less than the running average, the average must still be falling.' },
+        { q: 'At what output is FR-ATC minimised, and what is that minimum?', rows: [ { label: 'Q at minimum FR-ATC', a: 13.42, tol: 0.15 }, { label: 'Minimum FR-ATC (€)', a: 224.2, tol: 1 } ], hint: 'Same method, with fixed costs of 720 + 180 = 900.', sol: '5Q = 900/Q gives Q² = 180, Q ≈ 13.42, and FR-ATC ≈ €224.2. Adding a fixed cost pushes the efficient scale out: the more you have to spread, the more units you want to spread it over.' },
+        { q: 'The market price is €205. Say what the firm should do in the short run and in the long run, and why the two answers differ.', rows: [ { label: 'Give both decisions and the reason.', rubric: [
+            'Short run: €205 is far above AVC at the relevant output, so the firm produces — it sets P = MC, giving 90 + 10Q = 205 and Q = 11.5 units.',
+            'It does not cover minimum ATC of €210, so it is making a loss, but producing loses less than stopping because the fixed costs are owed either way.',
+            'Long run: €205 is below minimum FR-ATC of about €224, so the capital should not be renewed — the firm runs the assets out and does not replace them, and no new entrant would build here.'
+          ], model: 'Three tests, three answers: run it (P > AVC), losing money (P < ATC), do not rebuild it (P < FR-ATC). An industry priced in this band quietly shrinks as plants age out, with no dramatic shutdown at any point.' } ], hint: 'Compare €205 with AVC, with minimum ATC, and with minimum FR-ATC in turn.', sol: 'Produce now at Q = 11.5; do not reinvest.' }
       ] },
 
-    { key: 'ex3', covers: '2', tag: 'Session 2', title: 'Shift or movement?', stem: 'For each change, say whether it moves the market ALONG a curve or SHIFTS one, which curve, and in which direction. The good is refined copper.',
+    { key: 'ex3', covers: '3', tag: 'Session 3', title: 'Market supply from a table of firm types', stem: 'A competitive industry has three types of plant. AVC is constant up to each plant’s capacity and production is impossible beyond it. Assets have zero redeployment value, and a typical new entrant would have the Type 1 cost structure.',
       steps: [
-        { q: 'The price of copper rises and fabricators order less of it.', rows: [ { label: 'Which is it?', a: 0, opts: ['A movement along the demand curve', 'A leftward shift of demand', 'A rightward shift of supply', 'A leftward shift of supply'] } ], hint: 'Is the thing that changed the good’s own price, or something else?', sol: 'A change in the good’s own price is always a movement along the curve, never a shift of it.' },
-        { q: 'Aluminium, a substitute in some wiring applications, becomes much cheaper.', rows: [ { label: 'Which is it?', a: 1, opts: ['A movement along the demand curve', 'A leftward shift of the demand curve', 'A rightward shift of the demand curve', 'A leftward shift of the supply curve'] } ], hint: 'The price that changed is a different good’s.', sol: 'Buyers switch some demand to the substitute, so at every copper price they want less copper: demand shifts left.' },
-        { q: 'Electricity prices double, and smelting is electricity-intensive.', rows: [ { label: 'Which is it?', a: 3, opts: ['A movement along the supply curve', 'A rightward shift of the supply curve', 'A leftward shift of the demand curve', 'A leftward shift of the supply curve'] } ], hint: 'An input cost is not the good’s own price.', sol: 'Every plant’s marginal cost rises, so at each price less is supplied: the supply curve shifts left and the market price rises.' },
-        { q: 'A new low-cost mine opens with 40kt of capacity.', rows: [ { label: 'Which is it?', a: 1, opts: ['A movement along the supply curve', 'A rightward shift of the supply curve', 'A rightward shift of the demand curve', 'A leftward shift of the supply curve'] } ], hint: 'What happens to the cost staircase?', sol: 'A new step is inserted near the cheap end, so at every price more is available: supply shifts right and the price falls.' },
-        { q: 'Why is this distinction worth being pedantic about?', rows: [ { label: 'Explain why the distinction matters.', rubric: [
-            'A movement along a curve leaves the underlying relationship unchanged — the market is responding to its own price.',
-            'A shift changes the relationship itself, so the equilibrium price AND quantity both move.',
-            'Mistaking one for the other predicts the wrong direction for price: a demand-driven rise and a cost-driven rise look identical in the price series but imply opposite things about quantity.'
-          ], model: 'Price alone cannot tell you which happened. A price rise with quantity up is a demand shift; a price rise with quantity down is a supply shift. That is why both series have to be read together before concluding anything about an industry.' } ], hint: 'What does quantity do in each case?', sol: 'Price up with quantity up means demand moved; price up with quantity down means supply moved.' }
+        { q: 'Type 1: 80 plants, 500 units each, AVC €40, ongoing fixed €12/unit at full capacity, capital charge €8/unit at full capacity. Type 2: 150 plants, 200 units each, AVC €55, fixed €6/unit, capital charge €4/unit. Type 3: 400 plants, 100 units each, AVC €70, fixed €3/unit, capital charge €2/unit. What is total industry capacity?', rows: [ { label: 'Total capacity (units)', a: 110000, tol: 0 } ], hint: 'Number of plants times capacity, for each type.', sol: '80 × 500 = 40,000; 150 × 200 = 30,000; 400 × 100 = 40,000. Total 110,000 units.' },
+        { q: 'Draw the short-run market supply curve in words: how much is supplied at prices of €50, €60 and €90?', rows: [ { label: 'Quantity at P = €50', a: 40000, tol: 0 }, { label: 'Quantity at P = €60', a: 70000, tol: 0 }, { label: 'Quantity at P = €90', a: 110000, tol: 0 } ], hint: 'A plant runs if price is at or above its AVC, and then runs flat out because AVC is constant.', sol: 'At €50 only Type 1 covers its AVC: 40,000. At €60 Types 1 and 2: 70,000. At €90 all three: 110,000. Constant AVC up to capacity makes the supply curve a staircase of three steps.' },
+        { q: 'What is the long-run equilibrium price in this industry?', rows: [ { label: 'Long-run price (€)', a: 60, tol: 0 } ], hint: 'With free entry, price settles at the minimum FR-ATC of a typical entrant — and an entrant looks like Type 1.', sol: 'A Type 1 plant at full capacity has FR-ATC = 40 + 12 + 8 = €60. Above that, entry is profitable and new capacity arrives; below it, nobody replaces worn-out capacity. So the long-run price is €60.' },
+        { q: 'Demand is currently D(P) = 130,000 − 800P. What is the short-run equilibrium price and quantity?', rows: [ { label: 'Short-run price (€)', a: 70, tol: 0 }, { label: 'Quantity traded (units)', a: 74000, tol: 0 } ], hint: 'Test each step of the staircase: at a candidate price, is the quantity demanded inside that step or outside it?', sol: 'Supply is 40,000 for €40 ≤ P < €55, 70,000 for €55 ≤ P < €70, and 110,000 at P ≥ €70. At P = €70 demand is 130,000 − 56,000 = 74,000, which lies between 70,000 and 110,000 — so the market clears on the vertical face of the third step. The price is €70, 74,000 units trade, and the Type 3 plants are marginal and run only partly loaded. Below €70 demand exceeds the 70,000 the first two types can supply, and above it supply exceeds demand, so no other price clears.' },
+        { q: 'Prices in this industry averaged €78 for six years, then €58 for the four years after. What does that pattern tell you about the number of plants, with no data on entry or exit?', rows: [ { label: 'Say what the price series implies.', rubric: [
+            'A sustained price above the long-run equilibrium of €60 means entry was profitable, so capacity was being added during the first six years.',
+            'The added capacity shifts the supply curve right, which is itself the mechanism that pushes the price back down.',
+            'Four years below €60 means a typical plant is not covering FR-ATC, so worn-out capacity is not being replaced and the number of plants should now be falling.'
+          ], model: 'Price relative to minimum FR-ATC is a statement about entry and exit, because that is exactly the threshold at which building another plant is worthwhile. You can read the direction of capacity change off the price series alone — which is the point of defining FR-ATC separately from ATC in the first place.' } ], hint: 'Compare each stretch with the long-run equilibrium price you computed.', sol: 'Six years of entry, then four years of capacity ageing out without replacement.' }
+      ] },
+
+    { key: 'ex4', covers: '2', tag: 'Session 2', title: 'Elasticity from an estimated demand curve', stem: 'Two econometricians hand you two different estimates of demand for the same refined metal. Treat each on its own terms.',
+      steps: [
+        { q: 'The first is log Q = 14 − 0.4 log P + 1.2 log Y, where Y is real GDP. What are the price and income elasticities?', rows: [ { label: 'Price elasticity', a: -0.4, tol: 0.01 }, { label: 'Income elasticity', a: 1.2, tol: 0.01 } ], hint: 'In a log-log specification the coefficients are the elasticities.', sol: 'Price elasticity −0.4 and income elasticity 1.2. Demand is price-INELASTIC: a 10% price rise cuts quantity by only 4%. Income elasticity above 1 makes it a luxury in the technical sense — demand grows faster than the economy.' },
+        { q: 'The second is Q = 900 − 3P + 0.5Y + 0.8PS, where PS is the price of a substitute. At P = €120, Y = 400 and PS = €150, what is Q and what is the price elasticity there?', rows: [ { label: 'Q', a: 860, tol: 1 }, { label: 'Price elasticity at that point', a: -0.419, tol: 0.02 } ], hint: 'For a linear curve, ε = (dQ/dP) × (P/Q), and dQ/dP is the coefficient on P.', sol: 'Q = 900 − 360 + 200 + 120 = 860. ε = −3 × (120/860) = −0.419. Unlike the log form this changes as you move along the curve: the same demand curve is elastic at high prices and inelastic at low ones.' },
+        { q: 'What does the sign of the coefficient on PS tell you, and what would a negative one have meant?', rows: [ { label: 'Interpret the cross-price term.', rubric: [
+            'The coefficient on the other good’s price is +0.8, so when that good gets more expensive buyers want more of this one.',
+            'That makes the two substitutes.',
+            'A negative coefficient would make them complements — goods used together, so that a rise in one’s price reduces demand for the other.'
+          ], model: 'Cross-price elasticity is positive for substitutes and negative for complements, and it is often the most useful of the three for a business: it tells you whose price changes you have to watch.' } ], hint: 'Does a higher price elsewhere help or hurt your demand?', sol: 'Positive means substitutes; negative would mean complements.' },
+        { q: 'The firm is considering a 5% price cut. Using the first estimate, what happens to revenue?', rows: [ { label: 'Approximate change in quantity (%)', a: 2, tol: 0.1 }, { label: 'Does revenue rise or fall?', a: 1, opts: ['Rise — the volume gain outweighs the lower price', 'Fall — demand is inelastic, so volume barely responds', 'Stay the same', 'Cannot be determined without costs'] } ], hint: 'Elasticity −0.4 means a 5% price cut raises quantity by 0.4 × 5%.', sol: 'Quantity rises about 2% while price falls 5%, so revenue falls by roughly 3%. Cutting price into inelastic demand reduces revenue — and since volume rose, it raises variable costs too, so profit falls by more than revenue does.' }
       ] }
   ];
 
@@ -2875,6 +2923,107 @@ class Component extends DCLogic {
           hint: 'Ask which data the score is computed on, and which data M. Gelato actually cares about.',
           sol: 'A higher degree always fits the training points better; that says nothing about next year.' }
       ] },
+  ];
+
+
+  // Every command the course has used so far, grouped by the job it does. The
+  // midterm can ask you to interpret code, so this is a reading reference: what
+  // it does, and the trap next to it.
+  mlFormulas = [
+    { sec: 'Setup', k: 'Import the four packages', v: 'import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt', note: 'Colab has them installed but does not import them. First cell of every notebook. np for arrays, pd for dataframes, plt for plots.' },
+    { sec: 'Setup', k: 'Comment a line out', v: '# this line does nothing', note: 'Everything after # on that line is ignored.' },
+
+    { sec: 'Reading data', k: 'Read a csv into a dataframe', v: 'ft = pd.read_csv("MIM_FT_rankings.csv")', note: 'In Colab the file has to be uploaded first, or the name will not be found.' },
+
+    { sec: 'Looking at a dataframe', k: 'First few rows', v: 'df.head()', note: 'The quickest check that the file loaded and the columns are what you expected.' },
+    { sec: 'Looking at a dataframe', k: 'Structure and types', v: 'df.info()', note: 'Rows, columns, how many non-null values each has, and each column’s type.' },
+    { sec: 'Looking at a dataframe', k: 'Numerical summary', v: 'df.describe()', note: 'Count, mean, std, min, quartiles, max — NUMERIC columns only. A column missing from the output is one Python does not think is a number. It is also the detector for impossible values: read the min and max.' },
+    { sec: 'Looking at a dataframe', k: 'What type is each column', v: 'df.dtypes', note: 'Use it when describe() skips a column you expected: a number stored as text shows up as object.' },
+    { sec: 'Looking at a dataframe', k: 'Rows and columns', v: 'df.shape', note: 'A tuple (rows, columns). Print it before and after a drop to confirm something happened.' },
+    { sec: 'Looking at a dataframe', k: 'The index', v: 'df.index', note: 'The row labels. Not the same as position once rows have been dropped — which is the whole .loc / .iloc distinction.' },
+    { sec: 'Looking at a dataframe', k: 'Distinct values in a column', v: 'df["Embarked"].unique()', note: 'The detector for strings and objects, the way describe() is for numbers. Read the list for values that should not be there.' },
+
+    { sec: 'Selecting', k: 'One column as a Series', v: 'ft["School Name"]', note: 'One pair of brackets. One-dimensional.' },
+    { sec: 'Selecting', k: 'One column as a DataFrame', v: 'ft[["School Name"]]', note: 'Two pairs. This is the form the course uses, and the form scikit-learn needs — single brackets are the usual cause of a shape error at .fit.' },
+    { sec: 'Selecting', k: 'Several columns', v: 'ft[["School Name", "Main location"]]', note: 'A list of names inside the brackets.' },
+    { sec: 'Selecting', k: 'Rows by position', v: 'ft[0:5]', note: 'The first five rows. The end of the range is not included.' },
+    { sec: 'Selecting', k: 'A row by its label', v: 'ft.loc[[5]]', note: '.loc reads the INDEX LABEL. After a .drop the labels have gaps, so label 5 may not be the sixth row.' },
+    { sec: 'Selecting', k: 'A row by its position', v: 'ft.iloc[[5]]', note: '.iloc reads POSITION, counting from zero. iloc[:, 1:3] takes all rows and columns two and three.' },
+
+    { sec: 'Filtering', k: 'Rows matching a condition', v: 'ft[ft["School Name"] == "Insead"]', note: 'The condition inside the brackets produces True/False per row; the brackets keep the True ones.' },
+    { sec: 'Filtering', k: 'Two conditions', v: 'start[(start >= 80) & (start <= 90)]', note: 'For dataframes and arrays, and becomes & and or becomes |. Each condition needs its own parentheses — the keyword "and" raises an ambiguity error.' },
+
+    { sec: 'Cleaning', k: 'Drop a column', v: 'df.drop(columns=["Cabin"])', note: 'For features that carry no information, or have too many gaps to rescue.' },
+    { sec: 'Cleaning', k: 'Drop a row', v: 'df.drop(index=892)', note: 'By index label. Filter and look at the row first — the corruption is often in more columns than the one that flagged it.' },
+    { sec: 'Cleaning', k: 'Flag duplicate rows', v: 'dups = df.duplicated()\nprint(dups.any())\ndf[dups]', note: 'True for each row that repeats an earlier one; .any() says whether there are any; df[dups] shows them.' },
+    { sec: 'Cleaning', k: 'Delete duplicates', v: 'df.drop_duplicates(inplace=True)', note: 'inplace=True changes the dataframe itself. Without it the cleaned copy is returned and thrown away.' },
+    { sec: 'Cleaning', k: 'Which columns have gaps', v: 'df.isna().any()', note: 'One True/False per column: is anything missing here at all.' },
+    { sec: 'Cleaning', k: 'How many gaps per column', v: 'df.isna().sum()', note: 'Counts them, because True counts as 1. This is what decides whether a column is worth imputing or should be dropped.' },
+
+    { sec: 'Imputing', k: 'Fill a categorical column', v: 'from sklearn.impute import SimpleImputer\nimp = SimpleImputer(missing_values=np.nan, strategy="most_frequent")\ndf[["Embarked"]] = imp.fit_transform(df[["Embarked"]])', note: 'A mean is meaningless for a category, so the most frequent value is the easy rung of the ladder.' },
+    { sec: 'Imputing', k: 'Fill a numerical column from its neighbours', v: 'from sklearn.impute import KNNImputer\nimputer = KNNImputer(n_neighbors=1)\ndf[["Age","SibSp","Parch","Fare"]] = imputer.fit_transform(\n    df[["Age","SibSp","Parch","Fare"]])', note: 'n_neighbors=1 fills each gap from the single closest observation. The other columns are passed in because they are what "closest" is measured on.' },
+
+    { sec: 'Scaling', k: 'Normalize to 0–1', v: 'from sklearn import preprocessing\nmin_max_scaler = preprocessing.MinMaxScaler()\nX_minmax = min_max_scaler.fit_transform(X)', note: 'Normalizing. Numerical features only.' },
+    { sec: 'Scaling', k: 'Scale to mean 0, sd 1', v: 'X_scaled = preprocessing.scale(X)', note: 'Scaling. Helps regressions and PCA; does nothing for tree algorithms.' },
+
+    { sec: 'Numpy arrays', k: 'Make one', v: 'np_salary = np.array([139.9, 141.6, 127.4])', note: 'Looks like a list, calculates like a number: np_salary / 2 halves every element at once.' },
+    { sec: 'Numpy arrays', k: 'A range', v: 'np.arange(20)', note: 'The array version of range. np.ones(12) gives twelve 1s.' },
+    { sec: 'Numpy arrays', k: 'Change the shape', v: 'A = np.arange(12).reshape((4,3))', note: 'Four rows, three columns. reshape(-1, 1) means one column and "work out the rows yourself" — the shape .predict() wants.' },
+    { sec: 'Numpy arrays', k: 'Evenly spaced points', v: 'np.linspace(np.min(X), np.max(X), 100)', note: '100 points across the range of X. Used to draw a fitted line, not as data.' },
+    { sec: 'Numpy arrays', k: 'Summaries', v: 'A.min()   A.max()   A.sum()   A.cumsum()', note: 'Applied to the whole array unless you ask for an axis.' },
+    { sec: 'Numpy arrays', k: 'Everywhere / anywhere', v: '(B == 1).all()\n(A == 1).any()', note: '.all() asks whether the condition holds for every element; .any() whether it holds for at least one.' },
+    { sec: 'Numpy arrays', k: 'Elementwise arithmetic', v: 'A + B     A * B', note: '* multiplies element by element. It is NOT matrix multiplication, which is A @ B.' },
+
+    { sec: 'Lists and dictionaries', k: 'List basics', v: 'L = ["Insead", "France", 3]\nlen(L)\nL[1]      # second element\nL[-1]     # last element\nL.append(9.62)', note: 'Python counts from zero, so L[1] is the second. L + M joins two lists.' },
+    { sec: 'Lists and dictionaries', k: 'Count occurrences', v: 'countries.count("China")', note: '.sort(), .insert() and .index() work the same way.' },
+    { sec: 'Lists and dictionaries', k: 'Dictionary', v: 'schools = {"insead": ["France", 3]}\nschools["insead"]\nschools.keys()', note: 'Looked up by key. Entries can carry different amounts of information, which is why dictionaries turn up in the optimization block.' },
+    { sec: 'Lists and dictionaries', k: 'Dictionary into a dataframe', v: 'pd.DataFrame({"country": [...], "rank": [...]})', note: 'How to build a small dataframe by hand.' },
+
+    { sec: 'Control flow', k: 'if / elif / else', v: 'if school == "HEC Paris":\n    print("HEC")\nelif school == "Insead":\n    print("INSEAD")\nelse:\n    print("Neither")', note: 'The colon and the indentation are both required. Missing the indent does not always error — it silently runs the line unconditionally.' },
+    { sec: 'Control flow', k: 'Compare, do not assign', v: '==   !=   <=   >=', note: '= puts a value into a variable; == asks whether two things are equal.' },
+    { sec: 'Control flow', k: 'for loop', v: 'for i in enrolled:\n    total = total + i', note: 'i takes the VALUES in the list, not the positions.' },
+    { sec: 'Control flow', k: 'range', v: 'range(10)      # 0..9\nrange(5, 10)   # 5..9\nrange(0, 10, 2)  # 0,2,4,6,8', note: 'The stop value is never included.' },
+    { sec: 'Control flow', k: 'while loop', v: 'while salary < 200000:\n    salary = salary * 1.05', note: 'Runs as long as the condition holds. Make sure something inside it can make the condition false.' },
+
+    { sec: 'Grouping and plotting', k: 'Average by group', v: 'country_ft = ft.groupby("Main location").mean(numeric_only=True).reset_index()', note: 'numeric_only=True stops it choking on text columns; reset_index turns the group back into an ordinary column so it can be plotted.' },
+    { sec: 'Grouping and plotting', k: 'How big is each group', v: 'ft.groupby("Main location").size()', note: 'Run this before believing any group average. A country with one school can top a chart.' },
+    { sec: 'Grouping and plotting', k: 'Bar chart', v: 'plt.bar(x, y)\nplt.xticks(rotation=90)', note: 'The rotation makes long category labels readable.' },
+    { sec: 'Grouping and plotting', k: 'Scatter and line', v: 'plt.scatter(X, Y)\nplt.plot(linepoints, model.predict(linepoints), c="red")', note: 'scatter draws the data; plot joins predicted values into a curve.' },
+    { sec: 'Grouping and plotting', k: 'Axis labels', v: 'plt.xlabel("Time")\nplt.ylabel("Sales")', note: 'Worth the two lines — an unlabelled axis is a lost mark.' },
+
+    { sec: 'Regression', k: 'Fit a linear regression', v: 'from sklearn.linear_model import LinearRegression\nX = Gelato[["Times"]]\nY = Gelato[["Sales"]]\nlm = LinearRegression().fit(X, Y)', note: 'Double brackets: scikit-learn wants two-dimensional features.' },
+    { sec: 'Regression', k: 'Read the fitted model', v: 'lm.intercept_   # b\nlm.coef_        # a\nlm.score(X, Y)  # R-squared', note: 'The trailing underscore marks a value LEARNED from the data, as opposed to one you set.' },
+    { sec: 'Regression', k: 'Predict', v: 'lm.predict(linepoints)', note: 'The input must have the same shape and meaning as what the model was trained on.' },
+    { sec: 'Regression', k: 'Polynomial features', v: 'from sklearn.preprocessing import PolynomialFeatures\npoly = PolynomialFeatures(degree)\nX_poly = poly.fit_transform(X)\npolyreg = LinearRegression().fit(X_poly, Y)', note: 'Maps each x to [1, x, x², …] and runs an ordinary linear regression over those columns. Any new input must go through the same fit_transform before predict sees it.' },
+    { sec: 'Regression', k: 'Split the data', v: 'from sklearn.model_selection import train_test_split', note: 'Imported in the Lecture 3 preamble, for the training/testing material.' },
+    { sec: 'Regression', k: 'Error measure', v: 'from sklearn.metrics import mean_squared_error', note: 'Also in the Lecture 3 preamble. Unlike R-squared it can be computed on data the model has not seen.' }
+  ];
+
+  mlTerms = [
+    { k: 'Label', v: 'The quantity you are trying to predict. Its presence is what makes a problem supervised; its absence makes it unsupervised.' },
+    { k: 'Feature', v: 'A column used as an input to the prediction. In code, the X of .fit(X, Y).' },
+    { k: 'Observation', v: 'A row — one case, one passenger, one day of sales.' },
+    { k: 'Supervised learning', v: 'Predicting a label from features. Regression when the label is a number, classification when it is a category.' },
+    { k: 'Unsupervised learning', v: 'Finding patterns with no label, so the algorithm decides what counts as interesting.' },
+    { k: 'Optimization', v: 'Making the best decision under constraints. Unlike machine learning, it returns a decision rather than information.' },
+    { k: 'Numerical variable', v: 'A measurement or a count — fare, age, number of siblings.' },
+    { k: 'Categorical variable', v: 'Membership of a category. It may be written as a number, where the number stands in for the category.' },
+    { k: 'Ordinal variable', v: 'A category whose values can be ranked (First, Second, Third). Encoded by its ranking: 1, 2, 3.' },
+    { k: 'Nominal variable', v: 'A category whose values cannot be ranked (S, C, Q). Encoded one-hot, with one redundant column dropped.' },
+    { k: 'One-hot encoding', v: 'One 0/1 column per category. The last is dropped because it is implied by the others.' },
+    { k: 'Normalizing', v: 'Rescaling data to lie between 0 and 1. MinMaxScaler.' },
+    { k: 'Scaling', v: 'Rescaling data to mean 0 and standard deviation 1. preprocessing.scale. Helps regressions and PCA, not trees.' },
+    { k: 'Imputation', v: 'Filling a missing value rather than deleting the row. The ladder runs from the mean or most frequent value up to a regression on the complete rows.' },
+    { k: 'Missing completely at random', v: 'No pattern at all to which entries are absent.' },
+    { k: 'Missing at random', v: 'Whether an entry is absent depends on another feature.' },
+    { k: 'Missing not at random', v: 'Entries are absent because of their own value. The hard case: the standard methods do not handle it, and the only mitigation offered is adding features.' },
+    { k: 'Outlier', v: 'An observation that does not fit the dataset. Flagged by boxplots, Z-scores beyond ±3, or anomaly detection — then kept or discarded on business knowledge.' },
+    { k: 'Feature transform', v: 'Changing one feature: a power, a log, an exponential, adding or multiplying by a constant.' },
+    { k: 'Feature interaction', v: 'Combining two features into a new one.' },
+    { k: 'Feature selection', v: 'Choosing which of the features you have to use.' },
+    { k: 'Dimension reduction', v: 'Merging features so that as few as possible explain the variability. Lecture 8.' },
+    { k: 'R-squared', v: 'The share of the variation in the label the model accounts for, measured on the data it was fitted to — which is why a higher degree always improves it and it cannot be used to choose one.' },
+    { k: 'Overfitting', v: 'A model that bends to reach the points it was trained on and therefore predicts new data badly. Fitting and predicting are different problems.' }
   ];
 
   daSessions = [
@@ -4812,7 +4961,7 @@ class Component extends DCLogic {
   data(c) {
     if (c === 'eps') return { sessions: this.epsSessions, built: this.epsBuilt, lessons: this.epsLessons, bank: this.epsBank, exercises: this.epsExercises || [], gens: [], todo: this.epsTodo || [], grading: this.epsGrading || [], contacts: [], formulas: [], terms: [] };
     if (c === 'fin') return { sessions: this.finSessions, built: this.finBuilt, lessons: this.finLessons, bank: this.finBank, exercises: [], gens: [], todo: this.finTodo || [], grading: this.finGrading || [], contacts: [], formulas: [], terms: [] };
-    if (c === 'ml') return { sessions: this.mlSessions, built: this.mlBuilt, lessons: this.mlLessons, bank: this.mlBank, exercises: this.mlExercises || [], gens: [], todo: this.mlTodo || [], grading: this.mlGrading || [], contacts: [], formulas: [], terms: [] };
+    if (c === 'ml') return { sessions: this.mlSessions, built: this.mlBuilt, lessons: this.mlLessons, bank: this.mlBank, exercises: this.mlExercises || [], gens: [], todo: this.mlTodo || [], grading: this.mlGrading || [], contacts: [], formulas: this.mlFormulas || [], terms: this.mlTerms || [] };
     if (c === 'mkt') return { sessions: this.mktSessions, built: this.mktBuilt, lessons: this.mktLessons, bank: this.mktBank, exercises: this.mktExercises, gens: [], todo: this.mktTodo, grading: this.mktGrading, contacts: this.mktContacts, formulas: this.mktFormulas, terms: this.mktTerms };
     if (c === 'ips') return { sessions: this.ipsSessions, built: this.ipsBuilt, lessons: this.ipsLessons, bank: this.ipsBank, exercises: [], gens: [], todo: this.ipsTodo, grading: this.ipsGrading, contacts: [], formulas: [], terms: this.ipsTerms };
     if (c === 'fa') return { sessions: this.faSessions, built: {}, lessons: {}, bank: this.faBank, exercises: [], gens: [], todo: this.faTodo, grading: this.faGrading, contacts: this.faContacts, formulas: [], terms: this.faTerms };
@@ -5755,6 +5904,15 @@ class Component extends DCLogic {
     v.grading = d.grading;
     v.formulas = d.formulas;
     v.hasFormulas = (d.formulas || []).length > 0;
+    // ML&O's glossary is code rather than formulas: it needs a monospace face and
+    // its line breaks kept, because half the entries are three lines long.
+    const glossIsCode = ck === 'ml';
+    v.glossIntro = glossIsCode
+      ? 'Every command the course has used so far, grouped by the job it does \u2014 what it returns, and the trap sitting next to it. The midterm can ask you to interpret code, so this is a reading reference rather than a cheat sheet.'
+      : 'Every formula the course uses, in the order it teaches them, with what each one is for and the Excel function that does it.';
+    v.glossValStyle = glossIsCode
+      ? 'font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:14px; font-weight:500; margin-top:8px; white-space:pre-wrap; line-height:1.55; color:var(--ink);'
+      : 'font-family:var(--font-h); font-size:19px; font-weight:700; margin-top:8px; text-wrap:pretty;';
     v.terms = d.terms;
     v.navHome = this.navStyle(mode === 'home');
     v.navTodo = this.navStyle(mode === 'todo');
