@@ -3436,28 +3436,25 @@ class Component extends DCLogic {
   // you to write code but will test whether you can READ it and spot conceptual
   // errors. There is no official mock for the midterm, so this is one.
   mlMocks = [
-    { key: 'ml-mock1', isMock: true, tag: 'Mock exam', title: 'Midterm mock 1', stem: 'Ninety minutes, pen only, no calculator and no cheat sheet. Six exercises, 50 marks, weighted 6 / 9 / 8 / 9 / 10 / 8. Lectures 1 to 7. Almost every part asks you to explain rather than to compute, and three of them ask you to read code and say what is conceptually wrong with it. Write in full sentences — a correct keyword with no reasoning scores badly on this kind of paper.',
+    { key: 'ml-mock1', isMock: true, tag: 'Mock exam', title: 'Midterm mock 1', stem: 'Ninety minutes, pen only, no calculator and no cheat sheet. Six exercises, 50 marks, weighted 6 / 9 / 8 / 9 / 10 / 8. Every point the rubric asks for is worth exactly one mark. Lectures 1 to 7. Almost every part asks you to explain rather than to compute, and three of them ask you to read code and say what is conceptually wrong with it. Write in full sentences — a correct keyword with no reasoning scores badly on this kind of paper.',
       steps: [
         { sec: 'Question 1', part: 'Q1 (a)', m: 2, q: 'A retailer has two projects. In the first, it wants to know which of its stores are similar enough to be managed as a group, without deciding in advance what "similar" means. In the second, it wants to predict how many units each store will sell next month. Classify each as supervised learning, unsupervised learning or optimization, and justify each answer in one sentence.',
           rows: [ { label: 'Classify both and justify.', rubric: [
             'The first is unsupervised: there is no label, and the algorithm decides what counts as an interesting grouping.',
-            'The second is supervised, and specifically regression, because the label is a number — units sold.',
-            'Neither is optimization, because no decision is being made under constraints; both return information rather than an action.'
+            'The second is supervised, and specifically regression, because the label is a number — units sold. Neither is optimization, since no decision is being made under constraints.'
           ], model: 'The test to apply is: is there a clear quantity we want to predict? If yes, supervised, and then regression or classification by whether that quantity is a number or a category. If there is no label at all, unsupervised. Optimization is the odd one out: it returns a decision, not information.' } ],
           hint: 'Ask what is being predicted. If nothing is, it is not supervised.', sol: 'Unsupervised; supervised regression. Optimization returns a decision, which neither does.' },
 
         { sec: 'Question 1', part: 'Q1 (b)', m: 2, q: 'A colleague says "the label is the independent variable". Correct the statement and explain the consequence of getting it the wrong way round.',
           rows: [ { label: 'Correct and explain.', rubric: [
-            'The label is the DEPENDENT variable — the thing being predicted.',
-            'The features are the independent variables, the inputs the prediction is built from.',
+            'The label is the DEPENDENT variable — the thing being predicted; the features are the independent variables.',
             'Swapping them means putting the thing you want to predict on the input side, which is how target leakage gets written into a pipeline by accident.'
           ], model: 'Label = dependent = y = what you predict. Features = independent = X = what you predict it from. The practical consequence is not vocabulary: a model handed its own label as a feature will score near-perfectly on every split and be worthless in production.' } ],
           hint: 'Which one depends on the other?', sol: 'Label is dependent; features are independent.' },
 
         { sec: 'Question 1', part: 'Q1 (c)', m: 2, q: 'A firm markets its heating thermostat as "AI-powered". Is it AI? Answer in a way that shows you understand why the question is awkward.',
           rows: [ { label: 'Answer and explain the awkwardness.', rubric: [
-            'There is no single definition: the same product is classified differently by the EU AI Act, by an ISO standard, and by a marketing department.',
-            'A thermostat is not AI under the EU AI Act but is under the ISO standard, while marketing simply calls it smart heating.',
+            'There is no single definition: the EU AI Act, an ISO standard and a marketing department classify the same product differently — a thermostat is not AI under the Act but is under the standard.',
             'The useful move is to ask what technology actually sits underneath the label rather than to argue about the word.'
           ], model: 'The course deliberately refuses to settle the word. A typical definition is a set of tasks performed by a computer that are commonly associated with intelligent beings — broad enough to admit a thermostat on some readings. That is exactly why the course is called Machine Learning and Optimization: both of those terms are precisely defined.' } ],
           hint: 'Three sources, three answers.', sol: 'It depends on the definition; ask what the underlying technology is.' },
@@ -3499,46 +3496,41 @@ class Component extends DCLogic {
             'It will score near-perfectly on any split and be useless on new data, where the label is exactly what you do not have.'
           ], model: 'This is target leakage in its most direct form. Any model reporting suspiciously perfect performance should be checked for it before anything else.' },
             { label: 'Error 3 — and what it causes.', rubric: [
-            'The model is scored on X_train, the data it was fitted to.',
-            'That measures fit, not generalisation, and cannot fall as the model grows more flexible.',
+            'The model is scored on X_train, the data it was fitted to, which measures fit rather than generalisation.',
             'The held-out set was created and then never used, so the code produces no estimate of performance on unseen data at all.'
           ], model: 'Scoring on training data is the same mistake as choosing a polynomial degree by training R-squared. The whole point of splitting is to keep some data the model has never seen, and this code throws that away in the last line.' } ],
           hint: 'Look at the ORDER of operations, at what is inside X, and at which split the last line scores on.', sol: 'Scaling before the split; the label inside the features; scoring on the training set.' },
 
-        { sec: 'Question 4', part: 'Q4 (a)', m: 3, q: 'You want a 70 / 15 / 15 split into training, validation and testing sets, using train_test_split twice. State the two test_size values and explain why the second is not 0.15.',
+        { sec: 'Question 4', part: 'Q4 (a)', m: 4, q: 'You want a 70 / 15 / 15 split into training, validation and testing sets, using train_test_split twice. State the two test_size values and explain why the second is not 0.15.',
           rows: [ { label: 'First test_size', a: 0.3, tol: 0.001 },
             { label: 'Second test_size', a: 0.5, tol: 0.001 },
             { label: 'Explain why the second is not 0.15.', rubric: [
-            'The first call splits off 30% of the full dataset, leaving 70% for training.',
-            'The second call is applied to that 30% only, not to the original data.',
-            'Half of 30% is 15%, so the second test_size is 0.5 — it is a share of what is LEFT, not of the original.'
+            'The first call splits off 30% of the full dataset, leaving 70% for training; the second call is applied to that 30% only.',
+            'Half of 30% is 15%, so the second test_size is 0.5 — a share of what is LEFT, not of the original.'
           ], model: 'Every split is a share of whatever you hand it. Writing 0.15 the second time would give 15% of 30%, which is 4.5% of the data for testing and 25.5% for validation.' } ],
           hint: 'What does the second call actually receive as its input?', sol: '0.3 then 0.5. The second is a share of the remainder.' },
 
         { sec: 'Question 4', part: 'Q4 (b)', m: 3, q: 'A colleague fits polynomial regressions of degree 1 to 12 and picks degree 12 because it has the highest R-squared. Explain what is wrong, and state how many coefficients a degree-4 polynomial has.',
           rows: [ { label: 'Number of coefficients in a degree-4 polynomial', a: 5, tol: 0 },
             { label: 'Explain the error in the model choice.', rubric: [
-            'R-squared here is computed on the data the model was fitted to, so a more flexible curve can always get closer to those particular points.',
-            'It therefore cannot decrease as the degree rises and is useless for choosing between models.',
-            'The choice should be made on a validation set the model has not seen, picking the degree with the smallest validation error.'
+            'R-squared is computed on the data the model was fitted to, so a more flexible curve always gets closer to those points and it cannot decrease as the degree rises.',
+            'The choice must be made on a validation set the model has not seen, picking the degree with the smallest validation error.'
           ], model: 'A degree-4 polynomial is c4x⁴ + c3x³ + c2x² + c1x + c0 — five coefficients, because the constant counts. The same slip appears in regression generally: a model with three features fits four numbers, not three, because of the intercept.' } ],
           hint: 'Count the constant. And ask which data the R-squared was measured on.', sol: 'Five coefficients. R-squared on training data cannot choose a degree; use validation error.' },
 
-        { sec: 'Question 4', part: 'Q4 (c)', m: 3, q: 'Define target leakage and give an example that is NOT simply including the label as a feature. Why is it especially dangerous in preprocessing?',
+        { sec: 'Question 4', part: 'Q4 (c)', m: 2, q: 'Define target leakage and give an example that is NOT simply including the label as a feature. Why is it especially dangerous in preprocessing?',
           rows: [ { label: 'Define it, give an example, and say why preprocessing is where it hides.', rubric: [
-            'Target leakage is using information at training time that would not be available at the moment the prediction has to be made.',
-            'An example: predicting whether a customer will churn using a field that is only filled in after the account is closed — or imputing missing values using statistics computed over the whole dataset including the test rows.',
-            'It hides in preprocessing because scaling, imputation and encoding all LEARN something from the data, and doing that before the split quietly moves test-set information into training.'
+            'Target leakage is using information at training time that would not be available at the moment the prediction has to be made — for example a field only populated after the outcome is known.',
+            'It hides in preprocessing because scaling, imputation and encoding all LEARN from the data, so doing them before the split moves test-set information into training.'
           ], model: 'The test to apply is temporal: at the instant you need the prediction, would you really have this number? Leakage is not usually a dramatic error, it is a step done in the wrong order — which is why it survives code review and shows up only as performance that is too good.' } ],
           hint: 'Think about what you would genuinely know at prediction time.', sol: 'Using information unavailable at prediction time; preprocessing before the split is the usual route in.' },
 
-        { sec: 'Question 5', part: 'Q5 (a)', m: 3, q: 'A logistic regression predicting default from balance has fitted a = −6 and b = 0.003. Compute the predicted probability of default for a customer with a balance of 3,000, showing the substitution. Then say in words what logistic regression does differently from linear regression.',
+        { sec: 'Question 5', part: 'Q5 (a)', m: 4, q: 'A logistic regression predicting default from balance has fitted a = −6 and b = 0.003. Compute the predicted probability of default for a customer with a balance of 3,000, showing the substitution. Then say in words what logistic regression does differently from linear regression.',
           rows: [ { label: 'a + b × balance', a: 3, tol: 0.01 },
             { label: 'Predicted probability (2 dp)', a: 0.95, tol: 0.02 },
             { label: 'Say what logistic regression does differently.', rubric: [
             'Linear regression fits a straight line, which is unbounded and would give probabilities below 0 and above 1.',
-            'Logistic regression passes the same linear expression through a function that squashes it into the range 0 to 1.',
-            'What comes out is a probability, which only becomes a predicted class once a threshold is applied.'
+            'Logistic regression passes the same linear expression through a function that squashes it into 0 to 1, so what comes out is a probability — and only a threshold turns it into a class.'
           ], model: 'a + b×balance = −6 + 0.003×3000 = 3. Then p = 1/(1 + e^(−3)). Since e^(−3) ≈ 0.05, p ≈ 1/1.05 ≈ 0.95. Worth memorising for a no-calculator exam: e^(−1) ≈ 0.37, e^(−2) ≈ 0.14, e^(−3) ≈ 0.05.' } ],
           hint: 'Compute the linear part first, then squash it. You are expected to know e^(−3) is about 0.05.', sol: 'Linear part 3; probability about 0.95. Logistic squashes an unbounded line into 0–1.' },
 
@@ -3546,18 +3538,16 @@ class Component extends DCLogic {
           rows: [ { label: 'Sensitivity (2 dp)', a: 0.8, tol: 0.01 },
             { label: 'Specificity (2 dp)', a: 0.93, tol: 0.01 },
             { label: 'Explain the effect of lowering the threshold.', rubric: [
-            'A lower threshold classifies more cases as class 1, because a smaller probability is now enough.',
-            'So true positives and false positives both RISE, and false negatives fall.',
+            'A lower threshold classifies more cases as class 1, so true positives and false positives both rise and false negatives fall.',
             'Sensitivity therefore rises and specificity falls — the trade-off the ROC curve exists to display.'
           ], model: 'Sensitivity = TP/(TP+FN) = 40/50 = 0.80. Specificity = TN/(TN+FP) = 420/450 ≈ 0.93. The direction is the examinable part: moving the threshold cannot improve both, which is why the right threshold depends on whether a false positive or a false negative costs more.' } ],
           hint: 'Sensitivity is out of the actual positives; specificity out of the actual negatives.', sol: '0.80 and 0.93. Lowering the threshold raises TP and FP, lowers FN: sensitivity up, specificity down.' },
 
-        { sec: 'Question 5', part: 'Q5 (c)', m: 3, q: 'The code below is meant to produce an ROC curve and an AUC on the validation set. One line is conceptually wrong. Identify it and explain what the consequence is.',
+        { sec: 'Question 5', part: 'Q5 (c)', m: 2, q: 'The code below is meant to produce an ROC curve and an AUC on the validation set. One line is conceptually wrong. Identify it and explain what the consequence is.',
           code: 'y_pred = model.predict(X_val)\n\nfpr, tpr, thresholds = roc_curve(y_val, y_pred)\nprint(roc_auc_score(y_val, y_pred))',
           rows: [ { label: 'Identify the faulty line and explain.', rubric: [
-            'model.predict returns predicted CLASSES, 0 or 1, at the default threshold of 0.5.',
-            'The ROC curve is built by sweeping the threshold, so it needs the predicted PROBABILITIES — model.predict_proba(X_val)[:, 1].',
-            'With 0/1 input there is only one point to sweep through, so the curve collapses and the AUC is computed for a single threshold instead of comparing models across all of them.'
+            'model.predict returns predicted CLASSES at the default 0.5 threshold, but the ROC is built by sweeping the threshold and needs the predicted PROBABILITIES — predict_proba(X_val)[:, 1].',
+            'With 0/1 input the curve collapses to a single point, so the AUC is computed for one threshold instead of comparing models across all of them.'
           ], model: 'The point of AUC is that it judges a model BEFORE a threshold is chosen. Feeding it hardened classes throws away exactly the information it exists to use, and the number it returns is not comparable to a properly computed AUC.' } ],
           hint: 'What does .predict return, and what does an ROC curve need to sweep?', sol: 'predict gives classes; roc_curve and roc_auc_score need predicted probabilities.' },
 
@@ -3571,9 +3561,8 @@ class Component extends DCLogic {
 
         { sec: 'Question 6', part: 'Q6 (b)', m: 2, q: 'Why does a tree need a stopping rule, and name two ways of controlling how far it grows.',
           rows: [ { label: 'Explain and name two controls.', rubric: [
-            'Left alone a tree will keep splitting until each leaf is pure, which means memorising the training data.',
-            'That is overfitting: the tree fits noise and predicts new cases badly.',
-            'Two controls: limit the depth, or require a minimum number of observations in a leaf before a split is allowed. Pruning a fully grown tree back is the third.'
+            'Left alone a tree splits until every leaf is pure, which means memorising the training data — overfitting, so it predicts new cases badly.',
+            'Control it by limiting the depth, by requiring a minimum number of observations in a leaf, or by pruning a fully grown tree back.'
           ], model: 'A fully grown tree always achieves perfect training accuracy, which is the clearest possible demonstration that training performance is not evidence of anything. The depth is chosen on the validation set, like every other such choice in the course.' } ],
           hint: 'What happens if nothing stops it?', sol: 'It memorises the training set. Control with depth, minimum leaf size, or pruning.' },
 
@@ -6967,6 +6956,10 @@ class Component extends DCLogic {
 
         v.steps = ex.steps.map((st, si) => {
           const ui = this.state.exUi[si] || {};
+          // Does this part award exactly one mark per markable line? If so the
+          // self-marking prompt can say so; if not it must not pretend.
+          const itemCount = (st.rows || []).reduce((n2, r2) => n2 + (r2.rubric ? r2.rubric.length : 1), 0);
+          const onePerMark = !!st.m && itemCount === st.m;
           return {
             n: String(si + 1), q: st.q, hint: st.hint, sol: st.sol,
             hasCode: !!st.code, code: this.codeEl(st.code),
@@ -7014,8 +7007,14 @@ class Component extends DCLogic {
                 // The part is worth st.m MARKS; the rubric has its own count of
                 // things to mention, and the two numbers are rarely the same.
                 // Saying so stops the screen looking like it contradicts itself.
-                selfPrompt: !isOpen ? '' : ('How many of those ' + r.rubric.length + ' did your answer make? That sets your score for this part'
-                  + (ex.isMock && st.m ? ', which is worth ' + st.m + (st.m === 1 ? ' mark' : ' marks') + '.' : '.')),
+                // On the ML&O paper one rubric point IS one mark, so the two
+                // numbers on screen cannot disagree. The Data Analysis papers
+                // award marks per part rather than per line, so there the
+                // prompt says what it does without claiming a one-to-one rate.
+                selfPrompt: !isOpen ? '' : (onePerMark
+                  ? ('Each one is worth a mark. How many of the ' + r.rubric.length + ' did your answer make?')
+                  : ('How many of the ' + r.rubric.length + ' did your answer make? That sets your score for this part'
+                     + (st.m ? ', worth ' + st.m + (st.m === 1 ? ' mark' : ' marks') + '.' : '.'))),
                 model: r.model || '',
                 openText: raw === undefined ? '' : raw,
                 openShown: !!(this.state.exModel || {})[key],
@@ -7029,7 +7028,7 @@ class Component extends DCLogic {
                   this.setState({ exInp: inp });
                 },
                 selfLabel: selfN === undefined ? 'Not marked'
-                  : selfN + ' of ' + r.rubric.length + ' covered',
+                  : selfN + ' of ' + r.rubric.length + (r.rubric.length === 1 ? ' mark' : ' marks'),
                 selfColor: selfN === undefined ? 'var(--faint)'
                   : selfN >= (r.rubric || []).length ? 'var(--good)' : selfN === 0 ? 'var(--bad)' : 'var(--accSoft)',
                 selfBtns: !isOpen ? [] : r.rubric.map((x, pi) => pi + 1).concat([0]).sort((a, b) => a - b).map(v2 => ({
