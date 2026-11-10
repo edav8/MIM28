@@ -2506,10 +2506,10 @@ class Component extends DCLogic {
     { key: 'm1', num: '01', title: 'Course Intro: ML, Optimization and a Python Recap', preview: 'What machine learning, optimization and “AI” actually mean, how the course is graded, and the Python you are assumed to have.' },
     { key: 'm2', num: '02', title: 'Data Pre-processing and Feature Engineering', preview: 'The Titanic dataset end to end: corrupt values, outliers, duplicates, scaling, imputation, and turning categories into numbers.' },
     { key: 'm3', num: '03', title: 'Supervised Learning Basics and Regression Recap', preview: 'M. Gelato’s ice creams: linear regression in scikit-learn, where it fails, and polynomial regression as the fix.' },
-    { key: 'm4', num: '04', title: 'Classification: Logistic Regression', preview: 'Class on Mon 2 Nov. Materials appear here once the handout is released.' },
-    { key: 'm5', num: '05', title: 'Tree-Based Methods', preview: 'Class on Fri 6 Nov. Materials appear here once the handout is released.' },
-    { key: 'm6', num: '06', title: 'Extensions of Tree-Based Methods', preview: 'Class on Mon 9 Nov. Materials appear here once the handout is released.' },
-    { key: 'm7', num: '07', title: 'Case: STC (Retention Modeling at Scholastic Travel Company)', preview: 'Class on Tue 10 Nov. The last session the midterm covers. Materials appear here once the handout is released.' },
+    { key: 'm4', num: '04', title: 'The Supervised Pipeline, and Logistic Regression', preview: 'The whole pipeline in Python, cross-validation and nested cross-validation, then classification and the logistic curve on the Default dataset.' },
+    { key: 'm5', num: '05', title: 'Thresholds, the Confusion Matrix, ROC and AUC', preview: 'Turning probabilities into classes: picking the threshold on the validation set, reading a confusion matrix, and what the ROC curve and the AUC are for.' },
+    { key: 'm6', num: '06', title: 'Tree-Based Methods', preview: 'How a tree chooses a split, the Gini index by hand, classification against regression trees, and how far to let one grow.' },
+    { key: 'm7', num: '07', title: 'Case: STC (Retention Modeling at Scholastic Travel Company)', preview: 'The last session the midterm covers. The pipeline applied to a retention problem, and the traps a case like this is built to catch.' },
     { key: 'm8', num: '08', title: 'Dimension Reduction', preview: 'Class on Wed 11 Nov. Materials appear here once the handout is released.' },
     { key: 'm9', num: '09', title: 'Clustering and Segmentation', preview: 'Class on Mon 16 Nov. Materials appear here once the handout is released.' },
     { key: 'm10', num: '10', title: 'Case: Boats (A)', preview: 'Class on Wed 18 Nov. Materials appear here once the handout is released.' },
@@ -2519,7 +2519,7 @@ class Component extends DCLogic {
     { key: 'm14', num: '14', title: 'Capstone Case: Integration Planning at SFB (B)', preview: 'Class on Fri 27 Nov. Materials appear here once the handout is released.' },
     { key: 'm15', num: '15', title: 'Capstone Case: Integration Planning at SFB (C)', preview: 'Class on Mon 30 Nov. Materials appear here once the handout is released.' }
   ];
-  mlBuilt = { m1: true, m2: true, m3: true };
+  mlBuilt = { m1: true, m2: true, m3: true, m4: true, m5: true, m6: true, m7: true };
 
   mlLessons = {
     m1: [
@@ -2650,7 +2650,184 @@ class Component extends DCLogic {
       { t: 'code', label: 'Plotting a curve instead of a line', code: 'plt.scatter(X, Y)\n\nlinepoints = np.linspace(np.min(X), np.max(X), 100)\n\nplt.plot(linepoints,\n         polyreg.predict(poly.fit_transform(linepoints.reshape(-1, 1))),\n         c="red")', text: 'The only change from the linear version: the points to plot have to go through the same fit_transform before predict sees them. A model trained on polynomial features cannot read raw x.' },
       { t: 'note', label: 'The activity', text: 'Part 4 asks you to repeat the R-squared and the plot for degrees 3, 5, 8 and 12. R-squared keeps improving as the degree rises — which is the setup for overfitting, and the reason the next part of the lecture exists.' },
       { t: 'h', text: 'What else Lecture 3 covers' },
-      { t: 'note', label: 'Not written up yet', text: 'The second half of the deck — training, validation and testing sets, and target leakage — is on slides that carry no extractable text, so there is nothing here that can be quoted faithfully. The wrap-up names them as: overfitting, the purpose of training/testing/validation sets, and what target leakage is and how it impacts preprocessing. Work those from the deck itself; they are flagged as “very important for next lecture + midterm”.' }
+      { t: 'note', label: 'Where the rest of this lecture went', text: 'The second half of the deck — overfitting, the purpose of the training/validation/testing split, and target leakage — is on slides with no extractable text, so it is written up where the course actually uses it: the full pipeline and the leakage rule are in Session 4, and choosing on validation rather than on training runs through Sessions 4, 5 and 6. The wrap-up flags all three as very important for the midterm.' }
+    ],
+
+    m4: [
+      { t: 'h', text: 'The supervised pipeline, end to end' },
+      { t: 'p', text: 'Lecture 4 is where the separate pieces become one procedure. Learn this order — it is the backbone of every remaining lecture, and the lecture redraws it at the top of almost every slide from here on.' },
+      { t: 'ul', items: [
+        'Separate the features X from the label y.',
+        'Do the pre-processing that CANNOT cause target leakage — removing duplicates, for instance — on the whole dataset.',
+        'Split into training, validation and testing sets.',
+        'Do the pre-processing that CAN cause target leakage — imputation, scaling — on each set separately.',
+        'Train your candidate models on the training set.',
+        'Use the validation set to decide which model to pick.',
+        'Merge training and validation, retrain the chosen model on the merged set.',
+        'Use the testing set once, to check the quality of that model.'
+      ] },
+      { t: 'note', label: 'Why the pre-processing is split in two', text: 'Dropping a duplicate row uses no information about the data’s values, so it is safe to do before splitting. An imputer or a scaler LEARNS a number — a mean, a standard deviation — and if it learns it from all the data, the test set has influenced the training set. That is target leakage introduced by the order of operations rather than by a bad feature.' },
+      { t: 'h', text: 'Making a three-way split out of a two-way function' },
+      { t: 'p', text: 'train_test_split gives you two sets. For 60 / 20 / 20 you call it twice, and the second call acts on what is left rather than on the original data.' },
+      { t: 'code', label: 'The 60 / 20 / 20 split', code: 'from sklearn.model_selection import train_test_split\n\n# first split: 60% train, 40% other\nX_train, X_other, y_train, y_other = train_test_split(X, y, test_size=0.4)\n\n# second split: halve the 40% into 20% validation and 20% test\nX_val, X_test, y_val, y_test = train_test_split(X_other, y_other, test_size=0.5)', text: 'The second test_size is 0.5, not 0.2. It is a share of X_other, and half of 40% is 20%. Writing 0.2 the second time would give 8% for testing and 32% for validation.' },
+      { t: 'h', text: 'Choosing between models with RMSE' },
+      { t: 'f', text: 'RMSE compares the real values in y_val with the ones the model predicts for X_val.', note: 'Train every candidate on the training set, compute each one’s RMSE on the validation set, and keep the SMALLEST. The number itself is in the units of the label, so an RMSE of 122 on diamond prices means the typical miss is about $122.' },
+      { t: 'code', label: 'The pipeline in code', code: 'from sklearn.metrics import mean_squared_error\n\nmodel = LinearRegression().fit(X_train, y_train)\ny_pred = model.predict(X_val)\nrmse = mean_squared_error(y_val, y_pred, squared=False)\n\n# after choosing: retrain on train + validation, then test ONCE\nX_full = pd.concat([X_train, X_val])\ny_full = pd.concat([y_train, y_val])\nfinal = LinearRegression().fit(X_full, y_full)\nmean_squared_error(y_test, final.predict(X_test), squared=False)', text: 'The retrain step is easy to forget and costs marks: once the choice is made, the validation data is no longer needed to choose anything, so it is better used as extra training data.' },
+      { t: 'h', text: 'Cross-validation' },
+      { t: 'p', text: 'A single split gives you one RMSE, and that number depends on which rows happened to land in the test set. Cross-validation removes that dependence.' },
+      { t: 'ul', items: [
+        'Divide the data into k parts.',
+        'Train on k − 1 of them and test on the kth. Do this k times, so every part is the test part once.',
+        'You now have k values of the RMSE. Take their mean.'
+      ] },
+      { t: 'f', text: 'Final RMSE = (RMSE₁ + RMSE₂ + … + RMSE_k) / k', note: 'The point is stated plainly in the lecture: this makes the final RMSE less dependent on the split.' },
+      { t: 'h', text: 'Nested cross-validation' },
+      { t: 'p', text: 'Ordinary cross-validation gives you training and testing. If you also want a validation set — because you are CHOOSING a model as well as evaluating it — you need two loops.' },
+      { t: 'tbl', label: 'The two loops', head: ['Loop', 'What it splits', 'What it is for'], rows: [
+        { cells: ['Outer', 'The data into k sets: k − 1 to train, 1 to test', 'Evaluating the final model'] },
+        { cells: ['Inner', 'Each training set into m sets: m − 1 to train, 1 to validate', 'Choosing which model to use'] } ] },
+      { t: 'ul', items: [
+        'Each validation set produces a best model.',
+        'Pick the model that appears most often across the validation sets, or that does best overall.',
+        'Retrain it on all the training sets from the outer loop.',
+        'Evaluate on each outer testing set and average the RMSEs.'
+      ] },
+      { t: 'h', text: 'Classification and regression' },
+      { t: 'f', text: 'Regression: the label is a NUMBER.     Classification: the label is a CATEGORY.', note: 'The inputs are identical — pairs of features and labels — and the goal is identical: given the features, predict the label. Only the type of the label differs, and that is what decides which methods are available.' },
+      { t: 'tbl', label: 'Which method goes where', head: ['Regression', 'Classification'], rows: [
+        { cells: ['Linear and polynomial regression (Lecture 3)', 'Logistic regression (Lectures 4, 5)'] },
+        { cells: ['Tree-based methods (Lecture 6)', 'Tree-based methods (Lectures 5, 6)'] },
+        { cells: ['Splines, deep learning', 'SVM, LDA, QDA, deep learning'] } ] },
+      { t: 'h', text: 'The Default dataset' },
+      { t: 'p', text: 'A credit card is acquired, purchases are made, and at the end of the month a balance has built up. Pay the minimum and you owe interest but your credit score is untouched; pay in full and you owe nothing; pay nothing and you are delinquent. After six months with no payment the account becomes a default.' },
+      { t: 'ul', items: ['10,000 observations, 3 features, 1 label.', 'Features: income, balance and student status.', 'Label: whether the customer defaults.'] },
+      { t: 'h', text: 'Why a line will not do' },
+      { t: 'p', text: 'Plot default against balance and you get two horizontal bands of points, at 0 and at 1. The lecture asks three questions about it and answers them bluntly: the data is not well approximated by a line, it is not linear at all, so linear regression is a poor choice of method. A line is unbounded and would predict values below 0 and above 1, which cannot be probabilities.' },
+      { t: 'h', text: 'Logistic regression' },
+      { t: 'f', text: 'y = e^(a + b·x) / (1 + e^(a + b·x))', note: 'The same linear expression a + b·x sits inside, but the function around it squashes the result into the range 0 to 1 — which is why the output can be read as a probability however extreme the features get.' },
+      { t: 'p', text: 'Fitting means finding the numbers a and b that make this expression as close as possible to yᵢ for all 10,000 observations. On the fitted curve, a balance of 1,500 gives about 0.1 and a balance of 2,000 gives about 0.6.' },
+      { t: 'note', label: 'What those numbers are', text: 'They are probabilities of defaulting, not classes. Logistic regression does not return a prediction of yes or no; it returns a number between 0 and 1, and something else has to turn that into a class.' },
+      { t: 'h', text: 'The threshold' },
+      { t: 'f', text: 'Probability above the threshold t → class 1.  Below it → class 0.', note: 'scikit-learn uses t = 50% by default. It is a default, not a law, and Lecture 5 is largely about choosing it properly.' },
+      { t: 'ul', items: [
+        'If the threshold INCREASES, the number of predictions of class 1 DECREASES — it takes more evidence to be called a defaulter.',
+        'If the threshold DECREASES, the number of predictions of class 1 INCREASES.',
+        'Changing the threshold changes the classes without changing the model at all.'
+      ] },
+      { t: 'h', text: 'More than one feature' },
+      { t: 'f', text: 'y_pred = e^(a + b·Balance + c·Student + d·Income) / (1 + e^(…))', note: 'Multivariate logistic regression. The curve is the same shape and can no longer be drawn, and the thresholding step is unchanged. In general the exponent is c₀ + c₁x₁ + … + cₙxₙ — n features means n + 1 numbers to fit, because the constant counts.' }
+    ],
+
+    m5: [
+      { t: 'h', text: 'Where this sits in the pipeline' },
+      { t: 'p', text: 'The model is fitted on the training set and produces predicted probabilities on the validation set. Lecture 5 answers the question that leaves open: which threshold turns those probabilities into classes, and how would you know it was a good one?' },
+      { t: 'note', label: 'The threshold is chosen on the VALIDATION set', text: 'Not on the training set, which the model has already seen, and never on the test set, which is spent once at the very end. This is the single most repeated instruction in the lecture and the one she says she keeps inverting. Hook: learn on train, choose on validation, check on test.' },
+      { t: 'h', text: 'The confusion matrix' },
+      { t: 'tbl', label: 'The four counts', head: ['', 'Predicted class = 0', 'Predicted class = 1'], rows: [
+        { cells: ['Actual class = 0', 'True Negatives (TN)', 'False Positives (FP)'] },
+        { cells: ['Actual class = 1', 'False Negatives (FN)', 'True Positives (TP)'] } ] },
+      { t: 'p', text: 'Every threshold produces its own confusion matrix from the same set of predicted probabilities. The worked example in class takes ten validation customers and thresholds them three ways.' },
+      { t: 'tbl', label: 'The same ten customers at three thresholds', head: ['Threshold', 'TN', 'FP', 'FN', 'TP', 'Accuracy'], rows: [
+        { cells: ['40%', '4', '2', '0', '4', '8/10'] },
+        { cells: ['50%', '4', '2', '1', '3', '7/10'] },
+        { cells: ['70%', '5', '1', '2', '2', '7/10'] } ] },
+      { t: 'f', text: 'Accuracy = (TP + TN) / (TP + TN + FP + FN) = correct observations / total observations', note: 'At 40% it is 8/10 and at 50% it is 7/10. Accuracy is a useful summary but a dangerous one when a class is rare, because predicting the majority class for everyone scores well and identifies nobody.' },
+      { t: 'h', text: 'Which way the counts move' },
+      { t: 'ul', items: [
+        'As the threshold INCREASES, more cases are predicted class 0: more TNs and more FNs.',
+        'As the threshold DECREASES, more cases are predicted class 1: more FPs and more TPs.',
+        'So there is a trade-off between false negatives and false positives, and no threshold escapes it.'
+      ] },
+      { t: 'note', label: 'Which error costs more?', text: 'For the bank, a false negative is a customer predicted safe who then defaults — money lost. A false positive is a customer refused or chased who would have paid. The lecture prefers 50% over 70% for exactly this reason, and then prefers 40% because it has fewer FNs still and higher accuracy. It is a business judgement, not a statistical one.' },
+      { t: 'h', text: 'The ROC curve' },
+      { t: 'p', text: 'Checking every threshold by hand would be tedious, so the ROC curve shows all of them at once. For each threshold between 0 and 1 you compute the confusion matrix and from it two numbers.' },
+      { t: 'f', text: 'Sensitivity = TP / (TP + FN)     Specificity = TN / (FP + TN)', note: 'Sensitivity is the proportion of positives correctly identified; specificity is the proportion of negatives correctly identified. The ROC plots sensitivity on the vertical axis against 1 − specificity on the horizontal.' },
+      { t: 'tbl', label: 'The three thresholds as ROC points', head: ['Threshold', 'Specificity', '1 − Specificity', 'Sensitivity'], rows: [
+        { cells: ['0.4', '4/6', '0.33', '4/4 = 1'] },
+        { cells: ['0.5', '4/6', '0.33', '3/4 = 0.75'] },
+        { cells: ['0.7', '5/6', '0.17', '2/4 = 0.5'] } ] },
+      { t: 'h', text: 'Reading the curve' },
+      { t: 'p', text: 'A perfect classifier has no false positives and no false negatives, so specificity = 1 and sensitivity = 1. That puts the ideal point at (0, 1) — the top left corner. You choose a threshold that gets you close to it, and whether you sit above or below depends on whether false negatives or false positives worry you more.' },
+      { t: 'note', label: 'The lecture’s own caveat', text: '“Not an exact science!!” — the ROC narrows the choice to a sensible region; the business decides where in that region to sit.' },
+      { t: 'h', text: 'AUC' },
+      { t: 'f', text: 'AUC = the area under the ROC curve, between 0.5 and 1.', note: '1 is the best possible model and 0.5 the worst. Because the curve is generated across all thresholds, the AUC measures the model independently of any one of them.' },
+      { t: 'ul', items: [
+        'Use the AUC to compare MODELS — logistic regression against something else — on the validation set, before any threshold is chosen.',
+        'Having picked the model on AUC, use the validation set again to pick its threshold.',
+        'An AUC computed from predicted classes rather than predicted probabilities is meaningless: there is only one threshold in the data, so there is no curve to take the area under.'
+      ] },
+      { t: 'h', text: 'Doing it in Python' },
+      { t: 'code', label: 'Probabilities, not classes', code: 'probs = model.predict_proba(X_val)      # TWO columns\nprobs[:, 1]                             # column 1 = P(default)', text: 'predict_proba returns one column per class: the probability of NOT defaulting and the probability of defaulting. You want the second. model.predict() would give you hardened 0/1 classes at the default threshold, which is not what the ROC needs.' },
+      { t: 'code', label: 'The curve and the area', code: 'from sklearn.metrics import roc_curve, roc_auc_score\n\nfpr, tpr, thresholds = roc_curve(y_val, probs[:, 1])\nplt.plot(fpr, tpr)\n\nroc_auc_score(y_val, probs[:, 1])', text: 'roc_curve returns three arrays: 1 − specificity, sensitivity, and the thresholds at which they were evaluated. Plotting the first two against each other IS the ROC curve.' },
+      { t: 'code', label: 'Picking the threshold off the arrays', code: '# eyeball the plot: you want 1-specificity around 0.1-0.3\n# and sensitivity around 0.8-1, then filter the thresholds\n# to the ones in that region and choose from them', text: 'In the Default example this lands at a threshold of about 0.04 — nowhere near the 0.5 default, which is the practical reason the lecture insists you choose rather than accept.' },
+      { t: 'h', text: 'And finally the test set' },
+      { t: 'p', text: 'Once the model and the threshold are both chosen on validation, merge the training and validation sets, retrain, and use the test set once to produce a confusion matrix and an accuracy. That number is the honest estimate of how the model behaves on data nobody has looked at.' }
+    ],
+
+    m6: [
+      { t: 'h', text: 'What a tree is' },
+      { t: 'p', text: 'A decision tree asks a sequence of yes/no questions about the features and lands each observation in a group. It is read top to bottom, and the vocabulary is worth having straight because the exam uses it.' },
+      { t: 'tbl', label: 'Tree vocabulary', head: ['Term', 'Meaning'], rows: [
+        { cells: ['Node', 'A point where a question is asked'] },
+        { cells: ['Branch', 'One answer leading away from a node'] },
+        { cells: ['Leaf', 'An end point, where a prediction is made'] },
+        { cells: ['Branching / splitting', 'The act of creating new nodes'] } ] },
+      { t: 'h', text: 'How a split is chosen' },
+      { t: 'ul', items: [
+        'Consider ALL the cuts that could be made — every feature, every possible cut point.',
+        'Score each one.',
+        'Keep the best, then repeat the same procedure inside each of the two groups it created.'
+      ] },
+      { t: 'note', label: 'Greedy', text: 'Each split is the best available AT THAT NODE, judged without looking ahead to the splits that will follow. The tree is never revised once a cut is made, which is why it is fast to fit and why it is not guaranteed to be the best possible tree.' },
+      { t: 'h', text: 'The Gini index' },
+      { t: 'p', text: 'The score used is impurity: how mixed the classes are inside a group. The procedure taught has three steps, and the exam can ask you to do it by hand.' },
+      { t: 'f', text: 'G = p₁(1 − p₁) + p₂(1 − p₂)', note: 'Step 1: on each side of the cut, count the proportion of each class. Step 2: compute G for each side — the SMALLER it is, the better, because a pure group has G = 0. Step 3: weight the two by how many points are on each side.' },
+      { t: 'f', text: 'G(cut) = (n_left / n) · G_left + (n_right / n) · G_right', note: 'The weighting matters: a beautifully pure group of two points should not outweigh a messy group of two hundred.' },
+      { t: 'note', label: 'Worked example from the handout', text: 'A cut leaves 11 points on each side. On the left 6 are orange and 5 purple, on the right 5 orange and 6 purple. G_left = (6/11)(5/11) + (5/11)(6/11) = 0.496, and G_right is the same. Weighted: (11/22)(0.496) + (11/22)(0.496) = 0.496. A cut that separates the colours better would score lower, and that is the cut the algorithm would take instead.' },
+      { t: 'h', text: 'Classification trees and regression trees' },
+      { t: 'p', text: 'The same procedure fits both. A classification tree predicts the majority class in a leaf and scores cuts by impurity; a regression tree predicts the average value in a leaf and scores cuts by how much they reduce the spread of the label. Trees therefore appear on BOTH sides of the regression/classification table — which no other method in the course does.' },
+      { t: 'h', text: 'How far should it grow?' },
+      { t: 'p', text: 'Left alone, a tree keeps splitting until every leaf is pure — in other words, until it has memorised the training data. Training accuracy then reaches 100% and means nothing at all.' },
+      { t: 'ul', items: [
+        'Limit the depth of the tree.',
+        'Require a minimum number of observations in a leaf before a split is allowed.',
+        'Grow it fully and then prune it back.'
+      ] },
+      { t: 'note', label: 'How the number of leaves is actually decided', text: 'On the validation set, exactly like every other such choice in this course. Fit trees of several sizes on the training set, compare them on validation using the AUC, keep the best, then merge training and validation, retrain, and check once on the test set.' },
+      { t: 'h', text: 'Where trees sit in the pipeline' },
+      { t: 'tbl', label: 'The same pipeline, with the tree’s decisions in it', head: ['Pipeline step', 'The question it answers for a tree'], rows: [
+        { cells: ['Train on the training set', 'How do I fit a classification tree to data?'] },
+        { cells: ['Choose using the validation set', 'How many leaves do I keep? — compare on AUC'] },
+        { cells: ['Choose using the validation set', 'Which threshold do I use? — confusion matrix, ROC'] },
+        { cells: ['Retrain on train + validation, check on test', 'Confusion matrix and accuracy, once'] } ] },
+      { t: 'h', text: 'Extensions' },
+      { t: 'p', text: 'A single tree is unstable: change a few rows and the first cut can change, and everything below it with it. The extensions in the second half of the block combine many trees to buy back that stability, which is the subject the course moves to next.' }
+    ],
+
+    m7: [
+      { t: 'h', text: 'What this session is' },
+      { t: 'p', text: 'Lecture 7 is a case rather than new theory: Retention Modeling at Scholastic Travel Company. It is the last session the midterm covers, and the professor named the case explicitly as fair game.' },
+      { t: 'note', label: 'Not reproduced here', text: 'The case document is published material and is not summarised or quoted on this site. What follows is how the course’s own pipeline applies to a retention problem of this kind — read the case itself from the LMS.' },
+      { t: 'h', text: 'What a retention problem is, in the course’s terms' },
+      { t: 'ul', items: [
+        'The label is categorical — did this customer come back or not — so this is CLASSIFICATION, not regression.',
+        'The features are whatever was known about the customer BEFORE the renewal decision. Anything recorded afterwards is target leakage.',
+        'The output that matters to the business is a probability per customer, because a retention budget has to be aimed somewhere.'
+      ] },
+      { t: 'h', text: 'The questions a case like this asks' },
+      { t: 'tbl', label: 'From the pipeline to the business', head: ['Technical step', 'The business question underneath it'], rows: [
+        { cells: ['Which features to include', 'What did we actually know at the time we needed to act?'] },
+        { cells: ['Which model to choose, on validation AUC', 'Which model ranks customers best, before we pick a cut-off?'] },
+        { cells: ['Which threshold to use', 'What does it cost to chase someone who would have stayed, versus to miss someone who leaves?'] },
+        { cells: ['Test-set confusion matrix', 'If we run this next year, how often will it be wrong, and in which direction?'] } ] },
+      { t: 'h', text: 'The traps this kind of case is built to catch' },
+      { t: 'ul', items: [
+        'Target leakage through a field only populated after the outcome is known.',
+        'Judging the model on accuracy when most customers renew — the majority-class model looks excellent and is useless.',
+        'Choosing the threshold on the test set, or reporting the validation number as the final result.',
+        'Reporting a probability as though it were a decision, with no threshold and no cost reasoning attached.'
+      ] },
+      { t: 'note', label: 'For the midterm', text: 'The professor said a typical question is “why would we do this this way? Explain”. For a case, that means being able to justify each pipeline choice in business terms — not to recall what the company decided.' }
     ]
   };
 
@@ -2717,9 +2894,74 @@ class Component extends DCLogic {
       { t: 'code', k: 'Read the code', p: 'Why must linepoints go through poly.fit_transform before predict sees them?', code: 'plt.plot(linepoints,\n         polyreg.predict(poly.fit_transform(linepoints.reshape(-1, 1))),\n         c="red")', o: ['To sort them', 'Because polyreg was trained on polynomial features and cannot read a raw x', 'To normalize them to the 0–1 range', 'It is optional — it only makes the curve smoother'], a: 1, why: 'The model learned coefficients for [1, x, x², …]. Handing it a single raw column is a different shape and a different meaning, so the input has to be transformed the same way the training data was.' },
       { t: 'tf', k: 'True or false', p: 'A polynomial regression of degree 12 fits the Gelato data better than a degree 2 one, so it is the better model.', a: false, why: 'False — and this is the trap Part 4 of the exercise book is setting up. R-squared keeps improving as the degree rises because the curve bends to reach the points it was trained on. Fitting the data you have is not the same as predicting next year, which is what overfitting means.' },
       { t: 'mcq', k: 'What comes next', p: 'The wrap-up names three things from the second half of Lecture 3. Which is NOT one of them?', o: ['Overfitting', 'Training, testing and validation sets', 'Target leakage', 'Cross-validation with k folds'], a: 3, why: 'The wrap-up lists overfitting, the purpose of training/testing/validation sets, and target leakage. It flags them as very important for the next lecture and the midterm.' }
+    ],
+
+    m4: [
+      { t: 'mcq', k: 'The pipeline', p: 'In what order does the course run the supervised pipeline?', o: ['Split, train, test, then choose a model on the test set', 'Split, train on training, choose on validation, retrain on train+validation, check once on test', 'Train on everything, then split to check', 'Choose the model on training, then split into validation and test'], a: 1, why: 'Learn on train, choose on validation, check on test — and the retrain step on the merged train+validation set is the one most often forgotten.' },
+      { t: 'mcq', k: 'Leakage and order', p: 'Which pre-processing step is safe to do BEFORE splitting?', o: ['Scaling', 'Imputing missing values', 'Removing duplicate rows', 'One-hot encoding fitted on all the data'], a: 2, why: 'Dropping a duplicate uses no information about the values. Scaling and imputation LEARN a number from the data, so doing them before the split lets the test set influence the training set.' },
+      { t: 'tf', k: 'True or false', p: 'Pre-processing that can cause target leakage should be done on each of the three sets separately.', a: true, why: 'True. That is exactly how the lecture draws the pipeline: safe pre-processing first on everything, then the split, then leakage-prone pre-processing per set.' },
+      { t: 'num', k: 'The 60/20/20 split', p: 'You want 60% training, 20% validation, 20% test using train_test_split twice. The first call uses test_size = 0.4. What value does the SECOND call need?', a: 0.5, why: 'The second call acts on the 40% that is left, not on the original data. Half of 40% is 20%, so test_size = 0.5. Writing 0.2 would give 8% for testing.' },
+      { t: 'code', k: 'Read the code', p: 'What is wrong with this split?', code: 'X_train, X_other, y_train, y_other = train_test_split(X, y, test_size=0.4)\nX_val, X_test, y_val, y_test = train_test_split(X_other, y_other, test_size=0.2)', o: ['Nothing — this gives 60/20/20', 'The second test_size should be 0.5; as written it gives 32% validation and 8% test', 'The second call should act on X_train', 'test_size cannot be used twice'], a: 1, why: 'Every split is a share of whatever it receives. 0.2 of the remaining 40% is 8% of the original data.' },
+      { t: 'mcq', k: 'Choosing a model', p: 'You compute the RMSE of four candidate models on the validation set. Which do you keep?', o: ['The one with the largest RMSE', 'The one with the smallest RMSE', 'The one whose RMSE is closest to the training RMSE', 'The average of all four'], a: 1, why: 'RMSE is an error, so smaller is better. It is measured on data the models were not fitted to, which is what makes the comparison meaningful.' },
+      { t: 'mcq', k: 'After choosing', p: 'Having picked a model on the validation set, what happens next?', o: ['Report its validation RMSE as the final result', 'Retrain it on training + validation, then check once on the test set', 'Retrain it on the test set', 'Nothing — the model is ready'], a: 1, why: 'Once the choice is made the validation data is no longer needed for choosing, so it is better spent as extra training data. The test set is then used once.' },
+      { t: 'mcq', k: 'Cross-validation', p: 'What problem does k-fold cross-validation solve?', o: ['It removes the need for a test set', 'It makes the error estimate less dependent on which rows landed in which split', 'It speeds up training', 'It prevents target leakage'], a: 1, why: 'A single split gives one RMSE that depends on the luck of the draw. Cross-validation produces k of them and averages, which is the lecture’s stated reason.' },
+      { t: 'num', k: 'Cross-validation', p: 'In 5-fold cross-validation, how many times is the model trained?', a: 5, why: 'Each of the 5 parts takes a turn as the test part, so the model is trained 5 times on the other 4 parts each time, giving 5 RMSE values to average.' },
+      { t: 'mcq', k: 'Nested cross-validation', p: 'When do you need NESTED cross-validation rather than ordinary cross-validation?', o: ['When the dataset is very large', 'When you want training, validation AND testing sets', 'When there is more than one label', 'When the label is categorical'], a: 1, why: 'Ordinary cross-validation gives training and testing. The inner loop adds a validation split, which is what you need when you are CHOOSING a model as well as evaluating it.' },
+      { t: 'mcq', k: 'Classification vs regression', p: 'A spam filter sorts mail into spam and not-spam. This is:', o: ['Regression, because it outputs a probability', 'Classification, because the label is a category', 'Unsupervised learning, because nobody labelled the mail', 'Optimization'], a: 1, why: 'The label is a category, so it is classification. The fact that the model produces a probability on the way does not change what is being predicted — a number is regression, a category is classification.' },
+      { t: 'mcq', k: 'Which methods', p: 'Which method appears on BOTH the regression and the classification side of the course map?', o: ['Logistic regression', 'Polynomial regression', 'Tree-based methods', 'SVM'], a: 2, why: 'Trees do both: a regression tree predicts the average in a leaf, a classification tree the majority class. Logistic regression is classification only; polynomial regression is regression only.' },
+      { t: 'mcq', k: 'Why not a line', p: 'Why is linear regression a poor choice for predicting default from balance?', o: ['There are too many observations', 'The data is not linear, and a line is unbounded so it would predict values below 0 and above 1', 'Balance is categorical', 'There are missing values'], a: 1, why: 'The scatter is two horizontal bands at 0 and 1. The lecture answers its own activity bluntly: not well approximated by a line, not linear at all, so linear regression is a poor choice of method.' },
+      { t: 'mcq', k: 'The logistic function', p: 'What does the logistic function do that a line does not?', o: ['It fits faster', 'It squashes the output into the range 0 to 1, so it can be read as a probability', 'It removes the need for a threshold', 'It handles categorical features automatically'], a: 1, why: 'The same linear expression a + b·x sits inside; the function around it bounds the result between 0 and 1 however extreme the features get.' },
+      { t: 'num', k: 'Compute it', p: 'A logistic regression has a = −6 and b = 0.003. For a balance of 3,000, what is a + b × balance?', a: 3, why: '−6 + 0.003 × 3000 = 3. The probability is then e³/(1+e³) = 1/(1+e⁻³) ≈ 0.95, using e⁻³ ≈ 0.05.' },
+      { t: 'mcq', k: 'What comes out', p: 'A fitted logistic regression gives 0.6 for a customer. What is that number?', o: ['The predicted class', 'The probability that the customer defaults', 'The RMSE for that customer', 'The threshold'], a: 1, why: 'Logistic regression returns probabilities, never classes. A threshold is what turns 0.6 into a predicted yes or no.' },
+      { t: 'mcq', k: 'The threshold', p: 'If you INCREASE the threshold, what happens to the number of cases predicted as class 1?', o: ['It increases', 'It decreases', 'It is unchanged', 'It depends on the model'], a: 1, why: 'A higher bar means fewer cases clear it. scikit-learn defaults to 50%, which is a default rather than a considered choice.' },
+      { t: 'num', k: 'Count the coefficients', p: 'A multivariate logistic regression uses three features. How many numbers are fitted?', a: 4, why: 'Three coefficients plus the constant. The exponent is c₀ + c₁x₁ + c₂x₂ + c₃x₃ — the intercept always counts, which is the same slip as thinking a degree-4 polynomial has four coefficients.' }
+    ],
+
+    m5: [
+      { t: 'mcq', k: 'Which set', p: 'On which set is the threshold chosen?', o: ['The training set', 'The validation set', 'The test set', 'The whole dataset'], a: 1, why: 'Learn on train, choose on validation, check on test. The training set has already been seen by the model and the test set is spent once, at the end.' },
+      { t: 'mcq', k: 'Confusion matrix', p: 'A customer who actually defaults but is predicted not to default is a:', o: ['False positive', 'False negative', 'True negative', 'True positive'], a: 1, why: 'Actual class 1, predicted class 0 — a false negative. For a bank this is the expensive error: money lent to someone who will not repay.' },
+      { t: 'num', k: 'Accuracy', p: 'At a threshold of 40% the ten validation customers give TN = 4, FP = 2, FN = 0, TP = 4. What is the accuracy, as a decimal?', a: 0.8, why: '(TP + TN)/(total) = (4 + 4)/10 = 0.8. At a 50% threshold the same customers give 7/10.' },
+      { t: 'num', k: 'Sensitivity', p: 'With TP = 3, FN = 1, TN = 4, FP = 2, what is the sensitivity?', a: 0.75, why: 'Sensitivity = TP/(TP+FN) = 3/4 = 0.75 — the proportion of actual positives correctly identified.' },
+      { t: 'num', k: 'Specificity', p: 'With TP = 3, FN = 1, TN = 4, FP = 2, what is the specificity?', a: 0.667, tol: 0.01, why: 'Specificity = TN/(FP+TN) = 4/6 ≈ 0.667 — the proportion of actual negatives correctly identified.' },
+      { t: 'mcq', k: 'Moving the threshold', p: 'You LOWER the threshold. What happens?', o: ['More TNs and FNs', 'More FPs and TPs, fewer FNs', 'Fewer of all four', 'Accuracy necessarily improves'], a: 1, why: 'A lower bar means more cases are called class 1: true positives and false positives both rise, false negatives fall. Sensitivity rises and specificity falls.' },
+      { t: 'mcq', k: 'Which error', p: 'A bank is choosing between thresholds of 50% and 70% on the same model. Which does the lecture prefer, and why?', o: ['70%, because it has fewer false positives', '50%, because it has fewer false negatives', '70%, because accuracy is higher', 'Neither — they are equivalent'], a: 1, why: 'The bank most wants to avoid predicting "no default" for someone who defaults. The 50% threshold has one false negative against the 70% threshold’s two. A 40% threshold is better still: no false negatives and higher accuracy.' },
+      { t: 'mcq', k: 'The ROC curve', p: 'What does the ROC curve plot?', o: ['Accuracy against the threshold', 'Sensitivity against 1 − specificity', 'Specificity against sensitivity', 'TP against FP in raw counts'], a: 1, why: 'Sensitivity on the vertical axis, 1 − specificity on the horizontal, one point per threshold. It exists so that you can see every confusion matrix in one graph.' },
+      { t: 'mcq', k: 'Reading the ROC', p: 'Where on the ROC plot does a perfect classifier sit?', o: ['(1, 1), the top right', '(0, 1), the top left', '(0, 0), the bottom left', 'On the diagonal'], a: 1, why: 'No false positives means specificity = 1, so 1 − specificity = 0. No false negatives means sensitivity = 1. That is the top-left corner, and a threshold is chosen to get close to it.' },
+      { t: 'num', k: 'An ROC point', p: 'At a threshold of 0.7 the counts are TN = 5, FP = 1, FN = 2, TP = 2. What is 1 − specificity?', a: 0.167, tol: 0.01, why: 'Specificity = 5/6 ≈ 0.833, so 1 − specificity ≈ 0.167. Sensitivity is 2/4 = 0.5, giving the ROC point (0.17, 0.5).' },
+      { t: 'mcq', k: 'AUC', p: 'What range does the AUC take?', o: ['0 to 1', '0.5 to 1', '−1 to 1', '0 to 100'], a: 1, why: 'AUC = 1 is the best model, 0.5 the worst. Because the curve covers all thresholds, the AUC measures the model independently of any one of them.' },
+      { t: 'mcq', k: 'AUC', p: 'What is the AUC for?', o: ['Choosing the threshold', 'Comparing models before a threshold is chosen', 'Measuring accuracy on the test set', 'Deciding how many features to use'], a: 1, why: 'Compare candidate models on validation AUC, pick one, then use the validation set AGAIN to choose that model’s threshold.' },
+      { t: 'code', k: 'Read the code', p: 'What is wrong with this?', code: 'y_pred = model.predict(X_val)\nfpr, tpr, thresholds = roc_curve(y_val, y_pred)', o: ['y_val and y_pred are the wrong way round', 'predict returns classes; roc_curve needs predicted probabilities', 'roc_curve only takes training data', 'Nothing is wrong'], a: 1, why: '.predict hardens the probabilities into 0/1 at the default threshold. The ROC is built by SWEEPING the threshold, so it needs predict_proba(X_val)[:, 1]. With classes there is only one point and no curve.' },
+      { t: 'code', k: 'Read the code', p: 'What does the second line pick out?', code: 'probs = model.predict_proba(X_val)\nprobs[:, 1]', o: ['The predicted classes', 'The probability of class 1 — defaulting', 'The probability of class 0', 'The thresholds'], a: 1, why: 'predict_proba returns one column per class: column 0 is the probability of NOT defaulting and column 1 the probability of defaulting. The ROC wants column 1.' },
+      { t: 'mcq', k: 'Reading roc_curve', p: 'roc_curve returns three arrays. What are they, in order?', o: ['Sensitivity, specificity, accuracy', '1 − specificity, sensitivity, the thresholds', 'Thresholds, TP, FP', 'FP, FN, thresholds'], a: 1, why: 'The first is 1 − specificity, the second sensitivity, the third the thresholds at which they were evaluated. Plotting the first two against each other IS the ROC curve.' },
+      { t: 'tf', k: 'True or false', p: 'The default scikit-learn threshold of 0.5 is usually about right.', a: false, why: 'False. On the Default dataset the sensible threshold works out at roughly 0.04. 0.5 is a software default, not a statistical or business one.' },
+      { t: 'mcq', k: 'Accuracy’s weakness', p: '95% of customers renew. A model predicts "renews" for everybody. What is its accuracy, and what is wrong?', o: ['50%, and it is a poor model', '95%, and it identifies nobody who leaves', '5%, and it is inverted', 'It cannot be computed'], a: 1, why: 'Accuracy flatters any model on a rare positive class. This is why the AUC and the confusion matrix matter more than a single accuracy figure.' },
+      { t: 'mcq', k: 'The last step', p: 'Model chosen, threshold chosen. What happens before the test set is used?', o: ['Nothing — test immediately', 'Merge training and validation, retrain on the merged set', 'Re-tune the threshold on the test set', 'Run cross-validation on the test set'], a: 1, why: 'The validation data has finished its job of choosing, so it is folded back into training. Then the test set is used once, giving a confusion matrix and an accuracy.' }
+    ],
+
+    m6: [
+      { t: 'mcq', k: 'Vocabulary', p: 'In a decision tree, what is a leaf?', o: ['A point where a question is asked', 'An end point where a prediction is made', 'The act of creating new nodes', 'A feature that was not used'], a: 1, why: 'Nodes ask questions, branches are the answers leading away from them, leaves are where you land and a prediction is made. Branching is the act of creating new nodes.' },
+      { t: 'mcq', k: 'Choosing a cut', p: 'How does the algorithm decide where to split?', o: ['It picks a feature at random', 'It considers all possible cuts and keeps the one that scores best at that node', 'It searches all possible whole trees and keeps the best', 'It splits on the feature with the highest correlation to the label'], a: 1, why: 'All features, all cut points, scored and the best kept — then the same thing inside each child. It never searches whole trees, which is what makes it greedy.' },
+      { t: 'mcq', k: 'Greedy', p: 'What does it mean that tree fitting is greedy?', o: ['It uses as many features as possible', 'Each split is the best available at that node, with no look-ahead and no revision', 'It always produces the smallest tree', 'It requires scaled features'], a: 1, why: 'A cut is chosen without regard to the cuts that will follow it, and is never revisited. Fast to fit, but not guaranteed to be the best possible tree.' },
+      { t: 'mcq', k: 'Gini', p: 'What does the Gini index measure?', o: ['How many observations are in a node', 'How mixed the classes are in a node', 'The depth of the tree', 'The correlation between two features'], a: 1, why: 'Impurity. A pure node — one class only — has G = 0, and the smaller the Gini the better the cut.' },
+      { t: 'num', k: 'Compute Gini', p: 'A group contains 6 orange and 6 purple points. What is its Gini index?', a: 0.5, tol: 0.005, why: 'p = 0.5 for each class, so G = 0.5(0.5) + 0.5(0.5) = 0.5. An evenly split group is the most impure a two-class group can be.' },
+      { t: 'num', k: 'Compute Gini', p: 'A group contains 6 orange and 5 purple points. What is its Gini index, to three decimals?', a: 0.496, tol: 0.005, why: 'G = (6/11)(5/11) + (5/11)(6/11) = 0.496. Barely better than an even split, which is the handout’s point: that cut separates almost nothing.' },
+      { t: 'mcq', k: 'Weighting', p: 'Why is the Gini of a cut a WEIGHTED average of the two sides?', o: ['To keep it between 0 and 1', 'So a small pure group cannot outweigh a large mixed one', 'Because the sides always have equal size', 'To correct for the number of features'], a: 1, why: 'G(cut) = (n_left/n)·G_left + (n_right/n)·G_right. Without the weights, isolating two points perfectly would look better than cleanly splitting two hundred.' },
+      { t: 'mcq', k: 'Both sides of the map', p: 'What does a REGRESSION tree predict in a leaf?', o: ['The majority class', 'The average value of the label', 'The Gini index', 'A probability'], a: 1, why: 'Classification trees predict the majority class and score cuts on impurity; regression trees predict the average and score cuts on how much they reduce the spread.' },
+      { t: 'tf', k: 'True or false', p: 'A fully grown tree has perfect accuracy on the training set.', a: true, why: 'True, and that is the problem. Left alone a tree splits until every leaf is pure — it has memorised the training data, and the training accuracy means nothing.' },
+      { t: 'mcq', k: 'Stopping', p: 'Which is NOT a way of controlling how far a tree grows?', o: ['Limiting the depth', 'Requiring a minimum number of observations in a leaf', 'Pruning a fully grown tree back', 'Scaling the features first'], a: 3, why: 'Scaling does nothing for a tree — it splits on thresholds, so any monotonic rescaling gives the same tree. That is why the course says scaling helps regressions and PCA but not trees.' },
+      { t: 'mcq', k: 'How many leaves', p: 'How is the number of leaves decided?', o: ['By a formula based on the number of features', 'On the validation set, comparing trees of different sizes', 'By growing until every leaf is pure', 'On the test set'], a: 1, why: 'Fit trees of several sizes on the training set, compare them on validation using the AUC, keep the best — then merge, retrain, and check once on test. The same procedure as every other choice in the course.' },
+      { t: 'mcq', k: 'Why extensions exist', p: 'What weakness of a single tree do the extensions address?', o: ['Trees cannot handle categorical features', 'A single tree is unstable — change a few rows and the first cut can change, and everything below it', 'Trees are too slow to fit', 'Trees cannot do regression'], a: 1, why: 'Combining many trees buys back stability, which is where the course goes next.' }
+    ],
+
+    m7: [
+      { t: 'mcq', k: 'Framing the case', p: 'Predicting which customers will not return next year is:', o: ['Regression, because you predict a rate', 'Classification, because the label is a category', 'Unsupervised learning', 'Optimization'], a: 1, why: 'Came back or did not is a category, so classification. The model still produces a probability on the way, which is what a retention budget needs in order to be aimed.' },
+      { t: 'mcq', k: 'Leakage in a case', p: 'Which field would be target leakage in a retention model?', o: ['How many trips the customer took last year', 'The customer’s region', 'A cancellation reason recorded when the customer left', 'The price paid at booking'], a: 2, why: 'A cancellation reason only exists for customers who have already left, so it is not available at the moment the prediction has to be made. The test is always temporal: would I really know this yet?' },
+      { t: 'mcq', k: 'Judging the model', p: 'Most customers renew. Why is accuracy a poor measure here?', o: ['It is hard to compute', 'Predicting "renews" for everyone scores well and identifies nobody to target', 'It needs a threshold and AUC does not', 'It is only valid for regression'], a: 1, why: 'With a rare positive class a majority-class model looks excellent and is useless. Compare models on AUC, then choose a threshold from the costs.' },
+      { t: 'mcq', k: 'Choosing the cut-off', p: 'What should decide the threshold in a retention model?', o: ['The scikit-learn default of 0.5', 'The relative cost of chasing someone who would have stayed versus missing someone who leaves', 'Whichever maximises accuracy on the test set', 'The number of customers the budget can cover, chosen on the test set'], a: 1, why: 'The threshold is a business decision about the two errors, and it is made on the validation set. Budget capacity is a legitimate input; the test set is not.' },
+      { t: 'tf', k: 'True or false', p: 'A probability per customer is, on its own, a decision about who to target.', a: false, why: 'False. A probability becomes a decision only once a threshold is applied, and the threshold comes from what each kind of error costs.' },
+      { t: 'mcq', k: 'What the exam wants', p: 'The professor said a typical question is "why would we do this this way? Explain". For a case, that means being able to:', o: ['Recall what the company decided', 'Justify each pipeline choice in business terms', 'Reproduce the exhibits from memory', 'Write the code that fits the model'], a: 1, why: 'The exam is not testing recall of the case narrative, and it does not ask you to write code. It tests whether you can defend the choices — features, model, threshold — and read code someone else wrote.' }
     ]
   };
-
 
 
   // "I can ask you to interpret code" — Professor Hall on the midterm. These are
@@ -2923,6 +3165,150 @@ class Component extends DCLogic {
           hint: 'Ask which data the score is computed on, and which data M. Gelato actually cares about.',
           sol: 'A higher degree always fits the training points better; that says nothing about next year.' }
       ] },
+
+    { key: 'mx4', covers: '4', tag: 'Session 4', title: 'Run the pipeline end to end',
+      stem: 'The Sarah-wants-a-diamond set-up: predict the price of a diamond from its characteristics. Work the whole supervised pipeline, in order, the way the in-class notebook does — but on paper, which is how the midterm will ask for it.',
+      steps: [
+        { q: 'Name the label and say which kind of supervised problem this is.', rows: [ { label: 'Which kind?', a: 0, opts: ['Regression — the label is a number', 'Classification — the label is a category', 'Unsupervised — there is no label', 'Optimization'] }, { label: 'Say what the label is and why that settles it.', rubric: [
+            'The label is the price of the diamond.',
+            'A price is a number, so this is regression rather than classification.',
+            'The features are the diamond’s characteristics — everything known about the stone before the price is set.'
+          ], model: 'The test is always the type of the thing being predicted. Number means regression, category means classification, no label at all means unsupervised.' } ],
+          hint: 'What is being predicted, and is it a number or a category?', sol: 'Price is the label; a number, so regression.' },
+
+        { q: 'You want 60 / 20 / 20. Write the two calls to train_test_split and give both test_size values, then explain the second.',
+          code: 'X_train, X_other, y_train, y_other = train_test_split(X, y, test_size=____)\nX_val,   X_test,  y_val,   y_test  = train_test_split(X_other, y_other, test_size=____)',
+          rows: [ { label: 'First test_size', a: 0.4, tol: 0.001 }, { label: 'Second test_size', a: 0.5, tol: 0.001 }, { label: 'Explain the second value.', rubric: [
+            'The first call puts 60% in training and leaves 40% as "other".',
+            'The second call receives only that 40%, not the original dataset.',
+            'Halving it gives 20% and 20%, so the second test_size is 0.5.'
+          ], model: 'Every split is a share of whatever you hand it. Putting 0.2 in the second call would give 8% test and 32% validation — a mistake that costs marks and is invisible unless you check the sizes.' } ],
+          hint: 'What does the second call actually receive?', sol: '0.4 then 0.5.' },
+
+        { q: 'Four candidate models give validation RMSEs of 540, 498, 612 and 505. Which do you choose, and what do you do immediately afterwards?', rows: [ { label: 'Chosen model’s RMSE', a: 498, tol: 0 }, { label: 'Say what happens next, and why.', rubric: [
+            'Pick the smallest validation RMSE: 498.',
+            'Then merge the training and validation sets and RETRAIN the chosen model on the merged data.',
+            'Only then use the test set, once, to get an honest estimate of performance.'
+          ], model: 'The retrain step is the one people skip. Once the validation set has done its job of choosing, keeping it aside wastes data that could be improving the model — and the final model you ship should be the one trained on as much data as possible.' } ],
+          hint: 'Smallest error wins. But the chosen model is not finished yet.', sol: '498; merge train+validation, retrain, then test once.' },
+
+        { q: 'Order these pre-processing steps either side of the split, and justify the division: removing duplicate rows, scaling numeric features, imputing missing ages.', rows: [ { label: 'Which goes BEFORE the split?', a: 2, opts: ['Scaling', 'Imputing', 'Removing duplicates', 'All three'] }, { label: 'Justify the division.', rubric: [
+            'Removing duplicates uses no information about the values, so it is safe before the split.',
+            'Scaling and imputation LEARN something from the data — a mean, a standard deviation, a nearest neighbour.',
+            'If they learn it from all the data, information from the test set has entered the training set: target leakage caused purely by the order of operations.'
+          ], model: 'The lecture splits pre-processing into two boxes for exactly this reason: the safe kind happens once on everything, the leakage-prone kind happens on each of the three sets separately after the split.' } ],
+          hint: 'Which of the three learns a number from the data?', sol: 'Duplicates before; scaling and imputation after, per set.' },
+
+        { q: 'Explain, in the terms the course uses, when you would need NESTED cross-validation rather than ordinary k-fold.', rows: [ { label: 'Explain the difference and when the nested version is needed.', rubric: [
+            'Ordinary k-fold splits into training and testing only, giving k error values to average so the estimate does not depend on one split.',
+            'Nested adds an inner loop that splits each training set again into training and validation.',
+            'You need it when you are CHOOSING a model as well as evaluating one — the inner loop chooses, the outer loop evaluates.'
+          ], model: 'Each inner validation set produces a best model; take the one that appears most often or performs best overall, retrain it on all the outer training sets, evaluate on each outer test set and average. The reason for the separation is unchanged throughout the course: whatever you choose on, you cannot also honestly evaluate on.' } ],
+          hint: 'Count how many jobs you are asking the data to do.', sol: 'When you need training, validation AND testing: the inner loop chooses, the outer evaluates.' }
+      ] },
+
+    { key: 'mx5', covers: '5', tag: 'Session 5', title: 'The worksheet: thresholds, confusion matrices and the ROC',
+      stem: 'Ten validation customers, with their predicted probabilities of defaulting and their true classes. This is the in-class worksheet in paper form — the arithmetic is deliberately small, because the midterm allows no calculator.',
+      steps: [
+        { q: 'The predicted probabilities are 0.71, 0.11, 0.54, 0.32, 0.97, 0.03, 0.65, 0.47, 0.88, 0.19 and the true classes are 0, 0, 0, 0, 1, 0, 1, 1, 1, 0. At a threshold of 50%, fill in the confusion matrix.', rows: [ { label: 'True negatives', a: 4, tol: 0 }, { label: 'False positives', a: 2, tol: 0 }, { label: 'False negatives', a: 1, tol: 0 }, { label: 'True positives', a: 3, tol: 0 } ], hint: 'Anything above 0.5 is predicted class 1. Then compare each prediction with its true class.', sol: 'Predicted classes are 1,0,1,0,1,0,1,0,1,0. Against the truth that gives TN = 4, FP = 2, FN = 1, TP = 3.' },
+
+        { q: 'Now raise the threshold to 70% and fill it in again.', rows: [ { label: 'True negatives', a: 5, tol: 0 }, { label: 'False positives', a: 1, tol: 0 }, { label: 'False negatives', a: 2, tol: 0 }, { label: 'True positives', a: 2, tol: 0 } ], hint: 'Only 0.71, 0.97 and 0.88 clear 0.70.', sol: 'Predicted classes 1,0,0,0,1,0,0,0,1,0, giving TN = 5, FP = 1, FN = 2, TP = 2. Raising the threshold moved one case from FP to TN and one from TP to FN — more TNs and FNs, exactly as the lecture says.' },
+
+        { q: 'Compute the accuracy at each of the two thresholds, and say which a BANK would prefer and why.', rows: [ { label: 'Accuracy at 50%', a: 0.7, tol: 0.01 }, { label: 'Accuracy at 70%', a: 0.7, tol: 0.01 }, { label: 'Say which the bank prefers and why accuracy does not settle it.', rubric: [
+            'Both thresholds give 7 correct out of 10, so accuracy cannot choose between them.',
+            'The bank most wants to avoid false negatives — lending to someone who then defaults.',
+            'The 50% threshold has one false negative against two, so the bank prefers 50% despite the identical accuracy.'
+          ], model: 'This is the cleanest demonstration in the course that a single accuracy number hides the thing that matters. The two errors are not equally expensive, and which one you are willing to make is a business judgement the arithmetic cannot make for you.' } ],
+          hint: 'Count the correct cells. Then ask which mistake costs the bank money.', sol: 'Both 7/10. The bank prefers 50%: fewer false negatives.' },
+
+        { q: 'At a threshold of 40% the counts are TN = 4, FP = 2, FN = 0, TP = 4. Compute sensitivity, specificity and 1 − specificity, and give the ROC point.', rows: [ { label: 'Sensitivity', a: 1, tol: 0.01 }, { label: 'Specificity', a: 0.667, tol: 0.01 }, { label: '1 − specificity', a: 0.333, tol: 0.01 } ], hint: 'Sensitivity is out of the actual positives; specificity out of the actual negatives.', sol: 'Sensitivity = 4/4 = 1. Specificity = 4/6 ≈ 0.667, so 1 − specificity ≈ 0.333. The ROC point is (0.33, 1) — directly above the 50% point, which was (0.33, 0.75).' },
+
+        { q: 'Plot the three thresholds as ROC points and say which is closest to ideal. Where is ideal, and why?', rows: [ { label: 'Say where the ideal point is and which threshold is nearest.', rubric: [
+            'The points are 0.4 → (0.33, 1), 0.5 → (0.33, 0.75) and 0.7 → (0.17, 0.5).',
+            'The ideal point is (0, 1) — the top left — because a perfect classifier has no false positives (specificity 1) and no false negatives (sensitivity 1).',
+            'The 40% threshold is closest to it here, which agrees with the earlier finding that it has no false negatives and the best accuracy.'
+          ], model: 'Being nearer the top-left is the whole visual purpose of the ROC. Whether you prefer to sit a little above or below the nearest point depends on whether false negatives or false positives cost more — which the lecture concedes is "not an exact science".' } ],
+          hint: 'Compute the three points first, then ask which corner a perfect classifier would sit in.', sol: 'Ideal is (0, 1); the 40% threshold is nearest.' },
+
+        { q: 'Read this code, which is supposed to produce the ROC and AUC on the validation set. Say what is conceptually wrong and what the consequence is.',
+          code: 'y_pred = model.predict(X_val)\n\nfpr, tpr, thresholds = roc_curve(y_val, y_pred)\nplt.plot(fpr, tpr)\nprint(roc_auc_score(y_val, y_pred))',
+          rows: [ { label: 'Identify the fault and its consequence.', rubric: [
+            'model.predict returns hardened CLASSES at the default 0.5 threshold, not probabilities.',
+            'The ROC is built by sweeping the threshold across the probabilities, so it needs model.predict_proba(X_val)[:, 1].',
+            'With 0/1 input there is effectively one point, the curve collapses, and the AUC reported is not the quantity that compares models across thresholds.'
+          ], model: 'The AUC exists precisely to judge a model BEFORE a threshold is chosen. Handing it thresholded classes destroys the information it is built on. Remember predict_proba returns two columns — probability of class 0 and of class 1 — and you want column 1.' } ],
+          hint: 'What does .predict return, and what does an ROC curve need in order to sweep?', sol: 'predict gives classes; roc_curve and roc_auc_score need predicted probabilities.' }
+      ] },
+
+    { key: 'mx6', covers: '6', tag: 'Session 6', title: 'Gini by hand, and how far to grow a tree',
+      stem: 'The handout’s own exercise, with different numbers. All of it is doable on paper, which is the point — the midterm allows a pen and nothing else.',
+      steps: [
+        { q: 'A candidate cut leaves 10 points on the left (7 orange, 3 purple) and 10 on the right (2 orange, 8 purple). Compute the Gini index for each side.', rows: [ { label: 'G(left)', a: 0.42, tol: 0.005 }, { label: 'G(right)', a: 0.32, tol: 0.005 } ], hint: 'G = p₁(1 − p₁) + p₂(1 − p₂), with p the proportion of each colour on that side.', sol: 'Left: 0.7 × 0.3 + 0.3 × 0.7 = 0.42. Right: 0.2 × 0.8 + 0.8 × 0.2 = 0.32. The right side is purer, so it scores lower.' },
+
+        { q: 'Now give the Gini index of the cut as a whole.', rows: [ { label: 'G(cut)', a: 0.37, tol: 0.005 } ], hint: 'Weight each side by how many points are on it, out of the total.', sol: '(10/20)(0.42) + (10/20)(0.32) = 0.37. Here the sides are equal so it is a plain average; it would not be if they were not.' },
+
+        { q: 'A second cut leaves 4 points on the left (4 orange, 0 purple) and 16 on the right (5 orange, 11 purple). Compute its Gini and say which cut the algorithm takes.', rows: [ { label: 'G(left)', a: 0, tol: 0.005 }, { label: 'G(right)', a: 0.4297, tol: 0.01 }, { label: 'G(cut)', a: 0.3438, tol: 0.01 }, { label: 'Which cut is chosen?', a: 1, opts: ['The first cut, G = 0.37', 'The second cut, G = 0.34', 'Neither — a pure side disqualifies it', 'They tie'] } ], hint: 'A side with only one colour has G = 0. Then weight 4 and 16 out of 20.', sol: 'Left is pure so G = 0. Right: (5/16)(11/16) + (11/16)(5/16) = 0.4297. Weighted: (4/20)(0) + (16/20)(0.4297) = 0.3438. Lower than 0.37, so the algorithm takes the second cut.' },
+
+        { q: 'Explain why the weighting matters, using these two cuts.', rows: [ { label: 'Explain the role of the weights.', rubric: [
+            'Without weights the second cut would be scored as the plain average of 0 and 0.4297, which is 0.215 — far better than it deserves.',
+            'The pure side contains only 4 of the 20 points, so it should carry only a fifth of the weight.',
+            'Weighting by group size stops a tiny perfectly-pure group from outscoring a cut that actually separates most of the data.'
+          ], model: 'The weighting is what makes the Gini a statement about the whole cut rather than about its luckiest side. It is also why a greedy tree does not simply shave off one point at a time: isolating a single observation gives a pure group with almost no weight.' } ],
+          hint: 'What would the unweighted average of 0 and 0.4297 be, and is that fair?', sol: 'The pure side holds only 4 of 20 points and must not count equally.' },
+
+        { q: 'A colleague reports that their tree gets 100% accuracy on the training set and wants to deploy it. Explain what has happened and what you would do instead.', rows: [ { label: 'Explain and give the procedure.', rubric: [
+            'A tree left to grow freely splits until every leaf is pure, which means it has memorised the training data.',
+            '100% training accuracy is therefore guaranteed and is evidence of nothing — it will predict new cases badly.',
+            'Control the size — maximum depth, minimum observations per leaf, or pruning — and choose that size on the VALIDATION set, comparing trees on AUC, before merging, retraining and checking once on test.'
+          ], model: 'This is the same mistake as choosing a polynomial degree by training R-squared, in a different costume. Any model flexible enough to fit its training data perfectly will do so; the only question that matters is how it behaves on data it has not seen.' } ],
+          hint: 'What is a fully grown tree actually doing?', sol: 'It has memorised the training set. Limit the size and choose it on validation.' },
+
+        { q: 'Why does scaling the features make no difference to a tree, when it matters for a regression?', rows: [ { label: 'Explain.', rubric: [
+            'A tree splits on thresholds — is this feature above or below some cut point.',
+            'Rescaling moves the cut point by the same transformation, so exactly the same observations fall on each side and the tree is unchanged.',
+            'A regression multiplies each feature by a coefficient, so features on wildly different scales distort the fit; that is why scaling helps regressions and PCA but not trees.'
+          ], model: 'This is worth being able to state crisply: the rule of thumb in Lecture 2 is that if the algorithm multiplies features by numbers, scaling probably helps. Trees compare rather than multiply.' } ],
+          hint: 'What does a tree actually do with a feature value?', sol: 'Trees compare against a threshold; rescaling moves the threshold too.' }
+      ] },
+
+    { key: 'mx7', covers: '7', tag: 'Session 7', title: 'A retention case, from pipeline to decision',
+      stem: 'A travel company wants to know which customers will not come back next year, so it can aim a retention budget. No case material is reproduced here — this is the course’s own pipeline applied to a problem of that shape, which is what the exam asks you to defend.',
+      steps: [
+        { q: 'State the label and the problem type, and say what the model should actually output for the business.', rows: [ { label: 'Problem type', a: 1, opts: ['Regression', 'Classification', 'Unsupervised learning', 'Optimization'] }, { label: 'Say what the output should be and why.', rubric: [
+            'The label is whether the customer returns — a category, so classification.',
+            'The useful output is a PROBABILITY per customer, not a yes/no.',
+            'A probability lets the business rank customers and aim a limited budget at the ones most at risk.'
+          ], model: 'A classifier that only emits classes throws away the ranking. Logistic regression and trees both give probabilities, and the threshold turning them into a target list is a separate decision.' } ],
+          hint: 'A budget has to be aimed. What does aiming require?', sol: 'Classification; the output that matters is a probability per customer.' },
+
+        { q: 'Four candidate features are offered. Say which one you would refuse, and give the general test.', rows: [ { label: 'Which to refuse?', a: 2, opts: ['Number of trips taken last year', 'Region of residence', 'The reason recorded when the customer cancelled', 'Price paid at booking'] }, { label: 'State the general test for this.', rubric: [
+            'The cancellation reason only exists for customers who have already left, so it cannot be known at the moment the prediction is needed.',
+            'Including it is target leakage: the model would appear excellent in testing and fail entirely in use.',
+            'The general test is temporal — at the instant I need this prediction, would I genuinely have this value?'
+          ], model: 'Leakage of this kind is rarely obvious from the column name. It is caught by asking when each field is populated, which is a business question about the data-collection process rather than a statistical one.' } ],
+          hint: 'When does each of these fields get filled in?', sol: 'Refuse the cancellation reason. Test: would I have this at prediction time?' },
+
+        { q: '88% of customers renew. Your model reports 88% accuracy. Explain what is wrong and what you would report instead.', rows: [ { label: 'Explain and give the alternative.', rubric: [
+            'A model predicting "renews" for everybody also scores 88%, so the number demonstrates nothing.',
+            'Accuracy is misleading whenever one class is rare, which is the normal case in retention and in default.',
+            'Report the AUC to compare models before a threshold, then the confusion matrix at the chosen threshold so the two kinds of error are visible separately.'
+          ], model: 'The confusion matrix is the honest report because it does not let the two errors hide inside one number. The AUC is the honest comparison because it does not depend on where the threshold happens to sit.' } ],
+          hint: 'What would the laziest possible model score?', sol: 'The majority-class model scores the same. Report AUC, then the confusion matrix.' },
+
+        { q: 'The retention offer costs €40 and a lost customer is worth €600. Explain how that changes where you put the threshold, and on which set you would choose it.', rows: [ { label: 'Explain the threshold reasoning and name the set.', rubric: [
+            'A false negative — missing someone who leaves — costs €600; a false positive costs €40 of wasted offer.',
+            'The errors are roughly fifteen to one, so the threshold should be set LOW: accept many false positives to avoid false negatives.',
+            'It is chosen on the VALIDATION set, never on the test set, and the budget may cap how many customers can be contacted.'
+          ], model: 'This is the logic behind the course’s own example, where the sensible threshold on the Default dataset came out near 0.04 rather than the 0.5 default. A large asymmetry between the two errors drags the threshold a long way from the middle.' } ],
+          hint: 'Which error costs fifteen times more, and which way does that push the cut-off?', sol: 'Low threshold, because a false negative costs ~15× a false positive. Chosen on validation.' },
+
+        { q: 'Write out the full sequence you would follow, from raw data to the number you would quote to the board.', rows: [ { label: 'Give the sequence.', rubric: [
+            'Define X and y; do leakage-safe pre-processing; split into training, validation and testing; do leakage-prone pre-processing on each set separately.',
+            'Train the candidate models on training; compare them on validation AUC; choose the threshold on validation from the cost asymmetry.',
+            'Merge training and validation, retrain the chosen model, and use the test set ONCE — quoting the test-set confusion matrix, not the validation numbers.'
+          ], model: 'The number you quote to the board is the test-set result, because every other number in the process was used to make a choice and is therefore optimistic. Quoting a validation figure as the final result is the most common way an honest pipeline still produces a dishonest claim.' } ],
+          hint: 'Every set has exactly one job. Name the job of each.', sol: 'Learn on train, choose on validation, check once on test — and quote the test number.' }
+      ] }
   ];
 
 
@@ -3023,7 +3409,7 @@ class Component extends DCLogic {
     { k: 'Feature selection', v: 'Choosing which of the features you have to use.' },
     { k: 'Dimension reduction', v: 'Merging features so that as few as possible explain the variability. Lecture 8.' },
     { k: 'R-squared', v: 'The share of the variation in the label the model accounts for, measured on the data it was fitted to — which is why a higher degree always improves it and it cannot be used to choose one.' },
-    { k: 'Overfitting', v: 'A model that bends to reach the points it was trained on and therefore predicts new data badly. Fitting and predicting are different problems.' }
+    { k: 'Overfitting', v: 'A model that bends to reach the points it was trained on and therefore predicts new data badly. Fitting and predicting are different problems.' },
   ];
 
 
