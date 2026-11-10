@@ -642,6 +642,23 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
 .dc-cheer, .dc-sad { overflow: visible; }
 .dc-sad   { animation: dc-sag 620ms ease-out both; width: 86px; flex: none; transform-origin: 50% 100%; opacity: 0.85; }
 @media (prefers-reduced-motion: reduce) { .dc-cheer, .dc-sad { animation: none; opacity: 1; } }
+/* Hover (or tab to) a known command in any listing and it explains itself.
+   Pure CSS: the tooltip is a child span that is hidden until :hover or :focus. */
+.tok{ position:relative; border-bottom:1px dotted currentColor; cursor:help; outline:none }
+.tok:hover, .tok:focus{ background:color-mix(in srgb, var(--acc) 22%, transparent); border-radius:3px }
+.tok > .tip{
+  position:absolute; left:0; bottom:calc(100% + 8px); z-index:40;
+  display:block; visibility:hidden; opacity:0; transition:opacity .12s ease, visibility .12s;
+  width:max-content; max-width:min(360px, 70vw);
+  background:var(--ground); color:var(--ink);
+  border:1px solid var(--acc); border-radius:10px; padding:9px 11px;
+  font-family:var(--font-body); font-size:13px; line-height:1.45; font-weight:400;
+  white-space:normal; text-align:left; letter-spacing:0;
+  box-shadow:0 14px 34px -14px rgba(0,0,0,.75);
+  pointer-events:none;
+}
+.tok:hover > .tip, .tok:focus > .tip{ visibility:visible; opacity:1 }
+@media (hover: none){ .tok > .tip{ display:none } }
 ::selection { background: var(--line); }
 :focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
 </style>
@@ -1076,7 +1093,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
               <sc-if value="{{ b.isCode }}" hint-placeholder-val="{{ false }}">
                 <div style="margin:6px 0 18px">
                   <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--accSoft); margin-bottom:6px">{{ b.label }}</div>
-                  <pre style="margin:0; background:var(--panel); border:2px solid var(--line); border-left:3px solid var(--acc); padding:14px 16px; overflow-x:auto; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13.5px; line-height:1.55; color:var(--ink); white-space:pre">{{ b.code }}</pre>
+                  <pre style="margin:0; background:var(--panel); border:2px solid var(--line); border-left:3px solid var(--acc); padding:14px 16px; overflow:visible; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13.5px; line-height:1.55; color:var(--ink); white-space:pre-wrap; overflow-wrap:anywhere">{{ b.code }}</pre>
                   <div style="font-size:13px; color:var(--muted); margin-top:8px; max-width:64ch; text-wrap:pretty">{{ b.text }}</div>
                 </div>
               </sc-if>
@@ -1136,7 +1153,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
           <div style="font-family:var(--font-h); font-size:26px; font-weight:700; letter-spacing:-0.015em; line-height:1.2; margin-top:8px; text-wrap:pretty">{{ q.prompt }}</div>
 
           <sc-if value="{{ q.hasCode }}" hint-placeholder-val="{{ false }}">
-            <pre style="margin:18px 0 0; background:var(--panel); border:2px solid var(--line); border-left:3px solid var(--acc); padding:14px 16px; overflow-x:auto; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13.5px; line-height:1.55; color:var(--ink); white-space:pre">{{ q.code }}</pre>
+            <pre style="margin:18px 0 0; background:var(--panel); border:2px solid var(--line); border-left:3px solid var(--acc); padding:14px 16px; overflow:visible; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13.5px; line-height:1.55; color:var(--ink); white-space:pre-wrap; overflow-wrap:anywhere">{{ q.code }}</pre>
           </sc-if>
 
           <sc-if value="{{ q.isMcq }}" hint-placeholder-val="{{ true }}">
@@ -1395,7 +1412,7 @@ button[style*="border-radius:999px"]:active{ transform:translateY(0); }
                 <div style="font-size:12px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted)">{{ s.label }}</div>
                 <div style="font-size:17px; font-weight:600; margin-top:6px; text-wrap:pretty">{{ s.q }}</div>
                 <sc-if value="{{ s.hasCode }}" hint-placeholder-val="{{ false }}">
-                  <pre style="margin:14px 0 0; background:var(--panel); border:2px solid var(--line); border-left:3px solid var(--acc); padding:14px 16px; overflow-x:auto; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13.5px; line-height:1.55; color:var(--ink); white-space:pre">{{ s.code }}</pre>
+                  <pre style="margin:14px 0 0; background:var(--panel); border:2px solid var(--line); border-left:3px solid var(--acc); padding:14px 16px; overflow:visible; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:13.5px; line-height:1.55; color:var(--ink); white-space:pre-wrap; overflow-wrap:anywhere">{{ s.code }}</pre>
                 </sc-if>
               </div>
               <div style="padding:16px 18px; display:flex; flex-direction:column; gap:12px">
@@ -5942,6 +5959,111 @@ class Component extends DCLogic {
     return 'display:block; width:100%; text-align:left; padding:11px 20px; font-size:14px; font-weight:' + (active ? '700' : '500') + '; border:none; border-bottom:1px solid var(--line); cursor:pointer; background:' + (active ? 'var(--panel)' : 'transparent') + '; color:' + (active ? 'var(--accSoft)' : 'var(--soft)') + ';';
   }
 
+  // Hovering a line of code should say what each piece of it IS. The dictionary
+  // is keyed on the exact token as it appears in the listings; codeEl walks a
+  // listing once, longest token first, and wraps each hit in a span carrying its
+  // own tooltip. Plain CSS does the showing, so nothing here needs JavaScript at
+  // read time and it keeps working if the runtime never rehydrates.
+  codeTokens = {
+    'pd.read_csv': 'pandas: read a .csv file from disk into a DataFrame.',
+    'pd.concat': 'pandas: stack two DataFrames on top of each other — used to merge training and validation before the final retrain.',
+    'pd.DataFrame': 'pandas: build a DataFrame, usually from a dictionary of columns.',
+    'import numpy as np': 'Load numpy and give it the short name np. Arrays and whole-array arithmetic.',
+    'import pandas as pd': 'Load pandas as pd. DataFrames — the structure almost everything in this course uses.',
+    'import matplotlib.pyplot as plt': 'Load the plotting sub-package as plt.',
+    '.head()': 'First few rows. The quick check that the file loaded and the columns are what you expected.',
+    '.info()': 'Rows, columns, how many non-null values each has, and each column’s type.',
+    '.describe()': 'Count, mean, std, min, quartiles, max — NUMERIC columns only. A column missing here is one Python does not think is a number. Also the detector for impossible values: read the min and max.',
+    '.dtypes': 'The type of each column. Use it when describe() skips a column you expected.',
+    '.shape': 'A tuple (rows, columns). Print it before and after a drop to confirm something happened.',
+    '.unique()': 'The distinct values in a column. The detector for strings and objects, the way describe() is for numbers.',
+    '.isna()': 'A True/False table the same shape as the data, True wherever a value is missing.',
+    '.any()': 'Collapses to one answer per column: is the condition true ANYWHERE?',
+    '.all()': 'Collapses to one answer per column: is the condition true EVERYWHERE?',
+    '.sum()': 'Adds up. On a True/False table it counts the Trues, because True is 1.',
+    '.duplicated()': 'True for each row that repeats an earlier one.',
+    '.drop_duplicates': 'Deletes repeated rows. With inplace=True it changes the DataFrame itself.',
+    'inplace=True': 'Modify this object rather than returning a changed copy. Without it, nothing you did is kept.',
+    '.drop(columns=': 'Delete whole columns by name — for features with no information, or too many gaps to rescue.',
+    '.drop(index=': 'Delete a row by its index label.',
+    'StandardScaler': 'Scaling: rescales to mean 0 and standard deviation 1. Helps regressions and PCA, does nothing for trees.',
+    'MinMaxScaler': 'Normalizing: rescales every value into the range 0 to 1.',
+    'preprocessing.scale': 'Scaling in one call: mean 0, standard deviation 1.',
+    'SimpleImputer': 'Fills missing values with a single rule — here the most frequent value, which is the sensible easy rung for a categorical column.',
+    'KNNImputer': 'Fills each gap from the closest observations on the OTHER features. n_neighbors=1 means the single nearest row.',
+    'n_neighbors=1': 'Use exactly one nearest neighbour to supply the missing value.',
+    'strategy="most_frequent"': 'Fill gaps with the commonest value in that column.',
+    'fit_transform': 'LEARN something from this data (a mean, a scale, the powers of x) and apply it in one step. Doing this before the train/test split is how target leakage gets in.',
+    'train_test_split': 'Cut a dataset into two. Call it twice for three sets — and remember the second call acts on what is LEFT, not on the original.',
+    'test_size=0.4': 'Put 40% into the second output and 60% into the first.',
+    'test_size=0.5': 'Halve whatever was handed in. After a 60/40 split this turns the 40% into 20% and 20%.',
+    'test_size=0.3': 'Put 30% into the second output.',
+    'test_size=0.2': 'Put 20% into the second output.',
+    'test_size': 'The share going into the SECOND output — of whatever this call was given, not of the original data.',
+    'LinearRegression': 'Fits a straight line y = a·x + b by least squares.',
+    'LogisticRegression': 'Fits the logistic curve, returning a probability between 0 and 1 rather than an unbounded number.',
+    'PolynomialFeatures': 'Turns one column x into [1, x, x², …]. The regression over those columns is still an ordinary LINEAR regression.',
+    '.fit(': 'Estimate the model from this data. Whatever you pass here is what the model learns from.',
+    '.predict_proba': 'Predicted PROBABILITIES, one column per class. Column 1 is P(class 1) — what the ROC curve needs.',
+    '.predict(': 'Predicted CLASSES at the default 0.5 threshold. Not what roc_curve or roc_auc_score want.',
+    '.score(': 'R-squared for a regression. Scored on the data you pass it — pass training data and you measure fit, not generalisation.',
+    '.intercept_': 'The fitted constant b. The trailing underscore marks a value LEARNED from the data.',
+    '.coef_': 'The fitted slope or slopes. Trailing underscore again: learned, not set by you.',
+    'mean_squared_error': 'Average squared miss. With squared=False it returns the RMSE, in the units of the label.',
+    'squared=False': 'Return the ROOT mean squared error rather than the mean squared error.',
+    'roc_curve': 'Sweeps the threshold and returns three arrays: 1 − specificity, sensitivity, and the thresholds themselves.',
+    'roc_auc_score': 'The area under that curve — between 0.5 and 1. Compares MODELS before any threshold is chosen, so it needs probabilities.',
+    'np.array': 'Build a numpy array from a list. Arithmetic then applies to every element at once.',
+    'np.arange': 'The array version of range: evenly spaced whole numbers.',
+    'np.ones': 'An array filled with 1s.',
+    'np.linspace': 'Evenly spaced points across a range. Used to DRAW a fitted line, not as data.',
+    '.reshape(-1, 1)': 'Make it a single column. The −1 means "work out how many rows that needs". This is the shape predict() expects.',
+    '.reshape': 'Change the dimensions of an array without changing its values.',
+    'plt.scatter': 'Draw the observations as points.',
+    'plt.plot': 'Join points into a line — used for the fitted curve.',
+    'plt.bar': 'A bar per category.',
+    'plt.xticks': 'Control the x-axis labels; rotation=90 makes long category names readable.',
+    'plt.xlabel': 'Label the x-axis.',
+    'plt.ylabel': 'Label the y-axis.',
+    '.groupby': 'Collapse to one row per group. Follow it with .mean() for averages or .size() for how many rows went into each.',
+    'numeric_only=True': 'Average only the numeric columns, so text columns do not break the call.',
+    '.reset_index()': 'Turn the grouping key back into an ordinary column so it can be plotted.',
+    '.size()': 'How many rows are in each group. Run this before believing any group average.',
+    '.append': 'Add one element to the end of a list.',
+    '.count(': 'How many times a value appears in a list.',
+    '.keys()': 'The keys of a dictionary — how you find out what is in one you did not build.',
+    'print(': 'Show a value. Without it, only the last expression in a cell appears.',
+    'range(': 'A sequence of whole numbers. The stop value is never included.',
+    'len(': 'How many elements.',
+    'np.nan': 'The marker for a missing value.'
+  };
+
+  codeEl(code) {
+    const E = React.createElement;
+    const src = String(code || '');
+    const keys = Object.keys(this.codeTokens).sort((a, b) => b.length - a.length);
+    const out = [];
+    let i = 0, buf = '', n = 0;
+    while (i < src.length) {
+      let hit = null;
+      for (let k = 0; k < keys.length; k++) {
+        if (src.startsWith(keys[k], i)) { hit = keys[k]; break; }
+      }
+      if (hit) {
+        if (buf) { out.push(buf); buf = ''; }
+        out.push(E('span', { key: 't' + (n++), className: 'tok', tabIndex: 0 },
+          hit,
+          E('span', { className: 'tip' }, this.codeTokens[hit])));
+        i += hit.length;
+      } else {
+        buf += src[i];
+        i += 1;
+      }
+    }
+    if (buf) out.push(buf);
+    return E('span', null, out);
+  }
+
   mascot(which, mood) {
     const E = React.createElement;
     // Every animal is drawn in the same 172x120 box and gets a mouth that knows
@@ -6565,7 +6687,7 @@ class Component extends DCLogic {
     v.blocks = lessonBlocks.map(b => ({
       isH: b.t === 'h', isP: b.t === 'p', isUl: b.t === 'ul', isF: b.t === 'f', isNote: b.t === 'note', isTbl: b.t === 'tbl',
       isCode: b.t === 'code',
-      text: b.text, items: b.items, note: b.note, label: b.label, head: b.head, rows: b.rows, code: b.code
+      text: b.text, items: b.items, note: b.note, label: b.label, head: b.head, rows: b.rows, code: this.codeEl(b.code)
     }));
     v.startDrill = () => this.startDrillFor(ses.key);
     v.drillLabel = 'Drill this session · ' + (d.bank[ses.key] || []).length + ' questions';
@@ -6612,7 +6734,7 @@ class Component extends DCLogic {
         isMcq: q.t !== 'num', isNum: q.t === 'num',
         // ML&O asks you to read code and say what it does, so a question can
         // carry a listing that renders above the options.
-        hasCode: !!q.code, code: q.code || '',
+        hasCode: !!q.code, code: this.codeEl(q.code),
         options: (q.o || []).map((label, i) => ({
           label: label, n: String(i + 1),
           onClick: () => { if (!ans) this.answer(i); },
@@ -6847,7 +6969,7 @@ class Component extends DCLogic {
           const ui = this.state.exUi[si] || {};
           return {
             n: String(si + 1), q: st.q, hint: st.hint, sol: st.sol,
-            hasCode: !!st.code, code: st.code || '',
+            hasCode: !!st.code, code: this.codeEl(st.code),
             label: ex.isMock ? ((st.part || '') + (st.m ? '  ·  ' + st.m + (st.m === 1 ? ' point' : ' points') : '')) : ('Step ' + (si + 1)),
             hintShown: !!ui.hint, solShown: !!ui.sol, marked: ui.mark !== undefined,
             markColor: ui.mark ? 'var(--good)' : 'var(--bad)',
