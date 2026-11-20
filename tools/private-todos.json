@@ -15,7 +15,11 @@
     "atl-community-challenge-individual-preparation-e1",
     "atl-community-challenge-peer-review",
     "life-fbl-register-your-immigration-status-during-your-stay-in",
-    "life-vlsts-validation-receipt"
+    "life-vlsts-validation-receipt",
+    "dsc-break-out-rooms-session-10-e2",
+    "mim28-chateau-arthur-party-venue",
+    "mim28-kimi-birthday-party-schedule",
+    "mim28-see-zeki"
   ],
   "_why": {
     "life-vlsts-validation-receipt": [
@@ -50,6 +54,19 @@
     "atl-community-challenge-individual-preparation-e1": [
       "Title explains that a Canvas 'missing' flag against her is spurious -- her own standing,",
       "and meaningless to any other reader."
+    ],
+    "dsc-break-out-rooms-session-10-e2": [
+      "Its title carries the owner's own submission state ('NOT submitted on your object').",
+      "Readers' own ticks must drive overdue, not hers. Held back 20 Nov 2026."
+    ],
+    "mim28-chateau-arthur-party-venue": [
+      "Owner's personal council errand naming a third party (Arthur). Not cohort work. Held back 20 Nov 2026."
+    ],
+    "mim28-kimi-birthday-party-schedule": [
+      "Owner's personal reply to a named classmate (KIMI). Not cohort work. Held back 20 Nov 2026."
+    ],
+    "mim28-see-zeki": [
+      "Owner's personal reminder naming a classmate, and its 'when' line names the owner. Held back 20 Nov 2026."
     ]
   }
 }
