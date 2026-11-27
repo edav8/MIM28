@@ -5259,10 +5259,11 @@ class Component extends DCLogic {
       { id: 'fin-pfv-mid-course-survey-16-nov', title: 'PFV mid-course survey (optional, ~1 minute) — by Mon 16 Nov 2026 09:00 CET', when: 'Due Mon 16 Nov at 09:00', tag: 'Due', due: '2026-11-16', time: '09:00' },
       { id: 'fin-mim-online-quiz-3-bond-valuation-and-risk', title: 'PFV Online Quiz', when: 'Due Wed 18 Nov at 23:59', tag: 'Closed', due: '2026-11-18', time: '23:59', closed: true },
       { id: 'fin-mim-online-quiz-4-risk-return-diversification-and-portfolio', title: 'PFV Online Quiz', when: 'Due Sat 21 Nov at 23:59', tag: 'Closed', due: '2026-11-21', time: '23:59', closed: true },
-      { id: 'fin-mim-online-quiz-5-the-capital-asset-pricing-model-capm', title: 'PFV Online Quiz', when: 'Due Mon 23 Nov at 23:59', tag: 'Due', due: '2026-11-23', time: '23:59' },
-      { id: 'fin-pfv-group-assignment-session-13-case-3-eaton-corporation', title: 'PFV Group Assignment, Session 13 — Case 3: Eaton Corporation', when: 'Due Wed 25 Nov at 10:00', tag: 'Due', due: '2026-11-25', time: '10:00' },
+      { id: 'fin-mim-online-quiz-5-the-capital-asset-pricing-model-capm', title: 'PFV Online Quiz', when: 'Due Mon 23 Nov at 23:59', tag: 'Closed', due: '2026-11-23', time: '23:59', closed: true },
+      { id: 'fin-pfv-group-assignment-session-13-case-3-eaton-corporation', title: 'PFV Group Assignment, Session 13 — Case 3: Eaton Corporation', when: 'Due Wed 25 Nov at 10:00', tag: 'Closed', due: '2026-11-25', time: '10:00', closed: true },
       { id: 'fin-mim-online-quiz-6-capital-structure-and-valuation', title: 'PFV Online Quiz', when: 'Due Fri 27 Nov at 23:59', tag: 'Due', due: '2026-11-27', time: '23:59' },
       { id: 'fin-mim-online-quiz-7-firm-valuation', title: 'PFV Online Quiz', when: 'Due Mon 30 Nov at 23:59', tag: 'Due', due: '2026-11-30', time: '23:59' },
+      { id: 'fin-pfv-valuation-practicum-company-survey', title: 'Valuation Practicum — pick up to 3 S&P 500 companies in the short survey, by Mon 30 Nov end of day', when: 'Due Mon 30 Nov', tag: 'Due', due: '2026-11-30' },
       { id: 'fin-pfv-p2-final-exam', title: 'FINAL EXAM — Principles of Finance and Valuation, Fri 4 Dec 09:00 CET, room TBA', when: 'Due Fri 04 Dec at 09:00', tag: 'Due', due: '2026-12-04', time: '09:00' }
     ];
   finGrading = [];
@@ -5279,7 +5280,8 @@ class Component extends DCLogic {
       { id: 'dsc-homework-7', title: 'ML&O Homework 7 — regression trees on Boston housing (HW_7 notebook) + supervised-learning recap video; feed date Wed 11 Nov 08:30 CET', when: 'Due Wed 11 Nov at 08:30', tag: 'Closed', due: '2026-11-11', time: '08:30', closed: true },
       { id: 'dsc-mlo-midterm-13-nov', title: 'ML&O MIDTERM — Fri 13 Nov 08:30 CET, Amphi DT1 (family names A–F); pen only, arrive 08:15', when: 'Due Fri 13 Nov at 08:30', tag: 'Due', due: '2026-11-13', time: '08:30' },
       { id: 'dsc-case-2-boats', title: 'Data Science (ML & Optimization) — Case 2: Boats; 120 words, due at the START of the session', when: 'Due Wed 18 Nov at 08:30', tag: 'Closed', due: '2026-11-18', time: '08:30', closed: true },
-      { id: 'dsc-case-3-integration-planning-at-sfb-a', title: 'Data Science (ML & Optimization) — Case 3: Integration Planning at SFB (A); 120 words, due at the START of the session', when: 'Due Wed 25 Nov at 08:30', tag: 'Due', due: '2026-11-25', time: '08:30' },
+      { id: 'dsc-case-3-integration-planning-at-sfb-a', title: 'Data Science (ML & Optimization) — Case 3: Integration Planning at SFB (A); 120 words, due at the START of the session', when: 'Due Wed 25 Nov at 08:30', tag: 'Closed', due: '2026-11-25', time: '08:30', closed: true },
+      { id: 'dsc-break-out-rooms-session-14-hackathon-e2', title: 'ML&O Break Out Rooms, Session 14 — Hackathon (E2): in-class group upload, Fri 27 Nov, opens 12:00, due AND locks 13:20 CET', when: 'Due Fri 27 Nov at 13:20', tag: 'Due', due: '2026-11-27', time: '13:20' },
       { id: 'dsc-mlo-p2-final-exam', title: 'FINAL EXAM — Data Science: Machine Learning and Optimization, Thu 3 Dec 14:00 CET, room TBA', when: 'Due Thu 03 Dec at 14:00', tag: 'Due', due: '2026-12-03', time: '14:00' }
     ];
   mlGrading = [];
@@ -5302,7 +5304,10 @@ class Component extends DCLogic {
       { id: 'dsc-p1-final-exam-data-analysis', title: 'P1 FINAL EXAM — Data Analysis — Friday 09 October 2026 at 09:00 CEST', when: 'Due Fri 09 Oct at 09:00', tag: 'Closed', due: '2026-10-09', time: '09:00', closed: true },
       { id: 'dsc-break-out-rooms-1-session-7-e2', title: 'Break Out Rooms 1: Session 7 (E2)', when: 'Due Tue 10 Nov at 16:35', tag: 'Closed', due: '2026-11-10', time: '16:35', closed: true },
       { id: 'dsc-break-out-rooms-2-session-7-e2', title: 'Break Out Rooms 2: Session 7 (E2)', when: 'Due Tue 10 Nov at 17:05', tag: 'Closed', due: '2026-11-10', time: '17:05', closed: true },
-      { id: 'dsc-homework-11', title: 'Homework 11', when: 'Due Mon 23 Nov at 08:30', tag: 'Due', due: '2026-11-23', time: '08:30' }
+      { id: 'dsc-homework-11', title: 'Homework 11', when: 'Due Mon 23 Nov at 08:30', tag: 'Closed', due: '2026-11-23', time: '08:30', closed: true },
+      { id: 'dsc-break-out-rooms-session-13-e2', title: 'ML&O Break Out Rooms, Session 13 (E2) — in-class upload, due Wed 25 Nov 09:45 CET, locks 10:00', when: 'Due Wed 25 Nov at 09:45', tag: 'Closed', due: '2026-11-25', time: '09:45', closed: true },
+      { id: 'dsc-final-style', title: 'Final style', when: 'Due Thu 26 Nov at 08:00', tag: 'Closed', due: '2026-11-26', time: '08:00', closed: true },
+      { id: 'dsc-homework-13', title: 'Homework 13', when: 'Due Fri 27 Nov at 08:30', tag: 'Due', due: '2026-11-27', time: '08:30' }
     ];
   daGrading = [
     { k: 'Class participation (QR code, pop quizzes, activity in class)', v: '5%' },
@@ -5504,7 +5509,11 @@ class Component extends DCLogic {
       { id: 'dsc-wabty-preparation-and-coaching-form', title: 'WABTY Preparation and Coaching Form', when: 'Due Sun 08 Nov at 23:59', tag: 'Closed', due: '2026-11-08', time: '23:59', closed: true },
       { id: 'cdc-p2-mandatory-core-workshops-e2-10-nov', title: 'CDC core workshops for E2 — Tue 10 Nov 08:30–13:00 CET, DT2; attendance expected, no sign-up', when: 'Due Tue 10 Nov at 08:30', tag: 'Due', due: '2026-11-10', time: '08:30', source: 'Careers' },
       { id: 'mim28-mandatory-session-dean-stabile-12-nov', title: 'MANDATORY session with Dean Stabile — Thu 12 Nov, Amphi Suddens; feed 14:30–15:15, announcement says 14:45', when: 'Due Thu 12 Nov at 14:30', tag: 'Due', due: '2026-11-12', time: '14:30', source: 'Programme' },
-      { id: 'mim28-programme-town-hall-24-nov-online', title: 'MIM Programme Town Hall — Tue 24 Nov 08:30 CET, now fully ONLINE', when: 'Due Tue 24 Nov at 08:30', tag: 'Due', due: '2026-11-24', time: '08:30', source: 'Programme' },
+      { id: 'mim28-programme-town-hall-24-nov-online', title: 'MIM Programme Town Hall — Tue 24 Nov 08:30 CET, now fully ONLINE', when: 'Due Tue 24 Nov at 08:30', tag: 'Closed', due: '2026-11-24', time: '08:30', closed: true, source: 'Programme' },
+      { id: 'atl-p2-period-group-feedback-session-completion-assignment', title: 'P2 Period Group Feedback Session — upload the signed completion table, due Thu 26 Nov 18:00 CET (locks Sun 29 Nov 23:59)', when: 'Due Thu 26 Nov at 18:00', tag: 'Due', due: '2026-11-26', time: '18:00', source: 'Programme' },
+      { id: 'mim28-p2-exam-number-and-amphi', title: 'P2 exam number and amphitheatre — now on MyInsead (Notifications); check before the finals on 3–4 Dec', when: 'Due Wed 02 Dec', tag: 'Due', due: '2026-12-02', source: 'Programme' },
+      { id: 'mim28-p2-core-peer-review-3-dec', title: 'P2 Core Courses PEER REVIEW — grade your group peers by Thu 3 Dec 09:00 CET (the morning of the Micro exam)', when: 'Due Thu 03 Dec at 09:00', tag: 'Due', due: '2026-12-03', time: '09:00', source: 'Programme' },
+      { id: 'mim28-p2-course-evaluations-3-dec', title: 'P2 course evaluations: compulsory, due Thu 3 Dec 09:00 CET. If you miss it, your grades are released a week late', when: 'Due Thu 03 Dec at 09:00', tag: 'Due', due: '2026-12-03', time: '09:00', source: 'Programme' },
       { id: 'dsc-negotiation-journal', title: 'Negotiation Journal', when: 'Due Thu 03 Dec at 23:59', tag: 'Due', due: '2026-12-03', time: '23:59' },
       { id: 'cdc-quiz-test-your-understanding-of-consulting-recruitment', title: 'Quiz: Test your understanding of Consulting Recruitment Preparation', when: 'no due date in Canvas — the date, if any, is on the course page', tag: 'Undated', source: 'Careers' },
       { id: 'cdc-quiz-test-your-understanding-of-consulting-sector', title: 'Quiz: Test your understanding of Consulting Sector', when: 'no due date in Canvas — the date, if any, is on the course page', tag: 'Undated', source: 'Careers' },
